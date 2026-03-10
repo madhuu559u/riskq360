@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>RiskQ360 — Risk · Quality · Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#020C1B;--navy:#031120;--deep:#041929;--mid:#0B3D6B;
+  --electric:#1B96FF;--spark:#4DB8FF;--dim:#7FAACC;--muted:#3A6080;
+  --white:#EFF8FF;--gold:#F0A500;--green:#2ECC8A;--red:#FF5252;
+  --violet:#9B7FFF;--orange:#FF8C42;
+  --border:rgba(27,150,255,.18);--card:rgba(4,25,41,.7);
+}
+body.theme-light{--ink:#F0F6FF;--navy:#E4EEF9;--deep:#D8E8F6;--white:#0A1628;--dim:#2A4A6A;--muted:#6A8AAA;--card:rgba(220,235,250,.8);--border:rgba(27,150,255,.25)}
+body.theme-ocean{--ink:#011018;--navy:#021820;--deep:#032028;--electric:#00D4FF;--spark:#00AACC;--border:rgba(0,212,255,.2);--card:rgba(0,20,30,.7)}
+body.theme-forest{--ink:#071410;--navy:#0D1F18;--deep:#112820;--electric:#2ECC8A;--spark:#26AA72;--border:rgba(46,204,138,.2);--card:rgba(7,20,16,.7)}
+body.theme-midnight{--ink:#080412;--navy:#100820;--deep:#160C2A;--electric:#9B7FFF;--spark:#7B5FDD;--border:rgba(155,127,255,.2);--card:rgba(8,4,18,.7)}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Barlow',sans-serif;background:var(--ink);color:var(--white);display:flex;flex-direction:column;transition:background .4s,color .4s}
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(27,150,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(27,150,255,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 70% 50% at 15% 0%,rgba(27,150,255,.13) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 85% 100%,rgba(27,150,255,.07) 0%,transparent 55%),linear-gradient(180deg,var(--ink) 0%,var(--navy) 100%);pointer-events:none;transition:background .4s}
+
+/* ── NAV ── */
+nav{position:relative;z-index:200;flex-shrink:0;height:50px;background:rgba(2,12,27,.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;transition:background .4s}
+body.theme-light nav{background:rgba(240,246,255,.96)}
+.nav-l{display:flex;align-items:center;gap:10px}
+.nicon{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#1B96FF,#032D60);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:10px;font-weight:800;color:#fff;box-shadow:0 0 14px rgba(27,150,255,.4);flex-shrink:0}
+.ntitle{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:-0.5px;color:var(--white);line-height:1}
+.nsub{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--electric);font-weight:600;margin-top:1px}
+.nbar{width:1px;height:26px;background:var(--border);margin:0 6px}
+.npills{display:flex;gap:4px}
+.npill{padding:2px 9px;border-radius:20px;font-size:9px;font-weight:600;border:1px solid;letter-spacing:.3px}
+.np1{color:#2ECC8A;border-color:rgba(46,204,138,.3);background:rgba(46,204,138,.08)}
+.np2{color:#9B7FFF;border-color:rgba(155,127,255,.3);background:rgba(155,127,255,.08)}
+.np3{color:#F0A500;border-color:rgba(240,165,0,.3);background:rgba(240,165,0,.08)}
+.np4{color:#4DB8FF;border-color:rgba(77,184,255,.3);background:rgba(77,184,255,.08)}
+.theme-switcher{display:flex;align-items:center;gap:6px}
+.tsw-funny{font-size:9px;color:var(--muted);font-style:italic;max-width:130px;text-align:right;line-height:1.2}
+.tsw-label{font-size:9px;color:var(--muted);letter-spacing:.5px}
+.tsw-btn{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .2s,border-color .2s}
+.tsw-btn:hover{transform:scale(1.2)}
+.tsw-btn.active{border-color:var(--white)}
+.tsw-btn[data-theme="default"]{background:linear-gradient(135deg,#1B96FF,#020C1B)}
+.tsw-btn[data-theme="light"]{background:linear-gradient(135deg,#E4EEF9,#1B96FF)}
+.tsw-btn[data-theme="ocean"]{background:linear-gradient(135deg,#00D4FF,#011018)}
+.tsw-btn[data-theme="forest"]{background:linear-gradient(135deg,#2ECC8A,#071410)}
+.tsw-btn[data-theme="midnight"]{background:linear-gradient(135deg,#9B7FFF,#080412)}
+
+/* ── HERO STRIP ── */
+.hero-strip{position:relative;z-index:1;flex-shrink:0;padding:10px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hs-left{}
+.hs-tag{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--electric);font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.hpulse{width:5px;height:5px;border-radius:50%;background:var(--electric);animation:blink 2s infinite;display:inline-block}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+.hs-title{font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,22px);font-weight:800;letter-spacing:-0.5px;color:var(--white);line-height:1.1}
+.hs-title em{font-style:normal;color:var(--electric)}
+.hs-desc{font-size:11px;color:var(--dim);max-width:560px;line-height:1.5;margin-top:3px}
+.pillars-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pillar-chip{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--dim);white-space:nowrap}
+.pdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.pillar-sep{color:var(--muted);font-size:12px}
+
+/* ── INGEST STRIP ── */
+.ingest{position:relative;z-index:1;flex-shrink:0;background:rgba(27,150,255,.04);border-bottom:1px solid var(--border);padding:6px 20px;display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.ingest::-webkit-scrollbar{display:none}
+.ingest-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;flex-shrink:0}
+.iarrow{color:var(--electric);font-size:13px;flex-shrink:0}
+.isrc{display:flex;align-items:center;gap:4px;background:rgba(27,150,255,.07);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:10px;color:var(--dim);font-weight:500;white-space:nowrap;flex-shrink:0}
+.isep{color:var(--muted);font-size:14px;flex-shrink:0}
+.ibadge{margin-left:auto;background:linear-gradient(135deg,rgba(27,150,255,.2),rgba(3,45,96,.4));border:1px solid var(--border);border-radius:5px;padding:3px 12px;font-size:10px;color:var(--electric);font-weight:600;flex-shrink:0}
+
+/* ── TILES ── */
+.uctiles{position:relative;z-index:1;flex-shrink:0;padding:8px 20px;display:grid;grid-template-columns:repeat(8,1fr);gap:6px;border-bottom:1px solid var(--border)}
+.uct{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px 8px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.uct::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--uc,var(--electric));opacity:0;transition:opacity .2s}
+.uct:hover::after,.uct.on::after{opacity:1}
+.uct.on{border-color:var(--uc,var(--electric));background:rgba(27,150,255,.07)}
+.uct:hover{border-color:var(--uc,var(--electric));transform:translateY(-1px)}
+.ucico{font-size:14px;margin-bottom:3px;display:block}
+.ucnum{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--uc,var(--electric));margin-bottom:2px}
+.uctit{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--white);line-height:1.2;margin-bottom:2px}
+.ucmic{font-size:9px;color:var(--muted);line-height:1.3}
+
+/* ── CONTENT AREA ── */
+.content{position:relative;z-index:1;flex:1;overflow-y:auto;padding:20px;scrollbar-width:thin;scrollbar-color:var(--muted) transparent}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-thumb{background:var(--muted);border-radius:2px}
+.panel{display:none}
+.panel.on{display:block;animation:fup .25s ease both}
+@keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── BOTTOM TAB BAR ── */
+.tabbar{position:relative;z-index:200;flex-shrink:0;background:rgba(2,12,27,.97);backdrop-filter:blur(24px);border-top:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none}
+.tabbar::-webkit-scrollbar{display:none}
+body.theme-light .tabbar{background:rgba(240,246,255,.97)}
+.tb{flex:1;min-width:0;padding:10px 4px;cursor:pointer;background:none;border:none;border-top:2px solid transparent;color:var(--muted);font-family:'Barlow',sans-serif;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:4px;transition:all .2s;white-space:nowrap;margin-top:-1px}
+.tb:hover{color:var(--white)}
+.tb.on{color:var(--electric);border-top-color:var(--electric)}
+.tbd{width:14px;height:14px;border-radius:4px;background:rgba(27,150,255,.12);color:var(--electric);font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tb.on .tbd{background:var(--electric);color:#fff}
+.tb-video{color:var(--electric) !important;flex:0 0 auto;padding:10px 12px}
+
+/* ── VIDEO PANEL ── */
+.video-panel-wrap{max-width:900px;margin:0 auto}
+.vp-header{margin-bottom:14px}
+.vp-eyebrow{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--electric);font-weight:700;margin-bottom:4px}
+.vp-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;color:var(--white);margin-bottom:4px}
+.vp-desc{font-size:12px;color:var(--dim);line-height:1.55}
+.vp-pills{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.vp-pill{display:flex;align-items:center;gap:5px;background:rgba(27,150,255,.1);border:1px solid var(--border);border-radius:16px;padding:4px 12px;font-size:10px;color:var(--dim)}
+.vp-pill span{color:var(--electric);font-weight:700}
+.video-wrapper{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#000;box-shadow:0 0 50px rgba(27,150,255,.12),0 16px 48px rgba(0,0,0,.5)}
+.video-wrapper video{width:100%;display:block;max-height:460px;object-fit:contain;background:#000}
+.video-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(2,12,27,.6);cursor:pointer;transition:background .2s}
+.video-overlay:hover{background:rgba(2,12,27,.35)}
+.play-btn{width:64px;height:64px;border-radius:50%;background:var(--electric);display:flex;align-items:center;justify-content:center;box-shadow:0 0 36px rgba(27,150,255,.6);transition:transform .2s,box-shadow .2s;margin-bottom:12px}
+.video-overlay:hover .play-btn{transform:scale(1.1);box-shadow:0 0 52px rgba(27,150,255,.8)}
+.play-btn svg{margin-left:4px}
+.play-label{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.3px}
+.play-sub{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px}
+.video-wrapper.playing .video-overlay{display:none}
+.vhighlights{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+@media(max-width:800px){.vhighlights{grid-template-columns:repeat(3,1fr)}}
+.vh{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;align-items:flex-start;gap:7px}
+.vh-ico{font-size:14px;flex-shrink:0}
+.vh-text{font-size:10px;color:var(--dim);line-height:1.4}
+.vh-text strong{color:var(--white);display:block;font-size:11px;margin-bottom:1px}
+
+/* ── PANEL CONTENT STYLES ── */
+.ph{margin-bottom:16px}
+.phey{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;margin-bottom:5px}
+.ph h2{font-family:'Syne',sans-serif;font-size:clamp(20px,2.5vw,30px);font-weight:800;letter-spacing:-0.8px;line-height:1.05;color:var(--white);margin-bottom:6px}
+.phdesc{font-size:12px;color:var(--dim);max-width:680px;line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:860px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:14px;transition:border-color .2s,transform .15s}
+.card:hover{border-color:rgba(27,150,255,.4);transform:translateY(-2px)}
+.chl{background:linear-gradient(135deg,rgba(27,150,255,.12),rgba(3,45,96,.5));border-color:rgba(27,150,255,.35)}
+.ctit{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px}
+.cdesc{font-size:11px;color:var(--dim);line-height:1.6}
+.cico{font-size:18px;margin-bottom:6px;display:block}
+.wc{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:14px;margin-bottom:11px}
+.wey{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--electric);font-weight:700;margin-bottom:8px}
+.fl{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.fl li{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--dim);line-height:1.5}
+.fl li::before{content:'›';color:var(--electric);font-size:13px;flex-shrink:0;margin-top:-1px}
+.fl li strong{color:var(--white);font-weight:500}
+.meat{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}
+.mb{background:rgba(27,150,255,.07);border:1px solid var(--border);border-radius:7px;padding:10px 6px;text-align:center}
+.ml{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--electric);line-height:1}
+.mw{font-size:8px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin:2px 0}
+.md{font-size:9px;color:var(--muted);line-height:1.3}
+.flow{display:flex;margin:12px 0;flex-wrap:wrap;gap:0}
+.fs{flex:1;min-width:80px;background:rgba(27,150,255,.05);border:1px solid var(--border);border-right:0;padding:10px 8px;text-align:center;position:relative}
+.fs:first-child{border-radius:7px 0 0 7px}
+.fs:last-child{border-right:1px solid var(--border);border-radius:0 7px 7px 0}
+.fs::after{content:'›';position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--electric);font-size:14px;z-index:2;background:var(--ink);padding:0 1px}
+.fs:last-child::after{display:none}
+.fn{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--electric)}
+.ft{font-size:9px;font-weight:600;color:var(--white);margin:2px 0}
+.fd{font-size:8px;color:var(--muted);line-height:1.3}
+.badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:.3px}
+.bb{background:rgba(27,150,255,.2);color:var(--electric)}
+.bg{background:rgba(46,204,138,.15);color:#2ECC8A}
+.bo{background:rgba(240,165,0,.15);color:#F0A500}
+.br{background:rgba(255,82,82,.15);color:#FF5252}
+.bv{background:rgba(155,127,255,.15);color:#9B7FFF}
+.bd{background:rgba(255,255,255,.07);color:var(--dim)}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-top:10px}
+.mi{background:rgba(27,150,255,.05);border:1px solid var(--border);border-radius:6px;padding:7px 9px;display:flex;align-items:center;gap:7px}
+.mc{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;color:var(--electric);min-width:26px}
+.mn{font-size:9px;color:var(--dim);line-height:1.3}
+.mdot{margin-left:auto;width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.op{background:#FF5252}.qu{background:#2ECC8A}
+.sus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;margin-top:10px}
+.sus-card{background:rgba(27,150,255,.06);border:1px solid var(--border);border-radius:9px;padding:12px;border-left:3px solid var(--uc2,var(--electric))}
+.sus-ico{font-size:14px;margin-bottom:5px}
+.sus-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--white);margin-bottom:3px}
+.sus-desc{font-size:10px;color:var(--dim);line-height:1.5}
+.sus-tag{display:inline-block;margin-top:5px;padding:2px 7px;border-radius:20px;font-size:8px;font-weight:700;letter-spacing:.5px;background:rgba(27,150,255,.15);color:var(--electric)}
+.ctbl{width:100%;border-collapse:collapse;font-size:10px}
+.ctbl th{background:rgba(27,150,255,.08);color:var(--electric);padding:8px 10px;text-align:left;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap}
+.ctbl td{padding:8px 10px;border-bottom:1px solid rgba(27,150,255,.06);color:var(--dim);vertical-align:top}
+.ctbl tr.hl td{background:rgba(27,150,255,.03);color:var(--white)}
+.ctbl td:first-child{font-weight:600;color:var(--white)}
+.ck{color:#2ECC8A}.cp{color:#F0A500}.cx{color:#FF5252}
+/* ── DEMO TILE SPECIAL ── */
+@keyframes demoPulse{
+  0%  {box-shadow:0 0 0px 0px rgba(224,64,251,.0), inset 0 0 0px rgba(224,64,251,.0)}
+  40% {box-shadow:0 0 18px 4px rgba(224,64,251,.55), inset 0 0 12px rgba(224,64,251,.12)}
+  70% {box-shadow:0 0 28px 8px rgba(224,64,251,.35), inset 0 0 18px rgba(224,64,251,.08)}
+  100%{box-shadow:0 0 0px 0px rgba(224,64,251,.0), inset 0 0 0px rgba(224,64,251,.0)}
+}
+@keyframes badgePop{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.12)}
+}
+@keyframes borderMarch{
+  0%  {border-color:rgba(224,64,251,.9)}
+  50% {border-color:rgba(224,64,251,.25)}
+  100%{border-color:rgba(224,64,251,.9)}
+}
+.uct-demo{
+  position:relative;
+  animation:demoPulse 2.4s ease-in-out infinite, borderMarch 2.4s ease-in-out infinite !important;
+  border-color:rgba(224,64,251,.7) !important;
+  background:rgba(224,64,251,.07) !important;
+}
+.uct-demo::after{
+  background:linear-gradient(90deg,#E040FB,#9B7FFF) !important;
+  opacity:1 !important;
+  height:2px;
+}
+.uct-demo.on{
+  background:rgba(224,64,251,.13) !important;
+}
+.demo-badge{
+  position:absolute;top:6px;right:6px;
+  background:linear-gradient(135deg,#E040FB,#9B7FFF);
+  color:#fff;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:8px;font-weight:800;letter-spacing:1px;
+  padding:2px 6px;border-radius:10px;
+  animation:badgePop 2.4s ease-in-out infinite;
+  box-shadow:0 0 8px rgba(224,64,251,.6);
+  white-space:nowrap;
+}
+/* Demo tab in bottom bar */
+.tb-video{
+  color:#E040FB !important;
+  position:relative;
+  flex:0 0 auto !important;
+  padding:10px 14px !important;
+}
+.tb-video::before{
+  content:'';
+  position:absolute;
+  top:0;left:4px;right:4px;height:2px;
+  background:linear-gradient(90deg,#E040FB,#9B7FFF);
+  border-radius:0 0 2px 2px;
+  animation:demoPulse 2.4s ease-in-out infinite;
+}
+.tb-video .tbd{
+  background:linear-gradient(135deg,#E040FB,#9B7FFF) !important;
+  color:#fff !important;
+  animation:badgePop 2.4s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-l">
+    <div class="nicon">RQ</div>
+    <div><div class="ntitle">RiskQ360</div><div class="nsub">Risk · Quality · Intelligence</div></div>
+    <div class="nbar"></div>
+    <div class="npills">
+      <span class="npill np1">Medicare</span>
+      <span class="npill np2">Medicaid</span>
+      <span class="npill np3">ACA</span>
+      <span class="npill np4">ACO</span>
+    </div>
+  </div>
+  <div class="theme-switcher">
+    <span class="tsw-funny" id="funny-msg">pick your vibe 👇</span>
+    <span class="tsw-label">Theme</span>
+    <div class="tsw-btn active" data-theme="default" onclick="setTheme('default',this)" title="Default Dark"></div>
+    <div class="tsw-btn" data-theme="light" onclick="setTheme('light',this)" title="Light Mode"></div>
+    <div class="tsw-btn" data-theme="ocean" onclick="setTheme('ocean',this)" title="Ocean"></div>
+    <div class="tsw-btn" data-theme="forest" onclick="setTheme('forest',this)" title="Forest"></div>
+    <div class="tsw-btn" data-theme="midnight" onclick="setTheme('midnight',this)" title="Midnight"></div>
+  </div>
+</nav>
+
+<!-- HERO STRIP -->
+<div class="hero-strip">
+  <div class="hs-left">
+    <div class="hs-tag"><div class="hpulse"></div>AI-Powered Chart Intelligence Platform</div>
+    <div class="hs-title">Your charts are <em>hiding revenue.</em> RiskQ360 finds it.</div>
+    <div class="hs-desc">Turns raw medical charts into risk scores, closed gaps, and clinical intelligence. Point it at your charts — network folder, cloud, or direct upload — no integration, no setup, starts immediately.</div>
+  </div>
+  <div class="pillars-row">
+    <div class="pillar-chip"><div class="pdot" style="background:#1B96FF"></div>Risk Adjustment &amp; HCC Coding</div>
+    <div class="pillar-sep">·</div>
+    <div class="pillar-chip"><div class="pdot" style="background:#2ECC8A"></div>Care Gap Analytics &amp; Quality</div>
+    <div class="pillar-sep">·</div>
+    <div class="pillar-chip"><div class="pdot" style="background:#9B7FFF"></div>Clinical Intelligence &amp; Findings</div>
+    <div class="pillar-sep">·</div>
+    <div class="pillar-chip"><div class="pdot" style="background:#F0A500"></div>Revenue Intelligence &amp; Code Review</div>
+  </div>
+</div>
+
+<!-- INGEST STRIP -->
+<div class="ingest">
+  <span class="ingest-label">Works with</span>
+  <span class="iarrow">→</span>
+  <div class="isrc">📁 Network Folder</div>
+  <div class="isrc">☁️ Azure Blob</div>
+  <div class="isrc">🗄️ S3 / Cloud</div>
+  <div class="isrc">📤 Direct Upload</div>
+  <div class="isrc">🔗 API</div>
+  <div class="isrc">📂 SharePoint</div>
+  <span class="isep">·</span>
+  <div class="isrc">📄 PDF</div>
+  <div class="isrc">📝 Scanned Charts</div>
+  <div class="isrc">🏥 EHR Export</div>
+  <div class="isrc">📋 CCDA / CCD</div>
+  <span class="iarrow">→</span>
+  <div class="ibadge">⚡ RiskQ360 processes &amp; extracts</div>
+</div>
+
+<!-- TILES — always visible -->
+<div class="uctiles">
+  <div class="uct on" style="--uc:#1B96FF" onclick="go(0,this)">
+    <span class="ucico">🧠</span><div class="ucnum">01</div>
+    <div class="uctit">Professional Coding</div>
+    <div class="ucmic">AI pre-codes · coders confirm</div>
+  </div>
+  <div class="uct" style="--uc:#FF5252" onclick="go(1,this)">
+    <span class="ucico">🔍</span><div class="ucnum">02</div>
+    <div class="uctit">Compliance &amp; Audit</div>
+    <div class="ucmic">Vendor validation · RADV-ready</div>
+  </div>
+  <div class="uct" style="--uc:#2ECC8A" onclick="go(2,this)">
+    <span class="ucico">🎯</span><div class="ucnum">03</div>
+    <div class="uctit">Gap Closure</div>
+    <div class="ucmic">100+ measures · open vs qualified</div>
+  </div>
+  <div class="uct" style="--uc:#9B7FFF" onclick="go(3,this)">
+    <span class="ucico">🔬</span><div class="ucnum">04</div>
+    <div class="uctit">Clinical Intel</div>
+    <div class="ucmic">Suspicion signals · 20+ categories</div>
+  </div>
+  <div class="uct" style="--uc:#F0A500" onclick="go(4,this)">
+    <span class="ucico">💰</span><div class="ucnum">05</div>
+    <div class="uctit">Revenue Intel</div>
+    <div class="ucmic">Captured vs missed · RAF delta</div>
+  </div>
+  <div class="uct" style="--uc:#4DB8FF" onclick="go(5,this)">
+    <span class="ucico">⚡</span><div class="ucnum">06</div>
+    <div class="uctit">Knowledge Workers</div>
+    <div class="ucmic">Accept · Reject · Add · Delete</div>
+  </div>
+  <div class="uct" style="--uc:#FF8C42" onclick="go(6,this)">
+    <span class="ucico">📊</span><div class="ucnum">07</div>
+    <div class="uctit">Competitive View</div>
+    <div class="ucmic">vs Cotiviti · Optum · Inovalon</div>
+  </div>
+  <div class="uct uct-demo" style="--uc:#E040FB" onclick="go(7,this)">
+    <div class="demo-badge">▶ WATCH</div>
+    <span class="ucico">🎬</span><div class="ucnum" style="color:#E040FB">DEMO</div>
+    <div class="uctit">Watch Demo</div>
+    <div class="ucmic">4-min platform walkthrough</div>
+  </div>
+</div>
+
+<!-- CONTENT — scrollable -->
+<div class="content">
+
+  <!-- P0: CODING -->
+  <div class="panel on" id="p0">
+    <div class="ph">
+      <div class="phey" style="color:#1B96FF">Use Case 01 — Professional Coding Platform</div>
+      <h2>AI does the heavy lifting.<br>Coders own the call.</h2>
+      <p class="phdesc">A professional coding workstation where RiskQ360 pre-processes every chart — surfacing HCC candidates, MEAT documentation, ICD codes, and confidence scores — so certified coders focus on clinical judgment, not chart hunting.</p>
+    </div>
+    <div class="g2" style="margin-bottom:11px">
+      <div class="wc">
+        <div class="wey">Coder Workflow</div>
+        <ul class="fl">
+          <li><strong>Chart ingested from any source</strong> → RiskQ360 processes in seconds, surfacing all suspect HCCs with page-level evidence</li>
+          <li><strong>Confidence scores (0–100%)</strong> on every ICD code extracted from clinical text</li>
+          <li><strong>MEAT criteria auto-populated</strong> from chart narrative</li>
+          <li><strong>One-click Accept / Reject / Modify</strong> — decisions logged with source citation</li>
+          <li><strong>Manual code addition</strong> — type partial description, AI returns ranked ICD candidates</li>
+          <li><strong>Full audit trail</strong> — who confirmed what, when, from which chart page</li>
+        </ul>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:10px">
+          <div class="wey" style="margin-bottom:6px">MEAT Criteria — Auto-Populated per HCC</div>
+          <div class="meat">
+            <div class="mb"><div class="ml">M</div><div class="mw">Monitor</div><div class="md">Signs, symptoms tracked</div></div>
+            <div class="mb"><div class="ml">E</div><div class="mw">Evaluate</div><div class="md">Labs, tests reviewed</div></div>
+            <div class="mb"><div class="ml">A</div><div class="mw">Assess</div><div class="md">Clinical status noted</div></div>
+            <div class="mb"><div class="ml">T</div><div class="mw">Treat</div><div class="md">Medication ordered</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ctit" style="margin-bottom:4px">Pre-Populated per Chart</div>
+          <ul class="fl" style="margin-top:0">
+            <li>Suspect ICD-10 codes with confidence %</li>
+            <li>HCC category + model mapping</li>
+            <li>RAF score contribution per HCC</li>
+            <li>Supporting verbatim text from chart</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="g3">
+      <div class="card chl"><span class="cico">⚡</span><div class="ctit">10× Faster Reviews</div><div class="cdesc">Coders review RiskQ360's prepared findings instead of reading 20-page charts from scratch.</div></div>
+      <div class="card chl"><span class="cico">✅</span><div class="ctit">Audit-Defensible</div><div class="cdesc">Every confirmed code links to exact page and sentence in source chart — ready for any audit.</div></div>
+      <div class="card chl"><span class="cico">🔎</span><div class="ctit">AI-Assisted Add</div><div class="cdesc">Coders add codes RiskQ360 missed using smart search — candidates ranked by clinical evidence strength.</div></div>
+    </div>
+  </div>
+
+  <!-- P1: AUDIT -->
+  <div class="panel" id="p1">
+    <div class="ph">
+      <div class="phey" style="color:#FF5252">Use Case 02 — Compliance & Audit</div>
+      <h2>Audit-ready from day one.<br>RADV without the panic.</h2>
+      <p class="phdesc">RiskQ360 provides complete documentation traceability so every submitted code can be instantly defended — whether it's a prospective review before submission or a retrospective RADV response.</p>
+    </div>
+    <div class="g2" style="margin-bottom:11px">
+      <div class="wc">
+        <div class="wey">Prospective Audit — Before Submission</div>
+        <ul class="fl">
+          <li>Pull charts from any source — blob, folder, upload, or API</li>
+          <li><strong>Supported / Unsupported / Needs Review</strong> per code — instantly visible</li>
+          <li>Flag codes missing MEAT criteria or lacking chart documentation</li>
+          <li>Compare submitted codes vs. RiskQ360-extracted</li>
+          <li>Generate audit-ready summary report per chart, per member</li>
+        </ul>
+      </div>
+      <div class="wc">
+        <div class="wey">Retrospective RADV — After Audit Notice</div>
+        <ul class="fl">
+          <li><strong>Page-level citation</strong> — exact page, paragraph, clinical text</li>
+          <li>MEAT documentation checklist per HCC per encounter</li>
+          <li>Provider identity, DOS, and encounter type documented</li>
+          <li>Exportable audit package per member per code</li>
+          <li>Full activity log — coder identity, timestamps, every decision</li>
+        </ul>
+      </div>
+    </div>
+    <div class="g3">
+      <div class="card"><span class="cico">🏢</span><div class="ctit">Vendor Code Validation</div><div class="cdesc">Compare outsourced chart review codes against RiskQ360's evidence. Catch unsupported codes before regulators do.</div></div>
+      <div class="card"><span class="cico">📎</span><div class="ctit">Source Document Linking</div><div class="cdesc">Every HCC traces to exact page in source PDF. Click any code — jump directly to supporting evidence.</div></div>
+      <div class="card"><span class="cico">📊</span><div class="ctit">Coder Performance Analytics</div><div class="cdesc">Track accuracy, AI agreement rates, and override patterns. Identify training gaps proactively.</div></div>
+    </div>
+  </div>
+
+  <!-- P2: GAP CLOSURE -->
+  <div class="panel" id="p2">
+    <div class="ph">
+      <div class="phey" style="color:#2ECC8A">Use Case 03 — Chart-Based Gap Closure</div>
+      <h2>Every gap identified.<br>Every closure documented.</h2>
+      <p class="phdesc">RiskQ360 evaluates every chart against active quality measures, surfaces open gaps with qualifying evidence, and tells your quality team exactly what's needed to close them — across Medicare Star Ratings, Medicaid quality contracts, and commercial plans.</p>
+    </div>
+    <div class="mgrid" style="margin-bottom:12px">
+      <div class="mi"><span class="mc">AAB</span><span class="mn">Antibiotic Avoidance</span><span class="mdot op"></span></div>
+      <div class="mi"><span class="mc">COL</span><span class="mn">Colorectal Screening</span><span class="mdot op"></span></div>
+      <div class="mi"><span class="mc">CCS</span><span class="mn">Cervical Cancer Screen</span><span class="mdot qu"></span></div>
+      <div class="mi"><span class="mc">BCS</span><span class="mn">Breast Cancer Screen</span><span class="mdot op"></span></div>
+      <div class="mi"><span class="mc">CBP</span><span class="mn">Controlling BP</span><span class="mdot qu"></span></div>
+      <div class="mi"><span class="mc">TRC</span><span class="mn">Transitions of Care</span><span class="mdot op"></span></div>
+      <div class="mi"><span class="mc">BPD</span><span class="mn">BP Control — Diabetes</span><span class="mdot qu"></span></div>
+      <div class="mi"><span class="mc">AMR</span><span class="mn">Asthma Medication Ratio</span><span class="mdot op"></span></div>
+      <div class="mi"><span class="mc">LSC</span><span class="mn">Statin Therapy / CVD</span><span class="mdot op"></span></div>
+      <div class="mi"><span class="mc">AAP</span><span class="mn">Preventive / Ambulatory</span><span class="mdot qu"></span></div>
+      <div class="mi"><span class="mc">APP</span><span class="mn">Antipsychotic — Peds</span><span class="mdot op"></span></div>
+      <div class="mi"><span class="mc">AAF</span><span class="mn">Asthma Ratio — Peds</span><span class="mdot qu"></span></div>
+      <div class="mi" style="grid-column:span 2;justify-content:center;border-style:dashed;font-size:9px;color:var(--muted);font-style:italic">+ additional measures · toggle per plan in Settings</div>
+    </div>
+    <div class="g2" style="margin-bottom:11px">
+      <div class="wc">
+        <div class="wey">How RiskQ360 Identifies Gaps</div>
+        <ul class="fl">
+          <li><strong>Eligibility check</strong> — age, gender, enrollment, denominator diagnosis</li>
+          <li><strong>Evidence scan</strong> — chart searched for qualifying services, labs, encounters</li>
+          <li><strong>Status</strong> — QUALIFIED · OPEN GAP · NOT APPLICABLE per measure</li>
+          <li><strong>Closure action</strong> — specific steps needed to qualify the member</li>
+          <li>Works across <strong>Medicare, Medicaid, and commercial</strong> quality programs</li>
+        </ul>
+      </div>
+      <div class="wc">
+        <div class="wey">Configurable Measure Engine</div>
+        <ul class="fl">
+          <li>Activate any measure subset per plan or contract</li>
+          <li>Toggle individual measures on/off per line of business</li>
+          <li>Save custom <strong>Measure Profiles</strong> per client</li>
+          <li>Filter by domain — preventive, chronic, behavioral, respiratory</li>
+          <li>Evidence-based, rule-driven quality measure specifications</li>
+        </ul>
+      </div>
+    </div>
+    <div class="g3">
+      <div class="card"><span class="cico">⭐</span><div class="ctit">Medicare Star Ratings</div><div class="cdesc">Quality measures drive MA Star Ratings. Higher Stars = higher bonus payments. Every closed gap moves the score.</div></div>
+      <div class="card"><span class="cico">🏥</span><div class="ctit">Medicaid Quality Programs</div><div class="cdesc">Medicaid MCO contracts tie capitation to quality measure performance. RiskQ360 evaluates applicable measures per plan.</div></div>
+      <div class="card"><span class="cico">📬</span><div class="ctit">Outreach Prioritization</div><div class="cdesc">Members with multiple high-impact open gaps surfaced for targeted outreach — maximizing closure per member contacted.</div></div>
+    </div>
+  </div>
+
+  <!-- P3: CLINICAL INTEL -->
+  <div class="panel" id="p3">
+    <div class="ph">
+      <div class="phey" style="color:#9B7FFF">Use Case 04 — Clinical Intel (Chart Intel)</div>
+      <h2>Every clinical fact, structured.<br>Suspicion signals surfaced.</h2>
+      <p class="phdesc">RiskQ360's Chart Intel layer doesn't just extract — it reasons. It surfaces clinical suspicion signals, cross-references findings across chart sections, and gives coders and analysts structured intelligence they can act on immediately.</p>
+    </div>
+    <div class="wc" style="margin-bottom:11px">
+      <div class="wey" style="color:#9B7FFF">Clinical Suspicion Signals — What the Data is Quietly Pointing At</div>
+      <p style="font-size:10px;color:var(--muted);margin-bottom:8px">RiskQ360 cross-references labs, vitals, medications, and diagnoses to flag conditions that are clinically evident but not yet captured as codes.</p>
+      <div class="sus-grid">
+        <div class="sus-card" style="--uc2:#FF5252"><div class="sus-ico">🩺</div><div class="sus-title">Uncontrolled Diabetes Signal</div><div class="sus-desc">HbA1c of 9.2 + metformin + "poor glycemic control" in assessment — basic diabetes coded, not with complications.</div><span class="sus-tag">Suspect: HCC upgrade</span></div>
+        <div class="sus-card" style="--uc2:#F0A500"><div class="sus-ico">💊</div><div class="sus-title">Drug-Condition Mismatch</div><div class="sus-desc">Furosemide + Carvedilol + Spironolactone — classic CHF regimen — but no heart failure diagnosis coded.</div><span class="sus-tag">Suspect: HCC missing</span></div>
+        <div class="sus-card" style="--uc2:#4DB8FF"><div class="sus-ico">🫁</div><div class="sus-title">Respiratory Pattern Match</div><div class="sus-desc">Albuterol + Tiotropium + "SOB on exertion" in HPI — COPD medications without a COPD diagnosis code.</div><span class="sus-tag">Suspect: HCC missing</span></div>
+        <div class="sus-card" style="--uc2:#2ECC8A"><div class="sus-ico">🧪</div><div class="sus-title">CKD Stage Discrepancy</div><div class="sus-desc">eGFR of 42 — consistent with Stage 3b CKD — but chart only has Stage 2 coded. Stage is understated.</div><span class="sus-tag">Suspect: Stage upgrade</span></div>
+        <div class="sus-card" style="--uc2:#9B7FFF"><div class="sus-ico">⚖️</div><div class="sus-title">BMI-Based Obesity Flag</div><div class="sus-desc">BMI of 41.2 in vitals across multiple encounters — morbid obesity clinically evident, never captured.</div><span class="sus-tag">Suspect: HCC missing</span></div>
+        <div class="sus-card" style="--uc2:#FF8C42"><div class="sus-ico">❤️</div><div class="sus-title">Cardiac Rhythm Pattern</div><div class="sus-desc">Warfarin + "irregular rhythm" + cardiology referral — AFib markers across three sections, no code submitted.</div><span class="sus-tag">Suspect: HCC missing</span></div>
+      </div>
+    </div>
+    <div class="wc" style="margin-bottom:11px">
+      <div class="wey">20+ Clinical Finding Categories</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">
+        <span class="badge bb">Diagnosis</span><span class="badge bb">Physical Exam</span><span class="badge bb">Vital Sign</span><span class="badge bb">Lab Result</span><span class="badge bb">Medication</span><span class="badge bb">Assessment</span>
+        <span class="badge bg">Preventive Care</span><span class="badge bg">Screening</span><span class="badge bg">Immunization</span>
+        <span class="badge bo">Plan</span><span class="badge bo">Treatment</span><span class="badge bo">Referral</span>
+        <span class="badge bv">Mental Health</span><span class="badge bv">Social History</span><span class="badge bv">Family History</span>
+        <span class="badge br">Symptom</span><span class="badge br">Chief Complaint</span><span class="badge br">HPI</span>
+        <span class="badge bd">Demographics</span><span class="badge bd">Review of Systems</span><span class="badge bd">Encounter</span>
+      </div>
+    </div>
+    <div class="g3">
+      <div class="card"><span class="cico">🔎</span><div class="ctit">Full-Text Chart Search</div><div class="cdesc">Search raw PDF and structured findings simultaneously. Find any term across all extracted assertions instantly.</div></div>
+      <div class="card"><span class="cico">⚠️</span><div class="ctit">Negation Detection</div><div class="cdesc">Clinical NLP identifies negated findings — "ruled out", "denies" — preventing false positives.</div></div>
+      <div class="card"><span class="cico">📌</span><div class="ctit">Page-Level Source Tracing</div><div class="cdesc">Every assertion traces to the exact page in source PDF. Click any finding — jump directly to the source.</div></div>
+    </div>
+  </div>
+
+  <!-- P4: REVENUE -->
+  <div class="panel" id="p4">
+    <div class="ph">
+      <div class="phey" style="color:#F0A500">Use Case 05 — Revenue Intelligence & Code Review</div>
+      <h2>Your charts are hiding revenue.<br>RiskQ360 finds it.</h2>
+      <p class="phdesc">RiskQ360 connects to any chart source, surfaces missed HCC codes as ranked opportunities, and queues them for coder review before anything is submitted. Nothing payable left behind.</p>
+    </div>
+    <div class="g2" style="margin-bottom:11px">
+      <div class="wc">
+        <div class="wey">Captured vs. Potential — Per Member</div>
+        <ul class="fl">
+          <li><strong>Currently captured HCCs</strong> — codes already in submitted encounters</li>
+          <li><strong>RiskQ360-identified suspects</strong> — evidenced in chart but not yet coded</li>
+          <li><strong>RAF delta estimate</strong> — score impact per missed HCC</li>
+          <li><strong>Recapture risk flag</strong> — HCCs not recoded in 12 months</li>
+          <li><strong>Confidence ranking</strong> — highest-evidence opportunities first</li>
+          <li>Coder queue — ranked by RAF impact, confirmed before submission</li>
+        </ul>
+      </div>
+      <div class="wc">
+        <div class="wey">Population Dashboard</div>
+        <ul class="fl">
+          <li><strong>Average RAF score</strong> across all processed charts</li>
+          <li><strong>RAF distribution chart</strong> — members by risk score band</li>
+          <li><strong>Top HCC categories</strong> driving population risk</li>
+          <li>Pipeline status — completed, running, success rate</li>
+          <li>HCC capture rate and avg payable HCCs per chart</li>
+          <li>Drill down to member — click any chart for full detail</li>
+        </ul>
+      </div>
+    </div>
+    <div class="flow">
+      <div class="fs"><div class="fn">01</div><div class="ft">Any Chart Source</div><div class="fd">Blob, folder, upload</div></div>
+      <div class="fs"><div class="fn">02</div><div class="ft">RiskQ360 Analysis</div><div class="fd">Suspects identified</div></div>
+      <div class="fs"><div class="fn">03</div><div class="ft">Gap Detection</div><div class="fd">Compare vs. submitted</div></div>
+      <div class="fs"><div class="fn">04</div><div class="ft">Opportunity Ranked</div><div class="fd">By RAF $ impact</div></div>
+      <div class="fs"><div class="fn">05</div><div class="ft">Coder Reviews</div><div class="fd">Accept or reject</div></div>
+      <div class="fs"><div class="fn">✓</div><div class="ft">Confirmed &amp; Submit</div><div class="fd">Audit-ready</div></div>
+    </div>
+    <div class="g3" style="margin-top:11px">
+      <div class="card chl"><span class="cico">🔄</span><div class="ctit">Annual Recapture Tracking</div><div class="cdesc">HCCs must be recaptured every year. RiskQ360 flags codes at risk of expiring — preventing revenue loss.</div></div>
+      <div class="card chl"><span class="cico">🎯</span><div class="ctit">Nothing Payable Left Behind</div><div class="cdesc">Every legitimate, evidenced, MEAT-supported HCC your charts contain — found, surfaced, queued for confirmation.</div></div>
+      <div class="card chl"><span class="cico">🔌</span><div class="ctit">Works Inside Your Org</div><div class="cdesc">No EHR integration. No vendor dependency. Network, cloud, or on-prem. Starts processing immediately.</div></div>
+    </div>
+  </div>
+
+  <!-- P5: KNOWLEDGE WORKERS -->
+  <div class="panel" id="p5">
+    <div class="ph">
+      <div class="phey" style="color:#4DB8FF">Use Case 06 — Knowledge Worker Platform</div>
+      <h2>World-class interface.<br>Every user empowered.</h2>
+      <p class="phdesc">Built for the people who do the work — coders, auditors, analysts, and quality managers. AI does the heavy lifting while every user stays in full control with an interface designed for speed, accuracy, and complete auditability.</p>
+    </div>
+    <div class="g2" style="margin-bottom:11px">
+      <div class="wc">
+        <div class="wey">The Core Interaction Model</div>
+        <ul class="fl">
+          <li><strong>Accept</strong> — confirm RiskQ360-surfaced HCCs in one click. Source citation logged automatically.</li>
+          <li><strong>Reject</strong> — decline with optional reason. Feeds continuous model improvement.</li>
+          <li><strong>Add</strong> — coders add codes RiskQ360 missed via smart evidence-ranked search</li>
+          <li><strong>Delete</strong> — remove inaccurate or duplicate entries. Audit trail preserved.</li>
+          <li><strong>Modify</strong> — edit MEAT documentation, dates, providers, code selection</li>
+          <li><strong>Every action timestamped</strong> — who did what, when, from which page</li>
+        </ul>
+      </div>
+      <div class="wc">
+        <div class="wey">AI Assist Throughout Every Workflow</div>
+        <ul class="fl">
+          <li><strong>Smart code search</strong> — partial description → ranked ICD-10 candidates</li>
+          <li><strong>Inline clinical context</strong> — why each code was suggested, what supports it</li>
+          <li><strong>Confidence indicators</strong> — visual scoring on every suggestion</li>
+          <li><strong>Gap closure guidance</strong> — next actions per measure</li>
+          <li><strong>Document viewer sync</strong> — every finding jumps to exact source page</li>
+          <li><strong>5 themes</strong> — coders pick the interface they want to stare at all day</li>
+        </ul>
+      </div>
+    </div>
+    <div class="g4">
+      <div class="card chl"><span class="cico">👤</span><div class="ctit">Coders</div><div class="cdesc">RiskQ360 pre-codes. Review, confirm, submit. Dramatically faster than manual chart review.</div></div>
+      <div class="card chl"><span class="cico">🔍</span><div class="ctit">Auditors</div><div class="cdesc">Validate submitted codes against chart evidence. Instantly defensible for RADV.</div></div>
+      <div class="card chl"><span class="cico">📋</span><div class="ctit">Quality Analysts</div><div class="cdesc">Identify and close care gaps with evidence-linked documentation.</div></div>
+      <div class="card chl"><span class="cico">📈</span><div class="ctit">Revenue Leaders</div><div class="cdesc">Track RAF scores, missed codes, and opportunities across the full member population.</div></div>
+    </div>
+  </div>
+
+  <!-- P6: COMPETITIVE -->
+  <div class="panel" id="p6">
+    <div class="ph">
+      <div class="phey" style="color:#FF8C42">Competitive Landscape</div>
+      <h2>Where RiskQ360 stands apart.</h2>
+      <p class="phdesc">The risk adjustment market is dominated by large platforms requiring heavy EHR integrations and months to deploy. RiskQ360 is PDF-native, AI-first, and works inside your own environment from day one.</p>
+    </div>
+    <div class="wc" style="overflow-x:auto;margin-bottom:11px">
+      <table class="ctbl">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th style="color:var(--electric)">⚡ RiskQ360</th>
+            <th>Cotiviti</th><th>Optum</th><th>Inovalon</th><th>Reveleer</th><th>Navina</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hl"><td>HCC Risk Adjustment</td><td><span class="ck">✓</span> AI + ML Dual Pipeline</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Chart-Based Gap Closure</td><td><span class="ck">✓</span> 100+ measures</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="cp">⚡</span> Limited</td></tr>
+          <tr class="hl"><td>PDF-Native (No EHR Required)</td><td><span class="ck">✓ PDF-first</span></td><td><span class="cx">✗ EHR-dep.</span></td><td><span class="cx">✗ EHR-dep.</span></td><td><span class="cx">✗ EHR-dep.</span></td><td><span class="cp">⚡ Partial</span></td><td><span class="cp">⚡ Partial</span></td></tr>
+          <tr><td>Clinical Suspicion Signals</td><td><span class="ck">✓</span> Lab/med/vitals</td><td><span class="cx">✗</span></td><td><span class="cp">⚡</span></td><td><span class="cp">⚡</span></td><td><span class="cx">✗</span></td><td><span class="cp">⚡</span></td></tr>
+          <tr class="hl"><td>MEAT Auto-Documentation</td><td><span class="ck">✓</span> Per HCC</td><td><span class="cp">⚡</span></td><td><span class="cp">⚡</span></td><td><span class="cp">⚡</span></td><td><span class="cp">⚡</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>All Lines of Business</td><td><span class="ck">✓</span> Medicare + Medicaid + ACA</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="cp">⚡</span></td><td><span class="cp">⚡</span></td></tr>
+          <tr class="hl"><td>Works Inside Your Environment</td><td><span class="ck">✓ On-prem / cloud / folder</span></td><td><span class="cx">✗ SaaS only</span></td><td><span class="cx">✗ SaaS only</span></td><td><span class="cx">✗ SaaS only</span></td><td><span class="cp">⚡</span></td><td><span class="cp">⚡</span></td></tr>
+          <tr><td>Time to Deploy</td><td><span class="ck">✓ Fast — no EHR setup</span></td><td><span class="cx">✗ Months</span></td><td><span class="cx">✗ Months</span></td><td><span class="cx">✗ Months</span></td><td><span class="cp">⚡ Weeks</span></td><td><span class="cp">⚡ Weeks</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="g3">
+      <div class="card chl"><span class="cico">🏆</span><div class="ctit">Works Inside Your Org</div><div class="cdesc">Network folder, blob, cloud, or on-prem. No EHR integration. Point it at your charts — starts immediately.</div></div>
+      <div class="card chl"><span class="cico">🤖</span><div class="ctit">Dual ML + LLM Pipeline</div><div class="cdesc">BioClinicalBERT + GPT-4o — most platforms use one or the other. RiskQ360 uses both.</div></div>
+      <div class="card chl"><span class="cico">🔬</span><div class="ctit">Suspicion Signal Engine</div><div class="cdesc">No competitor cross-references labs, vitals, and medications to surface condition suspicions.</div></div>
+    </div>
+  </div>
+
+  <!-- P7: VIDEO DEMO -->
+  <div class="panel" id="p7">
+    <div class="video-panel-wrap">
+      <div class="vp-header">
+        <div class="vp-eyebrow">Platform Demo</div>
+        <div class="vp-title">See RiskQ360 in Action</div>
+        <div class="vp-desc">A 4-minute walkthrough covering HCC coding, chart-based gap closure, clinical intelligence, and revenue opportunity detection — all using synthetic test charts.</div>
+        <div class="vp-pills">
+          <div class="vp-pill">🎬 <span>4 min</span> walkthrough</div>
+          <div class="vp-pill">🔒 <span>Synthetic</span> test data</div>
+          <div class="vp-pill">📄 <span>PDF-native</span> processing</div>
+          <div class="vp-pill">🎨 <span>5 themes</span> available</div>
+        </div>
+      </div>
+      <div class="video-wrapper" id="videoWrapper">
+        <video id="demoVideo" preload="metadata" controls>
+          <source src="RiskQ.mp4" type="video/mp4"/>
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
+          <div class="play-btn">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="play-label">Watch Demo</div>
+          <div class="play-sub">RiskQ360 · Chart Intelligence Platform · 4 min</div>
+        </div>
+      </div>
+      <div class="vhighlights">
+        <div class="vh"><div class="vh-ico">🧠</div><div class="vh-text"><strong>HCC Coding</strong>AI surfaces payable codes with MEAT from every chart</div></div>
+        <div class="vh"><div class="vh-ico">🎯</div><div class="vh-text"><strong>Gap Closure</strong>100+ quality measures, open vs. qualified per member</div></div>
+        <div class="vh"><div class="vh-ico">🔬</div><div class="vh-text"><strong>Clinical Intel</strong>Suspicion signals from labs, meds, and vitals</div></div>
+        <div class="vh"><div class="vh-ico">💰</div><div class="vh-text"><strong>Revenue Intel</strong>Captured vs. missed — RAF delta for coder review</div></div>
+        <div class="vh"><div class="vh-ico">📌</div><div class="vh-text"><strong>Source-Linked</strong>Every finding traces to exact page in source PDF</div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<!-- BOTTOM TABS — always visible -->
+<div class="tabbar">
+  <button class="tb on" onclick="go(0,null,this)"><span class="tbd">1</span>Coding</button>
+  <button class="tb" onclick="go(1,null,this)"><span class="tbd">2</span>Audit</button>
+  <button class="tb" onclick="go(2,null,this)"><span class="tbd">3</span>Gap Closure</button>
+  <button class="tb" onclick="go(3,null,this)"><span class="tbd">4</span>Clinical Intel</button>
+  <button class="tb" onclick="go(4,null,this)"><span class="tbd">5</span>Revenue Intel</button>
+  <button class="tb" onclick="go(5,null,this)"><span class="tbd">6</span>Knowledge Workers</button>
+  <button class="tb" onclick="go(6,null,this)"><span class="tbd">7</span>Competitive</button>
+  <button class="tb tb-video" onclick="go(7,null,this)">🎬 Demo</button>
+</div>
+
+<script>
+const tiles=document.querySelectorAll('.uct');
+const panels=document.querySelectorAll('.panel');
+const tabs=document.querySelectorAll('.tb');
+function go(i,tile,tab){
+  tiles.forEach(t=>t.classList.remove('on'));
+  panels.forEach(p=>p.classList.remove('on'));
+  tabs.forEach(t=>t.classList.remove('on'));
+  (tile||tiles[i]).classList.add('on');
+  panels[i].classList.add('on');
+  (tab||tabs[i]).classList.add('on');
+  document.querySelector('.content').scrollTop=0;
+}
+function playVideo(){
+  const v=document.getElementById('demoVideo');
+  document.getElementById('videoWrapper').classList.add('playing');
+  v.play();
+}
+document.getElementById('demoVideo').addEventListener('pause',()=>document.getElementById('videoWrapper').classList.remove('playing'));
+document.getElementById('demoVideo').addEventListener('ended',()=>document.getElementById('videoWrapper').classList.remove('playing'));
+const funnyMsgs={
+  'default':'back to business 🌑',
+  'light':'brave choice, bright mode ☀️',
+  'ocean':'vibing in the deep 🌊',
+  'forest':'one with the charts 🌿',
+  'midnight':'galaxy brain activated 🔮'
+};
+function setTheme(t,btn){
+  document.body.className=t==='default'?'':`theme-${t}`;
+  document.querySelectorAll('.tsw-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('funny-msg').textContent=funnyMsgs[t];
+}
+</script>
+</body>
+</html>
