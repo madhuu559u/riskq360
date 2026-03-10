@@ -252,6 +252,108 @@ body.theme-light .tabbar{background:rgba(240,246,255,.97)}
   color:#fff !important;
   animation:badgePop 2.4s ease-in-out infinite;
 }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — MOBILE & TABLET
+   Desktop stays exactly as-is
+   ══════════════════════════════════════════ */
+
+/* ── TABLET (≤1024px) ── */
+@media(max-width:1024px){
+  .uctiles{grid-template-columns:repeat(4,1fr)}
+  .meat{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ── MOBILE (≤768px) ── */
+@media(max-width:768px){
+  html,body{overflow:auto;overflow-x:hidden}
+  body{min-height:100vh;height:auto}
+
+  /* NAV */
+  nav{height:auto;min-height:50px;flex-wrap:wrap;padding:10px 14px;gap:8px}
+  .nav-l{flex-wrap:wrap;gap:8px}
+  .npills{flex-wrap:wrap;gap:3px}
+  .npill{font-size:8px;padding:2px 7px}
+  .nbar{display:none}
+  .theme-switcher{margin-left:auto}
+  .tsw-funny{display:none}
+
+  /* HERO */
+  .hero-strip{flex-direction:column;padding:12px 14px;gap:10px}
+  .hs-title{font-size:18px !important}
+  .hs-desc{font-size:11px}
+  .pillars-row{gap:6px}
+  .pillar-chip{font-size:9px}
+  .pillar-sep{display:none}
+
+  /* INGEST */
+  .ingest{padding:6px 14px}
+
+  /* TILES */
+  .uctiles{grid-template-columns:repeat(2,1fr);padding:8px 14px;gap:5px}
+  .uct{padding:8px 7px}
+  .ucico{font-size:12px;margin-bottom:2px}
+  .ucnum{font-size:8px}
+  .uctit{font-size:10px}
+  .ucmic{font-size:8px}
+  .demo-badge{font-size:7px;padding:2px 5px;top:4px;right:4px}
+
+  /* CONTENT */
+  .content{padding:14px}
+
+  /* PANELS */
+  .ph h2{font-size:20px !important}
+  .phdesc{font-size:11px}
+  .g2{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr 1fr}
+  .meat{grid-template-columns:repeat(2,1fr)}
+  .flow{flex-direction:column;gap:0}
+  .fs{border-right:1px solid var(--border);border-bottom:0;border-radius:0 !important}
+  .fs:first-child{border-radius:7px 7px 0 0 !important}
+  .fs:last-child{border-bottom:1px solid var(--border);border-radius:0 0 7px 7px !important}
+  .fs::after{right:50%;top:auto;bottom:-8px;transform:translateX(50%) rotate(90deg)}
+  .fs:last-child::after{display:none}
+  .sus-grid{grid-template-columns:1fr}
+  .mgrid{grid-template-columns:1fr 1fr}
+  .mi{padding:6px 7px}
+
+  /* VIDEO */
+  .video-wrapper video{max-height:240px}
+  .vhighlights{grid-template-columns:1fr}
+  .play-btn{width:48px;height:48px}
+  .play-btn svg{width:20px;height:20px}
+  .play-label{font-size:12px}
+  .play-sub{font-size:10px}
+
+  /* TABLE — horizontal scroll */
+  .wc{overflow-x:auto}
+  .ctbl{min-width:600px}
+
+  /* BOTTOM TAB BAR */
+  .tabbar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tb{font-size:9px;padding:8px 3px;gap:3px}
+  .tbd{width:12px;height:12px;font-size:7px}
+}
+
+/* ── SMALL PHONE (≤480px) ── */
+@media(max-width:480px){
+  .uctiles{grid-template-columns:repeat(2,1fr);gap:4px}
+  .g4{grid-template-columns:1fr}
+  .mgrid{grid-template-columns:1fr}
+  .mi span:last-of-type{display:inline}
+  .vp-title{font-size:18px}
+  .vp-pills{gap:5px}
+  .vp-pill{font-size:9px;padding:3px 8px}
+  .ntitle{font-size:15px}
+  .nsub{font-size:7px;letter-spacing:2px}
+  .nicon{width:26px;height:26px;font-size:9px}
+  .hero-strip{padding:10px 12px}
+  .content{padding:10px 12px}
+  .uctiles{padding:6px 12px}
+  .ingest{padding:5px 12px}
+  nav{padding:8px 12px}
+}
 </style>
 </head>
 <body>
