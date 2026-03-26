@@ -1266,3 +1266,142 @@ class ReviewerDisagreement(Base):
         Index("ix_reviewer_disagree_patient", "patient_id"),
         Index("ix_reviewer_disagree_entity", "entity_type", "entity_key"),
     )
+
+
+# =============================================================================
+# MEMBER / ENROLLMENT TABLES (CLAUDE.md spec)
+# =============================================================================
+
+class MemberYear(Base):
+    """Member-year records for RAF aggregation."""
+    __tablename__ = "member_years"
+
+    id = Column(Integer, Sequence("member_years_id_seq"), primary_key=True)
+    patient_id = Column(Integer, ForeignKey("patients.id", ondelete="CASCADE"), nullable=False)
+    measurement_year = Column(Integer, nullable=False)
+    plan_id = Column(String(50), nullable=True)
+    lob = Column(String(50), nullable=True)  # line of business
+    total_raf_score = Column(Float, nullable=True)
+    demographic_raf = Column(Float, nullable=True)
+    hcc_raf = Column(Float, nullable=True)
+    hcc_count = Column(Integer, default=0)
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
+    __table_args__ = (
+        UniqueConstraint("patient_id", "measurement_year", name="uq_member_year"),
+        Index("ix_member_years_patient", "patient_id"),
+        Index("ix_member_years_year", "measurement_year"),
+    )
+
+
+class EnrollmentPeriod(Base):
+    """Continuous enrollment tracking per member."""
+    __tablename__ = "enrollment_periods"
+
+    id = Column(Integer, Sequence("enrollment_periods_id_seq"), primary_key=True)
+    patient_id = Column(Integer, ForeignKey("patients.id", ondelete="CASCADE"), nullable=False)
+    plan_id = Column(String(50), nullable=True)
+    lob = Column(String(50), nullable=True)
+    start_date = Column(Date, nullable=False)
+    end_date = Column(Date, nullable=True)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, server_default=func.now())
+
+    __table_args__ = (
+        Index("ix_enrollment_patient", "patient_id"),
+        Index("ix_enrollment_dates", "start_date", "end_date"),
+    )
+
+
+# =============================================================================
+# ANALYTICS / DASHBOARD TABLES (CLAUDE.md spec)
+# =============================================================================
+
+class ModelPerformance(Base):
+    """ML model performance metrics over time."""
+    __tablename__ = "model_performance"
+
+    id = Column(Integer, Sequence("model_performance_id_seq"), primary_key=True)
+    model_name = Column(String(100), nullable=False)
+    model_version = Column(String(50), nullable=False)
+    hcc_code = Column(String(20), nullable=True)
+    precision_score = Column(Float, nullable=True)
+    recall_score = Column(Float, nullable=True)
+    f1_score = Column(Float, nullable=True)
+    support = Column(Integer, nullable=True)
+    evaluation_date = Column(DateTime, server_default=func.now())
+    dataset = Column(String(100), nullable=True)
+    notes = Column(Text, nullable=True)
+
+    __table_args__ = (
+        Index("ix_model_perf_model", "model_name", "model_version"),
+        Index("ix_model_perf_hcc", "hcc_code"),
+        Index("ix_model_perf_date", "evaluation_date"),
+    )
+
+
+class UserSession(Base):
+    """Dashboard user session tracking."""
+    __tablename__ = "user_sessions"
+
+    id = Column(Integer, Sequence("user_sessions_id_seq"), primary_key=True)
+    username = Column(String(100), nullable=False)
+    session_token = Column(String(255), nullable=True)
+    ip_address = Column(String(45), nullable=True)
+    user_agent = Column(Text, nullable=True)
+    started_at = Column(DateTime, server_default=func.now())
+    last_active_at = Column(DateTime, server_default=func.now())
+    ended_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        Index("ix_user_sessions_user", "username"),
+        Index("ix_user_sessions_active", "last_active_at"),
+    )
+
+
+class ScheduledJob(Base):
+    """Batch processing job definitions."""
+    __tablename__ = "scheduled_jobs"
+
+    id = Column(Integer, Sequence("scheduled_jobs_id_seq"), primary_key=True)
+    name = Column(String(100), nullable=False)
+    description = Column(Text, nullable=True)
+    cron_expression = Column(String(50), nullable=True)
+    job_type = Column(String(50), nullable=False, default="batch_process")
+    config = Column(JSON, nullable=True)
+    is_active = Column(Boolean, default=True)
+    last_run_at = Column(DateTime, nullable=True)
+    next_run_at = Column(DateTime, nullable=True)
+    last_status = Column(String(20), nullable=True)
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
+    __table_args__ = (
+        Index("ix_scheduled_jobs_active", "is_active"),
+        Index("ix_scheduled_jobs_next", "next_run_at"),
+    )
+
+
+# =============================================================================
+# AUDIT RISK SCORES (CLAUDE.md spec)
+# =============================================================================
+
+class AuditRiskScore(Base):
+    """Per-chart and per-diagnosis audit risk levels."""
+    __tablename__ = "audit_risk_scores"
+
+    id = Column(Integer, Sequence("audit_risk_scores_id_seq"), primary_key=True)
+    chart_id = Column(Integer, ForeignKey("charts.id", ondelete="CASCADE"), nullable=False)
+    assertion_id = Column(Integer, ForeignKey("assertions.id", ondelete="CASCADE"), nullable=True)
+    hcc_code = Column(String(20), nullable=True)
+    icd_code = Column(String(20), nullable=True)
+    risk_level = Column(String(20), nullable=False, default="low")  # low, medium, high
+    risk_score = Column(Float, nullable=True)
+    risk_factors = Column(JSON, nullable=True)  # {reason: ..., flags: [...]}
+    created_at = Column(DateTime, server_default=func.now())
+
+    __table_args__ = (
+        Index("ix_audit_risk_chart", "chart_id"),
+        Index("ix_audit_risk_level", "risk_level"),
+    )

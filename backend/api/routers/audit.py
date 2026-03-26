@@ -106,3 +106,17 @@ async def get_pending_reviews(
     """Get all assertions pending review."""
     svc = AssertionService(db)
     return await svc.get_pending_reviews(chart_id)
+
+
+@router.get("/{chart_id}/pack")
+async def get_audit_pack(chart_id: int, db: AsyncSession = Depends(get_db)):
+    """Get consolidated audit pack — audit logs + review actions + summary for a chart."""
+    svc = AuditService(db)
+    return await svc.get_audit_pack(chart_id)
+
+
+@router.get("/{chart_id}/risk-scores")
+async def get_risk_scores(chart_id: int, db: AsyncSession = Depends(get_db)):
+    """Get per-diagnosis audit risk scores with risk level and contributing factors."""
+    svc = AuditService(db)
+    return await svc.get_risk_scores(chart_id)

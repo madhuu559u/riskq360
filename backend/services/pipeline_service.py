@@ -57,6 +57,65 @@ class PipelineService:
             "model_used": stats.model_used,
         }
 
+    async def get_run_logs(self, run_id: int) -> dict:
+        """Get pipeline logs for a specific run."""
+        logs = await self.repo.get_logs_by_run(run_id)
+        run = await self.repo.get_run_by_id(run_id)
+        return {
+            "run_id": run_id,
+            "run_status": run.status if run else "not_found",
+            "chart_id": run.chart_id if run else None,
+            "logs": [
+                {
+                    "id": l.id,
+                    "step": l.step,
+                    "message": l.message,
+                    "level": l.log_level,
+                    "details": l.details,
+                    "duration_seconds": l.duration_seconds,
+                    "created_at": str(l.created_at) if l.created_at else None,
+                }
+                for l in logs
+            ],
+            "total": len(logs),
+        }
+
+    async def rerun_pipeline(self, run_id: int) -> dict:
+        """Create a new pipeline run by re-running from an existing run's configuration."""
+        original_run = await self.repo.get_run_by_id(run_id)
+        if not original_run:
+            return None
+
+        # Determine next run number for this chart
+        chart_runs = await self.repo.get_runs_by_chart(original_run.chart_id)
+        next_run_number = max((r.run_number or 0 for r in chart_runs), default=0) + 1
+
+        new_run = await self.repo.create_run(
+            chart_id=original_run.chart_id,
+            run_number=next_run_number,
+            status="running",
+            mode=original_run.mode,
+            model=original_run.model,
+            config_snapshot=original_run.config_snapshot,
+        )
+
+        # Log the rerun initiation
+        await self.repo.create_log(
+            run_id=new_run.id,
+            log_level="INFO",
+            step="rerun_init",
+            message=f"Re-run initiated from run #{run_id}",
+            details={"original_run_id": run_id, "original_status": original_run.status},
+        )
+
+        await self.session.commit()
+
+        return {
+            "new_run": self._serialize_run(new_run),
+            "original_run_id": run_id,
+            "message": f"Pipeline re-run created (run #{next_run_number}) from original run #{run_id}",
+        }
+
     async def get_avg_processing_time(self) -> Optional[float]:
         return await self.repo.get_avg_processing_time()
 

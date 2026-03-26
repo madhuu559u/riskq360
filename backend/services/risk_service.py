@@ -1,11 +1,13 @@
-"""Risk adjustment service — HCC pack, RAF scores, hierarchy."""
+"""Risk adjustment service — HCC pack, RAF scores, hierarchy, ML predictions, ICD retrievals."""
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from database.models import Assertion, DiagnosisCandidate, PayableHCC
 from database.repositories.hcc_repo import HCCRepository
 from database.repositories.raf_repo import RAFRepository
 
@@ -56,6 +58,148 @@ class RiskService:
                 }
                 for h in payable if h.hierarchy_applied
             ],
+        }
+
+    async def get_ml_predictions(self, chart_id: int) -> dict:
+        """Get ML prediction results — assertions flagged as HCC candidates with confidence scores."""
+        stmt = (
+            select(Assertion)
+            .where(Assertion.chart_id == chart_id, Assertion.is_hcc_candidate.is_(True))
+            .order_by(Assertion.page_number, Assertion.id)
+        )
+        result = await self.session.execute(stmt)
+        rows = result.scalars().all()
+
+        # Enrich with payable HCC data for ensemble confidence
+        payable = await self.hccs.get_payable_by_chart(chart_id)
+        payable_by_icd: dict[str, PayableHCC] = {}
+        for p in payable:
+            for icd_entry in (p.supported_icds or []):
+                code = icd_entry.get("icd10_code") or icd_entry.get("code", "")
+                if code:
+                    payable_by_icd[code] = p
+
+        predictions = []
+        for a in rows:
+            icd_list = a.icd_codes_primary or a.icd_codes or []
+            primary_icd = ""
+            if isinstance(icd_list, list) and icd_list:
+                first = icd_list[0] if isinstance(icd_list[0], dict) else {}
+                primary_icd = str(first.get("code") or "")
+
+            matched_hcc = payable_by_icd.get(primary_icd)
+            predictions.append({
+                "assertion_id": a.id,
+                "assertion_ext_id": a.assertion_id,
+                "category": a.category,
+                "concept": a.canonical_concept or a.concept,
+                "icd_code": primary_icd,
+                "page_number": a.page_number,
+                "exact_quote": a.exact_quote,
+                "evidence_rank": a.evidence_rank,
+                "is_payable_hcc_candidate": a.is_payable_hcc_candidate,
+                "is_payable_ra_candidate": a.is_payable_ra_candidate,
+                "ml_confidence": float(matched_hcc.confidence) if matched_hcc and matched_hcc.confidence else None,
+                "llm_confidence": float(matched_hcc.llm_confidence) if matched_hcc and matched_hcc.llm_confidence else None,
+                "hcc_code": matched_hcc.hcc_code if matched_hcc else None,
+                "raf_weight": float(matched_hcc.raf_weight) if matched_hcc and matched_hcc.raf_weight else None,
+                "source": matched_hcc.source if matched_hcc else None,
+            })
+
+        return {
+            "chart_id": chart_id,
+            "predictions": predictions,
+            "total": len(predictions),
+        }
+
+    async def get_icd_retrievals(self, chart_id: int) -> dict:
+        """Get TF-IDF ICD retrieval results from diagnosis candidates."""
+        stmt = (
+            select(DiagnosisCandidate)
+            .where(DiagnosisCandidate.chart_id == chart_id)
+            .order_by(
+                DiagnosisCandidate.page_number.asc().nullslast(),
+                DiagnosisCandidate.candidate_key.asc(),
+            )
+        )
+        result = await self.session.execute(stmt)
+        rows = result.scalars().all()
+
+        retrievals = []
+        for dc in rows:
+            payload = dc.payload or {}
+            retrievals.append({
+                "candidate_id": dc.id,
+                "candidate_key": dc.candidate_key,
+                "icd10_code": dc.icd10_code,
+                "hcc_code": dc.hcc_code,
+                "source_type": dc.source_type,
+                "lifecycle_state": dc.lifecycle_state,
+                "confidence": dc.confidence,
+                "tfidf_score": payload.get("tfidf_score"),
+                "tfidf_rank": payload.get("tfidf_rank"),
+                "cosine_similarity": payload.get("cosine_similarity"),
+                "concept_text": payload.get("concept_text") or dc.exact_quote,
+                "page_number": dc.page_number,
+                "effective_date": str(dc.effective_date) if dc.effective_date else None,
+                "reason_code": dc.reason_code,
+                "reason_text": dc.reason_text,
+            })
+
+        return {
+            "chart_id": chart_id,
+            "icd_retrievals": retrievals,
+            "total": len(retrievals),
+        }
+
+    async def get_verified_icds(self, chart_id: int) -> dict:
+        """Get verified ICDs with MEAT (Monitor, Evaluate, Assess, Treat) evidence."""
+        stmt = (
+            select(DiagnosisCandidate)
+            .where(
+                DiagnosisCandidate.chart_id == chart_id,
+                DiagnosisCandidate.lifecycle_state == "verified",
+            )
+            .order_by(
+                DiagnosisCandidate.icd10_code.asc().nullslast(),
+                DiagnosisCandidate.page_number.asc().nullslast(),
+            )
+        )
+        result = await self.session.execute(stmt)
+        rows = result.scalars().all()
+
+        verified = []
+        for dc in rows:
+            payload = dc.payload or {}
+            meat_evidence = payload.get("meat_evidence", {})
+            verified.append({
+                "candidate_id": dc.id,
+                "candidate_key": dc.candidate_key,
+                "icd10_code": dc.icd10_code,
+                "hcc_code": dc.hcc_code,
+                "confidence": dc.confidence,
+                "page_number": dc.page_number,
+                "exact_quote": dc.exact_quote,
+                "effective_date": str(dc.effective_date) if dc.effective_date else None,
+                "provider_name": dc.provider_name,
+                "review_status": dc.review_status,
+                "meat_evidence": {
+                    "monitored": meat_evidence.get("monitored", False),
+                    "evaluated": meat_evidence.get("evaluated", False),
+                    "assessed": meat_evidence.get("assessed", False),
+                    "treated": meat_evidence.get("treated", False),
+                    "meat_score": meat_evidence.get("meat_score", 0),
+                    "details": meat_evidence.get("details", []),
+                },
+                "source_type": dc.source_type,
+                "reason_code": dc.reason_code,
+                "reason_text": dc.reason_text,
+            })
+
+        return {
+            "chart_id": chart_id,
+            "verified_icds": verified,
+            "total": len(verified),
         }
 
     def _serialize_hcc(self, h: Any) -> dict:

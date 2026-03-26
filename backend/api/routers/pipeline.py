@@ -1,8 +1,8 @@
-﻿"""Pipeline management endpoints - runs, logs, stats."""
+"""Pipeline management endpoints - runs, logs, stats."""
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional
 
@@ -24,6 +24,33 @@ async def list_runs(
     return await svc.list_runs(offset=offset, limit=limit, status=status)
 
 
+@router.get("/runs/chart/{chart_id}")
+async def get_runs_by_chart(chart_id: int, db: AsyncSession = Depends(get_db)):
+    """Get all pipeline runs for a chart."""
+    svc = PipelineService(db)
+    return await svc.get_runs_by_chart(chart_id)
+
+
+@router.get("/runs/{run_id}/logs")
+async def get_run_logs(run_id: int, db: AsyncSession = Depends(get_db)):
+    """Get pipeline run logs for a specific run."""
+    svc = PipelineService(db)
+    result = await svc.get_run_logs(run_id)
+    if result["run_status"] == "not_found":
+        raise HTTPException(404, f"Pipeline run not found: {run_id}")
+    return result
+
+
+@router.post("/runs/{run_id}/rerun")
+async def rerun_pipeline(run_id: int, db: AsyncSession = Depends(get_db)):
+    """Re-run a pipeline from an existing run's configuration."""
+    svc = PipelineService(db)
+    result = await svc.rerun_pipeline(run_id)
+    if not result:
+        raise HTTPException(404, f"Original pipeline run not found: {run_id}")
+    return result
+
+
 @router.get("/runs/{run_id}")
 async def get_run(run_id: int, db: AsyncSession = Depends(get_db)):
     """Get a specific pipeline run with logs."""
@@ -32,13 +59,6 @@ async def get_run(run_id: int, db: AsyncSession = Depends(get_db)):
     if not result:
         return {"id": run_id, "status": "not_found", "logs": []}
     return result
-
-
-@router.get("/runs/chart/{chart_id}")
-async def get_runs_by_chart(chart_id: int, db: AsyncSession = Depends(get_db)):
-    """Get all pipeline runs for a chart."""
-    svc = PipelineService(db)
-    return await svc.get_runs_by_chart(chart_id)
 
 
 @router.get("/stats/{chart_id}")
