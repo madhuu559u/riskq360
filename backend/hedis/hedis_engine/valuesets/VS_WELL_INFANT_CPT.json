@@ -1,0 +1,20 @@
+{
+    "id": "VS_WELL_INFANT_CPT",
+    "name": "Well-Child Visit Codes for Infants",
+    "code_system": "cpt",
+    "placeholder": true,
+    "description": "CPT codes for well-child and preventive care visits for infants and young children (under age 5), including initial and periodic comprehensive preventive medicine visits and initial newborn care. Used in well-child visit measures (W15, W34) for tracking age-appropriate preventive care.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99381", "description": "Initial comprehensive preventive medicine E/M, new patient; infant (age under 1 year)"},
+        {"code": "99382", "description": "Initial comprehensive preventive medicine E/M, new patient; early childhood (age 1 through 4 years)"},
+        {"code": "99391", "description": "Periodic comprehensive preventive medicine E/M, established patient; infant (age under 1 year)"},
+        {"code": "99392", "description": "Periodic comprehensive preventive medicine E/M, established patient; early childhood (age 1 through 4 years)"},
+        {"code": "99461", "description": "Initial care, per day, for evaluation and management of normal newborn infant"},
+        {"code": "99460", "description": "Initial hospital or birthing center care, per day, for evaluation and management of normal newborn infant"},
+        {"code": "99462", "description": "Subsequent hospital care, per day, for evaluation and management of normal newborn"},
+        {"code": "99463", "description": "Initial hospital or birthing center care, per day, for evaluation and management of normal newborn infant admitted and discharged on the same date"},
+        {"code": "99238", "description": "Hospital discharge day management; 30 minutes or less (newborn context)"},
+        {"code": "99239", "description": "Hospital discharge day management; more than 30 minutes (newborn context)"}
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "id": "VS_ED_ENCOUNTER",
+    "name": "Emergency Department Encounter Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, HCPCS, and UB revenue codes for emergency department encounters. Used in follow-up after emergency department visit for mental illness (FUM), follow-up after emergency department visit for substance use (FUA), and ED utilization measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99281", "code_system": "cpt", "description": "Emergency department visit, self-limited or minor problem"},
+        {"code": "99282", "code_system": "cpt", "description": "Emergency department visit, low to moderate severity"},
+        {"code": "99283", "code_system": "cpt", "description": "Emergency department visit, moderate severity"},
+        {"code": "99284", "code_system": "cpt", "description": "Emergency department visit, high severity, urgent evaluation required"},
+        {"code": "99285", "code_system": "cpt", "description": "Emergency department visit, high severity, immediate significant threat to life or function"},
+        {"code": "99291", "code_system": "cpt", "description": "Critical care, first 30-74 minutes"},
+        {"code": "0450", "code_system": "ubrev", "description": "Emergency room — general classification"},
+        {"code": "0451", "code_system": "ubrev", "description": "Emergency room — EM/treatment minor"},
+        {"code": "0452", "code_system": "ubrev", "description": "Emergency room — beyond initial treatment"},
+        {"code": "0456", "code_system": "ubrev", "description": "Emergency room — urgent care"},
+        {"code": "0459", "code_system": "ubrev", "description": "Emergency room — other"},
+        {"code": "G0380", "code_system": "hcpcs", "description": "Level 1 hospital emergency department visit"},
+        {"code": "G0381", "code_system": "hcpcs", "description": "Level 2 hospital emergency department visit"},
+        {"code": "G0382", "code_system": "hcpcs", "description": "Level 3 hospital emergency department visit"},
+        {"code": "G0383", "code_system": "hcpcs", "description": "Level 4 hospital emergency department visit"},
+        {"code": "G0384", "code_system": "hcpcs", "description": "Level 5 hospital emergency department visit"}
+    ]
+}

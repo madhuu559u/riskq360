@@ -1,0 +1,18 @@
+{
+    "id": "VS_MMR_VACCINE",
+    "name": "Measles, Mumps, and Rubella (MMR) Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for measles, mumps, and rubella (MMR) vaccines including monovalent and combination formulations. Used in childhood immunization status (CIS) measure. Requires 1 dose of MMR by age 2 (first dose at 12-15 months) and 2 doses by age 13.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "03", "code_system": "cvx", "description": "Measles, mumps, rubella virus vaccine (MMR)"},
+        {"code": "04", "code_system": "cvx", "description": "Measles and rubella virus vaccine (MR)"},
+        {"code": "05", "code_system": "cvx", "description": "Measles virus vaccine"},
+        {"code": "06", "code_system": "cvx", "description": "Rubella virus vaccine"},
+        {"code": "07", "code_system": "cvx", "description": "Mumps virus vaccine"},
+        {"code": "94", "code_system": "cvx", "description": "Measles, mumps, rubella, and varicella virus vaccine (MMRV, ProQuad)"},
+        {"code": "90707", "code_system": "cpt", "description": "Measles, mumps, rubella virus vaccine (MMR), live, for subcutaneous use"},
+        {"code": "90710", "code_system": "cpt", "description": "Measles, mumps, rubella, and varicella vaccine (MMRV), live, for subcutaneous use"}
+    ]
+}

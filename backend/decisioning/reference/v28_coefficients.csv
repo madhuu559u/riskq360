@@ -1,0 +1,812 @@
+hcc_code,segment,coefficient,coefficient_community_nondual_aged,hcc_description
+HCC 1,Community_FullDual_Aged,0.397,,HIV/AIDS
+HCC 107,Community_FullDual_Aged,0.61,,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero
+HCC 108,Community_FullDual_Aged,0.103,,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major"
+HCC 109,Community_FullDual_Aged,1.048,,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias"
+HCC 111,Community_FullDual_Aged,15.539,,"Hemophilia, Male"
+HCC 112,Community_FullDual_Aged,0.46,,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions
+HCC 114,Community_FullDual_Aged,2.016,,Common Variable and Combined Immunodeficiencies
+HCC 115,Community_FullDual_Aged,0.438,,Specified Immunodeficiencies and White Blood Cell Disorders
+HCC 125,Community_FullDual_Aged,0.438,,"Dementia, Severe"
+HCC 126,Community_FullDual_Aged,0.438,,"Dementia, Moderate"
+HCC 127,Community_FullDual_Aged,0.438,,"Dementia, Mild or Unspecified"
+HCC 135,Community_FullDual_Aged,0.702,,Drug Use with Psychotic Complications
+HCC 136,Community_FullDual_Aged,0.502,,Alcohol Use with Psychotic Complications
+HCC 137,Community_FullDual_Aged,0.502,,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications"
+HCC 138,Community_FullDual_Aged,0.502,,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis"
+HCC 139,Community_FullDual_Aged,0.478,,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications"
+HCC 151,Community_FullDual_Aged,0.591,,Schizophrenia
+HCC 152,Community_FullDual_Aged,0.579,,"Psychosis, Except Schizophrenia"
+HCC 153,Community_FullDual_Aged,0.42,,Personality Disorders; Anorexia/Bulimia Nervosa
+HCC 154,Community_FullDual_Aged,0.349,,Bipolar Disorders without Psychosis
+HCC 155,Community_FullDual_Aged,0.316,,"Major Depression, Moderate or Severe, without Psychosis"
+HCC 17,Community_FullDual_Aged,3.896,,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic"
+HCC 18,Community_FullDual_Aged,2.277,,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid"
+HCC 180,Community_FullDual_Aged,1.068,,Quadriplegia
+HCC 181,Community_FullDual_Aged,0.859,,Paraplegia
+HCC 182,Community_FullDual_Aged,0.402,,Spinal Cord Disorders/Injuries
+HCC 19,Community_FullDual_Aged,1.563,,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers"
+HCC 190,Community_FullDual_Aged,1.427,,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy"
+HCC 191,Community_FullDual_Aged,0.393,,Quadriplegic Cerebral Palsy
+HCC 192,Community_FullDual_Aged,0.0,,"Cerebral Palsy, Except Quadriplegic"
+HCC 193,Community_FullDual_Aged,0.957,,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy
+HCC 195,Community_FullDual_Aged,2.153,,Myasthenia Gravis with (Acute) Exacerbation
+HCC 196,Community_FullDual_Aged,0.503,,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders
+HCC 197,Community_FullDual_Aged,0.369,,Muscular Dystrophy
+HCC 198,Community_FullDual_Aged,0.791,,Multiple Sclerosis
+HCC 199,Community_FullDual_Aged,0.634,,Parkinson and Other Degenerative Disease of Basal Ganglia
+HCC 2,Community_FullDual_Aged,0.649,,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock"
+HCC 20,Community_FullDual_Aged,1.166,,Lung and Other Severe Cancers
+HCC 200,Community_FullDual_Aged,0.165,,Friedreich and Other Hereditary Ataxias; Huntington Disease
+HCC 201,Community_FullDual_Aged,0.233,,Seizure Disorders and Convulsions
+HCC 202,Community_FullDual_Aged,0.721,,"Coma, Brain Compression/Anoxic Damage"
+HCC 21,Community_FullDual_Aged,0.654,,Lymphoma and Other Cancers
+HCC 211,Community_FullDual_Aged,1.981,,Respirator Dependence/Tracheostomy Status/Complications
+HCC 212,Community_FullDual_Aged,0.573,,Respiratory Arrest
+HCC 213,Community_FullDual_Aged,0.573,,Cardio-Respiratory Failure and Shock
+HCC 22,Community_FullDual_Aged,0.382,,"Bladder, Colorectal, and Other Cancers"
+HCC 221,Community_FullDual_Aged,1.412,,Heart Transplant Status/Complications
+HCC 222,Community_FullDual_Aged,2.927,,End-Stage Heart Failure
+HCC 223,Community_FullDual_Aged,2.927,,Heart Failure with Heart Assist Device/Artificial Heart
+HCC 224,Community_FullDual_Aged,0.406,,Acute on Chronic Heart Failure
+HCC 225,Community_FullDual_Aged,0.406,,Acute Heart Failure (Excludes Acute on Chronic)
+HCC 226,Community_FullDual_Aged,0.406,,"Heart Failure, Except End-Stage and Acute"
+HCC 227,Community_FullDual_Aged,0.173,,Cardiomyopathy/Myocarditis
+HCC 228,Community_FullDual_Aged,0.493,,Acute Myocardial Infarction
+HCC 229,Community_FullDual_Aged,0.325,,Unstable Angina and Other Acute Ischemic Heart Disease
+HCC 23,Community_FullDual_Aged,0.196,,"Prostate, Breast, and Other Cancers and Tumors"
+HCC 238,Community_FullDual_Aged,0.407,,Specified Heart Arrhythmias
+HCC 248,Community_FullDual_Aged,0.377,,Intracranial Hemorrhage
+HCC 249,Community_FullDual_Aged,0.377,,Ischemic or Unspecified Stroke
+HCC 253,Community_FullDual_Aged,0.437,,Hemiplegia/Hemiparesis
+HCC 254,Community_FullDual_Aged,0.292,,"Monoplegia, Other Paralytic Syndromes"
+HCC 263,Community_FullDual_Aged,1.432,,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene
+HCC 264,Community_FullDual_Aged,0.498,,Vascular Disease with Complications
+HCC 267,Community_FullDual_Aged,0.445,,Deep Vein Thrombosis and Pulmonary Embolism
+HCC 276,Community_FullDual_Aged,2.21,,Lung Transplant Status/Complications
+HCC 277,Community_FullDual_Aged,1.34,,Cystic Fibrosis
+HCC 278,Community_FullDual_Aged,0.791,,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis
+HCC 279,Community_FullDual_Aged,0.594,,Severe Persistent Asthma
+HCC 280,Community_FullDual_Aged,0.39,,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders"
+HCC 282,Community_FullDual_Aged,0.538,,Aspiration and Specified Bacterial Pneumonias
+HCC 283,Community_FullDual_Aged,0.131,,"Empyema, Lung Abscess"
+HCC 298,Community_FullDual_Aged,0.323,,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage"
+HCC 300,Community_FullDual_Aged,0.37,,Exudative Macular Degeneration
+HCC 326,Community_FullDual_Aged,0.985,,"Chronic Kidney Disease, Stage 5"
+HCC 327,Community_FullDual_Aged,0.565,,"Chronic Kidney Disease, Severe (Stage 4)"
+HCC 328,Community_FullDual_Aged,0.116,,"Chronic Kidney Disease, Moderate (Stage 3B)"
+HCC 329,Community_FullDual_Aged,0.116,,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)"
+HCC 35,Community_FullDual_Aged,1.117,,Pancreas Transplant Status
+HCC 36,Community_FullDual_Aged,0.186,,Diabetes with Severe Acute Complications
+HCC 37,Community_FullDual_Aged,0.186,,Diabetes with Chronic Complications
+HCC 379,Community_FullDual_Aged,2.58,,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone"
+HCC 38,Community_FullDual_Aged,0.186,,"Diabetes with Glycemic, Unspecified, or No Complications"
+HCC 380,Community_FullDual_Aged,1.422,,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle"
+HCC 381,Community_FullDual_Aged,1.379,,Pressure Ulcer of Skin with Full Thickness Skin Loss
+HCC 382,Community_FullDual_Aged,1.029,,Pressure Ulcer of Skin with Partial Thickness Skin Loss
+HCC 383,Community_FullDual_Aged,0.89,,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle"
+HCC 385,Community_FullDual_Aged,2.362,,Severe Skin Burn
+HCC 387,Community_FullDual_Aged,0.658,,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders"
+HCC 397,Community_FullDual_Aged,0.349,,Major Head Injury with Loss of Consciousness > 1 Hour
+HCC 398,Community_FullDual_Aged,0.349,,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified
+HCC 399,Community_FullDual_Aged,0.349,,Major Head Injury without Loss of Consciousness
+HCC 401,Community_FullDual_Aged,0.622,,Vertebral Fractures without Spinal Cord Injury
+HCC 402,Community_FullDual_Aged,0.561,,Hip Fracture/Dislocation
+HCC 405,Community_FullDual_Aged,0.799,,Traumatic Amputations and Complications
+HCC 409,Community_FullDual_Aged,0.799,,"Amputation Status, Lower Limb/Amputation Complications"
+HCC 454,Community_FullDual_Aged,1.326,,"Stem Cell, Including Bone Marrow, Transplant Status/Complications"
+HCC 463,Community_FullDual_Aged,0.891,,Artificial Openings for Feeding or Elimination
+HCC 48,Community_FullDual_Aged,0.3,,Morbid Obesity
+HCC 49,Community_FullDual_Aged,2.833,,Specified Lysosomal Storage Disorders
+HCC 50,Community_FullDual_Aged,0.555,,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders"
+HCC 51,Community_FullDual_Aged,0.634,,"Addisons and Cushings Diseases, Acromegaly, and Other Specified Endocrine Disorders"
+HCC 6,Community_FullDual_Aged,0.588,,Opportunistic Infections
+HCC 62,Community_FullDual_Aged,0.261,,Liver Transplant Status/Complications
+HCC 63,Community_FullDual_Aged,1.102,,Chronic Liver Failure/End-Stage Liver Disorders
+HCC 64,Community_FullDual_Aged,0.475,,Cirrhosis of Liver
+HCC 65,Community_FullDual_Aged,0.101,,Chronic Hepatitis
+HCC 68,Community_FullDual_Aged,0.085,,Cholangitis and Obstruction of Bile Duct Without Gallstones
+HCC 77,Community_FullDual_Aged,5.039,,Intestine Transplant Status/Complications
+HCC 78,Community_FullDual_Aged,0.382,,Intestinal Obstruction/Perforation
+HCC 79,Community_FullDual_Aged,0.525,,Chronic Pancreatitis
+HCC 80,Community_FullDual_Aged,0.49,,Crohns Disease (Regional Enteritis)
+HCC 81,Community_FullDual_Aged,0.201,,Ulcerative Colitis
+HCC 92,Community_FullDual_Aged,0.611,,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis
+HCC 93,Community_FullDual_Aged,0.439,,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders
+HCC 94,Community_FullDual_Aged,0.237,,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders
+HCC 238,cfa_hf,0.14,,Specified Heart Arrhythmias
+HCC 1,Community_FullDual_Disabled,0.237,,HIV/AIDS
+HCC 107,Community_FullDual_Disabled,1.939,,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero
+HCC 108,Community_FullDual_Disabled,0.408,,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major"
+HCC 109,Community_FullDual_Disabled,1.541,,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias"
+HCC 111,Community_FullDual_Disabled,31.424,,"Hemophilia, Male"
+HCC 112,Community_FullDual_Disabled,0.634,,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions
+HCC 114,Community_FullDual_Disabled,2.67,,Common Variable and Combined Immunodeficiencies
+HCC 115,Community_FullDual_Disabled,0.498,,Specified Immunodeficiencies and White Blood Cell Disorders
+HCC 125,Community_FullDual_Disabled,0.367,,"Dementia, Severe"
+HCC 126,Community_FullDual_Disabled,0.367,,"Dementia, Moderate"
+HCC 127,Community_FullDual_Disabled,0.367,,"Dementia, Mild or Unspecified"
+HCC 135,Community_FullDual_Disabled,1.181,,Drug Use with Psychotic Complications
+HCC 136,Community_FullDual_Disabled,1.181,,Alcohol Use with Psychotic Complications
+HCC 137,Community_FullDual_Disabled,0.471,,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications"
+HCC 138,Community_FullDual_Disabled,0.384,,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis"
+HCC 139,Community_FullDual_Disabled,0.25,,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications"
+HCC 151,Community_FullDual_Disabled,0.414,,Schizophrenia
+HCC 152,Community_FullDual_Disabled,0.255,,"Psychosis, Except Schizophrenia"
+HCC 153,Community_FullDual_Disabled,0.255,,Personality Disorders; Anorexia/Bulimia Nervosa
+HCC 154,Community_FullDual_Disabled,0.126,,Bipolar Disorders without Psychosis
+HCC 155,Community_FullDual_Disabled,0.126,,"Major Depression, Moderate or Severe, without Psychosis"
+HCC 17,Community_FullDual_Disabled,4.235,,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic"
+HCC 18,Community_FullDual_Disabled,2.537,,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid"
+HCC 180,Community_FullDual_Disabled,1.095,,Quadriplegia
+HCC 181,Community_FullDual_Disabled,0.832,,Paraplegia
+HCC 182,Community_FullDual_Disabled,0.308,,Spinal Cord Disorders/Injuries
+HCC 19,Community_FullDual_Disabled,1.661,,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers"
+HCC 190,Community_FullDual_Disabled,3.642,,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy"
+HCC 191,Community_FullDual_Disabled,0.466,,Quadriplegic Cerebral Palsy
+HCC 192,Community_FullDual_Disabled,0.067,,"Cerebral Palsy, Except Quadriplegic"
+HCC 193,Community_FullDual_Disabled,0.939,,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy
+HCC 195,Community_FullDual_Disabled,3.323,,Myasthenia Gravis with (Acute) Exacerbation
+HCC 196,Community_FullDual_Disabled,0.507,,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders
+HCC 197,Community_FullDual_Disabled,0.681,,Muscular Dystrophy
+HCC 198,Community_FullDual_Disabled,1.143,,Multiple Sclerosis
+HCC 199,Community_FullDual_Disabled,0.504,,Parkinson and Other Degenerative Disease of Basal Ganglia
+HCC 2,Community_FullDual_Disabled,0.78,,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock"
+HCC 20,Community_FullDual_Disabled,1.173,,Lung and Other Severe Cancers
+HCC 200,Community_FullDual_Disabled,0.281,,Friedreich and Other Hereditary Ataxias; Huntington Disease
+HCC 201,Community_FullDual_Disabled,0.17,,Seizure Disorders and Convulsions
+HCC 202,Community_FullDual_Disabled,0.279,,"Coma, Brain Compression/Anoxic Damage"
+HCC 21,Community_FullDual_Disabled,0.739,,Lymphoma and Other Cancers
+HCC 211,Community_FullDual_Disabled,1.418,,Respirator Dependence/Tracheostomy Status/Complications
+HCC 212,Community_FullDual_Disabled,0.662,,Respiratory Arrest
+HCC 213,Community_FullDual_Disabled,0.662,,Cardio-Respiratory Failure and Shock
+HCC 22,Community_FullDual_Disabled,0.409,,"Bladder, Colorectal, and Other Cancers"
+HCC 221,Community_FullDual_Disabled,1.781,,Heart Transplant Status/Complications
+HCC 222,Community_FullDual_Disabled,6.612,,End-Stage Heart Failure
+HCC 223,Community_FullDual_Disabled,6.612,,Heart Failure with Heart Assist Device/Artificial Heart
+HCC 224,Community_FullDual_Disabled,0.537,,Acute on Chronic Heart Failure
+HCC 225,Community_FullDual_Disabled,0.537,,Acute Heart Failure (Excludes Acute on Chronic)
+HCC 226,Community_FullDual_Disabled,0.537,,"Heart Failure, Except End-Stage and Acute"
+HCC 227,Community_FullDual_Disabled,0.198,,Cardiomyopathy/Myocarditis
+HCC 228,Community_FullDual_Disabled,0.517,,Acute Myocardial Infarction
+HCC 229,Community_FullDual_Disabled,0.458,,Unstable Angina and Other Acute Ischemic Heart Disease
+HCC 23,Community_FullDual_Disabled,0.218,,"Prostate, Breast, and Other Cancers and Tumors"
+HCC 238,Community_FullDual_Disabled,0.304,,Specified Heart Arrhythmias
+HCC 248,Community_FullDual_Disabled,0.332,,Intracranial Hemorrhage
+HCC 249,Community_FullDual_Disabled,0.277,,Ischemic or Unspecified Stroke
+HCC 253,Community_FullDual_Disabled,0.39,,Hemiplegia/Hemiparesis
+HCC 254,Community_FullDual_Disabled,0.365,,"Monoplegia, Other Paralytic Syndromes"
+HCC 263,Community_FullDual_Disabled,1.276,,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene
+HCC 264,Community_FullDual_Disabled,0.461,,Vascular Disease with Complications
+HCC 267,Community_FullDual_Disabled,0.568,,Deep Vein Thrombosis and Pulmonary Embolism
+HCC 276,Community_FullDual_Disabled,2.292,,Lung Transplant Status/Complications
+HCC 277,Community_FullDual_Disabled,3.76,,Cystic Fibrosis
+HCC 278,Community_FullDual_Disabled,1.64,,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis
+HCC 279,Community_FullDual_Disabled,0.808,,Severe Persistent Asthma
+HCC 280,Community_FullDual_Disabled,0.281,,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders"
+HCC 282,Community_FullDual_Disabled,0.269,,Aspiration and Specified Bacterial Pneumonias
+HCC 283,Community_FullDual_Disabled,0.074,,"Empyema, Lung Abscess"
+HCC 298,Community_FullDual_Disabled,0.319,,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage"
+HCC 300,Community_FullDual_Disabled,0.255,,Exudative Macular Degeneration
+HCC 326,Community_FullDual_Disabled,0.946,,"Chronic Kidney Disease, Stage 5"
+HCC 327,Community_FullDual_Disabled,0.661,,"Chronic Kidney Disease, Severe (Stage 4)"
+HCC 328,Community_FullDual_Disabled,0.181,,"Chronic Kidney Disease, Moderate (Stage 3B)"
+HCC 329,Community_FullDual_Disabled,0.181,,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)"
+HCC 35,Community_FullDual_Disabled,0.573,,Pancreas Transplant Status
+HCC 36,Community_FullDual_Disabled,0.235,,Diabetes with Severe Acute Complications
+HCC 37,Community_FullDual_Disabled,0.235,,Diabetes with Chronic Complications
+HCC 379,Community_FullDual_Disabled,2.57,,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone"
+HCC 38,Community_FullDual_Disabled,0.235,,"Diabetes with Glycemic, Unspecified, or No Complications"
+HCC 380,Community_FullDual_Disabled,1.285,,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle"
+HCC 381,Community_FullDual_Disabled,1.192,,Pressure Ulcer of Skin with Full Thickness Skin Loss
+HCC 382,Community_FullDual_Disabled,0.935,,Pressure Ulcer of Skin with Partial Thickness Skin Loss
+HCC 383,Community_FullDual_Disabled,0.707,,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle"
+HCC 385,Community_FullDual_Disabled,0.857,,Severe Skin Burn
+HCC 387,Community_FullDual_Disabled,0.622,,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders"
+HCC 397,Community_FullDual_Disabled,0.19,,Major Head Injury with Loss of Consciousness > 1 Hour
+HCC 398,Community_FullDual_Disabled,0.19,,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified
+HCC 399,Community_FullDual_Disabled,0.19,,Major Head Injury without Loss of Consciousness
+HCC 401,Community_FullDual_Disabled,0.559,,Vertebral Fractures without Spinal Cord Injury
+HCC 402,Community_FullDual_Disabled,0.57,,Hip Fracture/Dislocation
+HCC 405,Community_FullDual_Disabled,0.844,,Traumatic Amputations and Complications
+HCC 409,Community_FullDual_Disabled,0.844,,"Amputation Status, Lower Limb/Amputation Complications"
+HCC 454,Community_FullDual_Disabled,0.608,,"Stem Cell, Including Bone Marrow, Transplant Status/Complications"
+HCC 463,Community_FullDual_Disabled,0.947,,Artificial Openings for Feeding or Elimination
+HCC 48,Community_FullDual_Disabled,0.178,,Morbid Obesity
+HCC 49,Community_FullDual_Disabled,6.399,,Specified Lysosomal Storage Disorders
+HCC 50,Community_FullDual_Disabled,0.789,,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders"
+HCC 51,Community_FullDual_Disabled,0.654,,"Addisons and Cushings Diseases, Acromegaly, and Other Specified Endocrine Disorders"
+HCC 6,Community_FullDual_Disabled,0.833,,Opportunistic Infections
+HCC 62,Community_FullDual_Disabled,0.409,,Liver Transplant Status/Complications
+HCC 63,Community_FullDual_Disabled,1.209,,Chronic Liver Failure/End-Stage Liver Disorders
+HCC 64,Community_FullDual_Disabled,0.414,,Cirrhosis of Liver
+HCC 65,Community_FullDual_Disabled,0.22,,Chronic Hepatitis
+HCC 68,Community_FullDual_Disabled,0.354,,Cholangitis and Obstruction of Bile Duct Without Gallstones
+HCC 77,Community_FullDual_Disabled,6.161,,Intestine Transplant Status/Complications
+HCC 78,Community_FullDual_Disabled,0.548,,Intestinal Obstruction/Perforation
+HCC 79,Community_FullDual_Disabled,0.799,,Chronic Pancreatitis
+HCC 80,Community_FullDual_Disabled,0.651,,Crohns Disease (Regional Enteritis)
+HCC 81,Community_FullDual_Disabled,0.286,,Ulcerative Colitis
+HCC 92,Community_FullDual_Disabled,0.632,,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis
+HCC 93,Community_FullDual_Disabled,0.384,,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders
+HCC 94,Community_FullDual_Disabled,0.25,,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders
+HCC 238,cfd_hf,0.372,,Specified Heart Arrhythmias
+HCC 1,Community_NonDual_Aged,0.301,0.301,HIV/AIDS
+HCC 107,Community_NonDual_Aged,0.457,0.457,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero
+HCC 108,Community_NonDual_Aged,0.146,0.146,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major"
+HCC 109,Community_NonDual_Aged,1.144,1.144,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias"
+HCC 111,Community_NonDual_Aged,4.639,4.639,"Hemophilia, Male"
+HCC 112,Community_NonDual_Aged,0.45,0.45,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions
+HCC 114,Community_NonDual_Aged,2.262,2.262,Common Variable and Combined Immunodeficiencies
+HCC 115,Community_NonDual_Aged,0.565,0.565,Specified Immunodeficiencies and White Blood Cell Disorders
+HCC 125,Community_NonDual_Aged,0.341,0.341,"Dementia, Severe"
+HCC 126,Community_NonDual_Aged,0.341,0.341,"Dementia, Moderate"
+HCC 127,Community_NonDual_Aged,0.341,0.341,"Dementia, Mild or Unspecified"
+HCC 135,Community_NonDual_Aged,0.424,0.424,Drug Use with Psychotic Complications
+HCC 136,Community_NonDual_Aged,0.424,0.424,Alcohol Use with Psychotic Complications
+HCC 137,Community_NonDual_Aged,0.424,0.424,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications"
+HCC 138,Community_NonDual_Aged,0.423,0.423,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis"
+HCC 139,Community_NonDual_Aged,0.242,0.242,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications"
+HCC 151,Community_NonDual_Aged,0.511,0.511,Schizophrenia
+HCC 152,Community_NonDual_Aged,0.484,0.484,"Psychosis, Except Schizophrenia"
+HCC 153,Community_NonDual_Aged,0.396,0.396,Personality Disorders; Anorexia/Bulimia Nervosa
+HCC 154,Community_NonDual_Aged,0.351,0.351,Bipolar Disorders without Psychosis
+HCC 155,Community_NonDual_Aged,0.299,0.299,"Major Depression, Moderate or Severe, without Psychosis"
+HCC 17,Community_NonDual_Aged,4.209,4.209,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic"
+HCC 18,Community_NonDual_Aged,2.341,2.341,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid"
+HCC 180,Community_NonDual_Aged,1.125,1.125,Quadriplegia
+HCC 181,Community_NonDual_Aged,0.942,0.942,Paraplegia
+HCC 182,Community_NonDual_Aged,0.478,0.478,Spinal Cord Disorders/Injuries
+HCC 19,Community_NonDual_Aged,1.798,1.798,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers"
+HCC 190,Community_NonDual_Aged,1.175,1.175,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy"
+HCC 191,Community_NonDual_Aged,0.855,0.855,Quadriplegic Cerebral Palsy
+HCC 192,Community_NonDual_Aged,0.314,0.314,"Cerebral Palsy, Except Quadriplegic"
+HCC 193,Community_NonDual_Aged,1.692,1.692,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy
+HCC 195,Community_NonDual_Aged,2.909,2.909,Myasthenia Gravis with (Acute) Exacerbation
+HCC 196,Community_NonDual_Aged,0.516,0.516,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders
+HCC 197,Community_NonDual_Aged,0.426,0.426,Muscular Dystrophy
+HCC 198,Community_NonDual_Aged,0.647,0.647,Multiple Sclerosis
+HCC 199,Community_NonDual_Aged,0.615,0.615,Parkinson and Other Degenerative Disease of Basal Ganglia
+HCC 2,Community_NonDual_Aged,0.5,0.5,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock"
+HCC 20,Community_NonDual_Aged,1.136,1.136,Lung and Other Severe Cancers
+HCC 200,Community_NonDual_Aged,0.279,0.279,Friedreich and Other Hereditary Ataxias; Huntington Disease
+HCC 201,Community_NonDual_Aged,0.245,0.245,Seizure Disorders and Convulsions
+HCC 202,Community_NonDual_Aged,0.543,0.543,"Coma, Brain Compression/Anoxic Damage"
+HCC 21,Community_NonDual_Aged,0.671,0.671,Lymphoma and Other Cancers
+HCC 211,Community_NonDual_Aged,0.879,0.879,Respirator Dependence/Tracheostomy Status/Complications
+HCC 212,Community_NonDual_Aged,0.37,0.37,Respiratory Arrest
+HCC 213,Community_NonDual_Aged,0.37,0.37,Cardio-Respiratory Failure and Shock
+HCC 22,Community_NonDual_Aged,0.363,0.363,"Bladder, Colorectal, and Other Cancers"
+HCC 221,Community_NonDual_Aged,1.053,1.053,Heart Transplant Status/Complications
+HCC 222,Community_NonDual_Aged,2.505,2.505,End-Stage Heart Failure
+HCC 223,Community_NonDual_Aged,2.505,2.505,Heart Failure with Heart Assist Device/Artificial Heart
+HCC 224,Community_NonDual_Aged,0.36,0.36,Acute on Chronic Heart Failure
+HCC 225,Community_NonDual_Aged,0.36,0.36,Acute Heart Failure (Excludes Acute on Chronic)
+HCC 226,Community_NonDual_Aged,0.36,0.36,"Heart Failure, Except End-Stage and Acute"
+HCC 227,Community_NonDual_Aged,0.189,0.189,Cardiomyopathy/Myocarditis
+HCC 228,Community_NonDual_Aged,0.252,0.252,Acute Myocardial Infarction
+HCC 229,Community_NonDual_Aged,0.24,0.24,Unstable Angina and Other Acute Ischemic Heart Disease
+HCC 23,Community_NonDual_Aged,0.186,0.186,"Prostate, Breast, and Other Cancers and Tumors"
+HCC 238,Community_NonDual_Aged,0.299,0.299,Specified Heart Arrhythmias
+HCC 248,Community_NonDual_Aged,0.239,0.239,Intracranial Hemorrhage
+HCC 249,Community_NonDual_Aged,0.239,0.239,Ischemic or Unspecified Stroke
+HCC 253,Community_NonDual_Aged,0.387,0.387,Hemiplegia/Hemiparesis
+HCC 254,Community_NonDual_Aged,0.321,0.321,"Monoplegia, Other Paralytic Syndromes"
+HCC 263,Community_NonDual_Aged,1.118,1.118,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene
+HCC 264,Community_NonDual_Aged,0.455,0.455,Vascular Disease with Complications
+HCC 267,Community_NonDual_Aged,0.294,0.294,Deep Vein Thrombosis and Pulmonary Embolism
+HCC 276,Community_NonDual_Aged,2.531,2.531,Lung Transplant Status/Complications
+HCC 277,Community_NonDual_Aged,0.998,0.998,Cystic Fibrosis
+HCC 278,Community_NonDual_Aged,0.818,0.818,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis
+HCC 279,Community_NonDual_Aged,0.818,0.818,Severe Persistent Asthma
+HCC 280,Community_NonDual_Aged,0.319,0.319,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders"
+HCC 282,Community_NonDual_Aged,0.44,0.44,Aspiration and Specified Bacterial Pneumonias
+HCC 283,Community_NonDual_Aged,0.204,0.204,"Empyema, Lung Abscess"
+HCC 298,Community_NonDual_Aged,0.336,0.336,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage"
+HCC 300,Community_NonDual_Aged,0.596,0.596,Exudative Macular Degeneration
+HCC 326,Community_NonDual_Aged,0.815,0.815,"Chronic Kidney Disease, Stage 5"
+HCC 327,Community_NonDual_Aged,0.514,0.514,"Chronic Kidney Disease, Severe (Stage 4)"
+HCC 328,Community_NonDual_Aged,0.127,0.127,"Chronic Kidney Disease, Moderate (Stage 3B)"
+HCC 329,Community_NonDual_Aged,0.127,0.127,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)"
+HCC 35,Community_NonDual_Aged,0.949,0.949,Pancreas Transplant Status
+HCC 36,Community_NonDual_Aged,0.166,0.166,Diabetes with Severe Acute Complications
+HCC 37,Community_NonDual_Aged,0.166,0.166,Diabetes with Chronic Complications
+HCC 379,Community_NonDual_Aged,1.965,1.965,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone"
+HCC 38,Community_NonDual_Aged,0.166,0.166,"Diabetes with Glycemic, Unspecified, or No Complications"
+HCC 380,Community_NonDual_Aged,1.078,1.078,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle"
+HCC 381,Community_NonDual_Aged,1.075,1.075,Pressure Ulcer of Skin with Full Thickness Skin Loss
+HCC 382,Community_NonDual_Aged,0.838,0.838,Pressure Ulcer of Skin with Partial Thickness Skin Loss
+HCC 383,Community_NonDual_Aged,0.646,0.646,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle"
+HCC 385,Community_NonDual_Aged,1.291,1.291,Severe Skin Burn
+HCC 387,Community_NonDual_Aged,0.406,0.406,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders"
+HCC 397,Community_NonDual_Aged,0.199,0.199,Major Head Injury with Loss of Consciousness > 1 Hour
+HCC 398,Community_NonDual_Aged,0.199,0.199,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified
+HCC 399,Community_NonDual_Aged,0.199,0.199,Major Head Injury without Loss of Consciousness
+HCC 401,Community_NonDual_Aged,0.522,0.522,Vertebral Fractures without Spinal Cord Injury
+HCC 402,Community_NonDual_Aged,0.467,0.467,Hip Fracture/Dislocation
+HCC 405,Community_NonDual_Aged,0.598,0.598,Traumatic Amputations and Complications
+HCC 409,Community_NonDual_Aged,0.598,0.598,"Amputation Status, Lower Limb/Amputation Complications"
+HCC 454,Community_NonDual_Aged,1.068,1.068,"Stem Cell, Including Bone Marrow, Transplant Status/Complications"
+HCC 463,Community_NonDual_Aged,0.673,0.673,Artificial Openings for Feeding or Elimination
+HCC 48,Community_NonDual_Aged,0.186,0.186,Morbid Obesity
+HCC 49,Community_NonDual_Aged,9.256,9.256,Specified Lysosomal Storage Disorders
+HCC 50,Community_NonDual_Aged,0.648,0.648,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders"
+HCC 51,Community_NonDual_Aged,0.51,0.51,"Addisons and Cushings Diseases, Acromegaly, and Other Specified Endocrine Disorders"
+HCC 6,Community_NonDual_Aged,0.381,0.381,Opportunistic Infections
+HCC 62,Community_NonDual_Aged,0.376,0.376,Liver Transplant Status/Complications
+HCC 63,Community_NonDual_Aged,0.962,0.962,Chronic Liver Failure/End-Stage Liver Disorders
+HCC 64,Community_NonDual_Aged,0.447,0.447,Cirrhosis of Liver
+HCC 65,Community_NonDual_Aged,0.185,0.185,Chronic Hepatitis
+HCC 68,Community_NonDual_Aged,0.388,0.388,Cholangitis and Obstruction of Bile Duct Without Gallstones
+HCC 77,Community_NonDual_Aged,1.172,1.172,Intestine Transplant Status/Complications
+HCC 78,Community_NonDual_Aged,0.326,0.326,Intestinal Obstruction/Perforation
+HCC 79,Community_NonDual_Aged,0.357,0.357,Chronic Pancreatitis
+HCC 80,Community_NonDual_Aged,0.55,0.55,Crohns Disease (Regional Enteritis)
+HCC 81,Community_NonDual_Aged,0.244,0.244,Ulcerative Colitis
+HCC 92,Community_NonDual_Aged,0.479,0.479,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis
+HCC 93,Community_NonDual_Aged,0.617,0.617,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders
+HCC 94,Community_NonDual_Aged,0.268,0.268,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders
+HCC 238,cna_hf,0.077,,Specified Heart Arrhythmias
+HCC 1,Community_NonDual_Disabled,0.213,,HIV/AIDS
+HCC 107,Community_NonDual_Disabled,1.449,,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero
+HCC 108,Community_NonDual_Disabled,0.386,,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major"
+HCC 109,Community_NonDual_Disabled,1.815,,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias"
+HCC 111,Community_NonDual_Disabled,30.706,,"Hemophilia, Male"
+HCC 112,Community_NonDual_Disabled,0.64,,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions
+HCC 114,Community_NonDual_Disabled,2.598,,Common Variable and Combined Immunodeficiencies
+HCC 115,Community_NonDual_Disabled,0.692,,Specified Immunodeficiencies and White Blood Cell Disorders
+HCC 125,Community_NonDual_Disabled,0.296,,"Dementia, Severe"
+HCC 126,Community_NonDual_Disabled,0.296,,"Dementia, Moderate"
+HCC 127,Community_NonDual_Disabled,0.296,,"Dementia, Mild or Unspecified"
+HCC 135,Community_NonDual_Disabled,0.637,,Drug Use with Psychotic Complications
+HCC 136,Community_NonDual_Disabled,0.637,,Alcohol Use with Psychotic Complications
+HCC 137,Community_NonDual_Disabled,0.365,,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications"
+HCC 138,Community_NonDual_Disabled,0.264,,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis"
+HCC 139,Community_NonDual_Disabled,0.207,,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications"
+HCC 151,Community_NonDual_Disabled,0.38,,Schizophrenia
+HCC 152,Community_NonDual_Disabled,0.29,,"Psychosis, Except Schizophrenia"
+HCC 153,Community_NonDual_Disabled,0.29,,Personality Disorders; Anorexia/Bulimia Nervosa
+HCC 154,Community_NonDual_Disabled,0.166,,Bipolar Disorders without Psychosis
+HCC 155,Community_NonDual_Disabled,0.166,,"Major Depression, Moderate or Severe, without Psychosis"
+HCC 17,Community_NonDual_Disabled,3.995,,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic"
+HCC 18,Community_NonDual_Disabled,2.486,,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid"
+HCC 180,Community_NonDual_Disabled,0.986,,Quadriplegia
+HCC 181,Community_NonDual_Disabled,0.648,,Paraplegia
+HCC 182,Community_NonDual_Disabled,0.368,,Spinal Cord Disorders/Injuries
+HCC 19,Community_NonDual_Disabled,1.989,,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers"
+HCC 190,Community_NonDual_Disabled,1.792,,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy"
+HCC 191,Community_NonDual_Disabled,0.743,,Quadriplegic Cerebral Palsy
+HCC 192,Community_NonDual_Disabled,0.129,,"Cerebral Palsy, Except Quadriplegic"
+HCC 193,Community_NonDual_Disabled,1.427,,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy
+HCC 195,Community_NonDual_Disabled,3.633,,Myasthenia Gravis with (Acute) Exacerbation
+HCC 196,Community_NonDual_Disabled,0.642,,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders
+HCC 197,Community_NonDual_Disabled,0.632,,Muscular Dystrophy
+HCC 198,Community_NonDual_Disabled,0.908,,Multiple Sclerosis
+HCC 199,Community_NonDual_Disabled,0.517,,Parkinson and Other Degenerative Disease of Basal Ganglia
+HCC 2,Community_NonDual_Disabled,0.598,,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock"
+HCC 20,Community_NonDual_Disabled,0.978,,Lung and Other Severe Cancers
+HCC 200,Community_NonDual_Disabled,0.208,,Friedreich and Other Hereditary Ataxias; Huntington Disease
+HCC 201,Community_NonDual_Disabled,0.196,,Seizure Disorders and Convulsions
+HCC 202,Community_NonDual_Disabled,0.238,,"Coma, Brain Compression/Anoxic Damage"
+HCC 21,Community_NonDual_Disabled,0.54,,Lymphoma and Other Cancers
+HCC 211,Community_NonDual_Disabled,0.878,,Respirator Dependence/Tracheostomy Status/Complications
+HCC 212,Community_NonDual_Disabled,0.51,,Respiratory Arrest
+HCC 213,Community_NonDual_Disabled,0.51,,Cardio-Respiratory Failure and Shock
+HCC 22,Community_NonDual_Disabled,0.366,,"Bladder, Colorectal, and Other Cancers"
+HCC 221,Community_NonDual_Disabled,0.999,,Heart Transplant Status/Complications
+HCC 222,Community_NonDual_Disabled,5.77,,End-Stage Heart Failure
+HCC 223,Community_NonDual_Disabled,5.77,,Heart Failure with Heart Assist Device/Artificial Heart
+HCC 224,Community_NonDual_Disabled,0.442,,Acute on Chronic Heart Failure
+HCC 225,Community_NonDual_Disabled,0.442,,Acute Heart Failure (Excludes Acute on Chronic)
+HCC 226,Community_NonDual_Disabled,0.442,,"Heart Failure, Except End-Stage and Acute"
+HCC 227,Community_NonDual_Disabled,0.2,,Cardiomyopathy/Myocarditis
+HCC 228,Community_NonDual_Disabled,0.254,,Acute Myocardial Infarction
+HCC 229,Community_NonDual_Disabled,0.254,,Unstable Angina and Other Acute Ischemic Heart Disease
+HCC 23,Community_NonDual_Disabled,0.233,,"Prostate, Breast, and Other Cancers and Tumors"
+HCC 238,Community_NonDual_Disabled,0.296,,Specified Heart Arrhythmias
+HCC 248,Community_NonDual_Disabled,0.18,,Intracranial Hemorrhage
+HCC 249,Community_NonDual_Disabled,0.18,,Ischemic or Unspecified Stroke
+HCC 253,Community_NonDual_Disabled,0.32,,Hemiplegia/Hemiparesis
+HCC 254,Community_NonDual_Disabled,0.172,,"Monoplegia, Other Paralytic Syndromes"
+HCC 263,Community_NonDual_Disabled,1.066,,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene
+HCC 264,Community_NonDual_Disabled,0.52,,Vascular Disease with Complications
+HCC 267,Community_NonDual_Disabled,0.431,,Deep Vein Thrombosis and Pulmonary Embolism
+HCC 276,Community_NonDual_Disabled,1.583,,Lung Transplant Status/Complications
+HCC 277,Community_NonDual_Disabled,2.818,,Cystic Fibrosis
+HCC 278,Community_NonDual_Disabled,1.209,,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis
+HCC 279,Community_NonDual_Disabled,0.842,,Severe Persistent Asthma
+HCC 280,Community_NonDual_Disabled,0.209,,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders"
+HCC 282,Community_NonDual_Disabled,0.362,,Aspiration and Specified Bacterial Pneumonias
+HCC 283,Community_NonDual_Disabled,0.0,,"Empyema, Lung Abscess"
+HCC 298,Community_NonDual_Disabled,0.364,,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage"
+HCC 300,Community_NonDual_Disabled,0.366,,Exudative Macular Degeneration
+HCC 326,Community_NonDual_Disabled,0.927,,"Chronic Kidney Disease, Stage 5"
+HCC 327,Community_NonDual_Disabled,0.523,,"Chronic Kidney Disease, Severe (Stage 4)"
+HCC 328,Community_NonDual_Disabled,0.179,,"Chronic Kidney Disease, Moderate (Stage 3B)"
+HCC 329,Community_NonDual_Disabled,0.179,,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)"
+HCC 35,Community_NonDual_Disabled,1.393,,Pancreas Transplant Status
+HCC 36,Community_NonDual_Disabled,0.191,,Diabetes with Severe Acute Complications
+HCC 37,Community_NonDual_Disabled,0.191,,Diabetes with Chronic Complications
+HCC 379,Community_NonDual_Disabled,2.14,,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone"
+HCC 38,Community_NonDual_Disabled,0.191,,"Diabetes with Glycemic, Unspecified, or No Complications"
+HCC 380,Community_NonDual_Disabled,1.091,,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle"
+HCC 381,Community_NonDual_Disabled,1.091,,Pressure Ulcer of Skin with Full Thickness Skin Loss
+HCC 382,Community_NonDual_Disabled,0.994,,Pressure Ulcer of Skin with Partial Thickness Skin Loss
+HCC 383,Community_NonDual_Disabled,0.707,,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle"
+HCC 385,Community_NonDual_Disabled,0.234,,Severe Skin Burn
+HCC 387,Community_NonDual_Disabled,0.302,,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders"
+HCC 397,Community_NonDual_Disabled,0.15,,Major Head Injury with Loss of Consciousness > 1 Hour
+HCC 398,Community_NonDual_Disabled,0.15,,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified
+HCC 399,Community_NonDual_Disabled,0.15,,Major Head Injury without Loss of Consciousness
+HCC 401,Community_NonDual_Disabled,0.605,,Vertebral Fractures without Spinal Cord Injury
+HCC 402,Community_NonDual_Disabled,0.561,,Hip Fracture/Dislocation
+HCC 405,Community_NonDual_Disabled,0.577,,Traumatic Amputations and Complications
+HCC 409,Community_NonDual_Disabled,0.562,,"Amputation Status, Lower Limb/Amputation Complications"
+HCC 454,Community_NonDual_Disabled,0.452,,"Stem Cell, Including Bone Marrow, Transplant Status/Complications"
+HCC 463,Community_NonDual_Disabled,0.914,,Artificial Openings for Feeding or Elimination
+HCC 48,Community_NonDual_Disabled,0.144,,Morbid Obesity
+HCC 49,Community_NonDual_Disabled,13.778,,Specified Lysosomal Storage Disorders
+HCC 50,Community_NonDual_Disabled,0.883,,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders"
+HCC 51,Community_NonDual_Disabled,0.606,,"Addisons and Cushings Diseases, Acromegaly, and Other Specified Endocrine Disorders"
+HCC 6,Community_NonDual_Disabled,0.763,,Opportunistic Infections
+HCC 62,Community_NonDual_Disabled,0.184,,Liver Transplant Status/Complications
+HCC 63,Community_NonDual_Disabled,1.032,,Chronic Liver Failure/End-Stage Liver Disorders
+HCC 64,Community_NonDual_Disabled,0.383,,Cirrhosis of Liver
+HCC 65,Community_NonDual_Disabled,0.248,,Chronic Hepatitis
+HCC 68,Community_NonDual_Disabled,0.383,,Cholangitis and Obstruction of Bile Duct Without Gallstones
+HCC 77,Community_NonDual_Disabled,6.301,,Intestine Transplant Status/Complications
+HCC 78,Community_NonDual_Disabled,0.534,,Intestinal Obstruction/Perforation
+HCC 79,Community_NonDual_Disabled,0.574,,Chronic Pancreatitis
+HCC 80,Community_NonDual_Disabled,0.635,,Crohns Disease (Regional Enteritis)
+HCC 81,Community_NonDual_Disabled,0.285,,Ulcerative Colitis
+HCC 92,Community_NonDual_Disabled,0.529,,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis
+HCC 93,Community_NonDual_Disabled,0.47,,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders
+HCC 94,Community_NonDual_Disabled,0.239,,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders
+HCC 238,cnd_hf,0.257,,Specified Heart Arrhythmias
+HCC 1,cpa,0.196,,HIV/AIDS
+HCC 107,cpa,0.303,,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero
+HCC 108,cpa,0.303,,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major"
+HCC 109,cpa,1.009,,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias"
+HCC 111,cpa,11.201,,"Hemophilia, Male"
+HCC 112,cpa,0.574,,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions
+HCC 114,cpa,2.137,,Common Variable and Combined Immunodeficiencies
+HCC 115,cpa,0.302,,Specified Immunodeficiencies and White Blood Cell Disorders
+HCC 125,cpa,0.401,,"Dementia, Severe"
+HCC 126,cpa,0.401,,"Dementia, Moderate"
+HCC 127,cpa,0.401,,"Dementia, Mild or Unspecified"
+HCC 135,cpa,0.522,,Drug Use with Psychotic Complications
+HCC 136,cpa,0.522,,Alcohol Use with Psychotic Complications
+HCC 137,cpa,0.394,,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications"
+HCC 138,cpa,0.355,,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis"
+HCC 139,cpa,0.308,,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications"
+HCC 151,cpa,0.501,,Schizophrenia
+HCC 152,cpa,0.501,,"Psychosis, Except Schizophrenia"
+HCC 153,cpa,0.464,,Personality Disorders; Anorexia/Bulimia Nervosa
+HCC 154,cpa,0.314,,Bipolar Disorders without Psychosis
+HCC 155,cpa,0.269,,"Major Depression, Moderate or Severe, without Psychosis"
+HCC 17,cpa,3.946,,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic"
+HCC 18,cpa,2.166,,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid"
+HCC 180,cpa,1.311,,Quadriplegia
+HCC 181,cpa,0.883,,Paraplegia
+HCC 182,cpa,0.401,,Spinal Cord Disorders/Injuries
+HCC 19,cpa,1.52,,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers"
+HCC 190,cpa,0.64,,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy"
+HCC 191,cpa,0.84,,Quadriplegic Cerebral Palsy
+HCC 192,cpa,0.22,,"Cerebral Palsy, Except Quadriplegic"
+HCC 193,cpa,1.149,,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy
+HCC 195,cpa,2.69,,Myasthenia Gravis with (Acute) Exacerbation
+HCC 196,cpa,0.427,,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders
+HCC 197,cpa,0.162,,Muscular Dystrophy
+HCC 198,cpa,0.569,,Multiple Sclerosis
+HCC 199,cpa,0.474,,Parkinson and Other Degenerative Disease of Basal Ganglia
+HCC 2,cpa,0.447,,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock"
+HCC 20,cpa,1.214,,Lung and Other Severe Cancers
+HCC 200,cpa,0.05,,Friedreich and Other Hereditary Ataxias; Huntington Disease
+HCC 201,cpa,0.245,,Seizure Disorders and Convulsions
+HCC 202,cpa,0.549,,"Coma, Brain Compression/Anoxic Damage"
+HCC 21,cpa,0.627,,Lymphoma and Other Cancers
+HCC 211,cpa,1.022,,Respirator Dependence/Tracheostomy Status/Complications
+HCC 212,cpa,0.409,,Respiratory Arrest
+HCC 213,cpa,0.409,,Cardio-Respiratory Failure and Shock
+HCC 22,cpa,0.41,,"Bladder, Colorectal, and Other Cancers"
+HCC 221,cpa,0.88,,Heart Transplant Status/Complications
+HCC 222,cpa,3.009,,End-Stage Heart Failure
+HCC 223,cpa,3.009,,Heart Failure with Heart Assist Device/Artificial Heart
+HCC 224,cpa,0.311,,Acute on Chronic Heart Failure
+HCC 225,cpa,0.311,,Acute Heart Failure (Excludes Acute on Chronic)
+HCC 226,cpa,0.311,,"Heart Failure, Except End-Stage and Acute"
+HCC 227,cpa,0.145,,Cardiomyopathy/Myocarditis
+HCC 228,cpa,0.324,,Acute Myocardial Infarction
+HCC 229,cpa,0.278,,Unstable Angina and Other Acute Ischemic Heart Disease
+HCC 23,cpa,0.203,,"Prostate, Breast, and Other Cancers and Tumors"
+HCC 238,cpa,0.293,,Specified Heart Arrhythmias
+HCC 248,cpa,0.313,,Intracranial Hemorrhage
+HCC 249,cpa,0.299,,Ischemic or Unspecified Stroke
+HCC 253,cpa,0.437,,Hemiplegia/Hemiparesis
+HCC 254,cpa,0.29,,"Monoplegia, Other Paralytic Syndromes"
+HCC 263,cpa,1.007,,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene
+HCC 264,cpa,0.513,,Vascular Disease with Complications
+HCC 267,cpa,0.338,,Deep Vein Thrombosis and Pulmonary Embolism
+HCC 276,cpa,2.961,,Lung Transplant Status/Complications
+HCC 277,cpa,0.65,,Cystic Fibrosis
+HCC 278,cpa,0.65,,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis
+HCC 279,cpa,0.65,,Severe Persistent Asthma
+HCC 280,cpa,0.321,,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders"
+HCC 282,cpa,0.409,,Aspiration and Specified Bacterial Pneumonias
+HCC 283,cpa,0.0,,"Empyema, Lung Abscess"
+HCC 298,cpa,0.327,,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage"
+HCC 300,cpa,0.459,,Exudative Macular Degeneration
+HCC 326,cpa,0.965,,"Chronic Kidney Disease, Stage 5"
+HCC 327,cpa,0.484,,"Chronic Kidney Disease, Severe (Stage 4)"
+HCC 328,cpa,0.14,,"Chronic Kidney Disease, Moderate (Stage 3B)"
+HCC 329,cpa,0.14,,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)"
+HCC 35,cpa,1.117,,Pancreas Transplant Status
+HCC 36,cpa,0.166,,Diabetes with Severe Acute Complications
+HCC 37,cpa,0.166,,Diabetes with Chronic Complications
+HCC 379,cpa,2.349,,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone"
+HCC 38,cpa,0.166,,"Diabetes with Glycemic, Unspecified, or No Complications"
+HCC 380,cpa,1.268,,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle"
+HCC 381,cpa,1.136,,Pressure Ulcer of Skin with Full Thickness Skin Loss
+HCC 382,cpa,0.845,,Pressure Ulcer of Skin with Partial Thickness Skin Loss
+HCC 383,cpa,0.66,,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle"
+HCC 385,cpa,0.0,,Severe Skin Burn
+HCC 387,cpa,0.477,,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders"
+HCC 397,cpa,0.128,,Major Head Injury with Loss of Consciousness > 1 Hour
+HCC 398,cpa,0.128,,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified
+HCC 399,cpa,0.128,,Major Head Injury without Loss of Consciousness
+HCC 401,cpa,0.538,,Vertebral Fractures without Spinal Cord Injury
+HCC 402,cpa,0.499,,Hip Fracture/Dislocation
+HCC 405,cpa,0.639,,Traumatic Amputations and Complications
+HCC 409,cpa,0.604,,"Amputation Status, Lower Limb/Amputation Complications"
+HCC 454,cpa,1.338,,"Stem Cell, Including Bone Marrow, Transplant Status/Complications"
+HCC 463,cpa,0.526,,Artificial Openings for Feeding or Elimination
+HCC 48,cpa,0.164,,Morbid Obesity
+HCC 49,cpa,3.269,,Specified Lysosomal Storage Disorders
+HCC 50,cpa,0.435,,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders"
+HCC 51,cpa,0.313,,"Addisons and Cushings Diseases, Acromegaly, and Other Specified Endocrine Disorders"
+HCC 6,cpa,0.518,,Opportunistic Infections
+HCC 62,cpa,0.571,,Liver Transplant Status/Complications
+HCC 63,cpa,0.861,,Chronic Liver Failure/End-Stage Liver Disorders
+HCC 64,cpa,0.391,,Cirrhosis of Liver
+HCC 65,cpa,0.156,,Chronic Hepatitis
+HCC 68,cpa,0.391,,Cholangitis and Obstruction of Bile Duct Without Gallstones
+HCC 77,cpa,5.039,,Intestine Transplant Status/Complications
+HCC 78,cpa,0.478,,Intestinal Obstruction/Perforation
+HCC 79,cpa,0.444,,Chronic Pancreatitis
+HCC 80,cpa,0.479,,Crohns Disease (Regional Enteritis)
+HCC 81,cpa,0.205,,Ulcerative Colitis
+HCC 92,cpa,0.471,,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis
+HCC 93,cpa,0.405,,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders
+HCC 94,cpa,0.224,,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders
+HCC 238,cpa_hf,0.135,,Specified Heart Arrhythmias
+HCC 1,cpd,0.109,,HIV/AIDS
+HCC 107,cpd,1.569,,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero
+HCC 108,cpd,0.416,,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major"
+HCC 109,cpd,1.514,,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias"
+HCC 111,cpd,32.199,,"Hemophilia, Male"
+HCC 112,cpd,0.708,,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions
+HCC 114,cpd,2.789,,Common Variable and Combined Immunodeficiencies
+HCC 115,cpd,0.613,,Specified Immunodeficiencies and White Blood Cell Disorders
+HCC 125,cpd,0.345,,"Dementia, Severe"
+HCC 126,cpd,0.345,,"Dementia, Moderate"
+HCC 127,cpd,0.345,,"Dementia, Mild or Unspecified"
+HCC 135,cpd,0.922,,Drug Use with Psychotic Complications
+HCC 136,cpd,0.922,,Alcohol Use with Psychotic Complications
+HCC 137,cpd,0.348,,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications"
+HCC 138,cpd,0.348,,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis"
+HCC 139,cpd,0.159,,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications"
+HCC 151,cpd,0.304,,Schizophrenia
+HCC 152,cpd,0.247,,"Psychosis, Except Schizophrenia"
+HCC 153,cpd,0.232,,Personality Disorders; Anorexia/Bulimia Nervosa
+HCC 154,cpd,0.108,,Bipolar Disorders without Psychosis
+HCC 155,cpd,0.108,,"Major Depression, Moderate or Severe, without Psychosis"
+HCC 17,cpd,4.103,,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic"
+HCC 18,cpd,2.403,,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid"
+HCC 180,cpd,1.399,,Quadriplegia
+HCC 181,cpd,0.852,,Paraplegia
+HCC 182,cpd,0.316,,Spinal Cord Disorders/Injuries
+HCC 19,cpd,1.554,,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers"
+HCC 190,cpd,1.243,,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy"
+HCC 191,cpd,0.104,,Quadriplegic Cerebral Palsy
+HCC 192,cpd,0.104,,"Cerebral Palsy, Except Quadriplegic"
+HCC 193,cpd,0.85,,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy
+HCC 195,cpd,1.779,,Myasthenia Gravis with (Acute) Exacerbation
+HCC 196,cpd,0.248,,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders
+HCC 197,cpd,0.145,,Muscular Dystrophy
+HCC 198,cpd,0.77,,Multiple Sclerosis
+HCC 199,cpd,0.354,,Parkinson and Other Degenerative Disease of Basal Ganglia
+HCC 2,cpd,0.591,,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock"
+HCC 20,cpd,1.067,,Lung and Other Severe Cancers
+HCC 200,cpd,0.428,,Friedreich and Other Hereditary Ataxias; Huntington Disease
+HCC 201,cpd,0.202,,Seizure Disorders and Convulsions
+HCC 202,cpd,0.309,,"Coma, Brain Compression/Anoxic Damage"
+HCC 21,cpd,0.618,,Lymphoma and Other Cancers
+HCC 211,cpd,0.59,,Respirator Dependence/Tracheostomy Status/Complications
+HCC 212,cpd,0.493,,Respiratory Arrest
+HCC 213,cpd,0.493,,Cardio-Respiratory Failure and Shock
+HCC 22,cpd,0.351,,"Bladder, Colorectal, and Other Cancers"
+HCC 221,cpd,1.371,,Heart Transplant Status/Complications
+HCC 222,cpd,6.106,,End-Stage Heart Failure
+HCC 223,cpd,6.106,,Heart Failure with Heart Assist Device/Artificial Heart
+HCC 224,cpd,0.411,,Acute on Chronic Heart Failure
+HCC 225,cpd,0.411,,Acute Heart Failure (Excludes Acute on Chronic)
+HCC 226,cpd,0.411,,"Heart Failure, Except End-Stage and Acute"
+HCC 227,cpd,0.186,,Cardiomyopathy/Myocarditis
+HCC 228,cpd,0.407,,Acute Myocardial Infarction
+HCC 229,cpd,0.315,,Unstable Angina and Other Acute Ischemic Heart Disease
+HCC 23,cpd,0.237,,"Prostate, Breast, and Other Cancers and Tumors"
+HCC 238,cpd,0.261,,Specified Heart Arrhythmias
+HCC 248,cpd,0.183,,Intracranial Hemorrhage
+HCC 249,cpd,0.172,,Ischemic or Unspecified Stroke
+HCC 253,cpd,0.403,,Hemiplegia/Hemiparesis
+HCC 254,cpd,0.335,,"Monoplegia, Other Paralytic Syndromes"
+HCC 263,cpd,1.056,,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene
+HCC 264,cpd,0.622,,Vascular Disease with Complications
+HCC 267,cpd,0.498,,Deep Vein Thrombosis and Pulmonary Embolism
+HCC 276,cpd,1.277,,Lung Transplant Status/Complications
+HCC 277,cpd,3.829,,Cystic Fibrosis
+HCC 278,cpd,0.937,,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis
+HCC 279,cpd,0.804,,Severe Persistent Asthma
+HCC 280,cpd,0.234,,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders"
+HCC 282,cpd,0.173,,Aspiration and Specified Bacterial Pneumonias
+HCC 283,cpd,0.0,,"Empyema, Lung Abscess"
+HCC 298,cpd,0.301,,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage"
+HCC 300,cpd,0.38,,Exudative Macular Degeneration
+HCC 326,cpd,1.05,,"Chronic Kidney Disease, Stage 5"
+HCC 327,cpd,0.447,,"Chronic Kidney Disease, Severe (Stage 4)"
+HCC 328,cpd,0.178,,"Chronic Kidney Disease, Moderate (Stage 3B)"
+HCC 329,cpd,0.178,,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)"
+HCC 35,cpd,2.74,,Pancreas Transplant Status
+HCC 36,cpd,0.21,,Diabetes with Severe Acute Complications
+HCC 37,cpd,0.21,,Diabetes with Chronic Complications
+HCC 379,cpd,2.349,,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone"
+HCC 38,cpd,0.21,,"Diabetes with Glycemic, Unspecified, or No Complications"
+HCC 380,cpd,1.378,,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle"
+HCC 381,cpd,1.089,,Pressure Ulcer of Skin with Full Thickness Skin Loss
+HCC 382,cpd,0.937,,Pressure Ulcer of Skin with Partial Thickness Skin Loss
+HCC 383,cpd,0.654,,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle"
+HCC 385,cpd,0.204,,Severe Skin Burn
+HCC 387,cpd,0.498,,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders"
+HCC 397,cpd,0.052,,Major Head Injury with Loss of Consciousness > 1 Hour
+HCC 398,cpd,0.052,,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified
+HCC 399,cpd,0.052,,Major Head Injury without Loss of Consciousness
+HCC 401,cpd,0.412,,Vertebral Fractures without Spinal Cord Injury
+HCC 402,cpd,0.527,,Hip Fracture/Dislocation
+HCC 405,cpd,0.698,,Traumatic Amputations and Complications
+HCC 409,cpd,0.623,,"Amputation Status, Lower Limb/Amputation Complications"
+HCC 454,cpd,0.416,,"Stem Cell, Including Bone Marrow, Transplant Status/Complications"
+HCC 463,cpd,0.853,,Artificial Openings for Feeding or Elimination
+HCC 48,cpd,0.118,,Morbid Obesity
+HCC 49,cpd,7.771,,Specified Lysosomal Storage Disorders
+HCC 50,cpd,0.529,,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders"
+HCC 51,cpd,0.393,,"Addisons and Cushings Diseases, Acromegaly, and Other Specified Endocrine Disorders"
+HCC 6,cpd,0.685,,Opportunistic Infections
+HCC 62,cpd,0.271,,Liver Transplant Status/Complications
+HCC 63,cpd,1.101,,Chronic Liver Failure/End-Stage Liver Disorders
+HCC 64,cpd,0.27,,Cirrhosis of Liver
+HCC 65,cpd,0.189,,Chronic Hepatitis
+HCC 68,cpd,0.27,,Cholangitis and Obstruction of Bile Duct Without Gallstones
+HCC 77,cpd,5.039,,Intestine Transplant Status/Complications
+HCC 78,cpd,0.688,,Intestinal Obstruction/Perforation
+HCC 79,cpd,0.709,,Chronic Pancreatitis
+HCC 80,cpd,0.603,,Crohns Disease (Regional Enteritis)
+HCC 81,cpd,0.237,,Ulcerative Colitis
+HCC 92,cpd,0.539,,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis
+HCC 93,cpd,0.288,,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders
+HCC 94,cpd,0.196,,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders
+HCC 238,cpd_hf,0.314,,Specified Heart Arrhythmias
+HCC 1,Institutional,1.322,,HIV/AIDS
+HCC 107,Institutional,0.692,,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero
+HCC 108,Institutional,0.098,,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major"
+HCC 109,Institutional,0.529,,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias"
+HCC 111,Institutional,6.31,,"Hemophilia, Male"
+HCC 112,Institutional,0.516,,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions
+HCC 114,Institutional,0.691,,Common Variable and Combined Immunodeficiencies
+HCC 115,Institutional,0.691,,Specified Immunodeficiencies and White Blood Cell Disorders
+HCC 125,Institutional,0.0,,"Dementia, Severe"
+HCC 126,Institutional,0.0,,"Dementia, Moderate"
+HCC 127,Institutional,0.0,,"Dementia, Mild or Unspecified"
+HCC 135,Institutional,0.297,,Drug Use with Psychotic Complications
+HCC 136,Institutional,0.297,,Alcohol Use with Psychotic Complications
+HCC 137,Institutional,0.297,,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications"
+HCC 138,Institutional,0.297,,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis"
+HCC 139,Institutional,0.0,,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications"
+HCC 151,Institutional,0.449,,Schizophrenia
+HCC 152,Institutional,0.208,,"Psychosis, Except Schizophrenia"
+HCC 153,Institutional,0.199,,Personality Disorders; Anorexia/Bulimia Nervosa
+HCC 154,Institutional,0.199,,Bipolar Disorders without Psychosis
+HCC 155,Institutional,0.199,,"Major Depression, Moderate or Severe, without Psychosis"
+HCC 17,Institutional,1.952,,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic"
+HCC 18,Institutional,1.11,,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid"
+HCC 180,Institutional,0.735,,Quadriplegia
+HCC 181,Institutional,0.563,,Paraplegia
+HCC 182,Institutional,0.27,,Spinal Cord Disorders/Injuries
+HCC 19,Institutional,0.957,,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers"
+HCC 190,Institutional,0.628,,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy"
+HCC 191,Institutional,0.0,,Quadriplegic Cerebral Palsy
+HCC 192,Institutional,0.0,,"Cerebral Palsy, Except Quadriplegic"
+HCC 193,Institutional,0.913,,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy
+HCC 195,Institutional,1.837,,Myasthenia Gravis with (Acute) Exacerbation
+HCC 196,Institutional,0.486,,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders
+HCC 197,Institutional,0.292,,Muscular Dystrophy
+HCC 198,Institutional,0.226,,Multiple Sclerosis
+HCC 199,Institutional,0.219,,Parkinson and Other Degenerative Disease of Basal Ganglia
+HCC 2,Institutional,0.605,,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock"
+HCC 20,Institutional,0.672,,Lung and Other Severe Cancers
+HCC 200,Institutional,0.0,,Friedreich and Other Hereditary Ataxias; Huntington Disease
+HCC 201,Institutional,0.131,,Seizure Disorders and Convulsions
+HCC 202,Institutional,0.097,,"Coma, Brain Compression/Anoxic Damage"
+HCC 21,Institutional,0.493,,Lymphoma and Other Cancers
+HCC 211,Institutional,1.57,,Respirator Dependence/Tracheostomy Status/Complications
+HCC 212,Institutional,0.258,,Respiratory Arrest
+HCC 213,Institutional,0.258,,Cardio-Respiratory Failure and Shock
+HCC 22,Institutional,0.314,,"Bladder, Colorectal, and Other Cancers"
+HCC 221,Institutional,0.84,,Heart Transplant Status/Complications
+HCC 222,Institutional,0.826,,End-Stage Heart Failure
+HCC 223,Institutional,0.826,,Heart Failure with Heart Assist Device/Artificial Heart
+HCC 224,Institutional,0.217,,Acute on Chronic Heart Failure
+HCC 225,Institutional,0.217,,Acute Heart Failure (Excludes Acute on Chronic)
+HCC 226,Institutional,0.217,,"Heart Failure, Except End-Stage and Acute"
+HCC 227,Institutional,0.189,,Cardiomyopathy/Myocarditis
+HCC 228,Institutional,0.31,,Acute Myocardial Infarction
+HCC 229,Institutional,0.31,,Unstable Angina and Other Acute Ischemic Heart Disease
+HCC 23,Institutional,0.197,,"Prostate, Breast, and Other Cancers and Tumors"
+HCC 238,Institutional,0.245,,Specified Heart Arrhythmias
+HCC 248,Institutional,0.081,,Intracranial Hemorrhage
+HCC 249,Institutional,0.081,,Ischemic or Unspecified Stroke
+HCC 253,Institutional,0.0,,Hemiplegia/Hemiparesis
+HCC 254,Institutional,0.0,,"Monoplegia, Other Paralytic Syndromes"
+HCC 263,Institutional,0.696,,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene
+HCC 264,Institutional,0.338,,Vascular Disease with Complications
+HCC 267,Institutional,0.245,,Deep Vein Thrombosis and Pulmonary Embolism
+HCC 276,Institutional,3.085,,Lung Transplant Status/Complications
+HCC 277,Institutional,0.873,,Cystic Fibrosis
+HCC 278,Institutional,0.873,,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis
+HCC 279,Institutional,0.873,,Severe Persistent Asthma
+HCC 280,Institutional,0.312,,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders"
+HCC 282,Institutional,0.353,,Aspiration and Specified Bacterial Pneumonias
+HCC 283,Institutional,0.0,,"Empyema, Lung Abscess"
+HCC 298,Institutional,0.545,,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage"
+HCC 300,Institutional,0.196,,Exudative Macular Degeneration
+HCC 326,Institutional,0.958,,"Chronic Kidney Disease, Stage 5"
+HCC 327,Institutional,0.462,,"Chronic Kidney Disease, Severe (Stage 4)"
+HCC 328,Institutional,0.145,,"Chronic Kidney Disease, Moderate (Stage 3B)"
+HCC 329,Institutional,0.145,,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)"
+HCC 35,Institutional,1.106,,Pancreas Transplant Status
+HCC 36,Institutional,0.28,,Diabetes with Severe Acute Complications
+HCC 37,Institutional,0.28,,Diabetes with Chronic Complications
+HCC 379,Institutional,1.42,,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone"
+HCC 38,Institutional,0.28,,"Diabetes with Glycemic, Unspecified, or No Complications"
+HCC 380,Institutional,0.839,,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle"
+HCC 381,Institutional,0.423,,Pressure Ulcer of Skin with Full Thickness Skin Loss
+HCC 382,Institutional,0.343,,Pressure Ulcer of Skin with Partial Thickness Skin Loss
+HCC 383,Institutional,0.343,,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle"
+HCC 385,Institutional,0.0,,Severe Skin Burn
+HCC 387,Institutional,0.125,,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders"
+HCC 397,Institutional,0.085,,Major Head Injury with Loss of Consciousness > 1 Hour
+HCC 398,Institutional,0.085,,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified
+HCC 399,Institutional,0.085,,Major Head Injury without Loss of Consciousness
+HCC 401,Institutional,0.231,,Vertebral Fractures without Spinal Cord Injury
+HCC 402,Institutional,0.089,,Hip Fracture/Dislocation
+HCC 405,Institutional,0.284,,Traumatic Amputations and Complications
+HCC 409,Institutional,0.284,,"Amputation Status, Lower Limb/Amputation Complications"
+HCC 454,Institutional,1.596,,"Stem Cell, Including Bone Marrow, Transplant Status/Complications"
+HCC 463,Institutional,0.634,,Artificial Openings for Feeding or Elimination
+HCC 48,Institutional,0.442,,Morbid Obesity
+HCC 49,Institutional,1.528,,Specified Lysosomal Storage Disorders
+HCC 50,Institutional,0.362,,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders"
+HCC 51,Institutional,0.62,,"Addisons and Cushings Diseases, Acromegaly, and Other Specified Endocrine Disorders"
+HCC 6,Institutional,0.728,,Opportunistic Infections
+HCC 62,Institutional,0.593,,Liver Transplant Status/Complications
+HCC 63,Institutional,0.894,,Chronic Liver Failure/End-Stage Liver Disorders
+HCC 64,Institutional,0.378,,Cirrhosis of Liver
+HCC 65,Institutional,0.378,,Chronic Hepatitis
+HCC 68,Institutional,0.09,,Cholangitis and Obstruction of Bile Duct Without Gallstones
+HCC 77,Institutional,5.089,,Intestine Transplant Status/Complications
+HCC 78,Institutional,0.38,,Intestinal Obstruction/Perforation
+HCC 79,Institutional,0.218,,Chronic Pancreatitis
+HCC 80,Institutional,0.374,,Crohns Disease (Regional Enteritis)
+HCC 81,Institutional,0.258,,Ulcerative Colitis
+HCC 92,Institutional,0.556,,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis
+HCC 93,Institutional,0.297,,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders
+HCC 94,Institutional,0.297,,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders

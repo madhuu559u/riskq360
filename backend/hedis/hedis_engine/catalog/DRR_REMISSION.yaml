@@ -1,0 +1,48 @@
+id: "DRR-REMISSION"
+name: "Depression Remission or Response - Remission"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 12 and older with a diagnosis of
+  depression achieved remission as measured by a follow-up PHQ-9 score
+  of less than 5. A PHQ-9 score below 5 indicates minimal depression
+  symptoms and is considered the threshold for remission. Achieving
+  remission is the goal of depression treatment and is associated with
+  improved functional outcomes and quality of life.
+
+eligibility:
+  age: {min: 12, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DEPRESSION_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "lab_value"
+      lab: "PHQ9"
+      comparator: "lt"
+      threshold: 5
+      window_months: 12
+      use_latest: true
+      description: "Follow-up PHQ-9 score less than 5 (remission)"
+
+valuesets_needed:
+  - VS_DEPRESSION_ICD10
+  - VS_PHQ9_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"
+  - "encounters"

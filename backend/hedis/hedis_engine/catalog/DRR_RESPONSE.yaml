@@ -1,0 +1,48 @@
+id: "DRR-RESPONSE"
+name: "Depression Remission or Response - Response"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 12 and older with a diagnosis of
+  depression demonstrated a treatment response as measured by a follow-up
+  PHQ-9 score. A 50% or greater reduction from the baseline PHQ-9 score
+  indicates treatment response. This measure uses a simplified threshold
+  of PHQ-9 score <= 5 as an approximation of response, since baseline
+  scores may not always be available from chart extraction.
+
+eligibility:
+  age: {min: 12, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DEPRESSION_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "lab_value"
+      lab: "PHQ9"
+      comparator: "le"
+      threshold: 5
+      window_months: 12
+      use_latest: true
+      description: "Follow-up PHQ-9 score showing 50%+ reduction (approximated as score <= 5)"
+
+valuesets_needed:
+  - VS_DEPRESSION_ICD10
+  - VS_PHQ9_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"
+  - "encounters"

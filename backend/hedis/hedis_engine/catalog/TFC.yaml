@@ -1,0 +1,43 @@
+id: "TFC"
+name: "Topical Fluoride for Children"
+version: "2025"
+domain: "preventive_screening"
+description: >
+  Assesses whether children aged 1-4 received at least one topical fluoride
+  varnish application by a dental or medical provider during the measurement
+  year. Topical fluoride varnish is a highly effective preventive treatment
+  that strengthens tooth enamel and reduces the incidence of dental caries
+  in young children. The U.S. Preventive Services Task Force and the
+  American Academy of Pediatrics recommend fluoride varnish application
+  beginning at the eruption of the first tooth. While two applications per
+  year are preferred, this measure evaluates receipt of at least one
+  application during the measurement year.
+
+eligibility:
+  age: {min: 1, max: 4, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_FLUORIDE_VARNISH_CDT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_FLUORIDE_VARNISH_CDT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "dental_claims"
+  - "encounters"

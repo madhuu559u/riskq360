@@ -1,0 +1,41 @@
+id: "PNU"
+name: "Pneumococcal Immunization"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether adults aged 65 and older have ever received a
+  pneumococcal vaccination. Streptococcus pneumoniae is a leading cause
+  of pneumonia, bacteremia, and meningitis in older adults. The Advisory
+  Committee on Immunization Practices (ACIP) recommends pneumococcal
+  vaccination for all adults aged 65 and older. This measure has no
+  time-window restriction; evidence of vaccination at any time satisfies
+  the numerator.
+
+eligibility:
+  age: {min: 65, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "vaccine"
+      vaccine_type: "pneumococcal"
+      window_months: 0  # 0 means any time (no time window restriction)
+
+valuesets_needed:
+  - VS_PNEUMOCOCCAL_VACCINE_CVX
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "immunization_registry"
+  - "encounters"

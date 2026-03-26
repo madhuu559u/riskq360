@@ -1,0 +1,47 @@
+id: "FUM-7"
+name: "Follow-Up After ED Visit for Mental Illness - 7 Day"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 6 and older who had an emergency
+  department visit with a principal diagnosis of mental illness had a
+  follow-up outpatient or telehealth visit with a mental health
+  practitioner within 7 days of the ED visit. Timely follow-up after an
+  ED visit for mental health conditions is essential for ensuring
+  continuity of care, initiating or adjusting treatment, and preventing
+  subsequent ED visits or hospitalizations. This measure uses a
+  simplified 12-month window for encounter matching due to data
+  granularity limitations.
+
+eligibility:
+  age: {min: 6, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_encounter:
+    encounter_types: ["emergency"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "encounter"
+      encounter_types: ["outpatient", "telehealth"]
+      window_months: 12
+      description: "Outpatient follow-up within 7 days of ED visit for mental illness"
+
+valuesets_needed:
+  - VS_MENTAL_HEALTH_ICD10
+  - VS_MENTAL_HEALTH_OUTPATIENT_CPT
+  - VS_ED_ENCOUNTER
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

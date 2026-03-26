@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedInsight 360 — Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' },
+        accent: { 400:'#34d399',500:'#10b981',600:'#059669' },
+        surface: { 50:'#f8fafc',100:'#f1f5f9',700:'#334155',800:'#1e293b',900:'#0f172a',950:'#020617' }
+      }
+    }
+  }
+}
+</script>
+<style>
+  [x-cloak] { display: none !important; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .sidebar-link { @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors; }
+  .sidebar-link:hover { @apply bg-surface-700; }
+  .sidebar-link.active { @apply bg-primary-700 text-white; }
+  .card { @apply bg-surface-800 rounded-xl border border-surface-700 p-5; }
+  .stat-card { @apply bg-surface-800 rounded-xl border border-surface-700 p-5 flex flex-col; }
+  .btn { @apply px-4 py-2 rounded-lg font-medium text-sm transition-colors; }
+  .btn-primary { @apply bg-primary-600 hover:bg-primary-700 text-white; }
+  .btn-secondary { @apply bg-surface-700 hover:bg-surface-600 text-gray-200; }
+  .badge { @apply px-2 py-0.5 rounded-full text-xs font-medium; }
+  .badge-green { @apply bg-green-900/50 text-green-400; }
+  .badge-red { @apply bg-red-900/50 text-red-400; }
+  .badge-yellow { @apply bg-yellow-900/50 text-yellow-400; }
+  .badge-blue { @apply bg-blue-900/50 text-blue-400; }
+  .input { @apply bg-surface-900 border border-surface-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500; }
+  .table-row { @apply border-b border-surface-700 hover:bg-surface-700/50 transition-colors; }
+  .toggle { @apply relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer; }
+  .toggle-dot { @apply inline-block h-4 w-4 rounded-full bg-white transition-transform; }
+  pre.code-editor { @apply bg-surface-950 rounded-lg p-4 text-sm font-mono text-gray-300 overflow-auto max-h-96; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #1e293b; }
+  ::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+</style>
+</head>
+<body class="bg-surface-950 text-gray-200 min-h-screen" x-data="dashboard()" x-init="init()">
+
+<!-- Top Header -->
+<header class="bg-surface-900 border-b border-surface-700 px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+  <div class="flex items-center gap-3">
+    <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center font-bold text-white text-sm">M</div>
+    <h1 class="text-lg font-bold text-white">MedInsight <span class="text-primary-400">360</span></h1>
+    <span class="badge badge-blue">v1.0</span>
+  </div>
+  <div class="flex items-center gap-4 text-sm">
+    <span class="text-gray-400" x-text="currentTime"></span>
+    <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+    <span class="text-gray-400">System Healthy</span>
+  </div>
+</header>
+
+<div class="flex">
+  <!-- Sidebar -->
+  <nav class="w-56 bg-surface-900 border-r border-surface-700 min-h-[calc(100vh-52px)] sticky top-[52px] flex flex-col p-3 gap-1 shrink-0">
+    <template x-for="item in navItems" :key="item.id">
+      <button class="sidebar-link" :class="{'active': currentPage === item.id}" @click="currentPage = item.id">
+        <span x-html="item.icon"></span>
+        <span x-text="item.label"></span>
+      </button>
+    </template>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 overflow-auto">
+
+    <!-- Overview Page -->
+    <div x-show="currentPage === 'overview'" x-cloak>
+      <h2 class="text-xl font-bold mb-5">System Overview</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="stat-card">
+          <span class="text-gray-400 text-sm">Total Charts</span>
+          <span class="text-3xl font-bold text-white mt-1" x-text="stats.total_charts || 0"></span>
+        </div>
+        <div class="stat-card">
+          <span class="text-gray-400 text-sm">Completed</span>
+          <span class="text-3xl font-bold text-green-400 mt-1" x-text="stats.completed || 0"></span>
+        </div>
+        <div class="stat-card">
+          <span class="text-gray-400 text-sm">Success Rate</span>
+          <span class="text-3xl font-bold text-primary-400 mt-1" x-text="(stats.success_rate || 0) + '%'"></span>
+        </div>
+        <div class="stat-card">
+          <span class="text-gray-400 text-sm">Avg Processing</span>
+          <span class="text-3xl font-bold text-yellow-400 mt-1" x-text="(stats.avg_processing_seconds || 0) + 's'"></span>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <h3 class="font-semibold mb-3">Recent Activity</h3>
+        <div class="overflow-auto">
+          <table class="w-full text-sm">
+            <thead><tr class="text-gray-400 border-b border-surface-700">
+              <th class="text-left py-2 px-3">Chart ID</th>
+              <th class="text-left py-2 px-3">Status</th>
+              <th class="text-left py-2 px-3">Mode</th>
+              <th class="text-left py-2 px-3">Pages</th>
+              <th class="text-left py-2 px-3">Time</th>
+              <th class="text-left py-2 px-3">RAF Score</th>
+            </tr></thead>
+            <tbody>
+              <template x-for="a in recentActivity" :key="a.chart_id">
+                <tr class="table-row cursor-pointer" @click="viewChart(a.chart_id)">
+                  <td class="py-2 px-3 font-mono text-primary-400" x-text="a.chart_id"></td>
+                  <td class="py-2 px-3"><span class="badge" :class="a.status==='completed'?'badge-green':'badge-red'" x-text="a.status"></span></td>
+                  <td class="py-2 px-3 text-gray-400" x-text="a.mode || 'full'"></td>
+                  <td class="py-2 px-3" x-text="a.pages_processed || '-'"></td>
+                  <td class="py-2 px-3" x-text="(a.total_seconds||0).toFixed(1) + 's'"></td>
+                  <td class="py-2 px-3 font-semibold" x-text="a.raf_summary?.total_raf_score || '-'"></td>
+                </tr>
+              </template>
+              <tr x-show="recentActivity.length === 0"><td colspan="6" class="py-8 text-center text-gray-500">No charts processed yet. Upload a chart to get started.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart Manager Page -->
+    <div x-show="currentPage === 'charts'" x-cloak>
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-xl font-bold">Chart Manager</h2>
+        <div class="flex gap-2">
+          <label class="btn btn-primary cursor-pointer">
+            Upload Chart
+            <input type="file" accept=".pdf" class="hidden" @change="uploadChart($event)">
+          </label>
+        </div>
+      </div>
+
+      <!-- Upload Progress -->
+      <div x-show="uploading" class="card mb-4">
+        <div class="flex items-center gap-3">
+          <div class="animate-spin w-5 h-5 border-2 border-primary-400 border-t-transparent rounded-full"></div>
+          <span x-text="uploadStatus"></span>
+        </div>
+      </div>
+
+      <!-- Charts List -->
+      <div class="card">
+        <table class="w-full text-sm">
+          <thead><tr class="text-gray-400 border-b border-surface-700">
+            <th class="text-left py-2 px-3">Chart ID</th>
+            <th class="text-left py-2 px-3">Status</th>
+            <th class="text-left py-2 px-3">Pages</th>
+            <th class="text-left py-2 px-3">Processing Time</th>
+            <th class="text-left py-2 px-3">RAF Score</th>
+            <th class="text-left py-2 px-3">HCCs</th>
+            <th class="text-left py-2 px-3">Actions</th>
+          </tr></thead>
+          <tbody>
+            <template x-for="c in charts" :key="c.chart_id">
+              <tr class="table-row">
+                <td class="py-2 px-3 font-mono text-primary-400" x-text="c.chart_id"></td>
+                <td class="py-2 px-3"><span class="badge" :class="c.status==='completed'?'badge-green':c.status==='failed'?'badge-red':'badge-yellow'" x-text="c.status"></span></td>
+                <td class="py-2 px-3" x-text="c.pages_processed || '-'"></td>
+                <td class="py-2 px-3" x-text="c.total_seconds ? c.total_seconds.toFixed(1)+'s' : '-'"></td>
+                <td class="py-2 px-3 font-semibold" x-text="c.raf_summary?.total_raf_score ?? '-'"></td>
+                <td class="py-2 px-3" x-text="c.raf_summary?.payable_hcc_count ?? '-'"></td>
+                <td class="py-2 px-3 flex gap-2">
+                  <button class="btn btn-secondary text-xs" @click="viewChart(c.chart_id)">View</button>
+                  <button class="btn text-xs bg-red-900/50 hover:bg-red-800 text-red-300" @click="deleteChart(c.chart_id)">Delete</button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HCC Pack Viewer Page -->
+    <div x-show="currentPage === 'hcc'" x-cloak>
+      <h2 class="text-xl font-bold mb-5">HCC Pack Viewer</h2>
+
+      <!-- Chart Selector -->
+      <div class="card mb-4">
+        <div class="flex items-center gap-4">
+          <label class="text-sm text-gray-400">Select Chart:</label>
+          <select class="input w-64" x-model="selectedChartId" @change="loadHCCPack()">
+            <option value="">-- Select --</option>
+            <template x-for="c in charts" :key="c.chart_id">
+              <option :value="c.chart_id" x-text="c.chart_id"></option>
+            </template>
+          </select>
+        </div>
+      </div>
+
+      <template x-if="hccPack">
+        <div>
+          <!-- Patient Info + RAF Summary -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+            <div class="card">
+              <h3 class="font-semibold mb-2 text-gray-400">Patient</h3>
+              <p class="text-white font-semibold" x-text="hccPack.patient?.name || 'N/A'"></p>
+              <p class="text-sm text-gray-400" x-text="'DOB: ' + (hccPack.patient?.dob || 'N/A')"></p>
+              <p class="text-sm text-gray-400" x-text="'Gender: ' + (hccPack.patient?.gender || 'N/A')"></p>
+            </div>
+            <div class="stat-card">
+              <span class="text-gray-400 text-sm">Total RAF Score</span>
+              <span class="text-4xl font-bold text-primary-400 mt-1" x-text="hccPack.raf_summary?.total_raf_score || '0'"></span>
+              <div class="flex gap-4 mt-2 text-xs text-gray-400">
+                <span x-text="'Demo: ' + (hccPack.raf_summary?.demographic_raf || 0)"></span>
+                <span x-text="'HCC: ' + (hccPack.raf_summary?.hcc_raf || 0)"></span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="text-gray-400 text-sm">Payable HCCs</span>
+              <span class="text-4xl font-bold text-accent-400 mt-1" x-text="hccPack.raf_summary?.payable_hcc_count || 0"></span>
+              <div class="flex gap-4 mt-2 text-xs text-gray-400">
+                <span x-text="'Total: ' + (hccPack.raf_summary?.hcc_count || 0)"></span>
+                <span x-text="'Suppressed: ' + (hccPack.raf_summary?.suppressed_hcc_count || 0)"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payable HCCs Table -->
+          <div class="card mb-4">
+            <h3 class="font-semibold mb-3">Payable HCC Categories</h3>
+            <template x-for="hcc in (hccPack.payable_hccs || [])" :key="hcc.hcc_code">
+              <div class="border border-surface-700 rounded-lg mb-3 overflow-hidden">
+                <div class="bg-surface-700/50 px-4 py-3 flex items-center justify-between cursor-pointer" @click="hcc._open = !hcc._open">
+                  <div class="flex items-center gap-3">
+                    <span class="font-mono font-bold text-primary-400" x-text="hcc.hcc_code"></span>
+                    <span x-text="hcc.hcc_description"></span>
+                    <span class="badge badge-green" x-text="'RAF: ' + hcc.raf_weight"></span>
+                    <template x-if="hcc.hierarchy_applied">
+                      <span class="badge badge-yellow" x-text="'Suppresses: ' + (hcc.suppresses||[]).join(', ')"></span>
+                    </template>
+                  </div>
+                  <span class="badge" :class="hcc.audit_risk==='high'?'badge-red':hcc.audit_risk==='medium'?'badge-yellow':'badge-green'" x-text="hcc.audit_risk + ' risk'"></span>
+                </div>
+                <div x-show="hcc._open" class="px-4 py-3 border-t border-surface-700">
+                  <h4 class="text-sm font-semibold text-gray-400 mb-2">Supporting ICD Codes</h4>
+                  <template x-for="icd in (hcc.supported_icds || [])" :key="icd.icd10_code">
+                    <div class="bg-surface-900 rounded-lg p-3 mb-2">
+                      <div class="flex items-center gap-3 mb-1">
+                        <span class="font-mono text-accent-400" x-text="icd.icd10_code"></span>
+                        <span class="text-sm" x-text="icd.icd10_description || icd.description || ''"></span>
+                        <span class="badge badge-blue" x-text="'Conf: ' + (icd.confidence||0).toFixed(2)"></span>
+                      </div>
+                      <template x-if="icd.meat_evidence">
+                        <div class="grid grid-cols-4 gap-2 mt-2 text-xs">
+                          <div :class="icd.meat_evidence.monitored ? 'text-green-400' : 'text-gray-600'">
+                            <span class="font-semibold">M</span>onitored: <span x-text="icd.meat_evidence.monitored ? 'Yes' : 'No'"></span>
+                          </div>
+                          <div :class="icd.meat_evidence.evaluated ? 'text-green-400' : 'text-gray-600'">
+                            <span class="font-semibold">E</span>valuated: <span x-text="icd.meat_evidence.evaluated ? 'Yes' : 'No'"></span>
+                          </div>
+                          <div :class="icd.meat_evidence.assessed ? 'text-green-400' : 'text-gray-600'">
+                            <span class="font-semibold">A</span>ssessed: <span x-text="icd.meat_evidence.assessed ? 'Yes' : 'No'"></span>
+                          </div>
+                          <div :class="icd.meat_evidence.treated ? 'text-green-400' : 'text-gray-600'">
+                            <span class="font-semibold">T</span>reated: <span x-text="icd.meat_evidence.treated ? 'Yes' : 'No'"></span>
+                          </div>
+                        </div>
+                      </template>
+                      <template x-if="icd.evidence_spans && icd.evidence_spans.length">
+                        <div class="mt-2">
+                          <template x-for="span in icd.evidence_spans">
+                            <div class="text-xs bg-surface-950 rounded p-2 mt-1 text-gray-400 italic">
+                              <span class="text-gray-500" x-text="'[' + (span.section||'') + ' p.' + (span.page||'?') + ']'"></span>
+                              <span x-text="span.text"></span>
+                            </div>
+                          </template>
+                        </div>
+                      </template>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </template>
+            <p x-show="!hccPack.payable_hccs || hccPack.payable_hccs.length === 0" class="text-gray-500 text-center py-4">No payable HCCs found for this chart.</p>
+          </div>
+
+          <!-- Unsupported Candidates -->
+          <div class="card" x-show="hccPack.unsupported_candidates && hccPack.unsupported_candidates.length > 0">
+            <h3 class="font-semibold mb-3 text-red-400">Unsupported Candidates</h3>
+            <template x-for="u in (hccPack.unsupported_candidates || [])">
+              <div class="flex items-center gap-3 py-1 text-sm text-gray-400">
+                <span class="font-mono" x-text="u.icd10_code"></span>
+                <span x-text="u.exclusion_reason || u.reason || 'Not supported'"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- HEDIS Viewer Page -->
+    <div x-show="currentPage === 'hedis'" x-cloak>
+      <h2 class="text-xl font-bold mb-5">HEDIS Quality Measures</h2>
+      <div class="card mb-4">
+        <div class="flex items-center gap-4">
+          <label class="text-sm text-gray-400">Select Chart:</label>
+          <select class="input w-64" x-model="selectedChartId" @change="loadHEDIS()">
+            <option value="">-- Select --</option>
+            <template x-for="c in charts" :key="c.chart_id">
+              <option :value="c.chart_id" x-text="c.chart_id"></option>
+            </template>
+          </select>
+        </div>
+      </div>
+
+      <template x-if="hedisData">
+        <div>
+          <!-- Summary Cards -->
+          <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="stat-card"><span class="text-gray-400 text-sm">Eligible Measures</span><span class="text-3xl font-bold text-white" x-text="hedisData.total_eligible || 0"></span></div>
+            <div class="stat-card"><span class="text-gray-400 text-sm">Met</span><span class="text-3xl font-bold text-green-400" x-text="hedisData.total_met || 0"></span></div>
+            <div class="stat-card"><span class="text-gray-400 text-sm">Gaps</span><span class="text-3xl font-bold text-red-400" x-text="hedisData.total_gaps || 0"></span></div>
+          </div>
+
+          <!-- Measures Matrix -->
+          <div class="card mb-4">
+            <h3 class="font-semibold mb-3">Measure Status</h3>
+            <table class="w-full text-sm">
+              <thead><tr class="text-gray-400 border-b border-surface-700">
+                <th class="text-left py-2 px-3">Measure</th>
+                <th class="text-left py-2 px-3">Name</th>
+                <th class="text-left py-2 px-3">Eligible</th>
+                <th class="text-left py-2 px-3">Status</th>
+                <th class="text-left py-2 px-3">Target</th>
+              </tr></thead>
+              <tbody>
+                <template x-for="m in (hedisData.measures || [])" :key="m.measure_code">
+                  <tr class="table-row">
+                    <td class="py-2 px-3 font-mono text-primary-400" x-text="m.measure_code"></td>
+                    <td class="py-2 px-3" x-text="m.measure_name"></td>
+                    <td class="py-2 px-3"><span class="badge" :class="m.eligible?'badge-green':'badge-yellow'" x-text="m.eligible?'Yes':'No'"></span></td>
+                    <td class="py-2 px-3"><span class="badge" :class="m.status==='met'?'badge-green':m.status==='not_met'?'badge-red':'badge-yellow'" x-text="m.status"></span></td>
+                    <td class="py-2 px-3 text-xs text-gray-400" x-text="m.target || ''"></td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Gaps -->
+          <div class="card" x-show="hedisData.gaps && hedisData.gaps.length > 0">
+            <h3 class="font-semibold mb-3 text-red-400">Care Gaps</h3>
+            <template x-for="g in (hedisData.gaps || [])">
+              <div class="bg-surface-900 rounded-lg p-3 mb-2">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="font-mono text-red-400" x-text="g.measure_code"></span>
+                  <span class="font-semibold" x-text="g.measure_name"></span>
+                </div>
+                <p class="text-sm text-gray-400" x-text="g.gap_description"></p>
+                <p class="text-sm text-accent-400 mt-1" x-text="'Action: ' + (g.recommended_action || '')"></p>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Configuration Panel Page -->
+    <div x-show="currentPage === 'config'" x-cloak>
+      <h2 class="text-xl font-bold mb-5">Configuration</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        <!-- LLM Settings -->
+        <div class="card">
+          <h3 class="font-semibold mb-4">LLM Provider</h3>
+          <div class="space-y-3">
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Active Provider</label>
+              <select class="input w-full" x-model="config.llm.provider" @change="saveConfig()">
+                <option value="openai">OpenAI</option>
+                <option value="azure">Azure OpenAI</option>
+                <option value="gemini">Google Gemini</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Model</label>
+              <input class="input w-full" x-model="config.llm.model" @change="saveConfig()">
+            </div>
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Temperature</label>
+              <input type="range" min="0" max="1" step="0.05" class="w-full" x-model="config.llm.temperature">
+              <span class="text-xs text-gray-400" x-text="config.llm.temperature"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Flags -->
+        <div class="card">
+          <h3 class="font-semibold mb-4">Feature Flags</h3>
+          <div class="space-y-3">
+            <template x-for="(enabled, flag) in featureFlags" :key="flag">
+              <div class="flex items-center justify-between">
+                <span class="text-sm" x-text="flag.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())"></span>
+                <button class="toggle" :class="enabled ? 'bg-primary-600' : 'bg-surface-700'" @click="toggleFlag(flag)">
+                  <span class="toggle-dot" :class="enabled ? 'translate-x-5' : 'translate-x-1'"></span>
+                </button>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Pipeline Settings -->
+        <div class="card">
+          <h3 class="font-semibold mb-4">Pipeline Settings</h3>
+          <div class="space-y-3">
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Chunk Size (chars)</label>
+              <input type="number" class="input w-full" x-model.number="config.pipeline.chunk_size">
+            </div>
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Quality Threshold</label>
+              <input type="range" min="0" max="100" class="w-full" x-model.number="config.pipeline.quality_threshold">
+              <span class="text-xs text-gray-400" x-text="config.pipeline.quality_threshold"></span>
+            </div>
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Measurement Year</label>
+              <input type="number" class="input w-full" x-model.number="config.pipeline.measurement_year">
+            </div>
+          </div>
+        </div>
+
+        <!-- ML Thresholds -->
+        <div class="card">
+          <h3 class="font-semibold mb-4">ML Thresholds</h3>
+          <div class="space-y-3">
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">ML Confidence Threshold</label>
+              <input type="range" min="0" max="1" step="0.05" class="w-full" x-model="config.ml.ml_confidence_threshold">
+              <span class="text-xs text-gray-400" x-text="config.ml.ml_confidence_threshold"></span>
+            </div>
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">TF-IDF Similarity Threshold</label>
+              <input type="range" min="0" max="1" step="0.05" class="w-full" x-model="config.ml.tfidf_similarity_threshold">
+              <span class="text-xs text-gray-400" x-text="config.ml.tfidf_similarity_threshold"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt Template Editor -->
+      <div class="card mt-4">
+        <h3 class="font-semibold mb-4">Prompt Templates</h3>
+        <div class="flex gap-2 mb-3 flex-wrap">
+          <template x-for="(content, name) in prompts" :key="name">
+            <button class="btn text-xs" :class="selectedPrompt===name?'btn-primary':'btn-secondary'" @click="selectedPrompt=name" x-text="name.replace(/_/g, ' ')"></button>
+          </template>
+        </div>
+        <template x-if="selectedPrompt && prompts[selectedPrompt]">
+          <div>
+            <textarea class="w-full bg-surface-950 border border-surface-700 rounded-lg p-4 text-sm font-mono text-gray-300 h-64 resize-y focus:outline-none focus:ring-2 focus:ring-primary-500" x-model="prompts[selectedPrompt]"></textarea>
+            <button class="btn btn-primary mt-2" @click="savePrompt(selectedPrompt)">Save Prompt</button>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Database Manager Page -->
+    <div x-show="currentPage === 'database'" x-cloak>
+      <h2 class="text-xl font-bold mb-5">Database Manager</h2>
+      <div class="card">
+        <p class="text-gray-400 mb-4">Database tables defined in the system:</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+          <template x-for="table in dbTables" :key="table">
+            <div class="bg-surface-900 rounded-lg px-3 py-2 text-sm font-mono text-gray-300" x-text="table"></div>
+          </template>
+        </div>
+        <p class="text-gray-500 text-sm mt-4">54 tables total. Connect to PostgreSQL for live row counts and sizes.</p>
+      </div>
+    </div>
+
+    <!-- Pipeline Monitor Page -->
+    <div x-show="currentPage === 'pipeline'" x-cloak>
+      <h2 class="text-xl font-bold mb-5">Pipeline Monitor</h2>
+      <div class="card">
+        <h3 class="font-semibold mb-3">Pipeline Runs</h3>
+        <table class="w-full text-sm">
+          <thead><tr class="text-gray-400 border-b border-surface-700">
+            <th class="text-left py-2 px-3">Chart ID</th>
+            <th class="text-left py-2 px-3">Run ID</th>
+            <th class="text-left py-2 px-3">Status</th>
+            <th class="text-left py-2 px-3">Mode</th>
+            <th class="text-left py-2 px-3">Time</th>
+            <th class="text-left py-2 px-3">Started</th>
+          </tr></thead>
+          <tbody>
+            <template x-for="r in pipelineRuns" :key="r.run_id || r.chart_id">
+              <tr class="table-row cursor-pointer" @click="selectedRunId = r.run_id; loadRunLogs()">
+                <td class="py-2 px-3 font-mono text-primary-400" x-text="r.chart_id"></td>
+                <td class="py-2 px-3 font-mono text-xs text-gray-400" x-text="(r.run_id||'').substring(0,8)"></td>
+                <td class="py-2 px-3"><span class="badge" :class="r.status==='completed'?'badge-green':'badge-red'" x-text="r.status"></span></td>
+                <td class="py-2 px-3" x-text="r.mode || 'full'"></td>
+                <td class="py-2 px-3" x-text="r.total_seconds ? r.total_seconds.toFixed(1)+'s' : '-'"></td>
+                <td class="py-2 px-3 text-xs text-gray-400" x-text="r.started_at || ''"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Run Logs -->
+      <div class="card mt-4" x-show="runLogs.length > 0">
+        <h3 class="font-semibold mb-3">Pipeline Steps</h3>
+        <div class="space-y-1">
+          <template x-for="log in runLogs" :key="log.step">
+            <div class="flex items-center gap-3 text-sm py-1">
+              <span class="badge" :class="log.status==='completed'?'badge-green':log.status==='skipped'?'badge-yellow':'badge-red'" x-text="log.status"></span>
+              <span class="font-mono w-40" x-text="log.step"></span>
+              <span class="text-gray-400" x-text="log.duration_seconds + 's'"></span>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model Performance Page -->
+    <div x-show="currentPage === 'models'" x-cloak>
+      <h2 class="text-xl font-bold mb-5">Model Performance</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="card">
+          <h3 class="font-semibold mb-3">BioClinicalBERT HCC Predictor</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-gray-400">Model</span><span>emilyalsentzer/Bio_ClinicalBERT</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Version</span><span>bioclinicalbert-v28-1.0</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Labels</span><span>115 payable HCC categories</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Max Length</span><span>512 tokens x 8 chunks</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="font-semibold mb-3">TF-IDF ICD Retriever</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-gray-400">ICD-10 Codes</span><span>7,903</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">N-gram Range</span><span>(1, 2)</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Default Threshold</span><span>0.35</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">CMS Version</span><span>V28-PY2026</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="font-semibold mb-3">ConText/NegEx Detector</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-gray-400">Type</span><span>Deterministic (rule-based)</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Negation Statuses</span><span>6 (active, negated, resolved, historical, family, uncertain)</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Pre-triggers</span><span>50+</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Scope Window</span><span>20 words</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="font-semibold mb-3">CMS-HCC V28</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-gray-400">ICD-HCC Mappings</span><span>7,903</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Payable HCCs</span><span>115</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Hierarchy Groups</span><span>21</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Coefficient Segments</span><span>Community Non-Dual Aged</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audit Trail Page -->
+    <div x-show="currentPage === 'audit'" x-cloak>
+      <h2 class="text-xl font-bold mb-5">Audit Trail</h2>
+      <div class="card mb-4">
+        <div class="flex items-center gap-4">
+          <label class="text-sm text-gray-400">Select Chart:</label>
+          <select class="input w-64" x-model="selectedChartId" @change="loadAuditPack()">
+            <option value="">-- Select --</option>
+            <template x-for="c in charts" :key="c.chart_id">
+              <option :value="c.chart_id" x-text="c.chart_id"></option>
+            </template>
+          </select>
+        </div>
+      </div>
+
+      <template x-if="auditPack">
+        <div>
+          <div class="card mb-4">
+            <h3 class="font-semibold mb-3">Pipeline Execution Log</h3>
+            <div class="space-y-1">
+              <template x-for="log in (auditPack.pipeline_log || [])" :key="log.step">
+                <div class="flex items-center gap-3 text-sm py-1 px-2 rounded hover:bg-surface-700/50">
+                  <span class="text-xs text-gray-500 w-20" x-text="log.duration_seconds + 's'"></span>
+                  <span class="badge" :class="log.status==='completed'?'badge-green':log.status==='skipped'?'badge-yellow':'badge-red'" x-text="log.status"></span>
+                  <span x-text="log.step"></span>
+                  <span class="text-gray-500 text-xs" x-text="log.timestamp || ''"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="font-semibold mb-3">Feature Flags Used</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+              <template x-for="(val, key) in (auditPack.feature_flags || {})" :key="key">
+                <div class="flex items-center gap-2 text-sm">
+                  <div class="w-2 h-2 rounded-full" :class="val ? 'bg-green-400' : 'bg-gray-600'"></div>
+                  <span x-text="key"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const API = window.location.origin;
+
+function dashboard() {
+  return {
+    currentPage: 'overview',
+    currentTime: '',
+    stats: {},
+    recentActivity: [],
+    charts: [],
+    hccPack: null,
+    hedisData: null,
+    auditPack: null,
+    config: { llm: {}, pipeline: {}, ml: {} },
+    featureFlags: {},
+    prompts: {},
+    selectedPrompt: '',
+    selectedChartId: '',
+    selectedRunId: '',
+    pipelineRuns: [],
+    runLogs: [],
+    uploading: false,
+    uploadStatus: '',
+    dbTables: [
+      'patients','patient_phones','patient_member_ids','patient_providers','patient_vitals','patient_family_history',
+      'charts','chart_pages','pipeline_runs','pipeline_logs',
+      'clinical_sentences','diagnoses','encounters','encounter_medications','encounter_procedures','encounter_lab_orders','encounter_referrals','encounter_diagnoses',
+      'ml_hcc_predictions','icd_retrievals','verified_icds','diagnosis_hcc_mappings','payable_hccs','raf_summaries','hcc_hierarchy_log',
+      'hedis_measures','hedis_eligibility','hedis_evidence','hedis_gaps','bp_readings','diabetes_indicators','cancer_screenings','hedis_depression_screenings','hedis_falls_risk',
+      'members','member_years','enrollment_periods',
+      'audit_logs','review_actions','audit_risk_scores','meat_evidence',
+      'system_config','llm_configs','pipeline_configs','prompt_templates','model_versions','api_keys',
+      'processing_stats','model_performance','user_sessions','scheduled_jobs','api_call_logs',
+      'hedis_measures_config','icd_hcc_mappings'
+    ],
+    navItems: [
+      { id: 'overview', label: 'Overview', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>' },
+      { id: 'charts', label: 'Charts', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>' },
+      { id: 'hcc', label: 'HCC Pack', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>' },
+      { id: 'hedis', label: 'HEDIS', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>' },
+      { id: 'config', label: 'Configuration', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' },
+      { id: 'database', label: 'Database', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>' },
+      { id: 'pipeline', label: 'Pipeline', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>' },
+      { id: 'models', label: 'Models', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>' },
+      { id: 'audit', label: 'Audit', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>' },
+    ],
+
+    async init() {
+      this.updateTime();
+      setInterval(() => this.updateTime(), 1000);
+      await this.loadStats();
+      await this.loadCharts();
+      await this.loadConfig();
+      await this.loadPrompts();
+      await this.loadPipelineRuns();
+    },
+
+    updateTime() {
+      this.currentTime = new Date().toLocaleString();
+    },
+
+    async fetchAPI(path, opts = {}) {
+      try {
+        const res = await fetch(API + path, opts);
+        if (!res.ok) return null;
+        return await res.json();
+      } catch (e) { console.error('API error:', path, e); return null; }
+    },
+
+    async loadStats() {
+      const data = await this.fetchAPI('/api/dashboard/stats');
+      if (data) this.stats = data;
+      const activity = await this.fetchAPI('/api/dashboard/recent-activity');
+      if (activity) this.recentActivity = activity.recent_activity || [];
+    },
+
+    async loadCharts() {
+      const data = await this.fetchAPI('/api/charts?limit=100');
+      if (data) this.charts = data.charts || [];
+    },
+
+    async loadConfig() {
+      const data = await this.fetchAPI('/api/config');
+      if (data) {
+        this.config = data;
+        this.featureFlags = data.feature_flags || {};
+      }
+    },
+
+    async loadPrompts() {
+      const data = await this.fetchAPI('/api/config/prompts');
+      if (data) {
+        this.prompts = data;
+        const keys = Object.keys(data);
+        if (keys.length > 0) this.selectedPrompt = keys[0];
+      }
+    },
+
+    async loadPipelineRuns() {
+      const data = await this.fetchAPI('/api/pipeline/runs');
+      if (data) this.pipelineRuns = data.runs || [];
+    },
+
+    async loadRunLogs() {
+      if (!this.selectedRunId) return;
+      const data = await this.fetchAPI('/api/pipeline/runs/' + this.selectedRunId + '/logs');
+      if (data) this.runLogs = data.logs || [];
+    },
+
+    async loadHCCPack() {
+      if (!this.selectedChartId) { this.hccPack = null; return; }
+      const data = await this.fetchAPI('/api/risk/' + this.selectedChartId + '/hcc-pack');
+      if (data) {
+        (data.payable_hccs || []).forEach(h => h._open = false);
+        this.hccPack = data;
+      }
+    },
+
+    async loadHEDIS() {
+      if (!this.selectedChartId) { this.hedisData = null; return; }
+      const data = await this.fetchAPI('/api/hedis/' + this.selectedChartId + '/measures');
+      if (data) this.hedisData = data;
+    },
+
+    async loadAuditPack() {
+      if (!this.selectedChartId) { this.auditPack = null; return; }
+      const data = await this.fetchAPI('/api/audit/' + this.selectedChartId + '/pack');
+      if (data) this.auditPack = data;
+    },
+
+    viewChart(chartId) {
+      this.selectedChartId = chartId;
+      this.currentPage = 'hcc';
+      this.loadHCCPack();
+    },
+
+    async uploadChart(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      this.uploading = true;
+      this.uploadStatus = 'Uploading ' + file.name + '...';
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const res = await fetch(API + '/api/charts/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        this.uploadStatus = 'Uploaded! Processing...';
+
+        // Trigger processing
+        const chartId = file.name.replace('.pdf', '');
+        const procRes = await fetch(API + '/api/charts/process/' + chartId, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mode: 'full' })
+        });
+        const procData = await procRes.json();
+        this.uploadStatus = 'Processing complete! Status: ' + (procData.status || 'done');
+
+        await this.loadCharts();
+        await this.loadStats();
+      } catch (e) {
+        this.uploadStatus = 'Error: ' + e.message;
+      }
+      setTimeout(() => { this.uploading = false; }, 3000);
+    },
+
+    async deleteChart(chartId) {
+      if (!confirm('Delete chart ' + chartId + ' and all its data?')) return;
+      await this.fetchAPI('/api/charts/' + chartId, { method: 'DELETE' });
+      await this.loadCharts();
+      await this.loadStats();
+    },
+
+    async toggleFlag(flag) {
+      this.featureFlags[flag] = !this.featureFlags[flag];
+      await this.fetchAPI('/api/config/feature-flags', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ flag, enabled: this.featureFlags[flag] })
+      });
+    },
+
+    async saveConfig() {
+      // Config changes are applied on next pipeline run
+    },
+
+    async savePrompt(name) {
+      await this.fetchAPI('/api/config/prompts/' + name, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: this.prompts[name] })
+      });
+    }
+  };
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+    "id": "VS_KIDNEY_TRANSPLANT_ICD10",
+    "name": "Kidney Transplant Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for kidney transplant status and complications. Used as an exclusion in certain HEDIS measures (e.g., kidney health evaluation, nephropathy screening) for members who have received a kidney transplant.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "Z94.0", "description": "Kidney transplant status"},
+        {"code": "T86.10", "description": "Unspecified complication of kidney transplant"},
+        {"code": "T86.11", "description": "Kidney transplant rejection"},
+        {"code": "T86.12", "description": "Kidney transplant failure"},
+        {"code": "T86.13", "description": "Kidney transplant infection"},
+        {"code": "T86.19", "description": "Other complication of kidney transplant"}
+    ]
+}

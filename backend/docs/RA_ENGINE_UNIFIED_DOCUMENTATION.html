@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedInsight RA Engine — Unified Technical Documentation</title>
+<style>
+  :root {
+    --primary: #1a365d;
+    --primary-light: #2b6cb0;
+    --accent: #38a169;
+    --accent-light: #68d391;
+    --warning: #dd6b20;
+    --danger: #e53e3e;
+    --bg: #f7fafc;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --text: #2d3748;
+    --text-light: #718096;
+    --code-bg: #1a202c;
+    --code-text: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .header .subtitle { font-size: 1.2rem; opacity: 0.9; }
+  .header .version { font-size: 0.9rem; opacity: 0.7; margin-top: 0.5rem; }
+  .nav {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .nav a {
+    text-decoration: none;
+    color: var(--primary-light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .nav a:hover { background: #ebf4ff; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+  .section { margin-bottom: 3rem; }
+  .section h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    border-bottom: 3px solid var(--primary-light);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .section h3 {
+    color: var(--primary-light);
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .section h4 {
+    color: var(--text);
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .card.highlight { border-left: 4px solid var(--accent); }
+  .card.warning { border-left: 4px solid var(--warning); }
+  .card.danger { border-left: 4px solid var(--danger); }
+  .card.info { border-left: 4px solid var(--primary-light); }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .stat-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .stat-card .label { font-size: 0.85rem; color: var(--text-light); margin-top: 0.3rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: #f1f5f9;
+    font-weight: 600;
+    color: var(--primary);
+  }
+  tr:hover { background: #f8fafc; }
+  code {
+    background: #edf2f7;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.85em;
+    color: var(--primary);
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.2rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 1rem 0;
+  }
+  .badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .badge-green { background: #c6f6d5; color: #276749; }
+  .badge-blue { background: #bee3f8; color: #2a4365; }
+  .badge-orange { background: #feebc8; color: #7b341e; }
+  .badge-red { background: #fed7d7; color: #9b2c2c; }
+  .flow-diagram {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1rem 0;
+    text-align: center;
+    font-family: monospace;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.4;
+    font-size: 0.8rem;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 768px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .header h1 { font-size: 1.8rem; }
+    .container { padding: 1rem; }
+  }
+  .toc { columns: 2; column-gap: 2rem; }
+  .toc li { margin-bottom: 0.3rem; font-size: 0.9rem; }
+  .json-sample { max-height: 500px; overflow-y: auto; }
+  .metric-good { color: var(--accent); font-weight: 700; }
+  .metric-warn { color: var(--warning); font-weight: 700; }
+  .metric-bad { color: var(--danger); font-weight: 700; }
+  .pipeline-step {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    margin: 0.3rem 0;
+    border-radius: 6px;
+    background: #f1f5f9;
+    gap: 0.8rem;
+  }
+  .pipeline-step .step-num {
+    background: var(--primary);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .pipeline-step .step-content { flex: 1; }
+  .pipeline-step .step-title { font-weight: 600; }
+  .pipeline-step .step-desc { font-size: 0.85rem; color: var(--text-light); }
+  .arrow { text-align: center; font-size: 1.5rem; color: var(--primary-light); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- HEADER                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="header">
+  <h1>MedInsight RA Engine</h1>
+  <div class="subtitle">CMS-HCC V28 PY2026 Risk Adjustment &amp; HEDIS Quality Engine</div>
+  <div class="version">Unified Technical Documentation &mdash; v2.1 &mdash; March 2026</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- NAVIGATION                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="nav">
+  <div class="nav-inner">
+    <a href="#overview">Overview</a>
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#data">Data</a>
+    <a href="#model">Model</a>
+    <a href="#training">Training</a>
+    <a href="#metrics">Metrics</a>
+    <a href="#inference">Inference</a>
+    <a href="#output">Output Schema</a>
+    <a href="#hcc">HCC Details</a>
+    <a href="#hedis">HEDIS</a>
+    <a href="#eval">Evaluation</a>
+    <a href="#deployment">Deployment</a>
+    <a href="#api">API</a>
+    <a href="#cli">CLI</a>
+    <a href="#files">File Inventory</a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 1. EXECUTIVE OVERVIEW                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="overview">
+  <h2>1. Executive Overview</h2>
+
+  <div class="card highlight">
+    <p><strong>MedInsight RA Engine</strong> is a production-grade clinical NLP system that analyzes free-text clinical notes to:</p>
+    <ul style="margin: 0.8rem 0 0 1.5rem;">
+      <li><strong>Extract ICD-10-CM codes</strong> with evidence spans, MEAT documentation, and confidence scores</li>
+      <li><strong>Predict HCC categories</strong> using a fine-tuned Bio_ClinicalBERT model (115 V28 payable HCCs)</li>
+      <li><strong>Apply CMS V28 hierarchy suppression</strong> to determine payable HCCs</li>
+      <li><strong>Calculate RAF scores</strong> using official CMS coefficients</li>
+      <li><strong>Detect HEDIS quality gaps</strong> across 6 clinical quality measures</li>
+      <li><strong>Generate audit-ready evidence packs</strong> with full traceability</li>
+    </ul>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="value">115</div>
+      <div class="label">Payable HCC Categories (V28)</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">8,183</div>
+      <div class="label">ICD-10 to HCC Mappings</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">7,903</div>
+      <div class="label">ICD-10 Codes in Catalog</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">182K</div>
+      <div class="label">Training Examples</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">0.5717</div>
+      <div class="label">Best F1 Micro (Val)</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">6</div>
+      <div class="label">HEDIS Measures</div>
+    </div>
+  </div>
+
+  <h3>Key Design Decisions</h3>
+  <table>
+    <tr><th>Decision</th><th>Choice</th><th>Rationale</th></tr>
+    <tr><td>CMS Version</td><td>V28 PY2026, 100% V28</td><td>No V24 blending; clean transition to latest model</td></tr>
+    <tr><td>ICD Extraction</td><td>Retrieval + LLM Verification</td><td>NOT a 7,900-class classifier; retrieval is more precise and auditable</td></tr>
+    <tr><td>HCC Prediction</td><td>Bio_ClinicalBERT multi-label</td><td>Domain-specific pre-training on clinical text; 115-class manageable</td></tr>
+    <tr><td>Context Detection</td><td>ConText/NegEx deterministic</td><td>Hard gate: negated evidence forces supported=false; no false positives from negated findings</td></tr>
+    <tr><td>LLM Verifier</td><td>OpenAI gpt-4o with SQLite cache</td><td>Structured JSON verification; caching avoids redundant API calls</td></tr>
+    <tr><td>Hierarchy</td><td>Deterministic V28 suppression</td><td>21 groups, 197 pairs; higher-severity HCC suppresses lower</td></tr>
+    <tr><td>Base Model</td><td>emilyalsentzer/Bio_ClinicalBERT</td><td>12-layer, 768-hidden; pre-trained on MIMIC-III + PubMed</td></tr>
+    <tr><td>Training Data</td><td>Mixed MIMIC-IV + Synthea</td><td>Real clinical notes + synthetic augmentation for breadth</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 2. PROBLEM STATEMENT                                              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="problem">
+  <h2>2. Problem Statement</h2>
+
+  <div class="card info">
+    <h4>The Revenue Integrity Challenge</h4>
+    <p>Medicare Advantage plans rely on <strong>Hierarchical Condition Categories (HCCs)</strong> to receive risk-adjusted payments from CMS. Accurate HCC coding requires:</p>
+    <ul style="margin: 0.8rem 0 0 1.5rem;">
+      <li>Identifying all documented conditions in clinical notes</li>
+      <li>Mapping to specific ICD-10-CM codes</li>
+      <li>Verifying adequate documentation (MEAT criteria)</li>
+      <li>Applying CMS hierarchy rules to determine payable categories</li>
+      <li>Calculating Risk Adjustment Factor (RAF) scores</li>
+    </ul>
+  </div>
+
+  <h3>Current Industry Pain Points</h3>
+  <div class="two-col">
+    <div class="card warning">
+      <h4>Missed HCCs = Lost Revenue</h4>
+      <p>Studies show <strong>15-30% of valid HCCs</strong> are missed during chart review. For a 100,000-member plan, this can mean <strong>$50M-$150M</strong> in unrealized risk adjustment payments annually.</p>
+    </div>
+    <div class="card warning">
+      <h4>Over-coding = Audit Risk</h4>
+      <p>False positive HCC submissions trigger <strong>RADV audits</strong> with potential <strong>extrapolated penalties</strong>. Each unsupported HCC can cost <strong>$30K-$100K+</strong> in audit recovery.</p>
+    </div>
+  </div>
+
+  <h3>What MedInsight RA Engine Solves</h3>
+  <ol style="margin: 0.8rem 0 0 1.5rem;">
+    <li><strong>Automated HCC Discovery</strong>: ML model scans clinical notes to identify all candidate HCC categories</li>
+    <li><strong>Evidence-Based ICD Coding</strong>: Retrieval + LLM verification maps HCCs to specific ICD-10 codes with evidence spans</li>
+    <li><strong>Documentation Verification</strong>: MEAT criteria validation ensures coding defensibility</li>
+    <li><strong>Audit-Ready Output</strong>: Every prediction includes evidence spans, context flags, confidence scores</li>
+    <li><strong>HEDIS Gap Detection</strong>: Simultaneously identifies quality measure compliance gaps</li>
+    <li><strong>RAF Scoring</strong>: Instant computation of risk adjustment impact</li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 3. SOLUTION ARCHITECTURE                                          -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="architecture">
+  <h2>3. Solution Architecture</h2>
+
+  <h3>System Overview</h3>
+  <div class="flow-diagram">
+                     ┌─────────────────────────────────────────────────────────────────┐
+                     │                    MedInsight RA Engine                          │
+                     │                                                                 │
+  Clinical Note ───► │  ┌──────────────┐    ┌───────────────┐    ┌──────────────────┐  │
+  (free text)        │  │ ML HCC       │    │ ICD Retrieval │    │ Context Tagger   │  │
+                     │  │ Predictor    │───►│ + Span        │───►│ (NegEx/ConText)  │  │
+                     │  │ (ClinBERT)   │    │ Proposer      │    │ Hard Gate        │  │
+                     │  └──────────────┘    └───────────────┘    └──────────────────┘  │
+                     │         │                    │                      │            │
+                     │         ▼                    ▼                      ▼            │
+                     │  ┌──────────────────────────────────────────────────────────┐    │
+                     │  │              LLM Verifier (gpt-4o)                       │    │
+                     │  │   Evidence Spans + MEAT + Specificity + Confidence       │    │
+                     │  │                 + SQLite Cache                           │    │
+                     │  └─────────────────────────────────────────────────────┬────┘    │
+                     │                                                        │         │
+                     │  ┌──────────────┐    ┌───────────────┐    ┌───────────▼──────┐  │
+                     │  │ CMS V28      │    │ RAF           │    │ HEDIS            │  │
+                     │  │ Hierarchy    │───►│ Calculator    │    │ Extractor        │  │
+                     │  │ Suppression  │    │ (Coefficients)│    │ (6 Measures)     │  │
+                     │  └──────────────┘    └───────────────┘    └──────────────────┘  │
+                     │                                                                 │
+                     └────────────────────────────────────┬────────────────────────────┘
+                                                          │
+                                                          ▼
+                                              ┌──────────────────────┐
+                                              │  6-Layer JSON Output │
+                                              │  ─────────────────── │
+                                              │  A. ICD Layer        │
+                                              │  B. HCC Layer        │
+                                              │  C. Mapping Layer    │
+                                              │  D. RAF Layer        │
+                                              │  E. HEDIS Layer      │
+                                              │  F. Audit Pack       │
+                                              └──────────────────────┘
+  </div>
+
+  <h3>Module Architecture (ra_engine/)</h3>
+  <table>
+    <tr><th>Module</th><th>Files</th><th>LOC</th><th>Purpose</th></tr>
+    <tr><td><code>inference/</code></td><td>2</td><td>481</td><td>Main <code>RAEngine.analyze()</code> orchestrator</td></tr>
+    <tr><td><code>models/</code></td><td>5</td><td>2,571</td><td>Bio_ClinicalBERT HCC predictor, trainer, threshold tuning</td></tr>
+    <tr><td><code>retrieval/</code></td><td>7</td><td>3,270</td><td>ICD catalog, TF-IDF index, candidate generation, span proposer, reranker</td></tr>
+    <tr><td><code>context/</code></td><td>2</td><td>1,261</td><td>ConText/NegEx deterministic negation &amp; context tagger</td></tr>
+    <tr><td><code>verifier/</code></td><td>5</td><td>894</td><td>OpenAI gpt-4o structured verification + SQLite cache</td></tr>
+    <tr><td><code>hierarchy/</code></td><td>2</td><td>262</td><td>V28 deterministic hierarchy suppression (21 groups, 197 pairs)</td></tr>
+    <tr><td><code>scoring/</code></td><td>3</td><td>820</td><td>RAF coefficient calculator + evaluation metrics</td></tr>
+    <tr><td><code>hedis/</code></td><td>3</td><td>1,352</td><td>6 HEDIS quality measures + extraction</td></tr>
+    <tr><td><code>reference/</code></td><td>5</td><td>1,640</td><td>CMS V28 data download, parsing, validation</td></tr>
+    <tr><td><code>mimic/</code></td><td>5</td><td>2,518</td><td>MIMIC-IV dataset builder, patient splitting</td></tr>
+    <tr><td><code>synthetic/</code></td><td>4</td><td>2,731</td><td>Synthea pipeline, population sim, note augmentation</td></tr>
+    <tr><td><code>eval/</code></td><td>3</td><td>1,442</td><td>Note-level &amp; member-year evaluation + HTML reports</td></tr>
+    <tr><td><code>api/</code></td><td>2</td><td>242</td><td>FastAPI REST server + web UI</td></tr>
+    <tr><td><code>cli.py</code></td><td>1</td><td>628</td><td>17 CLI commands</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>52</strong></td><td><strong>19,484</strong></td><td></td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 4. INFERENCE PIPELINE                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="pipeline">
+  <h2>4. Inference Pipeline</h2>
+
+  <p>The <code>RAEngine.analyze(note_text: str) -> dict</code> function executes a 10-stage pipeline:</p>
+
+  <div class="pipeline-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">ML HCC Prediction</div><div class="step-desc">Bio_ClinicalBERT predicts top-20 HCC candidates with sigmoid scores. Section-aware tokenizer splits long notes into 8 overlapping 512-token chunks. ChunkAttentionPooler produces document-level representation.</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">ICD Retrieval</div><div class="step-desc">For each predicted HCC, retrieve top-20 candidate ICD-10 codes via CMS crosswalk + TF-IDF similarity. 7,903 ICD codes indexed. Section-aware boosting (Assessment 1.5x, Family History 0.7x).</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Candidate Reranking</div><div class="step-desc">K=200 candidates narrowed to K=50 via embedding similarity, then to K=10 via section scoring and clinical context.</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Span Proposal</div><div class="step-desc">SpanProposer identifies exact character-level evidence spans for each candidate ICD code within the clinical note text.</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Context Gating (NegEx)</div><div class="step-desc">Deterministic ConText/NegEx tagger checks each evidence span for: negation (53 triggers), historical (23), hypothetical (26), family (18), uncertain (26). All-negated evidence = hard rejection.</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">6</div><div class="step-content"><div class="step-title">LLM Verification</div><div class="step-desc">OpenAI gpt-4o verifies each ICD code with structured JSON output: evidence spans, MEAT elements, specificity choice, confidence score, reasoning. Results cached in SQLite.</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">7</div><div class="step-content"><div class="step-title">ICD → HCC Mapping</div><div class="step-desc">Verified ICD codes mapped to HCC categories using official CMS V28 crosswalk (8,183 mappings).</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">8</div><div class="step-content"><div class="step-title">V28 Hierarchy Suppression</div><div class="step-desc">Within 21 hierarchy groups, higher-severity HCC suppresses lower. E.g., HCC35 (Diabetes with major complications) suppresses HCC37 (Diabetes without complications).</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">9</div><div class="step-content"><div class="step-title">RAF Scoring</div><div class="step-desc">Raw RAF = sum of all supported HCC coefficients. Final RAF = sum of payable HCC coefficients (post-hierarchy). Using official CMS community_nondual_aged model.</div></div></div>
+
+  <div class="pipeline-step"><div class="step-num">10</div><div class="step-content"><div class="step-title">HEDIS Extraction</div><div class="step-desc">6 quality measures checked: CDC A1C, CDC Eye Exam, Controlling BP, Colorectal Screening, Breast Cancer Screening, Statin Therapy. Each classified as met/not_met/excluded/unknown.</div></div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 5. DATA SOURCES & DATASETS                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="data">
+  <h2>5. Data Sources &amp; Datasets</h2>
+
+  <h3>CMS V28 Reference Data</h3>
+  <div class="card highlight">
+    <table>
+      <tr><th>File</th><th>Content</th><th>Size</th></tr>
+      <tr><td><code>v28_hcc_labels.json</code></td><td>115 payable HCC definitions with descriptions</td><td>7.1 KB</td></tr>
+      <tr><td><code>v28_icd_to_hcc.csv</code></td><td>8,183 ICD-10-CM to HCC mappings</td><td>571 KB</td></tr>
+      <tr><td><code>v28_hcc_hierarchy.json</code></td><td>21 hierarchy groups, 197 suppression pairs</td><td>5.0 KB</td></tr>
+      <tr><td><code>v28_coefficients.json</code></td><td>HCC risk coefficients by model segment</td><td>15.9 KB</td></tr>
+      <tr><td><code>icd10_descriptions.csv</code></td><td>CDC ICD-10-CM full descriptions</td><td>1.4 MB</td></tr>
+    </table>
+    <p style="margin-top:0.8rem; font-size:0.9rem; color: var(--text-light);">All reference data verified via 5-point validation: (1) 115 payable HCCs, (2) 8,183 ICD mappings, (3) 21 hierarchy groups, (4) coefficient completeness, (5) ICD-10 coverage.</p>
+  </div>
+
+  <h3>Training Datasets</h3>
+  <table>
+    <tr><th>Dataset</th><th>Train</th><th>Val</th><th>Test</th><th>Labels</th><th>Source</th></tr>
+    <tr><td>MIMIC-IV Only</td><td>71,581</td><td>15,748</td><td>15,357</td><td>115</td><td>Real clinical discharge notes</td></tr>
+    <tr><td>Synthea Only</td><td>110,205</td><td>23,481</td><td>23,472</td><td>115</td><td>Synthetic (5K patients, 3x augmented)</td></tr>
+    <tr><td><strong>Mixed Large</strong></td><td><strong>181,786</strong></td><td><strong>39,229</strong></td><td><strong>15,357</strong></td><td><strong>115</strong></td><td><strong>MIMIC + Synthea combined</strong></td></tr>
+  </table>
+
+  <h3>MIMIC-IV Clinical Notes</h3>
+  <div class="card">
+    <p><strong>Source</strong>: MIMIC-IV discharge summaries from Beth Israel Deaconess Medical Center</p>
+    <ul style="margin: 0.5rem 0 0 1.5rem;">
+      <li>Patient-level splitting (no data leakage between train/val/test)</li>
+      <li>ICD-9 to ICD-10 code mapping applied</li>
+      <li>Ground truth HCCs derived from ICD diagnoses via CMS crosswalk</li>
+      <li>Average note length: ~2,500 tokens</li>
+    </ul>
+  </div>
+
+  <h3>Synthea Synthetic Data</h3>
+  <div class="card">
+    <p><strong>Generation</strong>: Mock Synthea generator with MA population demographics</p>
+    <ul style="margin: 0.5rem 0 0 1.5rem;">
+      <li><strong>5,000 patients</strong> with 52,386 encounters and 99,948 conditions</li>
+      <li><strong>Demographics</strong>: 85% age 65+ (Medicare Advantage population), 10% age 55-64, 5% younger</li>
+      <li><strong>62+ clinical conditions</strong> covering diabetes, CHF, CKD, COPD, cancer, neurological, obesity, autoimmune, liver, psychiatric, infections</li>
+      <li><strong>16 comorbidity clusters</strong> with prevalence weights for realistic disease patterns</li>
+      <li><strong>3x note augmentation</strong>: epic, cerner, PCP clinical note styles</li>
+      <li><strong>Member-year format</strong>: 14,499 member-years with 50,639 encounters</li>
+    </ul>
+  </div>
+
+  <h3>Training Data Format</h3>
+  <pre>{
+  "text": "DISCHARGE SUMMARY\n\nPatient is a 72-year-old female admitted with...",
+  "hcc_codes": ["HCC37", "HCC85", "HCC222"],
+  "source": "mimic",
+  "patient_id": "P12345"
+}</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 6. MODEL ARCHITECTURE                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="model">
+  <h2>6. Model Architecture</h2>
+
+  <h3>HCC Predictor: Bio_ClinicalBERT Multi-Label Classifier</h3>
+
+  <div class="flow-diagram">
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │                      HCC Predictor Architecture                         │
+  │                                                                         │
+  │  Clinical Note (any length)                                             │
+  │        │                                                                │
+  │        ▼                                                                │
+  │  ┌─────────────────────────────────────┐                                │
+  │  │  SectionAwareTokenizer              │                                │
+  │  │  ─────────────────────────────────  │                                │
+  │  │  17 clinical section headers        │                                │
+  │  │  512-token chunks, 64-token overlap │                                │
+  │  │  Max 8 chunks per document          │                                │
+  │  │  Section-boundary-aware splitting   │                                │
+  │  └────────┬────────┬────────┬──────────┘                                │
+  │           │        │        │                                            │
+  │     Chunk 1   Chunk 2  ... Chunk 8                                      │
+  │           │        │        │                                            │
+  │           ▼        ▼        ▼                                            │
+  │  ┌────────────────────────────────────┐                                 │
+  │  │  Bio_ClinicalBERT Encoder          │                                 │
+  │  │  (12 layers, 768 hidden)           │                                 │
+  │  │  Pre-trained: MIMIC-III + PubMed   │                                 │
+  │  │  [CLS] token per chunk             │                                 │
+  │  └────────┬────────┬────────┬─────────┘                                 │
+  │           │        │        │                                            │
+  │     [CLS]_1  [CLS]_2  ... [CLS]_8                                      │
+  │           │        │        │                                            │
+  │           ▼        ▼        ▼                                            │
+  │  ┌────────────────────────────────────┐                                 │
+  │  │  ChunkAttentionPooler              │                                 │
+  │  │  LayerNorm → Query → Softmax Attn  │                                 │
+  │  │  Output: (batch, 768) pooled       │                                 │
+  │  └──────────────────┬─────────────────┘                                 │
+  │                     │                                                    │
+  │                     ▼                                                    │
+  │  ┌────────────────────────────────────┐                                 │
+  │  │  Classification Head               │                                 │
+  │  │  Dropout(0.15) → Linear(768→768)   │                                 │
+  │  │  → GELU → LayerNorm                │                                 │
+  │  │  → Dropout(0.15) → Linear(768→115) │                                 │
+  │  │  → Sigmoid (inference)             │                                 │
+  │  └──────────────────┬─────────────────┘                                 │
+  │                     │                                                    │
+  │                     ▼                                                    │
+  │           115 HCC probabilities                                         │
+  │           (one per payable V28 HCC)                                     │
+  └──────────────────────────────────────────────────────────────────────────┘
+  </div>
+
+  <h3>Section-Aware Tokenizer</h3>
+  <p>Recognizes 17 clinical section headers to intelligently split long notes at section boundaries:</p>
+  <div class="two-col">
+    <div class="card">
+      <p><strong>Sections detected</strong>: Chief Complaint, HPI, Past Medical History, Medications, Allergies, Family History, Social History, Review of Systems, Physical Examination, Vitals, Labs, Imaging, Assessment, Plan, Discharge Diagnosis, Hospital Course, Procedures</p>
+    </div>
+    <div class="card">
+      <p><strong>Chunking strategy</strong>:</p>
+      <ul style="margin: 0.3rem 0 0 1.2rem; font-size: 0.9rem;">
+        <li>Chunk size: 512 tokens</li>
+        <li>Overlap: 64 tokens between chunks</li>
+        <li>Max chunks: 8 (caps at 4,096 effective tokens)</li>
+        <li>Prefers splitting at section boundaries</li>
+        <li>Each chunk wrapped with [CLS] and [SEP]</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Training Configuration</h3>
+  <table>
+    <tr><th>Parameter</th><th>MIMIC-Only</th><th>Synthea-Only</th><th>Mixed Large</th></tr>
+    <tr><td>Train examples</td><td>71,581</td><td>~10,000</td><td>181,786</td></tr>
+    <tr><td>Val examples</td><td>15,748</td><td>~2,500</td><td>39,229</td></tr>
+    <tr><td>Num labels</td><td>115</td><td>64</td><td>115</td></tr>
+    <tr><td>Epochs</td><td>15</td><td>10</td><td>5 (local) / 12 (H100)</td></tr>
+    <tr><td>Batch size</td><td>4</td><td>4</td><td>8</td></tr>
+    <tr><td>Grad accumulation</td><td>16</td><td>8</td><td>4-8</td></tr>
+    <tr><td>Effective batch</td><td>64</td><td>32</td><td>32-64</td></tr>
+    <tr><td>Learning rate</td><td>2e-5</td><td>2e-5</td><td>2e-5</td></tr>
+    <tr><td>Precision</td><td>FP16</td><td>FP16</td><td>FP16 (local) / BF16 (H100)</td></tr>
+    <tr><td>Early stopping</td><td>patience 5</td><td>patience 3</td><td>patience 3-5</td></tr>
+    <tr><td>Loss</td><td>BCEWithLogitsLoss</td><td>BCEWithLogitsLoss</td><td>BCEWithLogitsLoss</td></tr>
+    <tr><td>Pos weight cap</td><td>10.0</td><td>10.0</td><td>10.0</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 7. TRAINING RESULTS                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="training">
+  <h2>7. Training Results</h2>
+
+  <h3>Model Comparison</h3>
+  <table>
+    <tr>
+      <th>Model</th>
+      <th>F1 Micro</th>
+      <th>F1 Macro</th>
+      <th>Precision Micro</th>
+      <th>Recall Micro</th>
+      <th>Val Loss</th>
+      <th>Best Epoch</th>
+      <th>Labels</th>
+    </tr>
+    <tr>
+      <td>MIMIC-IV Only</td>
+      <td>0.5106</td>
+      <td>0.3643</td>
+      <td>0.3845</td>
+      <td>0.7598</td>
+      <td>0.3374</td>
+      <td>8</td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <td>Synthea Only</td>
+      <td>0.4471</td>
+      <td>0.1226</td>
+      <td>0.3195</td>
+      <td>0.7442</td>
+      <td>0.2846</td>
+      <td>3</td>
+      <td>64</td>
+    </tr>
+    <tr style="background: #c6f6d5;">
+      <td><strong>Mixed Large (Best)</strong></td>
+      <td><strong class="metric-good">0.5717</strong></td>
+      <td><strong class="metric-good">0.3570</strong></td>
+      <td>0.4438</td>
+      <td>0.8031</td>
+      <td><strong>0.2942</strong></td>
+      <td><strong>3</strong></td>
+      <td><strong>115</strong></td>
+    </tr>
+  </table>
+
+  <h3>Mixed Large Training Curve</h3>
+  <table>
+    <tr><th>Epoch</th><th>Train Loss</th><th>Val Loss</th><th>Val F1 Micro</th><th>Val F1 Macro</th><th>Time</th><th>New Best?</th></tr>
+    <tr><td>1</td><td>0.6945</td><td>0.3013</td><td>0.5423</td><td>0.2846</td><td>63 min</td><td class="metric-good">Yes</td></tr>
+    <tr><td>2</td><td>0.6573</td><td>0.2985</td><td>0.5460</td><td>0.3254</td><td>62 min</td><td class="metric-good">Yes</td></tr>
+    <tr style="background: #c6f6d5;"><td><strong>3</strong></td><td><strong>0.6497</strong></td><td><strong>0.2942</strong></td><td><strong>0.5717</strong></td><td><strong>0.3570</strong></td><td>63 min</td><td class="metric-good"><strong>Yes (Best)</strong></td></tr>
+    <tr><td>4</td><td>0.6449</td><td>0.2933</td><td>0.5655</td><td>0.3598</td><td>113 min*</td><td>No</td></tr>
+    <tr><td>5</td><td>0.6422</td><td>0.2932</td><td>0.5640</td><td>0.3578</td><td>62 min</td><td>No</td></tr>
+  </table>
+  <p style="font-size:0.8rem; color: var(--text-light);">*Epoch 4 extended due to system sleep/hibernation during training.</p>
+
+  <h3>Improvement Over Baselines</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="value" style="color: var(--accent);">+12.0%</div>
+      <div class="label">F1 Micro vs MIMIC Baseline</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color: var(--accent);">+27.9%</div>
+      <div class="label">F1 Micro vs Synthea Baseline</div>
+    </div>
+    <div class="stat-card">
+      <div class="value" style="color: var(--accent);">-12.8%</div>
+      <div class="label">Val Loss Reduction</div>
+    </div>
+  </div>
+
+  <h3>Key Bug Fixes That Enabled Improvement</h3>
+  <div class="card warning">
+    <h4>Root Cause: Pipe-Delimited HCC Label Bug</h4>
+    <p>The <code>member_year_labels.csv</code> used <code>|</code> as HCC separator (e.g., "HCC238|HCC37|HCC38"), but <code>load_synthea_labels()</code> only split by <code>;</code>. This created:</p>
+    <ul style="margin: 0.5rem 0 0 1.5rem; font-size: 0.9rem;">
+      <li>80 combo labels like "HCC298|HCC37" treated as single labels instead of individual codes</li>
+      <li>Model predicted index-based labels that never matched named HCC codes</li>
+      <li>Member-year evaluation showed <strong>0 true positives</strong></li>
+    </ul>
+    <p style="margin-top: 0.5rem;"><strong>Fix</strong>: Added <code>_split_hcc_codes()</code> that normalizes both <code>|</code> and <code>;</code> separators, producing correct individual HCC codes. Label mapping expanded from 80 combo labels to 115 individual V28 HCCs.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 8. METRICS & EVALUATION                                           -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="metrics">
+  <h2>8. Metrics &amp; Evaluation</h2>
+
+  <h3>Note-Level Metrics</h3>
+  <div class="card">
+    <table>
+      <tr><th>Metric</th><th>Description</th><th>MIMIC</th><th>Mixed (Best)</th></tr>
+      <tr><td>F1 Micro</td><td>Harmonic mean of micro precision &amp; recall</td><td>0.5106</td><td class="metric-good">0.5717 (+12.0%)</td></tr>
+      <tr><td>F1 Macro</td><td>Average F1 across all HCC classes</td><td>0.3643</td><td>0.3570</td></tr>
+      <tr><td>Precision Micro</td><td>Fraction of predicted HCCs that are correct</td><td>0.3845</td><td class="metric-good">0.4438 (+15.4%)</td></tr>
+      <tr><td>Recall Micro</td><td>Fraction of true HCCs that are predicted</td><td>0.7598</td><td class="metric-good">0.8031 (+5.7%)</td></tr>
+      <tr><td>Val Loss</td><td>Binary cross-entropy loss on validation set</td><td>0.3374</td><td class="metric-good">0.2942 (-12.8%)</td></tr>
+    </table>
+  </div>
+
+  <h3>Member-Year Level Metrics</h3>
+  <div class="card">
+    <p>Member-year evaluation aggregates predictions across all encounters for a member within a year:</p>
+    <ul style="margin: 0.5rem 0 0 1.5rem;">
+      <li><strong>HCC Recall Micro</strong>: Fraction of ground-truth HCCs captured across all encounters</li>
+      <li><strong>RAF-Weighted Recall</strong>: Recall weighted by HCC coefficient (high-value codes count more)</li>
+      <li><strong>RAF-Weighted Precision</strong>: Precision weighted by HCC coefficient</li>
+      <li><strong>True Positives / False Negatives / False Positives</strong>: Per member-year counts</li>
+      <li><strong>HEDIS Gap Detection Rate</strong>: Fraction of quality gaps correctly identified</li>
+    </ul>
+  </div>
+
+  <h3>Per-HCC Performance (MIMIC Baseline, Top 20)</h3>
+  <table>
+    <tr><th>Label</th><th>F1</th><th>Label</th><th>F1</th><th>Label</th><th>F1</th><th>Label</th><th>F1</th></tr>
+    <tr><td>label_0</td><td>0.925</td><td>label_1</td><td>0.840</td><td>label_8</td><td>1.000</td><td>label_9</td><td>1.000</td></tr>
+    <tr><td>label_75</td><td>1.000</td><td>label_76</td><td>1.000</td><td>label_86</td><td>1.000</td><td>label_98</td><td>1.000</td></tr>
+    <tr><td>label_107</td><td>1.000</td><td>label_102</td><td>0.849</td><td>label_73</td><td>0.746</td><td>label_34</td><td>0.743</td></tr>
+    <tr><td>label_29</td><td>0.721</td><td>label_56</td><td>0.722</td><td>label_92</td><td>0.698</td><td>label_16</td><td>0.677</td></tr>
+    <tr><td>label_77</td><td>0.670</td><td>label_31</td><td>0.667</td><td>label_79</td><td>0.657</td><td>label_95</td><td>0.658</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 9. OUTPUT SCHEMA                                                  -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="output">
+  <h2>9. Output Schema (6-Layer JSON)</h2>
+
+  <p>Every call to <code>analyze(note_text)</code> returns a strict JSON with 6 layers:</p>
+
+  <h3>Layer A: ICD Layer</h3>
+  <pre class="json-sample">{
+  "icd_layer": {
+    "supported_icd10": [
+      {
+        "code": "E13630",
+        "description": "Type 2 diabetes mellitus with other specified complication",
+        "supported": true,
+        "evidence_spans": [
+          {
+            "start": 284,
+            "end": 344,
+            "text": "type 2 diabetes mellitus with chronic kidney disease stage 3",
+            "section": "HISTORY OF PRESENT ILLNESS"
+          }
+        ],
+        "context": {
+          "negated": false,
+          "historical": true,
+          "hypothetical": false,
+          "family": false,
+          "uncertain": false
+        },
+        "meat": {
+          "monitor": ["HbA1c 9.2%"],
+          "evaluate": ["poorly controlled blood sugars", "diabetic nephropathy"],
+          "assess": ["poorly controlled"],
+          "treat": ["increase insulin glargine", "add lispro sliding scale"]
+        },
+        "specificity_choice": {
+          "chosen_over": ["E11.9"],
+          "why": "Diabetic nephropathy is a specified complication."
+        },
+        "confidence": 0.95,
+        "exclusion_reason": null
+      }
+    ]
+  }
+}</pre>
+
+  <h3>Layer B: HCC Layer</h3>
+  <pre class="json-sample">{
+  "hcc_layer": {
+    "hcc_candidates_from_ml": [
+      {"hcc": "HCC37", "score": 0.92},
+      {"hcc": "HCC85", "score": 0.87}
+    ],
+    "supported_hccs_raw": [
+      {
+        "hcc": "HCC37",
+        "supported": true,
+        "supporting_icd10": ["E11.65"],
+        "evidence_spans": [...],
+        "context": {"negated": false, ...},
+        "meat_summary": {"monitor": [...], ...},
+        "confidence": 0.92,
+        "audit_risk": "low"
+      }
+    ],
+    "payable_hccs_final": [...],
+    "hierarchy_explanations": [
+      {
+        "suppressed_hcc": "HCC38",
+        "by_hcc": "HCC37",
+        "group": "diabetes"
+      }
+    ]
+  }
+}</pre>
+
+  <h3>Layer C: Mapping Layer</h3>
+  <pre>{
+  "mapping_layer": {
+    "cms_version": "PY2026_V28",
+    "icd_to_hcc_links": [
+      {"icd10": "E11.65", "hcc": "HCC37", "source": "cms"}
+    ]
+  }
+}</pre>
+
+  <h3>Layer D: RAF Layer</h3>
+  <pre>{
+  "raf_layer": {
+    "coeff_source": "cms",
+    "raf_supported_raw": 0.5123,
+    "raf_payable_final": 0.3892
+  }
+}</pre>
+
+  <h3>Layer E: HEDIS Layer</h3>
+  <pre>{
+  "hedis_layer": {
+    "measures": [
+      {
+        "measure_id": "HEDIS_CDC_A1C",
+        "status": "met",
+        "evidence": [{"start": 150, "end": 165, "text": "HbA1c 9.2%", "section": "Labs"}],
+        "required_elements": {
+          "numerator": ["HbA1c test performed"],
+          "denominator": ["diabetes diagnosis"],
+          "exclusions": []
+        },
+        "confidence": 0.95
+      }
+    ]
+  }
+}</pre>
+
+  <h3>Layer F: Audit Pack</h3>
+  <pre>{
+  "audit_pack": {
+    "evidence_validity_rate": 0.92,
+    "unsupported_reason_counts": {"negated": 1, "insufficient_meat": 0},
+    "high_risk_flags": [],
+    "notes": "2 ICD codes verified, 1 rejected (negated)"
+  }
+}</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 10. HCC DETAILS                                                   -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="hcc">
+  <h2>10. CMS-HCC V28 Details</h2>
+
+  <h3>What the Model Can Extract</h3>
+  <p>The RA Engine identifies <strong>115 payable HCC categories</strong> from clinical text. These cover:</p>
+
+  <div class="three-col">
+    <div class="card">
+      <h4>Endocrine &amp; Metabolic</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>HCC35-38: Diabetes (with/without complications)</li>
+        <li>HCC48: Morbid Obesity</li>
+        <li>HCC21-22: Protein-Calorie Malnutrition</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Cardiovascular</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>HCC221-227: Heart Failure</li>
+        <li>HCC238: Specified Heart Arrhythmias</li>
+        <li>HCC263-264: Coronary Artery Disease</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Pulmonary</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>HCC280-282: COPD</li>
+        <li>HCC283: Cystic Fibrosis</li>
+        <li>HCC115: Respiratory Dependence</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Renal</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>HCC326-329: CKD stages</li>
+        <li>HCC134: Dialysis Status</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Neurological</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>HCC51-52: Dementia</li>
+        <li>HCC70-74: Paralysis, Stroke</li>
+        <li>HCC75-76: Seizure Disorders</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Oncology</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>HCC17-20: Cancers (metastatic → localized)</li>
+        <li>HCC11-12: Lymphoma, Leukemia</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>V28 Hierarchy Suppression</h3>
+  <div class="card">
+    <p>Within each of <strong>21 hierarchy groups</strong>, higher-severity HCCs suppress lower-severity ones. Examples:</p>
+    <table>
+      <tr><th>Group</th><th>Higher (Payable)</th><th>Suppresses</th></tr>
+      <tr><td>Diabetes</td><td>HCC35 (w/ major complications)</td><td>HCC36, HCC37, HCC38</td></tr>
+      <tr><td>Heart Failure</td><td>HCC221 (w/ mechanical complications)</td><td>HCC222, HCC223, HCC224-227</td></tr>
+      <tr><td>CKD</td><td>HCC326 (Stage 5/ESRD)</td><td>HCC327, HCC328, HCC329</td></tr>
+      <tr><td>Cancer</td><td>HCC17 (Metastatic)</td><td>HCC18, HCC19, HCC20</td></tr>
+    </table>
+    <p style="margin-top:0.5rem; font-size:0.9rem;">Total: <strong>197 suppression pairs</strong> across 21 groups. Applied deterministically after ICD→HCC mapping.</p>
+  </div>
+
+  <h3>MEAT Documentation Requirements</h3>
+  <div class="card info">
+    <p>Every supported ICD/HCC must demonstrate at least one MEAT element:</p>
+    <table>
+      <tr><th>Element</th><th>Description</th><th>Examples</th></tr>
+      <tr><td><strong>M</strong>onitor</td><td>Labs, vitals, imaging ordered or reviewed</td><td>"HbA1c 9.2%", "BNP 1200", "CT chest ordered"</td></tr>
+      <tr><td><strong>E</strong>valuate</td><td>History taken, exam performed, workup</td><td>"reviewed diabetic foot exam", "assessed renal function"</td></tr>
+      <tr><td><strong>A</strong>ssess</td><td>Clinical judgment, staging, status</td><td>"diabetes poorly controlled", "CKD stage 3b"</td></tr>
+      <tr><td><strong>T</strong>reat</td><td>Medications, procedures, referrals, counseling</td><td>"increase metformin", "referred to nephrology"</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 11. HEDIS QUALITY MEASURES                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="hedis">
+  <h2>11. HEDIS Quality Measures</h2>
+
+  <table>
+    <tr><th>Measure ID</th><th>Measure Name</th><th>Denominator</th><th>Numerator</th><th>Key Codes</th></tr>
+    <tr>
+      <td><code>HEDIS_CDC_A1C</code></td>
+      <td>Diabetes: HbA1c Testing</td>
+      <td>DM (E10/E11/E13), age 18-75</td>
+      <td>HbA1c test performed</td>
+      <td>CPT 83036, 83037</td>
+    </tr>
+    <tr>
+      <td><code>HEDIS_CDC_EYE</code></td>
+      <td>Diabetes: Eye Exam</td>
+      <td>DM, age 18-75</td>
+      <td>Dilated retinal exam</td>
+      <td>CPT 92002-92014</td>
+    </tr>
+    <tr>
+      <td><code>HEDIS_CBP</code></td>
+      <td>Controlling High Blood Pressure</td>
+      <td>HTN (I10-I15), age 18-85</td>
+      <td>BP &lt; 140/90</td>
+      <td>CPT 3074F-3078F</td>
+    </tr>
+    <tr>
+      <td><code>HEDIS_COL</code></td>
+      <td>Colorectal Cancer Screening</td>
+      <td>Age 45-75</td>
+      <td>Colonoscopy, FIT/FOBT, CT</td>
+      <td>CPT 44388-45350</td>
+    </tr>
+    <tr>
+      <td><code>HEDIS_BCS</code></td>
+      <td>Breast Cancer Screening</td>
+      <td>Female, age 50-74</td>
+      <td>Mammogram</td>
+      <td>CPT 77065-77067</td>
+    </tr>
+    <tr>
+      <td><code>HEDIS_SPC</code></td>
+      <td>Statin Therapy for ASCVD</td>
+      <td>ASCVD (I20-I70), male 21-75, female 40-75</td>
+      <td>Statin medication prescribed</td>
+      <td>Drug class check</td>
+    </tr>
+  </table>
+
+  <div class="card">
+    <p>Each measure evaluates: <strong>Denominator</strong> (is the patient eligible?) → <strong>Exclusions</strong> (any contraindications?) → <strong>Numerator</strong> (is the quality action documented?)</p>
+    <p>Status: <span class="badge badge-green">met</span> <span class="badge badge-red">not_met</span> <span class="badge badge-orange">excluded</span> <span class="badge badge-blue">unknown</span></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 12. CONTEXT / NEGEX TAGGER                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="context">
+  <h2>12. Context / NegEx Tagger</h2>
+
+  <div class="card">
+    <p>The ConText/NegEx tagger is a <strong>deterministic hard gate</strong> — if all evidence spans for an ICD code are negated, the code is marked <code>supported=false</code> regardless of LLM output.</p>
+  </div>
+
+  <table>
+    <tr><th>Context Type</th><th># Triggers</th><th>Example Triggers</th><th>Effect</th></tr>
+    <tr><td>Negation</td><td>53 pre + 12 post</td><td>"no evidence of", "denies", "negative for", "without"</td><td>Code not supported</td></tr>
+    <tr><td>Historical</td><td>23</td><td>"history of", "prior", "formerly", "resolved", "s/p"</td><td>Code not current</td></tr>
+    <tr><td>Hypothetical</td><td>26</td><td>"rule out", "possible", "suspected", "consider"</td><td>Code uncertain</td></tr>
+    <tr><td>Family</td><td>18</td><td>"family history of", "mother/father had", "familial"</td><td>Not patient's condition</td></tr>
+    <tr><td>Uncertain</td><td>26</td><td>"uncertain", "equivocal", "probable", "likely"</td><td>Insufficient certainty</td></tr>
+  </table>
+
+  <div class="card">
+    <h4>Scope Rules</h4>
+    <ul style="margin: 0.3rem 0 0 1.2rem; font-size: 0.9rem;">
+      <li><strong>Pre-triggers</strong>: target must come after trigger, within 10-word window, same sentence</li>
+      <li><strong>Post-triggers</strong>: target must come before trigger, same scoping</li>
+      <li><strong>Scope terminators</strong>: "but", "however", "except", "yet" break trigger scope</li>
+      <li><strong>Double-negation</strong>: "cannot rule out", "cannot exclude" → treat as uncertain</li>
+      <li><strong>Section detection</strong>: "Family History" section auto-marks all spans as family=true</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 13. EVALUATION FRAMEWORK                                          -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="eval">
+  <h2>13. Evaluation Framework</h2>
+
+  <h3>Note-Level Evaluation</h3>
+  <div class="card">
+    <p><strong>Command</strong>: <code>python -m ra_engine.cli eval --dataset test.jsonl --output-dir eval_output</code></p>
+    <p>Runs full RA Engine analysis on labeled JSONL dataset and computes:</p>
+    <ul style="margin: 0.5rem 0 0 1.2rem;">
+      <li>Per-example TP/FP/FN counts</li>
+      <li>RAF impact per prediction (TP_raf, FP_raf, FN_raf)</li>
+      <li>Macro &amp; micro precision, recall, F1</li>
+      <li>Per-HCC confusion matrix</li>
+      <li>Top missed HCCs sorted by RAF impact</li>
+      <li>Top false positives sorted by audit risk</li>
+    </ul>
+    <p><strong>Output files</strong>: <code>errors_by_raf.csv</code>, <code>fp_by_audit_risk.csv</code>, <code>confusion_by_hcc.json</code>, <code>llm_stats.json</code></p>
+  </div>
+
+  <h3>Member-Year Evaluation</h3>
+  <div class="card">
+    <p><strong>Command</strong>: <code>python -m ra_engine.cli eval-member-year --dataset member_year_dir/ --output-dir eval_output</code></p>
+    <p>Aggregates HCC predictions across all encounters for each member within a year:</p>
+    <ul style="margin: 0.5rem 0 0 1.2rem;">
+      <li><strong>HCC Union</strong>: Payable HCCs from all encounters merged (deduped)</li>
+      <li><strong>HEDIS "Met Wins"</strong>: If any encounter shows measure met, member-year is met</li>
+      <li><strong>RAF-Weighted Metrics</strong>: Recall/precision weighted by CMS coefficient</li>
+      <li><strong>Ground Truth</strong>: From <code>labels.csv</code> with <code>ground_truth_hccs</code> column</li>
+    </ul>
+    <p><strong>Required files</strong>: <code>member_year.jsonl</code> (encounters per member-year) + <code>labels.csv</code> (ground truth)</p>
+  </div>
+
+  <h3>Test Suite</h3>
+  <table>
+    <tr><th>Test File</th><th>Tests</th><th>Coverage Area</th></tr>
+    <tr><td>test_context_gate.py</td><td>40+</td><td>NegEx determinism, scope rules, triggers</td></tr>
+    <tr><td>test_hierarchy_suppression.py</td><td>15+</td><td>V28 hierarchy groups, edge cases</td></tr>
+    <tr><td>test_member_year_eval.py</td><td>13</td><td>HCC aggregation, HEDIS met-wins, TP detection</td></tr>
+    <tr><td>test_retrieval_determinism.py</td><td>10+</td><td>ICD catalog, TF-IDF index consistency</td></tr>
+    <tr><td>test_v28_compliance.py</td><td>10+</td><td>CMS reference data validation</td></tr>
+    <tr><td>22 test files total</td><td>8,097 LOC</td><td>Full system coverage</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 14. DEPLOYMENT                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="deployment">
+  <h2>14. Deployment &amp; Infrastructure</h2>
+
+  <h3>Deployment Modes</h3>
+  <div class="three-col">
+    <div class="card">
+      <h4>Local Development</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>Python 3.12</li>
+        <li>RTX 4070 (8GB VRAM)</li>
+        <li>FP16 mixed precision</li>
+        <li>Batch size 4-8</li>
+      </ul>
+    </div>
+    <div class="card highlight">
+      <h4>Lambda H100 (Training)</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>gpu_1x_h100_sxm5 (80GB)</li>
+        <li>$3.78/hour</li>
+        <li>BF16 native support</li>
+        <li>Batch size 8, grad_accum 8</li>
+        <li>~4-5h for mixed large</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Production API</h4>
+      <ul style="font-size:0.85rem; margin-left:1rem;">
+        <li>FastAPI + Uvicorn</li>
+        <li>Health check endpoint</li>
+        <li>CORS configured</li>
+        <li>Rate limiting ready</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Environment Variables</h3>
+  <table>
+    <tr><th>Variable</th><th>Purpose</th><th>Required</th></tr>
+    <tr><td><code>OPENAI_API_KEY</code></td><td>LLM verification (gpt-4o)</td><td>Yes (for inference)</td></tr>
+    <tr><td><code>LAMBDA_API_KEY</code></td><td>Lambda cloud training</td><td>Optional</td></tr>
+  </table>
+
+  <h3>Security Considerations</h3>
+  <div class="card warning">
+    <ul style="margin-left: 1.2rem; font-size: 0.9rem;">
+      <li><strong>PHI/PII</strong>: Clinical notes contain protected health information. All processing should comply with HIPAA.</li>
+      <li><strong>Data at Rest</strong>: Model weights and cached verifications stored locally. Use encryption for production.</li>
+      <li><strong>API Keys</strong>: Store in <code>.env</code> files, never commit to version control.</li>
+      <li><strong>LLM API</strong>: OpenAI API calls send PHI text. Ensure BAA is in place.</li>
+      <li><strong>Network</strong>: Use HTTPS in production. Configure CORS appropriately.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 15. API REFERENCE                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="api">
+  <h2>15. API Reference</h2>
+
+  <h3>REST API Endpoints</h3>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+    <tr><td><code>POST</code></td><td><code>/api/analyze</code></td><td>Analyze clinical note text → 6-layer JSON output</td></tr>
+    <tr><td><code>GET</code></td><td><code>/api/health</code></td><td>Health check (model loaded, services available)</td></tr>
+    <tr><td><code>GET</code></td><td><code>/</code></td><td>Web UI for interactive analysis</td></tr>
+  </table>
+
+  <h3>Analyze Endpoint</h3>
+  <pre>POST /api/analyze
+Content-Type: application/json
+
+{
+  "note_text": "DISCHARGE SUMMARY\n\n72-year-old female with type 2 diabetes..."
+}
+
+Response: 200 OK
+{
+  "icd_layer": { ... },
+  "hcc_layer": { ... },
+  "mapping_layer": { ... },
+  "raf_layer": { ... },
+  "hedis_layer": { ... },
+  "audit_pack": { ... }
+}</pre>
+
+  <h3>Python SDK Usage</h3>
+  <pre>from ra_engine.inference.analyze import RAEngine
+
+engine = RAEngine(
+    model_dir="models/ra_engine/hcc_predictor_mixed_large/best",
+    reference_dir="data/reference",
+    cache_dir="data/cache"
+)
+
+result = engine.analyze("""
+DISCHARGE SUMMARY
+
+72-year-old female admitted for CHF exacerbation.
+Type 2 diabetes mellitus, HbA1c 8.5%.
+CKD stage 3b, creatinine 2.1.
+Started on furosemide 40mg, continued metformin.
+""")
+
+# Access results
+for icd in result["icd_layer"]["supported_icd10"]:
+    if icd["supported"]:
+        print(f"  {icd['code']}: {icd['description']} (conf={icd['confidence']:.2f})")
+
+for hcc in result["hcc_layer"]["payable_hccs_final"]:
+    print(f"  {hcc['hcc']} (audit_risk={hcc['audit_risk']})")
+
+print(f"RAF Score: {result['raf_layer']['raf_payable_final']:.4f}")
+
+for measure in result["hedis_layer"]["measures"]:
+    print(f"  {measure['measure_id']}: {measure['status']}")</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 16. CLI REFERENCE                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="cli">
+  <h2>16. CLI Reference</h2>
+
+  <table>
+    <tr><th>Command</th><th>Description</th><th>Key Arguments</th></tr>
+    <tr><td><code>analyze &lt;file&gt;</code></td><td>Analyze a clinical note</td><td><code>--model-dir, --output, --reference-dir, --cache-dir</code></td></tr>
+    <tr><td><code>download-cms-v28</code></td><td>Download CMS V28 reference data</td><td><code>--output-dir</code></td></tr>
+    <tr><td><code>build-index</code></td><td>Build ICD-10 TF-IDF search index</td><td><code>--reference-dir, --test-query</code></td></tr>
+    <tr><td><code>build-mimic-dataset</code></td><td>Build training data from MIMIC-IV</td><td><code>--discharge, --diagnoses</code></td></tr>
+    <tr><td><code>build-synthea-cohort</code></td><td>Build cohort from Synthea output</td><td><code>--synthea-dir, --output-dir, --n-patients</code></td></tr>
+    <tr><td><code>build-mimic-longitudinal</code></td><td>Build longitudinal MIMIC dataset</td><td><code>--mimic-root, --output-dir</code></td></tr>
+    <tr><td><code>build-member-year-dataset</code></td><td>Build member-year dataset</td><td><code>--notes, --claims, --members</code></td></tr>
+    <tr><td><code>augment-note-styles</code></td><td>Augment notes with EHR styles</td><td><code>--input-notes, --output-notes, --styles, --multiplier</code></td></tr>
+    <tr><td><code>train-hcc</code></td><td>Train HCC predictor model</td><td><code>--train-data, --val-data, --epochs, --batch-size, --lr, --fp16/--bf16</code></td></tr>
+    <tr><td><code>eval</code></td><td>Note-level evaluation</td><td><code>--dataset, --split, --model-dir, --output-dir</code></td></tr>
+    <tr><td><code>eval-member-year</code></td><td>Member-year evaluation</td><td><code>--dataset (dir), --model-dir, --output-dir</code></td></tr>
+    <tr><td><code>prove</code></td><td>Full system validation</td><td><code>--output-dir</code></td></tr>
+    <tr><td><code>serve-api</code></td><td>Start REST API server</td><td><code>--host, --port, --reload</code></td></tr>
+  </table>
+
+  <h3>Quick Start Commands</h3>
+  <pre># 1. Download reference data
+python -m ra_engine.cli download-cms-v28
+
+# 2. Analyze a clinical note
+python -m ra_engine.cli analyze examples/sample_note.txt --output result.json
+
+# 3. Start API server
+python -m ra_engine.cli serve-api --port 8000
+
+# 4. Train HCC predictor
+python -m ra_engine.cli train-hcc \
+  --train-data data/mixed_large/train.jsonl \
+  --val-data data/mixed_large/val.jsonl \
+  --epochs 5 --batch-size 8 --lr 2e-5 --fp16
+
+# 5. Evaluate model
+python -m ra_engine.cli eval --dataset data/mixed_large/test_mimic.jsonl --output-dir eval_output</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 17. FILE INVENTORY                                                -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="files">
+  <h2>17. Complete File Inventory</h2>
+
+  <h3>Project Statistics</h3>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="value">174</div><div class="label">Python Files</div></div>
+    <div class="stat-card"><div class="value">56K+</div><div class="label">Lines of Code</div></div>
+    <div class="stat-card"><div class="value">22</div><div class="label">Test Files</div></div>
+    <div class="stat-card"><div class="value">32 GB</div><div class="label">Total Project Size</div></div>
+  </div>
+
+  <h3>Source Packages</h3>
+  <table>
+    <tr><th>Package</th><th>Files</th><th>LOC</th><th>Purpose</th></tr>
+    <tr><td><code>ra_engine/</code></td><td>52</td><td>19,484</td><td>Production RA + HEDIS engine</td></tr>
+    <tr><td><code>src/</code></td><td>37</td><td>13,008</td><td>Original data factory pipeline</td></tr>
+    <tr><td><code>hcc_bench_v28/</code></td><td>16</td><td>10,131</td><td>Legacy HCC benchmark</td></tr>
+    <tr><td><code>icd10_bench/</code></td><td>14</td><td>~4,000</td><td>ICD-10 benchmark system</td></tr>
+    <tr><td><code>scripts/</code></td><td>21</td><td>5,691</td><td>Pipeline orchestration scripts</td></tr>
+    <tr><td><code>tests/</code></td><td>22</td><td>8,097</td><td>Comprehensive test suite</td></tr>
+  </table>
+
+  <h3>Key Data Assets</h3>
+  <table>
+    <tr><th>Directory</th><th>Size</th><th>Content</th></tr>
+    <tr><td><code>data/reference/</code></td><td>2.1 MB</td><td>CMS V28 reference data (115 HCCs, 8,183 mappings)</td></tr>
+    <tr><td><code>data/ra_engine/mimic/</code></td><td>1.7 GB</td><td>MIMIC-IV training dataset (train/val/test JSONL)</td></tr>
+    <tr><td><code>data/mixed_large/</code></td><td>1.4 GB</td><td>Mixed MIMIC + Synthea (182K train)</td></tr>
+    <tr><td><code>data/synthea_cohort_large/</code></td><td>387 MB</td><td>Large Synthea cohort (157K augmented notes)</td></tr>
+    <tr><td><code>data/hcc_bench_v28/</code></td><td>4.5 GB</td><td>HCC benchmark dataset</td></tr>
+  </table>
+
+  <h3>Model Checkpoints</h3>
+  <table>
+    <tr><th>Model</th><th>Location</th><th>F1 Micro</th><th>Labels</th></tr>
+    <tr><td>MIMIC-only Baseline</td><td><code>models/ra_engine/hcc_predictor/best/</code></td><td>0.5106</td><td>115</td></tr>
+    <tr><td>Synthea-only</td><td><code>models/ra_engine/hcc_predictor_synthea/best/</code></td><td>0.4471</td><td>64</td></tr>
+    <tr style="background:#c6f6d5;"><td><strong>Mixed Large (Best)</strong></td><td><code>models/ra_engine/hcc_predictor_mixed_large/best/</code></td><td><strong>0.5717</strong></td><td>115</td></tr>
+    <tr><td>TF-IDF Baseline</td><td><code>models/hcc_bench_v28/tfidf_hcc/</code></td><td>~0.32</td><td>115</td></tr>
+    <tr><td>Transformer Baseline</td><td><code>models/hcc_bench_v28/transformer_hcc/</code></td><td>~0.51</td><td>115</td></tr>
+  </table>
+
+  <h3>Dependencies</h3>
+  <pre># Core
+python-dotenv, PyYAML, pandas, numpy, tqdm, requests, jsonlines
+
+# ML / Deep Learning
+torch, transformers, datasets, accelerate, scikit-learn, scipy
+
+# OpenAI
+openai
+
+# Evaluation & Visualization
+matplotlib, seaborn
+
+# Data Quality
+rapidfuzz
+
+# API Server
+fastapi, uvicorn, pydantic>=2.0
+
+# Testing
+pytest, pytest-cov</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 18. INTEGRATION GUIDE (MedInsight Platform)                       -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="section" id="integration">
+  <h2>18. Integration Guide (MedInsight Platform)</h2>
+
+  <div class="card highlight">
+    <h4>Integration Points for MedInsight Platform</h4>
+    <p>The RA Engine produces strict JSON output that can be consumed by the MedInsight platform:</p>
+  </div>
+
+  <h3>Input Contract</h3>
+  <pre># Single clinical note text (string, any length)
+engine = RAEngine(model_dir="...", reference_dir="...", cache_dir="...")
+result = engine.analyze(note_text)  # Returns dict with 6 layers</pre>
+
+  <h3>Output JSON Fields for Platform Integration</h3>
+  <table>
+    <tr><th>Field Path</th><th>Type</th><th>Platform Use</th></tr>
+    <tr><td><code>icd_layer.supported_icd10[].code</code></td><td>str</td><td>ICD-10-CM codes for claims submission</td></tr>
+    <tr><td><code>icd_layer.supported_icd10[].supported</code></td><td>bool</td><td>Filter: only submit supported=true codes</td></tr>
+    <tr><td><code>icd_layer.supported_icd10[].confidence</code></td><td>float</td><td>Risk scoring: flag low-confidence for manual review</td></tr>
+    <tr><td><code>icd_layer.supported_icd10[].evidence_spans[]</code></td><td>list</td><td>Audit trail: exact text citations with offsets</td></tr>
+    <tr><td><code>icd_layer.supported_icd10[].meat</code></td><td>dict</td><td>Documentation sufficiency check</td></tr>
+    <tr><td><code>hcc_layer.payable_hccs_final[].hcc</code></td><td>str</td><td>HCC categories for risk adjustment</td></tr>
+    <tr><td><code>hcc_layer.payable_hccs_final[].audit_risk</code></td><td>str</td><td>Audit risk stratification (low/medium/high)</td></tr>
+    <tr><td><code>hcc_layer.hierarchy_explanations[]</code></td><td>list</td><td>Why certain HCCs were suppressed</td></tr>
+    <tr><td><code>raf_layer.raf_payable_final</code></td><td>float</td><td>Risk score for this encounter</td></tr>
+    <tr><td><code>hedis_layer.measures[].measure_id</code></td><td>str</td><td>Quality measure identifier</td></tr>
+    <tr><td><code>hedis_layer.measures[].status</code></td><td>str</td><td>Gap status: met/not_met/excluded</td></tr>
+    <tr><td><code>audit_pack.evidence_validity_rate</code></td><td>float</td><td>Overall documentation quality score</td></tr>
+  </table>
+
+  <h3>Batch Processing Pattern</h3>
+  <pre>import json
+from ra_engine.inference.analyze import RAEngine
+
+engine = RAEngine(
+    model_dir="models/ra_engine/hcc_predictor_mixed_large/best",
+    reference_dir="data/reference"
+)
+
+# Process member encounters from MedInsight platform
+for encounter in medinsight_encounters:
+    result = engine.analyze(encounter["note_text"])
+
+    # Extract for platform JSON
+    platform_record = {
+        "encounter_id": encounter["id"],
+        "member_id": encounter["member_id"],
+        "supported_icds": [
+            {"code": icd["code"], "confidence": icd["confidence"]}
+            for icd in result["icd_layer"]["supported_icd10"]
+            if icd["supported"]
+        ],
+        "payable_hccs": [
+            hcc["hcc"] for hcc in result["hcc_layer"]["payable_hccs_final"]
+        ],
+        "raf_score": result["raf_layer"]["raf_payable_final"],
+        "hedis_gaps": [
+            {"measure": m["measure_id"], "status": m["status"]}
+            for m in result["hedis_layer"]["measures"]
+            if m["status"] == "not_met"
+        ],
+        "audit_score": result["audit_pack"]["evidence_validity_rate"]
+    }
+
+    # Send to MedInsight platform
+    platform.submit(platform_record)</pre>
+
+  <h3>Member-Year Aggregation</h3>
+  <pre># After processing all encounters for a member-year:
+from ra_engine.eval.member_year_eval import MemberYearEvaluator
+
+evaluator = MemberYearEvaluator(
+    analyze_fn=engine.analyze,
+    output_dir="results/member_year_eval",
+    coefficients=raf_coefficients  # from v28_coefficients.json
+)
+
+# Run on member-year dataset
+report = evaluator.run(dataset_dir="data/member_year/")
+
+# report.per_member_year contains:
+#   - predicted_hccs (union across encounters)
+#   - tp_hccs, fp_hccs, fn_hccs
+#   - hedis_status (met-wins aggregation)
+#   - raf_predicted vs raf_actual</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div style="text-align: center; margin-top: 3rem; padding: 2rem; border-top: 2px solid var(--border); color: var(--text-light); font-size: 0.85rem;">
+  <p><strong>MedInsight RA Engine</strong> &mdash; CMS-HCC V28 PY2026 Risk Adjustment &amp; HEDIS Quality Engine</p>
+  <p>Unified Technical Documentation v2.1 &mdash; Generated March 2026</p>
+  <p>Total Codebase: 174 Python files | 56,000+ LOC | 22 test files | 32 GB data+models</p>
+  <p style="margin-top: 0.5rem;">Built with Bio_ClinicalBERT, OpenAI gpt-4o, CMS V28 PY2026 Reference Data</p>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

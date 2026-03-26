@@ -1,0 +1,47 @@
+id: "DAE"
+name: "Use of High-Risk Medications in Older Adults"
+version: "2025"
+domain: "medication_safety"
+description: >
+  Assesses whether adults aged 65 and older received at least one
+  high-risk medication during the measurement year. The American
+  Geriatrics Society Beers Criteria identifies medications that are
+  potentially inappropriate for older adults due to their high risk of
+  adverse effects, including falls, cognitive impairment, delirium,
+  gastrointestinal bleeding, and cardiovascular events. High-risk
+  medications include certain antihistamines, barbiturates, muscle
+  relaxants, long-acting benzodiazepines, and other drugs with
+  unfavorable risk-benefit profiles in the elderly population. This is an
+  INVERSE measure where the numerator event (receiving a high-risk
+  medication) represents an UNDESIRABLE outcome. A lower rate indicates
+  better performance.
+
+inverse: true
+
+eligibility:
+  age: {min: 65, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "high_risk_elderly"
+      window_months: 12
+
+valuesets_needed:
+  - VS_HIGH_RISK_ELDERLY_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

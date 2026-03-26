@@ -1,0 +1,55 @@
+id: "MAD"
+name: "Medication Adherence for Diabetes Medications"
+version: "2025"
+domain: "medication_adherence"
+description: >
+  Assesses whether adults aged 18 and older with diabetes who were
+  dispensed a diabetes medication maintained adherence during the
+  measurement year. Consistent use of diabetes medications (including
+  metformin, sulfonylureas, DPP-4 inhibitors, SGLT2 inhibitors,
+  GLP-1 receptor agonists, and insulin) is essential for achieving and
+  maintaining glycemic control, preventing microvascular and macrovascular
+  complications, and reducing diabetes-related hospitalizations. This
+  measure uses evidence of diabetes medication presence during the
+  measurement year as a proxy for adherence. The denominator requires
+  both a diabetes diagnosis and evidence of diabetes medication use.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+  requires_medication:
+    medication_class: "diabetes_med"
+    window_months: 24
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_ESRD_ICD10"
+    lookback_months: 12
+    description: "End-stage renal disease"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "diabetes_med"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_DIABETES_MEDICATIONS
+  - VS_ESRD_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

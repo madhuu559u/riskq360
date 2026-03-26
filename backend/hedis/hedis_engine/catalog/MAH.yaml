@@ -1,0 +1,56 @@
+id: "MAH"
+name: "Medication Adherence for Hypertension (RAS Antagonists)"
+version: "2025"
+domain: "medication_adherence"
+description: >
+  Assesses whether adults aged 18 and older with hypertension who were
+  dispensed an antihypertensive medication (specifically renin-angiotensin
+  system antagonists including ACE inhibitors and ARBs) maintained
+  adherence during the measurement year. Consistent use of
+  antihypertensive medications is essential for achieving blood pressure
+  control, reducing the risk of stroke, myocardial infarction, heart
+  failure, and chronic kidney disease progression. Non-adherence to
+  antihypertensive therapy is a leading cause of uncontrolled hypertension
+  and preventable cardiovascular events. This measure uses evidence of
+  antihypertensive medication presence during the measurement year as a
+  proxy for adherence.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_HYPERTENSION_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+  requires_medication:
+    medication_class: "antihypertensive"
+    window_months: 24
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_ESRD_ICD10"
+    lookback_months: 12
+    description: "End-stage renal disease"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "antihypertensive"
+      window_months: 12
+
+valuesets_needed:
+  - VS_HYPERTENSION_ICD10
+  - VS_ANTIHYPERTENSIVE_MEDICATIONS
+  - VS_ESRD_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

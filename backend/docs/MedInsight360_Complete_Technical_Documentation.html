@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedInsight 360 &mdash; Complete Technical Documentation</title>
+<style>
+:root{--bg:#0f1117;--surface:#1a1d27;--surface2:#242836;--border:#2e3347;--text:#e4e7ef;--text2:#a0a6b8;--text3:#6b7189;--primary:#6366f1;--primary2:#818cf8;--accent:#22d3ee;--accent2:#06b6d4;--success:#22c55e;--warning:#f59e0b;--error:#ef4444;--code-bg:#151821;--tab-active:#6366f1;--gradient:linear-gradient(135deg,#6366f1,#22d3ee);--font:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;--mono:'JetBrains Mono','Fira Code','Cascadia Code',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.65;font-size:14px;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(99,102,241,.35)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+/* Hero */
+.hero{background:linear-gradient(180deg,#1a1030 0%,var(--bg) 100%);padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 300px at 50% 0%,rgba(99,102,241,.15),transparent);pointer-events:none}
+.hero h1{font-size:42px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.03em;margin-bottom:8px}
+.hero .sub{color:var(--text2);font-size:16px;max-width:700px;margin:0 auto 20px}
+.hero .version{display:inline-block;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(99,102,241,.15);color:var(--primary2);border:1px solid rgba(99,102,241,.25);letter-spacing:.05em}
+/* Container */
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+/* Tabs */
+.tab-bar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;backdrop-filter:blur(12px)}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:12px 20px;font-size:12px;font-weight:600;color:var(--text3);cursor:pointer;border:none;background:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;letter-spacing:.02em;text-transform:uppercase}
+.tab-btn:hover{color:var(--text2);background:rgba(255,255,255,.03)}
+.tab-btn.active{color:var(--primary2);border-bottom-color:var(--tab-active);background:rgba(99,102,241,.06)}
+.tab-content{display:none;padding:32px 0;animation:fadeIn .25s ease}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* Section */
+section{margin-bottom:40px}
+h2{font-size:24px;font-weight:700;color:var(--text);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);letter-spacing:-.02em}
+h3{font-size:17px;font-weight:700;color:var(--primary2);margin:24px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--accent);margin:16px 0 8px}
+p{color:var(--text2);margin-bottom:12px}
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:20px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.stat-card .num{font-size:32px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-card .label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+/* Table */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{text-align:left;padding:10px 12px;background:var(--surface2);color:var(--text2);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--border)}
+td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.02)}
+/* Code */
+code{font-family:var(--mono);font-size:12px;background:var(--code-bg);color:var(--accent);padding:2px 6px;border-radius:4px}
+pre{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;padding:16px 20px;overflow-x:auto;margin:12px 0;font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--text2)}
+pre code{background:none;padding:0}
+/* Badge */
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.badge-primary{background:rgba(99,102,241,.15);color:var(--primary2)}
+.badge-accent{background:rgba(34,211,238,.12);color:var(--accent)}
+.badge-success{background:rgba(34,197,94,.12);color:var(--success)}
+.badge-warning{background:rgba(245,158,11,.12);color:var(--warning)}
+.badge-error{background:rgba(239,68,68,.12);color:var(--error)}
+.badge-gray{background:rgba(107,113,137,.15);color:var(--text3)}
+/* Method badges */
+.m-get{color:#22c55e;font-weight:700;font-family:var(--mono);font-size:11px}.m-post{color:#3b82f6;font-weight:700;font-family:var(--mono);font-size:11px}.m-put{color:#f59e0b;font-weight:700;font-family:var(--mono);font-size:11px}.m-del{color:#ef4444;font-weight:700;font-family:var(--mono);font-size:11px}
+/* Diagrams */
+.diagram{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin:16px 0;font-family:var(--mono);font-size:12px;line-height:1.8;overflow-x:auto;white-space:pre;color:var(--text2)}
+.diagram .hl{color:var(--primary2);font-weight:700}.diagram .ac{color:var(--accent);font-weight:700}.diagram .su{color:var(--success)}.diagram .wa{color:var(--warning)}.diagram .er{color:var(--error)}.diagram .arrow{color:var(--text3)}
+/* Flow */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:16px 0}
+.flow-step{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:12px;font-weight:600;color:var(--text);text-align:center;min-width:120px}
+.flow-arrow{color:var(--text3);font-size:18px}
+/* Lists */
+ul,ol{margin:8px 0 16px 24px;color:var(--text2)}
+li{margin-bottom:4px}
+li code{font-size:11px}
+/* Columns */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:768px){.cols{grid-template-columns:1fr}.card-grid{grid-template-columns:1fr}}
+/* Accordion */
+details{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+details>summary{padding:12px 16px;cursor:pointer;font-weight:600;font-size:13px;color:var(--text);list-style:none;display:flex;align-items:center;gap:8px}
+details>summary::before{content:'\25B6';font-size:9px;color:var(--text3);transition:transform .2s}
+details[open]>summary::before{transform:rotate(90deg)}
+details>div{padding:0 16px 16px}
+/* Tree */
+.tree{font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--text2);background:var(--code-bg);border-radius:10px;padding:16px 20px;overflow-x:auto;border:1px solid var(--border)}
+.tree .dir{color:var(--primary2);font-weight:700}.tree .file{color:var(--text2)}.tree .comment{color:var(--text3);font-style:italic}
+/* TOC */
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.toc h4{margin:0 0 8px;color:var(--text);font-size:13px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{padding:3px 0}
+.toc a{color:var(--text2);font-size:12px;font-weight:500}
+.toc a:hover{color:var(--accent)}
+/* Highlight box */
+.hl-box{border-left:3px solid var(--primary);background:rgba(99,102,241,.06);padding:14px 18px;border-radius:0 8px 8px 0;margin:14px 0;font-size:13px}
+.hl-box.accent{border-left-color:var(--accent);background:rgba(34,211,238,.06)}
+.hl-box.success{border-left-color:var(--success);background:rgba(34,197,94,.06)}
+.hl-box.warning{border-left-color:var(--warning);background:rgba(245,158,11,.06)}
+/* Footer */
+footer{text-align:center;padding:40px 0;border-top:1px solid var(--border);color:var(--text3);font-size:12px;margin-top:40px}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- HERO SECTION                                                   -->
+<!-- ============================================================ -->
+<div class="hero">
+<div class="container">
+<h1>MedInsight 360</h1>
+<p class="sub">Unified Risk Adjustment + Quality Intelligence Platform<br>Complete Technical Documentation</p>
+<span class="version">v1.0.0 &middot; March 2026 &middot; Production Build</span>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB BAR                                                        -->
+<!-- ============================================================ -->
+<div class="tab-bar" id="tabBar">
+<button class="tab-btn active" data-tab="overview">Overview</button>
+<button class="tab-btn" data-tab="architecture">Architecture</button>
+<button class="tab-btn" data-tab="pipeline">Pipeline Flow</button>
+<button class="tab-btn" data-tab="api">REST API</button>
+<button class="tab-btn" data-tab="database">Database</button>
+<button class="tab-btn" data-tab="services">Services</button>
+<button class="tab-btn" data-tab="frontend">Frontend</button>
+<button class="tab-btn" data-tab="functionality">Functionality</button>
+<button class="tab-btn" data-tab="config">Configuration</button>
+<button class="tab-btn" data-tab="deployment">Deployment</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: OVERVIEW                                                  -->
+<!-- ============================================================ -->
+<div class="container">
+<div class="tab-content active" id="tab-overview">
+
+<section>
+<h2>Platform Overview</h2>
+<p>MedInsight 360 is a <strong>production-grade, AI-powered medical chart analysis platform</strong> that combines Risk Adjustment (HCC coding) and Quality Intelligence (HEDIS measures) into a single unified system. It ingests medical chart PDFs, applies multi-layer AI extraction, ML prediction, deterministic verification, and produces actionable Payable HCC Packs and HEDIS Gap reports.</p>
+
+<div class="card-grid">
+<div class="stat-card"><div class="num">30+</div><div class="label">Database Tables</div></div>
+<div class="stat-card"><div class="num">50+</div><div class="label">REST API Endpoints</div></div>
+<div class="stat-card"><div class="num">9</div><div class="label">Business Services</div></div>
+<div class="stat-card"><div class="num">14</div><div class="label">Data Repositories</div></div>
+<div class="stat-card"><div class="num">31</div><div class="label">Frontend Components</div></div>
+<div class="stat-card"><div class="num">70+</div><div class="label">React Query Hooks</div></div>
+<div class="stat-card"><div class="num">6</div><div class="label">UI Themes</div></div>
+<div class="stat-card"><div class="num">90%</div><div class="label">Test Success Rate</div></div>
+</div>
+</section>
+
+<section>
+<h2>Technology Stack</h2>
+<div class="cols">
+<div class="card">
+<h4>Backend</h4>
+<ul>
+<li><strong>Python 3.12</strong> &mdash; Core runtime</li>
+<li><strong>FastAPI</strong> &mdash; REST API framework (async)</li>
+<li><strong>SQLAlchemy 2.0</strong> &mdash; Async ORM with relationship loading</li>
+<li><strong>PostgreSQL 16</strong> / <strong>SQLite</strong> (dev) &mdash; Database</li>
+<li><strong>OpenAI GPT-4o</strong> / Azure / Gemini &mdash; LLM extraction &amp; verification</li>
+<li><strong>BioClinicalBERT</strong> &mdash; Multi-label HCC prediction (PyTorch)</li>
+<li><strong>TF-IDF</strong> &mdash; ICD-10 code retrieval (scikit-learn)</li>
+<li><strong>ConText/NegEx</strong> &mdash; Deterministic negation detection</li>
+<li><strong>Pydantic v2</strong> &mdash; Settings &amp; request/response schemas</li>
+<li><strong>Alembic</strong> &mdash; Database migrations</li>
+</ul>
+</div>
+<div class="card">
+<h4>Frontend</h4>
+<ul>
+<li><strong>React 19</strong> + <strong>TypeScript 5.9</strong> &mdash; UI framework</li>
+<li><strong>Mantine UI v8.3</strong> &mdash; Component library</li>
+<li><strong>Zustand 5</strong> &mdash; Client state management</li>
+<li><strong>TanStack React Query 5</strong> &mdash; Server state &amp; caching</li>
+<li><strong>React-PDF 10</strong> &mdash; PDF rendering with highlights</li>
+<li><strong>Recharts 3</strong> &mdash; Data visualization</li>
+<li><strong>Framer Motion 12</strong> &mdash; Animations</li>
+<li><strong>Vite 7</strong> &mdash; Build tool &amp; dev server</li>
+<li><strong>Axios</strong> &mdash; HTTP client with interceptors</li>
+<li><strong>Nginx</strong> &mdash; Production serving &amp; API proxy</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Key Capabilities</h2>
+<div class="card-grid">
+<div class="card">
+<h4>HCC Risk Adjustment</h4>
+<p>Ensemble HCC prediction combining LLM extraction, BioClinicalBERT ML, and TF-IDF retrieval. V28 ICD&#8594;HCC mapping with hierarchy suppression. Full RAF score computation with MEAT evidence validation.</p>
+</div>
+<div class="card">
+<h4>HEDIS Quality Measures</h4>
+<p>Automated evaluation of 100+ quality measures. Gap identification with actionable recommendations. Evidence-backed compliance tracking with PDF source references.</p>
+</div>
+<div class="card">
+<h4>PDF Intelligence</h4>
+<p>Per-page quality scoring, GPT-4o Vision OCR fallback, MiniMax single-pass extraction of all clinical facts with exact quote preservation and character offset tracking.</p>
+</div>
+<div class="card">
+<h4>Coder Review Workflow</h4>
+<p>Full accept/reject/edit workflow for diagnoses, HCCs, and HEDIS measures. Audit trail logging every action. Decision trace explaining why each coding decision was made.</p>
+</div>
+<div class="card">
+<h4>Interactive PDF Viewer</h4>
+<p>Split-pane viewer with evidence highlighting. Click any diagnosis, HCC, or HEDIS item to jump to the supporting text in the PDF with glow animation.</p>
+</div>
+<div class="card">
+<h4>Configurable Everything</h4>
+<p>Runtime feature flags, LLM provider switching (OpenAI/Azure/Gemini), editable prompts, adjustable thresholds &mdash; all via dashboard without code changes.</p>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: ARCHITECTURE                                              -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-architecture">
+
+<section>
+<h2>System Architecture</h2>
+
+<div class="diagram"><span class="hl">                          MedInsight 360 System Architecture</span>
+
+    <span class="arrow">┌─────────────────────────────────────────────────────────────────────────────┐</span>
+    <span class="arrow">│</span>  <span class="ac">FRONTEND (React 19 + Mantine + TypeScript)</span>                                <span class="arrow">│</span>
+    <span class="arrow">│</span>                                                                             <span class="arrow">│</span>
+    <span class="arrow">│</span>   ┌──────────┐  ┌───────────┐  ┌──────────┐  ┌───────────┐  ┌──────────┐  <span class="arrow">│</span>
+    <span class="arrow">│</span>   │Chart List │  │PDF Viewer │  │HCC Panel │  │HEDIS Panel│  │Dashboard │  <span class="arrow">│</span>
+    <span class="arrow">│</span>   └─────┬────┘  └─────┬─────┘  └────┬─────┘  └─────┬─────┘  └────┬─────┘  <span class="arrow">│</span>
+    <span class="arrow">│</span>         │             │             │              │              │         <span class="arrow">│</span>
+    <span class="arrow">│</span>   ┌─────┴─────────────┴─────────────┴──────────────┴──────────────┴─────┐  <span class="arrow">│</span>
+    <span class="arrow">│</span>   │           <span class="hl">Zustand Stores</span> + <span class="hl">React Query</span> (70+ hooks)                   │  <span class="arrow">│</span>
+    <span class="arrow">│</span>   └─────────────────────────────┬───────────────────────────────────────┘  <span class="arrow">│</span>
+    <span class="arrow">└─────────────────────────────────┼───────────────────────────────────────────┘</span>
+                                      │  <span class="wa">HTTP / Axios</span>
+    <span class="arrow">┌─────────────────────────────────┼───────────────────────────────────────────┐</span>
+    <span class="arrow">│</span>  <span class="hl">NGINX</span> (Reverse Proxy)            │                                           <span class="arrow">│</span>
+    <span class="arrow">│</span>   /api/*  ──────────────────────┼──►  Backend                               <span class="arrow">│</span>
+    <span class="arrow">│</span>   /*      ──► Static SPA         │                                           <span class="arrow">│</span>
+    <span class="arrow">└─────────────────────────────────┼───────────────────────────────────────────┘</span>
+                                      │
+    <span class="arrow">┌─────────────────────────────────┼───────────────────────────────────────────┐</span>
+    <span class="arrow">│</span>  <span class="ac">BACKEND (FastAPI + Python 3.12)</span>  │                                           <span class="arrow">│</span>
+    <span class="arrow">│</span>                                  │                                           <span class="arrow">│</span>
+    <span class="arrow">│</span>   ┌─────────────────────────────┴──────────────────────────────────────┐   <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  <span class="hl">API LAYER</span> &mdash; 11 FastAPI Routers (50+ endpoints)                     │   <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  charts │ clinical │ risk │ hedis │ audit │ review │ config │ dash  │   <span class="arrow">│</span>
+    <span class="arrow">│</span>   └─────────────────────────────┬──────────────────────────────────────┘   <span class="arrow">│</span>
+    <span class="arrow">│</span>                                  │                                           <span class="arrow">│</span>
+    <span class="arrow">│</span>   ┌─────────────────────────────┴──────────────────────────────────────┐   <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  <span class="hl">SERVICE LAYER</span> &mdash; 9 Business Logic Services                          │   <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  ChartSvc │ AssertionSvc │ RiskSvc │ HEDISSvc │ AuditSvc │ etc.   │   <span class="arrow">│</span>
+    <span class="arrow">│</span>   └─────────────────────────────┬──────────────────────────────────────┘   <span class="arrow">│</span>
+    <span class="arrow">│</span>                                  │                                           <span class="arrow">│</span>
+    <span class="arrow">│</span>   ┌─────────────────────────────┴──────────────────────────────────────┐   <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  <span class="hl">REPOSITORY LAYER</span> &mdash; 14 Async Data Access Repositories               │   <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  ChartRepo │ AssertionRepo │ HCCRepo │ RAFRepo │ HEDISRepo │ etc. │   <span class="arrow">│</span>
+    <span class="arrow">│</span>   └─────────────────────────────┬──────────────────────────────────────┘   <span class="arrow">│</span>
+    <span class="arrow">│</span>                                  │                                           <span class="arrow">│</span>
+    <span class="arrow">│</span>   ┌─────────────────────────────┴──────────────────────────────────────┐   <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  <span class="hl">DATABASE</span> &mdash; PostgreSQL 16 (30+ tables, async via SQLAlchemy 2.0)    │   <span class="arrow">│</span>
+    <span class="arrow">│</span>   └──────────────────────────────────────────────────────────────────────┘   <span class="arrow">│</span>
+    <span class="arrow">│</span>                                                                               <span class="arrow">│</span>
+    <span class="arrow">│</span>   ┌──────────────────────────── PROCESSING ENGINE ────────────────────────┐  <span class="arrow">│</span>
+    <span class="arrow">│</span>   │                                                                        │  <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  <span class="wa">Ingestion</span>    <span class="su">Extraction</span>     <span class="hl">ML Engine</span>      <span class="ac">Decisioning</span>     <span class="er">HEDIS</span>    │  <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  PDF→Text    MiniMax LLM   BioClinBERT   HCC Mapper     Measure   │  <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  Quality     Assertions    TF-IDF ICD    RAF Calc       Evaluator │  <span class="arrow">│</span>
+    <span class="arrow">│</span>   │  OCR         Enrichment    NegEx/ConText ICD Verify     Gaps      │  <span class="arrow">│</span>
+    <span class="arrow">│</span>   │                                                                        │  <span class="arrow">│</span>
+    <span class="arrow">│</span>   └────────────────────────────────────────────────────────────────────────┘  <span class="arrow">│</span>
+    <span class="arrow">└───────────────────────────────────────────────────────────────────────────────┘</span>
+</div>
+</section>
+
+<section>
+<h2>Layer Architecture</h2>
+<table>
+<tr><th>Layer</th><th>Location</th><th>Responsibility</th><th>Key Classes</th></tr>
+<tr><td><span class="badge badge-primary">API</span></td><td><code>api/routers/</code></td><td>HTTP endpoints, request validation, response serialization</td><td>11 FastAPI routers</td></tr>
+<tr><td><span class="badge badge-accent">Service</span></td><td><code>services/</code></td><td>Business logic orchestration, data enrichment</td><td>ChartService, RiskService, HEDISService, AuditService, ReviewService, etc.</td></tr>
+<tr><td><span class="badge badge-success">Repository</span></td><td><code>database/repositories/</code></td><td>CRUD operations, query building, transaction management</td><td>ChartRepository, AssertionRepository, HCCRepository, etc.</td></tr>
+<tr><td><span class="badge badge-warning">Processing</span></td><td><code>core/ extraction/ ml_engine/ decisioning/</code></td><td>PDF processing, LLM extraction, ML prediction, HCC mapping, HEDIS evaluation</td><td>Orchestrator, AssertionExtractor, HCCEnsemble, HEDISBridge</td></tr>
+<tr><td><span class="badge badge-gray">Database</span></td><td><code>database/</code></td><td>ORM models, connection pooling, migrations</td><td>30+ SQLAlchemy models</td></tr>
+</table>
+</section>
+
+<section>
+<h2>Project Structure</h2>
+<div class="tree"><span class="dir">medinsight360_codex/</span>
+├── <span class="dir">api/</span>                    <span class="comment"># FastAPI REST endpoints (11 routers)</span>
+│   ├── main.py             <span class="comment"># App initialization, startup events</span>
+│   ├── middleware.py        <span class="comment"># Request logging, correlation IDs</span>
+│   ├── <span class="dir">routers/</span>            <span class="comment"># charts, clinical, risk, hedis, audit, review, config, dashboard, pipeline, patients, encounters, coding_helper</span>
+│   └── <span class="dir">schemas/</span>            <span class="comment"># Pydantic request/response models</span>
+├── <span class="dir">config/</span>                 <span class="comment"># Centralized settings (Pydantic BaseSettings)</span>
+│   ├── settings.py         <span class="comment"># Database, LLM, ML, Pipeline, Server, Path configs</span>
+│   ├── feature_flags.py    <span class="comment"># Runtime feature toggles (RA, HEDIS, ML, OCR)</span>
+│   └── <span class="dir">prompts/</span>            <span class="comment"># LLM prompt templates</span>
+├── <span class="dir">core/</span>                   <span class="comment"># Orchestration &amp; coordination</span>
+│   ├── orchestrator.py     <span class="comment"># Main pipeline controller (FULL/RISK_ONLY/HEDIS_ONLY/HCC_PACK)</span>
+│   ├── hcc_bridge.py       <span class="comment"># HCC ensemble coordination</span>
+│   ├── hedis_bridge.py     <span class="comment"># HEDIS measure engine bridge</span>
+│   ├── hcc_ensemble.py     <span class="comment"># Multi-source HCC prediction ensemble</span>
+│   └── exceptions.py       <span class="comment"># 25+ custom exception types</span>
+├── <span class="dir">ingestion/</span>              <span class="comment"># PDF intake &amp; text normalization</span>
+│   ├── pdf_processor.py    <span class="comment"># PyMuPDF extraction</span>
+│   ├── quality_scorer.py   <span class="comment"># Per-page quality 0-100</span>
+│   ├── ocr_engine.py       <span class="comment"># GPT-4o Vision OCR fallback</span>
+│   └── text_normalizer.py  <span class="comment"># Section segmentation</span>
+├── <span class="dir">extraction/</span>             <span class="comment"># LLM extraction engine</span>
+│   ├── assertion_extractor.py  <span class="comment"># MiniMax single-pass extractor</span>
+│   ├── assertion_enricher.py   <span class="comment"># Code/date/quote enrichment</span>
+│   ├── chunk_manager.py        <span class="comment"># Text chunking (10K chars, 500 overlap)</span>
+│   ├── llm_client.py           <span class="comment"># Unified LLM provider (OpenAI/Azure/Gemini)</span>
+│   ├── condition_grouper.py    <span class="comment"># Group assertions by concept</span>
+│   └── quote_validator.py      <span class="comment"># Exact quote repair &amp; validation</span>
+├── <span class="dir">ml_engine/</span>              <span class="comment"># ML prediction models</span>
+│   ├── hcc_predictor.py    <span class="comment"># BioClinicalBERT multi-label HCC (115 categories)</span>
+│   ├── icd_retriever.py    <span class="comment"># TF-IDF ICD-10 retrieval (7,903 codes)</span>
+│   ├── negation_detector.py <span class="comment"># ConText/NegEx (6-status model)</span>
+│   ├── span_proposer.py    <span class="comment"># Evidence span identification</span>
+│   └── <span class="dir">models/</span>             <span class="comment"># BioClinicalBERT checkpoint, TF-IDF vectorizer, ICD catalog</span>
+├── <span class="dir">decisioning/</span>            <span class="comment"># HCC mapping, RAF, verification</span>
+│   ├── hcc_mapper.py       <span class="comment"># V28 ICD&#8594;HCC mapping + hierarchy suppression</span>
+│   ├── raf_calculator.py   <span class="comment"># RAF score computation</span>
+│   ├── icd_verifier.py     <span class="comment"># GPT-4o MEAT verification</span>
+│   ├── hedis_evaluator.py  <span class="comment"># HEDIS measure evaluation</span>
+│   └── <span class="dir">reference/</span>          <span class="comment"># V28 mappings, coefficients, hierarchy rules</span>
+├── <span class="dir">database/</span>               <span class="comment"># Data persistence</span>
+│   ├── models.py           <span class="comment"># 30+ SQLAlchemy ORM tables</span>
+│   ├── connection.py       <span class="comment"># Async connection pool</span>
+│   └── <span class="dir">repositories/</span>       <span class="comment"># 14 data access repositories</span>
+├── <span class="dir">services/</span>               <span class="comment"># Business logic layer (9 services)</span>
+├── <span class="dir">hedis/</span>                  <span class="comment"># HEDIS measure engine (adapters, catalog, valuesets)</span>
+├── <span class="dir">scripts/</span>                <span class="comment"># CLI tools (run_chart, run_batch, init_db, seed_reference_data)</span>
+├── <span class="dir">tests/</span>                  <span class="comment"># 11 test modules (pytest + pytest-asyncio)</span>
+├── docker-compose.yml      <span class="comment"># PostgreSQL + API + Frontend stack</span>
+├── Dockerfile              <span class="comment"># Python 3.12-slim backend image</span>
+└── <span class="dir">nginx/</span>                  <span class="comment"># Nginx reverse proxy config</span>
+</div>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: PIPELINE FLOW                                             -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-pipeline">
+
+<section>
+<h2>End-to-End Pipeline Flow</h2>
+<p>When a medical chart PDF is uploaded, the platform executes this multi-stage pipeline:</p>
+
+<div class="diagram"><span class="hl">                        Chart Processing Pipeline</span>
+
+  <span class="wa">PDF Upload</span>
+       │
+       ▼
+  ┌────────────────────────────────────────────────────────────┐
+  │  <span class="hl">STEP 1: PDF Ingestion</span>                                      │
+  │  • Extract text per page (PyMuPDF)                         │
+  │  • Score each page quality (0-100)                         │
+  │  • OCR fallback for low-quality pages (GPT-4o Vision)      │
+  │  • Output: normalized text with page boundaries            │
+  └──────────────────────────┬─────────────────────────────────┘
+                             │
+                             ▼
+  ┌────────────────────────────────────────────────────────────┐
+  │  <span class="ac">STEP 2: MiniMax Single-Pass LLM Extraction</span>                 │
+  │  • Chunk text (10K chars, 500 overlap)                     │
+  │  • One LLM call per chunk extracts ALL assertion types:    │
+  │    diagnoses, medications, vitals, labs, procedures,        │
+  │    screenings, encounters, social history, etc.             │
+  │  • Parallel chunk processing (4 concurrent)                │
+  │  • Robust JSON parsing (handles truncation)                │
+  │  • Output: raw assertions with exact quotes + offsets      │
+  └──────────────────────────┬─────────────────────────────────┘
+                             │
+                             ▼
+  ┌────────────────────────────────────────────────────────────┐
+  │  <span class="su">STEP 3: Deterministic Enrichment</span>                           │
+  │  • Code extraction (ICD-10, CPT, HCPCS, SNOMED)           │
+  │  • Date parsing &amp; normalization                            │
+  │  • Exact quote validation &amp; repair                         │
+  │  • Vital sign parsing (BP, weight, BMI)                    │
+  │  • Condition grouping (aggregate by concept)               │
+  │  • HCC/HEDIS candidate flagging                            │
+  │  • Output: enriched assertions persisted to database       │
+  └──────────────────────────┬─────────────────────────────────┘
+                             │
+                  ┌──────────┴──────────┐
+                  ▼                     ▼
+  ┌──────────────────────┐  ┌──────────────────────┐
+  │  <span class="hl">STEP 4: HCC Bridge</span>   │  │  <span class="er">STEP 5: HEDIS Bridge</span> │
+  │  (if RA enabled)     │  │  (if HEDIS enabled)  │
+  │                      │  │                      │
+  │  ┌────────────────┐  │  │  • Match assertions  │
+  │  │ HCC Ensemble:  │  │  │    to measure rules  │
+  │  │ LLM extracted  │  │  │  • Evaluate each     │
+  │  │ + BioClinBERT  │  │  │    measure: met/gap  │
+  │  │ + TF-IDF ICD   │  │  │  • Record evidence   │
+  │  └───────┬────────┘  │  │  • Identify gaps     │
+  │          │           │  │    with action items  │
+  │  ┌───────▼────────┐  │  └──────────┬───────────┘
+  │  │ NegEx Gating   │  │             │
+  │  │ (6-status)     │  │             │
+  │  └───────┬────────┘  │             │
+  │          │           │             │
+  │  ┌───────▼────────┐  │             │
+  │  │ GPT-4o Verify  │  │             │
+  │  │ + MEAT Check   │  │             │
+  │  └───────┬────────┘  │             │
+  │          │           │             │
+  │  ┌───────▼────────┐  │             │
+  │  │ V28 Mapping    │  │             │
+  │  │ + Hierarchy    │  │             │
+  │  │ + RAF Calc     │  │             │
+  │  └───────┬────────┘  │             │
+  └──────────┼───────────┘             │
+             │                         │
+             ▼                         ▼
+  ┌────────────────────────────────────────────────────────────┐
+  │  <span class="wa">STEP 6: Output Generation &amp; Persistence</span>                    │
+  │  • Write 12 JSON output files per chart run                │
+  │  • Persist to database (payable_hccs, raf_summaries,       │
+  │    hedis_results, hedis_summaries, hierarchy_log)          │
+  │  • Log pipeline metrics (time, tokens, pages)              │
+  └────────────────────────────────────────────────────────────┘
+</div>
+</section>
+
+<section>
+<h2>HCC Ensemble: The Dual Approach</h2>
+<div class="hl-box">This is the competitive advantage. Rather than relying solely on LLM-extracted ICD codes (which can hallucinate), MedInsight 360 uses a 3-source ensemble:</div>
+
+<div class="card-grid">
+<div class="card">
+<h4>Source 1: LLM Extraction</h4>
+<p>The MiniMax extractor reads clinical text and suggests ICD-10 codes directly. Good for obvious diagnoses but can miss subtle ones or hallucinate specificity.</p>
+</div>
+<div class="card">
+<h4>Source 2: BioClinicalBERT ML</h4>
+<p>Multi-label classifier predicts HCC <em>categories</em> (not ICDs) from raw text. Catches patterns LLMs miss in long documents. 115 payable HCC categories.</p>
+</div>
+<div class="card">
+<h4>Source 3: TF-IDF Retrieval</h4>
+<p>For each ML-predicted HCC, retrieve the most similar ICD-10 codes from the 7,903-code catalog by matching clinical <em>language</em> to ICD <em>descriptions</em>. Gets the right code specificity.</p>
+</div>
+</div>
+
+<p>Candidates from all 3 sources are merged, deduplicated, filtered through NegEx gating, then verified by GPT-4o with MEAT evidence checks.</p>
+</section>
+
+<section>
+<h2>Negation: The 6-Status Model</h2>
+<p>MedInsight 360 does <strong>not</strong> simplify to binary (present/absent). Every clinical mention gets one of 6 polarity statuses:</p>
+<table>
+<tr><th>Status</th><th>Example</th><th>Payable?</th></tr>
+<tr><td><span class="badge badge-success">active</span></td><td>"Patient has type 2 diabetes with chronic complications"</td><td>Yes</td></tr>
+<tr><td><span class="badge badge-error">negated</span></td><td>"No evidence of CHF", "Ruled out PE"</td><td>No</td></tr>
+<tr><td><span class="badge badge-accent">resolved</span></td><td>"Diabetes resolved after pancreas transplant"</td><td>No</td></tr>
+<tr><td><span class="badge badge-warning">historical</span></td><td>"History of stroke in 2018"</td><td>Maybe*</td></tr>
+<tr><td><span class="badge badge-gray">family_history</span></td><td>"Mother had breast cancer"</td><td>No</td></tr>
+<tr><td><span class="badge badge-primary">uncertain</span></td><td>"Possible CHF", "R/O pulmonary embolism"</td><td>No</td></tr>
+</table>
+<p>*Historical may be payable if recaptured with current-year evidence showing ongoing management.</p>
+</section>
+
+<section>
+<h2>MEAT Validation</h2>
+<p>Every payable ICD must have at least one MEAT element documented:</p>
+<table>
+<tr><th>Letter</th><th>Element</th><th>Evidence Examples</th></tr>
+<tr><td><strong>M</strong></td><td>Monitored</td><td>Labs ordered, vital signs tracked, follow-up scheduled</td></tr>
+<tr><td><strong>E</strong></td><td>Evaluated</td><td>Symptoms assessed, exam findings documented</td></tr>
+<tr><td><strong>A</strong></td><td>Assessed</td><td>Diagnosis in assessment/plan, clinical reasoning documented</td></tr>
+<tr><td><strong>T</strong></td><td>Treated</td><td>Medications prescribed, procedures performed, therapy ordered</td></tr>
+</table>
+</section>
+
+<section>
+<h2>Output Files</h2>
+<pre><code>outputs/frontend_runs/chart_{id}_{timestamp}/
+├── 0_demographics.json           # Patient demographics
+├── 1_clinical_sentences.json     # All assertions with categories &amp; negation
+├── 2_risk_diagnoses.json         # LLM-extracted diagnoses (intermediate)
+├── 3_hedis_evidence.json         # HEDIS evidence items
+├── 4_encounters.json             # Encounter timeline
+├── 5_ml_hcc_predictions.json     # BioClinicalBERT predictions
+├── 6_icd_retrieval.json          # TF-IDF retrieved ICDs
+├── 7_verified_icds.json          # Post-verification with MEAT
+├── 8_payable_hcc_pack.json       # FINAL: Payable HCCs + RAF + evidence
+├── 9_hedis_quality_pack.json     # HEDIS measures + gaps
+├── 10_audit_pack.json            # Audit trail + risk scores
+├── pipeline_log.json             # Processing log with timings
+└── summary.json                  # Human-readable summary</code></pre>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: REST API                                                  -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-api">
+
+<section>
+<h2>REST API Reference</h2>
+<p>All endpoints are prefixed with <code>/api</code>. The API follows RESTful conventions with consistent JSON responses.</p>
+</section>
+
+<section>
+<h3>Chart Management</h3>
+<table>
+<tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Key Response Fields</th></tr>
+<tr><td><span class="m-post">POST</span></td><td><code>/charts/upload</code></td><td>Upload PDF, auto-process in background</td><td>chart_id, run_id, status</td></tr>
+<tr><td><span class="m-post">POST</span></td><td><code>/charts/{id}/process</code></td><td>Manually trigger reprocessing</td><td>run_id, status</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/charts/{id}</code></td><td>Chart metadata + processing status</td><td>id, filename, status, quality_score_avg, patient_name, risk_adjustment, hedis</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/charts</code></td><td>List all charts (paginated, filterable)</td><td>charts[], total</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/charts/{id}/pages</code></td><td>Per-page text + quality scores</td><td>pages[{page_number, raw_text, quality_score, ocr_applied}]</td></tr>
+<tr><td><span class="m-del">DEL</span></td><td><code>/charts/{id}</code></td><td>Delete chart + cascade all related data</td><td>deleted: true</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Clinical Data</h3>
+<table>
+<tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Key Response Fields</th></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/clinical/{id}/assertions</code></td><td>All assertions with category/status filters</td><td>assertions[], total, category_counts</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/clinical/{id}/diagnoses</code></td><td>All diagnoses with ICD codes + evidence</td><td>diagnoses[{icd10_code, description, negation_status, supporting_text}]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/clinical/{id}/medications</code></td><td>All medications</td><td>medications[{name, dose_form, instructions, indication}]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/clinical/{id}/vitals</code></td><td>Vital signs including BP readings</td><td>vitals[{date, bp_systolic, bp_diastolic, weight, bmi}]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/clinical/{id}/labs</code></td><td>Lab results with values + dates</td><td>labs[{test_name, result_value, result_date, reference_range}]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/clinical/{id}/encounters</code></td><td>Encounter timeline</td><td>encounters[{date, provider, facility, type}]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/clinical/{id}/categories</code></td><td>Assertion counts by category</td><td>{diagnosis: 57, medication: 63, vital_sign: 54, ...}</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Risk Adjustment</h3>
+<table>
+<tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Key Response Fields</th></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/risk/{id}/hcc-pack</code></td><td>Complete payable HCC pack</td><td>payable_hccs[], unsupported_candidates[], raf_summary, pipeline_metadata</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/risk/{id}/raf-summary</code></td><td>RAF score breakdown</td><td>total_raf_score, demographic_raf, hcc_raf, hcc_count, breakdown[]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/risk/{id}/hierarchy</code></td><td>HCC hierarchy details</td><td>entries[{suppressed_hcc, suppressed_by, reason}]</td></tr>
+</table>
+</section>
+
+<section>
+<h3>HEDIS Quality</h3>
+<table>
+<tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Key Response Fields</th></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/hedis/{id}/measures</code></td><td>All measures with status + evidence</td><td>measures[{measure_code, status, evidence[], gaps[]}]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/hedis/{id}/gaps</code></td><td>Identified care gaps</td><td>gaps[{measure_code, missing_evidence, next_action}]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/hedis/{id}/evidence</code></td><td>Met measures with evidence</td><td>evidence[{measure_code, evidence_type, date, value}]</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/hedis/{id}/summary</code></td><td>Aggregate summary</td><td>total_measures, met_count, gap_count</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Review Workflow</h3>
+<table>
+<tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+<tr><td><span class="m-post">POST</span></td><td><code>/review/diagnosis</code></td><td>Add new diagnosis (coder-added)</td></tr>
+<tr><td><span class="m-put">PUT</span></td><td><code>/review/diagnosis/{id}</code></td><td>Accept/reject/update diagnosis</td></tr>
+<tr><td><span class="m-post">POST</span></td><td><code>/review/hcc</code></td><td>Add new HCC (coder-added)</td></tr>
+<tr><td><span class="m-put">PUT</span></td><td><code>/review/hcc/{id}</code></td><td>Accept/reject HCC</td></tr>
+<tr><td><span class="m-post">POST</span></td><td><code>/review/hedis</code></td><td>Add HEDIS measure result</td></tr>
+<tr><td><span class="m-put">PUT</span></td><td><code>/review/hedis/{id}</code></td><td>Update HEDIS measure</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/review/pending</code></td><td>All pending review items</td></tr>
+<tr><td><span class="m-post">POST</span></td><td><code>/review/save-document</code></td><td>Bulk save (entire document review)</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Audit &amp; Decision Trace</h3>
+<table>
+<tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/audit/logs</code></td><td>System audit logs</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/audit/{id}/reviews</code></td><td>Review actions for a chart</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/audit/{id}/decision-trace</code></td><td>Decision trace events</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Configuration &amp; Dashboard</h3>
+<table>
+<tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/config</code></td><td>All configuration (env + DB)</td></tr>
+<tr><td><span class="m-put">PUT</span></td><td><code>/config</code></td><td>Update configuration</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/config/feature-flags</code></td><td>Runtime feature flags</td></tr>
+<tr><td><span class="m-put">PUT</span></td><td><code>/config/feature-flags</code></td><td>Update feature flags</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/config/prompts</code></td><td>LLM prompt templates</td></tr>
+<tr><td><span class="m-put">PUT</span></td><td><code>/config/prompts/{name}</code></td><td>Update prompt template</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/dashboard/stats</code></td><td>System-wide statistics</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/dashboard/db-stats</code></td><td>Database table counts</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/dashboard/recent-activity</code></td><td>Recent chart processing</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Coding Helper &amp; Pipeline</h3>
+<table>
+<tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/coding-helper/suggest?q=diabetes&amp;limit=10</code></td><td>BM25-ranked ICD-10 code suggestions</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/pipeline/runs</code></td><td>Pipeline run history</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/pipeline/runs/{run_id}</code></td><td>Specific run with logs</td></tr>
+<tr><td><span class="m-get">GET</span></td><td><code>/pipeline/runs/chart/{id}</code></td><td>All runs for a chart</td></tr>
+</table>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: DATABASE                                                  -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-database">
+
+<section>
+<h2>Database Schema (30+ Tables)</h2>
+<p>SQLAlchemy 2.0 async ORM with PostgreSQL 16 (SQLite for dev). All tables use autoincrement integer PKs with created_at/updated_at timestamps.</p>
+</section>
+
+<section>
+<h3>Core Tables</h3>
+<details><summary><span class="badge badge-primary">charts</span> &mdash; Chart file metadata &amp; processing status</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>id</td><td>Integer PK</td><td>Chart ID</td></tr>
+<tr><td>filename</td><td>String</td><td>Original filename</td></tr>
+<tr><td>file_path</td><td>String</td><td>Stored file path</td></tr>
+<tr><td>file_size_bytes</td><td>Integer</td><td>File size</td></tr>
+<tr><td>page_count</td><td>Integer</td><td>Total PDF pages</td></tr>
+<tr><td>pages_with_text</td><td>Integer</td><td>Pages with extractable text</td></tr>
+<tr><td>total_chars</td><td>Integer</td><td>Total extracted characters</td></tr>
+<tr><td>upload_source</td><td>String</td><td>api / cli / batch</td></tr>
+<tr><td>status</td><td>String</td><td>uploaded / processing / completed / failed</td></tr>
+<tr><td>quality_score_avg</td><td>Float</td><td>Average page quality (0-100)</td></tr>
+<tr><td>created_at / updated_at</td><td>DateTime</td><td>Timestamps</td></tr>
+</table>
+<p><strong>Relationships:</strong> pages, pipeline_runs, patient (via patient.chart_id FK)</p>
+</div></details>
+
+<details><summary><span class="badge badge-primary">chart_pages</span> &mdash; Per-page text content &amp; quality</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>chart_id</td><td>FK &rarr; charts</td><td>Parent chart</td></tr>
+<tr><td>page_number</td><td>Integer</td><td>Page number (1-indexed)</td></tr>
+<tr><td>raw_text</td><td>Text</td><td>Extracted text content</td></tr>
+<tr><td>quality_score</td><td>Float</td><td>Page quality (0-100)</td></tr>
+<tr><td>ocr_applied</td><td>Boolean</td><td>Whether OCR was used</td></tr>
+<tr><td>char_count</td><td>Integer</td><td>Character count</td></tr>
+</table>
+</div></details>
+
+<details><summary><span class="badge badge-primary">pipeline_runs</span> &mdash; Pipeline execution records</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>chart_id</td><td>FK &rarr; charts</td><td>Parent chart</td></tr>
+<tr><td>status</td><td>String</td><td>running / completed / failed</td></tr>
+<tr><td>mode</td><td>String</td><td>FULL / RISK_ONLY / HEDIS_ONLY / HCC_PACK</td></tr>
+<tr><td>started_at / completed_at</td><td>DateTime</td><td>Execution window</td></tr>
+<tr><td>duration_seconds</td><td>Float</td><td>Total processing time</td></tr>
+<tr><td>total_tokens_used</td><td>Integer</td><td>LLM tokens consumed</td></tr>
+<tr><td>estimated_cost</td><td>Float</td><td>Estimated LLM cost ($)</td></tr>
+<tr><td>error_message</td><td>Text</td><td>Error details if failed</td></tr>
+</table>
+</div></details>
+</section>
+
+<section>
+<h3>Clinical Data Tables</h3>
+<details><summary><span class="badge badge-accent">assertions</span> &mdash; Central table: every clinical fact (40+ columns)</summary><div>
+<p>This is the <strong>heart of the schema</strong>. Every extracted clinical fact is an assertion.</p>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>chart_id, run_id</td><td>FK</td><td>Parent chart &amp; run</td></tr>
+<tr><td>category</td><td>String</td><td>diagnosis, medication, vital_sign, lab_result, procedure, screening, etc. (22 types)</td></tr>
+<tr><td>assertion_text</td><td>Text</td><td>Assertion content</td></tr>
+<tr><td>exact_quote</td><td>Text</td><td>Verbatim text from PDF</td></tr>
+<tr><td>page_number</td><td>Integer</td><td>Source page</td></tr>
+<tr><td>char_start / char_end</td><td>Integer</td><td>Character offsets in page text</td></tr>
+<tr><td>negation_status</td><td>String</td><td>active / negated / resolved / historical / family_history / uncertain</td></tr>
+<tr><td>negation_trigger</td><td>String</td><td>Trigger phrase ("no evidence of", "ruled out", etc.)</td></tr>
+<tr><td>icd10_code, icd9_code, snomed_code, cpt_code, loinc_code</td><td>String</td><td>Extracted codes</td></tr>
+<tr><td>structured_data</td><td>JSON</td><td>Parsed structured fields (dose, value, BP components, etc.)</td></tr>
+<tr><td>date_of_service</td><td>Date</td><td>Extracted date</td></tr>
+<tr><td>condition_group_id</td><td>FK</td><td>Linked condition group</td></tr>
+<tr><td>is_hcc_candidate / is_hedis_evidence</td><td>Boolean</td><td>HCC/HEDIS flags</td></tr>
+<tr><td>review_status</td><td>String</td><td>pending / accepted / rejected / edited</td></tr>
+<tr><td>confidence</td><td>Float</td><td>Extraction confidence (0-1)</td></tr>
+</table>
+</div></details>
+
+<details><summary><span class="badge badge-accent">condition_groups</span> &mdash; Aggregated assertions by concept</summary><div>
+<p>Groups related assertions (e.g., all mentions of "Type 2 Diabetes" across pages).</p>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>chart_id, run_id</td><td>FK</td><td>Parent chart &amp; run</td></tr>
+<tr><td>group_key</td><td>String</td><td>e.g., ICD:E11.65, CAN:essential hypertension</td></tr>
+<tr><td>label</td><td>String</td><td>Human-readable label</td></tr>
+<tr><td>category</td><td>String</td><td>diagnosis, medication, etc.</td></tr>
+<tr><td>assertion_count</td><td>Integer</td><td>Number of assertions in group</td></tr>
+<tr><td>primary_icd10_code</td><td>String</td><td>Primary ICD-10 code</td></tr>
+</table>
+</div></details>
+
+<details><summary><span class="badge badge-accent">patients</span> &mdash; Patient demographics</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>chart_id, run_id</td><td>FK</td><td>Parent chart &amp; run</td></tr>
+<tr><td>patient_name</td><td>String</td><td>Full name</td></tr>
+<tr><td>date_of_birth</td><td>String</td><td>DOB</td></tr>
+<tr><td>gender, race_ethnicity</td><td>String</td><td>Demographics</td></tr>
+<tr><td>insurance_id, insurance_type</td><td>String</td><td>Insurance</td></tr>
+<tr><td>address, phone, email</td><td>String</td><td>Contact info</td></tr>
+</table>
+</div></details>
+</section>
+
+<section>
+<h3>Risk Adjustment Tables</h3>
+<details><summary><span class="badge badge-success">payable_hccs</span> &mdash; Final payable HCC codes</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>chart_id, run_id</td><td>FK</td><td>Parent chart &amp; run</td></tr>
+<tr><td>hcc_code</td><td>String</td><td>HCC code (e.g., "HCC 18")</td></tr>
+<tr><td>hcc_description</td><td>String</td><td>Description</td></tr>
+<tr><td>raf_weight</td><td>Float</td><td>RAF contribution</td></tr>
+<tr><td>confidence</td><td>Float</td><td>Overall confidence</td></tr>
+<tr><td>supporting_icds</td><td>JSON</td><td>Array of supporting ICD codes with evidence</td></tr>
+<tr><td>hierarchy_applied</td><td>Boolean</td><td>Was hierarchy suppression checked</td></tr>
+<tr><td>review_status</td><td>String</td><td>pending / accepted / rejected</td></tr>
+</table>
+</div></details>
+
+<details><summary><span class="badge badge-success">suppressed_hccs</span> &mdash; HCCs filtered by hierarchy</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>hcc_code</td><td>String</td><td>Suppressed HCC code</td></tr>
+<tr><td>suppressed_by</td><td>String</td><td>HCC that caused suppression</td></tr>
+<tr><td>reason</td><td>String</td><td>Suppression explanation</td></tr>
+</table>
+</div></details>
+
+<details><summary><span class="badge badge-success">raf_summaries</span> &mdash; RAF score breakdown</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>total_raf_score</td><td>Float</td><td>Total RAF</td></tr>
+<tr><td>demographic_raf</td><td>Float</td><td>Demographic component</td></tr>
+<tr><td>hcc_raf</td><td>Float</td><td>HCC component</td></tr>
+<tr><td>payable_hcc_count</td><td>Integer</td><td>Payable count</td></tr>
+<tr><td>suppressed_hcc_count</td><td>Integer</td><td>Suppressed count</td></tr>
+<tr><td>segment</td><td>String</td><td>Risk segment</td></tr>
+</table>
+</div></details>
+
+<details><summary><span class="badge badge-success">hcc_hierarchy_log</span> &mdash; Hierarchy suppression audit trail</summary><div>
+<p>Records which HCCs suppressed which, and why &mdash; for full auditability.</p>
+</div></details>
+</section>
+
+<section>
+<h3>HEDIS Tables</h3>
+<details><summary><span class="badge badge-warning">hedis_results</span> &mdash; Per-measure evaluation</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>chart_id, run_id</td><td>FK</td><td>Parent chart &amp; run</td></tr>
+<tr><td>measure_id</td><td>String</td><td>Measure code (e.g., CBP, CDC-HBA1C)</td></tr>
+<tr><td>status</td><td>String</td><td>met / gap / not_applicable / excluded</td></tr>
+<tr><td>evidence</td><td>JSON</td><td>Supporting evidence items</td></tr>
+<tr><td>gaps</td><td>JSON</td><td>Missing evidence details</td></tr>
+<tr><td>review_status</td><td>String</td><td>pending / accepted / rejected</td></tr>
+</table>
+</div></details>
+
+<details><summary><span class="badge badge-warning">hedis_summaries</span> &mdash; Aggregate HEDIS counts per chart</summary><div>
+<table>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+<tr><td>total_measures</td><td>Integer</td><td>Total applicable measures</td></tr>
+<tr><td>met_count</td><td>Integer</td><td>Measures met</td></tr>
+<tr><td>gap_count</td><td>Integer</td><td>Identified gaps</td></tr>
+</table>
+</div></details>
+</section>
+
+<section>
+<h3>Audit &amp; Configuration Tables</h3>
+<details><summary><span class="badge badge-gray">audit_logs, review_actions</span> &mdash; Full audit trail</summary><div>
+<p>Every action (accept, reject, edit) is logged with user, timestamp, entity, before/after values.</p>
+</div></details>
+<details><summary><span class="badge badge-gray">system_config, llm_configs, prompt_templates</span> &mdash; Runtime configuration</summary><div>
+<p>Key-value config store, LLM provider settings, editable prompt templates &mdash; all managed via dashboard.</p>
+</div></details>
+<details><summary><span class="badge badge-gray">api_call_logs</span> &mdash; LLM API call tracking</summary><div>
+<p>Every LLM call logged: provider, model, tokens_in, tokens_out, latency_ms, status_code.</p>
+</div></details>
+<details><summary><span class="badge badge-gray">processing_stats</span> &mdash; Per-chart processing metrics</summary><div>
+<p>Processing time, pages processed, chunks, assertions extracted, tokens used.</p>
+</div></details>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: SERVICES                                                  -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-services">
+
+<section>
+<h2>Service Layer</h2>
+<p>The service layer sits between API routers and repositories, containing all business logic.</p>
+</section>
+
+<section>
+<h3>ChartService</h3>
+<div class="card">
+<p><strong>File:</strong> <code>services/chart_service.py</code></p>
+<p><strong>Purpose:</strong> Chart lifecycle management &mdash; create, list, get, delete.</p>
+<h4>Key Methods</h4>
+<ul>
+<li><code>create_chart(filename, file_path, ...)</code> &mdash; Creates chart record + initial pipeline run</li>
+<li><code>list_charts(offset, limit, status)</code> &mdash; Paginated list enriched with RAF + HEDIS summaries + patient data</li>
+<li><code>get_chart_summary(chart_id)</code> &mdash; Full chart details with pages, runs, patient</li>
+<li><code>delete_chart(chart_id)</code> &mdash; Cascading delete of all related data (30+ table cleanup)</li>
+</ul>
+<div class="hl-box">The <code>list_charts</code> method performs eager loading of the Patient relationship via <code>selectinload</code> to avoid async lazy-loading errors, and enriches each chart with RAF summary and HEDIS summary data from their respective repositories.</div>
+</div>
+</section>
+
+<section>
+<h3>AssertionService</h3>
+<div class="card">
+<p><strong>File:</strong> <code>services/assertion_service.py</code></p>
+<p><strong>Purpose:</strong> Query and serialize clinical data (assertions) for API responses.</p>
+<h4>Key Methods</h4>
+<ul>
+<li><code>get_diagnoses(chart_id)</code> &mdash; Filter assertions by diagnosis category, serialize with ICD codes, evidence</li>
+<li><code>get_medications(chart_id)</code> &mdash; Medication assertions with dose/instructions</li>
+<li><code>get_vitals(chart_id)</code> &mdash; Vital signs with BP parsing, BMI calculation</li>
+<li><code>get_labs(chart_id)</code> &mdash; Lab results with values, ranges, HEDIS measure linking</li>
+<li><code>get_encounters(chart_id)</code> &mdash; Encounter timeline derived from assertion dates</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h3>RiskService</h3>
+<div class="card">
+<p><strong>File:</strong> <code>services/risk_service.py</code></p>
+<p><strong>Purpose:</strong> Assemble HCC Pack, RAF summary, and hierarchy details.</p>
+<h4>Key Methods</h4>
+<ul>
+<li><code>get_hcc_pack(chart_id)</code> &mdash; Complete payable HCC pack with supported ICDs, MEAT evidence, suppressed list, RAF summary</li>
+<li><code>get_raf_summary(chart_id)</code> &mdash; RAF breakdown (total, demographic, HCC, per-HCC weights)</li>
+<li><code>get_hierarchy(chart_id)</code> &mdash; Which HCCs suppressed which, and why</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h3>HEDISService</h3>
+<div class="card">
+<p><strong>File:</strong> <code>services/hedis_service.py</code></p>
+<p><strong>Purpose:</strong> HEDIS measure results, gap detection, evidence formatting.</p>
+<h4>Key Methods</h4>
+<ul>
+<li><code>get_measures(chart_id)</code> &mdash; All measures with met/gap/excluded status</li>
+<li><code>get_gaps(chart_id)</code> &mdash; Identified care gaps with action items</li>
+<li><code>get_evidence(chart_id)</code> &mdash; Met measures with supporting evidence</li>
+<li><code>get_summary(chart_id)</code> &mdash; Aggregate counts</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h3>ReviewService</h3>
+<div class="card">
+<p><strong>File:</strong> <code>services/review_service.py</code></p>
+<p><strong>Purpose:</strong> Full coder review CRUD for diagnoses, HCCs, and HEDIS measures.</p>
+<h4>Key Methods</h4>
+<ul>
+<li><code>add_diagnosis(chart_id, icd10_code, ...)</code> &mdash; Coder adds new diagnosis</li>
+<li><code>accept_diagnosis(assertion_id, reviewer, notes)</code> &mdash; Mark as accepted</li>
+<li><code>reject_diagnosis(assertion_id, reviewer, reason)</code> &mdash; Mark as rejected</li>
+<li><code>accept_hcc(hcc_id, reviewer, notes)</code> &mdash; Accept HCC code</li>
+<li><code>reject_hcc(hcc_id, reviewer, reason)</code> &mdash; Reject HCC code</li>
+<li><code>save_document(chart_id, payload)</code> &mdash; Bulk save entire document review</li>
+</ul>
+<div class="hl-box accent">Every review action creates an audit log entry and a review_action record for full traceability.</div>
+</div>
+</section>
+
+<section>
+<h3>Other Services</h3>
+<div class="card-grid">
+<div class="card">
+<h4>AuditService</h4>
+<p>Logs all actions, tracks review history, provides decision trace queries.</p>
+</div>
+<div class="card">
+<h4>PipelineService</h4>
+<p>Pipeline run history, timing statistics, log retrieval.</p>
+</div>
+<div class="card">
+<h4>ConfigService</h4>
+<p>Runtime config management (LLM settings, feature flags, prompt templates).</p>
+</div>
+<div class="card">
+<h4>LineageService</h4>
+<p>Diagnosis candidate lifecycle tracking, decision trace events.</p>
+</div>
+<div class="card">
+<h4>CodingHelperService</h4>
+<p>BM25-ranked ICD-10 code suggestions for interactive coding.</p>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: FRONTEND                                                  -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-frontend">
+
+<section>
+<h2>Frontend Architecture</h2>
+<p>React 19 SPA with TypeScript, Mantine UI v8.3, Zustand state, React Query caching.</p>
+</section>
+
+<section>
+<h3>Pages &amp; Routes</h3>
+<table>
+<tr><th>Route</th><th>Component</th><th>Description</th></tr>
+<tr><td><code>/login</code></td><td>LoginPage</td><td>Demo authentication (glassmorphism design)</td></tr>
+<tr><td><code>/</code></td><td>ChartList</td><td>Chart gallery with grid/list view, search, filters, upload</td></tr>
+<tr><td><code>/charts/:id</code></td><td>ChartViewer</td><td>Split-pane analysis: PDF viewer + tabbed panels (HCC, Diagnoses, HEDIS, Clinical)</td></tr>
+<tr><td><code>/dashboard</code></td><td>DashboardPage</td><td>System analytics: stats tiles, processing charts, recent activity</td></tr>
+<tr><td><code>/settings</code></td><td>ConfigPanel</td><td>Configuration: AI engine, pipeline, ML, feature flags, HEDIS catalog, prompts</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Component Inventory (31 Components)</h3>
+<div class="card-grid">
+<div class="card">
+<h4>Layout &amp; Navigation</h4>
+<ul>
+<li><strong>AppLayout</strong> &mdash; Top nav, breadcrumbs, theme/font menus</li>
+<li><strong>SpotlightSearch</strong> &mdash; Ctrl+K command palette</li>
+</ul>
+</div>
+<div class="card">
+<h4>Chart Management</h4>
+<ul>
+<li><strong>ChartList</strong> &mdash; Grid with search, status filter, advanced filters</li>
+<li><strong>ChartCard</strong> &mdash; Compact card: RAF, HCC count, HEDIS MET/GAP</li>
+<li><strong>ChartUpload</strong> &mdash; Drag-drop file uploader</li>
+</ul>
+</div>
+<div class="card">
+<h4>PDF Viewer</h4>
+<ul>
+<li><strong>PDFViewer</strong> &mdash; Continuous scroll, highlights, text selection</li>
+<li><strong>PDFControls</strong> &mdash; Search, page nav, zoom, fit, download</li>
+<li><strong>PDFThumbnails</strong> &mdash; Sidebar page thumbnails</li>
+<li><strong>EvidencePopover</strong> &mdash; Hover tooltip on highlights</li>
+<li><strong>PDFQuickAddDiagnosis</strong> &mdash; Add diagnosis from selected text</li>
+</ul>
+</div>
+<div class="card">
+<h4>HCC Analysis</h4>
+<ul>
+<li><strong>HCCPackPanel</strong> &mdash; Payable HCCs, RAF summary, hierarchy</li>
+<li><strong>HCCCard</strong> &mdash; Per-HCC: code, weight, ICDs, MEAT</li>
+<li><strong>MEATDisplay</strong> &mdash; M/E/A/T evidence breakdown</li>
+<li><strong>RAFSummary</strong> &mdash; RAF score card with breakdown</li>
+</ul>
+</div>
+<div class="card">
+<h4>Clinical &amp; HEDIS</h4>
+<ul>
+<li><strong>DiagnosesPanel</strong> &mdash; Diagnoses with review actions</li>
+<li><strong>ClinicalPanel</strong> &mdash; Vitals, labs, meds, encounters</li>
+<li><strong>HEDISPanel</strong> &mdash; Measures, gaps, evidence</li>
+</ul>
+</div>
+<div class="card">
+<h4>Shared Components</h4>
+<ul>
+<li><strong>ReviewModal</strong> &mdash; Accept/reject/edit dialog</li>
+<li><strong>CodingHelperModal</strong> &mdash; ICD lookup suggestions</li>
+<li><strong>AddDiagnosisModal</strong> &mdash; New diagnosis form</li>
+<li><strong>ConfidenceBar</strong> &mdash; ML/LLM confidence display</li>
+<li><strong>NegationBadge</strong> &mdash; 6-status negation badge</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<h3>State Management</h3>
+<table>
+<tr><th>Store</th><th>Key State</th><th>Persisted</th></tr>
+<tr><td><strong>chartStore</strong></td><td>activeChartId, activeTab, sidebarCollapsed, searchQuery</td><td>sidebarCollapsed</td></tr>
+<tr><td><strong>pdfStore</strong></td><td>currentPage, zoom, fitMode, highlights[], searchMatches[], pendingEvidenceSearch</td><td>zoom, fitMode, showThumbnails</td></tr>
+<tr><td><strong>themeStore</strong></td><td>theme (6 themes), isDarkMode, fontFamily (3 fonts)</td><td>All</td></tr>
+<tr><td><strong>configStore</strong></td><td>spotlightOpen</td><td>No</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Theme System</h3>
+<div class="card-grid">
+<div class="card"><h4>Electric Blue</h4><p>Modern, clean blue (#0176D3) &mdash; Professional</p></div>
+<div class="card"><h4>Deep Ocean</h4><p>Teal/navy (#0D9488) &mdash; Calm</p></div>
+<div class="card"><h4>Forest Health</h4><p>Green/earth (#059669) &mdash; Organic</p></div>
+<div class="card"><h4>Midnight AI</h4><p>Purple/neon cyan (#7C3AED) &mdash; Premium</p></div>
+<div class="card"><h4>Sunrise Warm</h4><p>Amber/coral (#EA580C) &mdash; Warm</p></div>
+<div class="card"><h4>Royal Medical</h4><p>Purple/gold (#7C2D8E) &mdash; Enterprise</p></div>
+</div>
+<p><strong>Fonts:</strong> Inter (default), DM Sans, Space Grotesk. Each with matched monospace companion.</p>
+</section>
+
+<section>
+<h3>React Query Hooks (70+)</h3>
+<p>Every API call is wrapped in a TanStack React Query hook with defaults: 30s staleTime, 1 retry, no window-focus refetch.</p>
+<div class="cols">
+<div>
+<h4>Chart Hooks</h4>
+<pre><code>useCharts()          // list, polls 10s
+useChart(id)         // detail, polls if processing
+useUploadChart()     // mutation
+useDeleteChart()     // mutation</code></pre>
+</div>
+<div>
+<h4>Clinical Hooks</h4>
+<pre><code>useDiagnoses(id)
+useVitals(id)
+useLabs(id)
+useMedications(id)
+useEncounters(id)</code></pre>
+</div>
+</div>
+<div class="cols">
+<div>
+<h4>Risk Hooks</h4>
+<pre><code>useHCCPack(id)
+useRAFSummary(id)
+useHierarchy(id)
+useMLPredictions(id)</code></pre>
+</div>
+<div>
+<h4>Review Hooks</h4>
+<pre><code>useAddDiagnosis()
+useAcceptDiagnosis()
+useRejectDiagnosis2()
+useAcceptHCC()
+useRejectHCC()
+useSaveDocument()</code></pre>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: FUNCTIONALITY                                             -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-functionality">
+
+<section>
+<h2>Functionality Guide</h2>
+<p>What the system does, how it gets data, what users see.</p>
+</section>
+
+<section>
+<h3>1. Chart Upload &amp; Processing</h3>
+<div class="card">
+<h4>What Happens</h4>
+<ol>
+<li>User drags a medical chart PDF into the upload zone (or clicks to browse)</li>
+<li>Frontend POSTs the file as multipart/form-data to <code>/api/charts/upload</code></li>
+<li>Backend saves the file to <code>uploads/</code>, creates a <code>charts</code> record and a <code>pipeline_runs</code> record</li>
+<li>Background task launches the Orchestrator pipeline (async)</li>
+<li>Frontend polls <code>/api/charts/{id}</code> every 5 seconds until status = "completed"</li>
+<li>Chart card updates in real-time: status badge changes, RAF/HEDIS badges appear</li>
+</ol>
+<h4>Data Flow</h4>
+<pre><code>User → [PDF file] → POST /api/charts/upload
+                           │
+                           ▼
+                    charts table (status: uploaded)
+                    pipeline_runs table (status: running)
+                           │
+                    Orchestrator.process_chart()
+                           │
+                    ┌──────┴───────┐
+                    │ Step 1-6     │  (see Pipeline Flow tab)
+                    └──────┬───────┘
+                           │
+                    charts table (status: completed)
+                    assertions table (500+ rows per chart)
+                    payable_hccs, raf_summaries, hedis_results tables</code></pre>
+</div>
+</section>
+
+<section>
+<h3>2. Chart List &amp; Search</h3>
+<div class="card">
+<h4>What Users See</h4>
+<p>A grid of compact chart cards showing: filename, patient name, status badge, relative time, RAF score, HCC count, HEDIS MET/GAP counts, page count.</p>
+<h4>How Search Works</h4>
+<ul>
+<li>Frontend fetches all charts from <code>GET /api/charts</code></li>
+<li>Backend returns charts enriched with patient_name, raf_summary, hedis_summary</li>
+<li>Frontend's <code>searchItems()</code> filters client-side by matching against: <code>chart_id</code>, <code>filename</code>, <code>patient_name</code>, <code>status</code></li>
+<li>Advanced filters: HCC code, diagnosis text, high risk (RAF &ge; 2.0), has HEDIS gaps</li>
+</ul>
+<h4>How Data Gets There</h4>
+<p>Backend <code>ChartService.list_charts()</code> does:</p>
+<ol>
+<li>Query charts with <code>selectinload(Chart.patient)</code> for eager loading</li>
+<li>For each chart, fetch <code>raf_summaries</code> from RAFRepository</li>
+<li>For each chart, fetch <code>hedis_summaries</code> from HEDISRepository</li>
+<li>Serialize with patient_name, patient_dob, raf_summary, hedis_summary</li>
+</ol>
+</div>
+</section>
+
+<section>
+<h3>3. PDF Viewer with Evidence Highlighting</h3>
+<div class="card">
+<h4>What Users See</h4>
+<p>Split-pane view: PDF on the left, analysis panels on the right. Users can:</p>
+<ul>
+<li>Navigate pages, zoom in/out, fit to width/page</li>
+<li>Search text in PDF with match highlighting (yellow glow)</li>
+<li>See evidence highlights when clicking diagnoses or HCC codes</li>
+<li>Select text in PDF to add a new diagnosis</li>
+<li>Hover highlights to see evidence popovers</li>
+</ul>
+<h4>How Highlighting Works</h4>
+<ol>
+<li>User clicks "View Evidence" on a diagnosis or HCC code</li>
+<li>Component calls <code>pdfStore.navigateToText(quote, type, label, meta)</code></li>
+<li>PDFViewer receives <code>pendingEvidenceSearch</code> from store</li>
+<li>Searches all PDF pages for the exact quote text</li>
+<li>Uses DOM text layer for pixel-perfect positioning</li>
+<li>Creates a <code>PDFHighlight</code> overlay with glow animation</li>
+<li>Scrolls to the matching page and centers the highlight</li>
+</ol>
+<h4>How PDF Search Works</h4>
+<ol>
+<li>User types in search box (debounced 300ms)</li>
+<li><code>performSearch()</code> iterates all PDF pages via <code>pdfDocProxy.getPage()</code></li>
+<li>Extracts text content, finds all occurrences of the query</li>
+<li>Creates search highlights (yellow) and stores matches</li>
+<li>Results dropdown shows matches grouped by page</li>
+<li>Clicking a result navigates to that page and activates the highlight</li>
+</ol>
+</div>
+</section>
+
+<section>
+<h3>4. HCC Pack Analysis</h3>
+<div class="card">
+<h4>What Users See</h4>
+<ul>
+<li><strong>RAF Summary Card:</strong> Total RAF score (1.847), demographic RAF, HCC RAF, payable/suppressed counts</li>
+<li><strong>Payable HCC Accordion:</strong> Each HCC with code, description, RAF weight, audit risk level</li>
+<li><strong>Supporting ICDs:</strong> Per HCC, list of ICD-10 codes with confidence (ML + LLM), MEAT evidence, evidence quotes with page references</li>
+<li><strong>Review Actions:</strong> Accept/Reject buttons per HCC with comments</li>
+</ul>
+<h4>How Data Gets There</h4>
+<pre><code>Frontend: useHCCPack(chartId)
+  → GET /api/risk/{chartId}/hcc-pack
+    → RiskService.get_hcc_pack()
+      → HCCRepository.get_payable(chart_id) → payable_hccs rows
+      → HCCRepository.get_suppressed(chart_id) → suppressed_hccs rows
+      → RAFRepository.get_summary(chart_id) → raf_summaries row
+      → RAFRepository.get_hierarchy_log(chart_id) → hierarchy entries
+    → Assemble into HCC Pack JSON structure</code></pre>
+</div>
+</section>
+
+<section>
+<h3>5. HEDIS Quality Measures</h3>
+<div class="card">
+<h4>What Users See</h4>
+<ul>
+<li><strong>Summary Cards:</strong> Total measures, Met count (green), Gap count (red), Excluded count</li>
+<li><strong>Measure Cards:</strong> Each measure with status badge, eligibility, evidence items, missing evidence</li>
+<li><strong>Evidence Snippets:</strong> Date, value, source section, page reference, exact quote</li>
+<li><strong>Gap Recommendations:</strong> What's missing, what action is needed</li>
+</ul>
+<h4>How Data Gets There</h4>
+<pre><code>Frontend: useHEDISMeasures(chartId)
+  → GET /api/hedis/{chartId}/measures
+  → GET /api/hedis/{chartId}/gaps
+    → HEDISService.get_measures()
+      → HEDISRepository.get_by_chart(chart_id) → hedis_results rows
+      → HEDISRepository.get_summary(chart_id) → hedis_summaries row
+    → Format measures with status, evidence, gaps</code></pre>
+</div>
+</section>
+
+<section>
+<h3>6. Coder Review Workflow</h3>
+<div class="card">
+<h4>What Users Can Do</h4>
+<ul>
+<li><strong>Accept</strong> a diagnosis/HCC/HEDIS measure (confirm AI extraction is correct)</li>
+<li><strong>Reject</strong> with reason (AI made an error)</li>
+<li><strong>Edit</strong> &mdash; modify ICD code, description, evidence</li>
+<li><strong>Add New</strong> &mdash; manually add a diagnosis the AI missed</li>
+<li><strong>Bulk Save</strong> &mdash; save all review decisions for the entire document</li>
+</ul>
+<h4>How It Works</h4>
+<pre><code>User clicks "Accept" on diagnosis
+  → ReviewModal opens with optional notes
+  → User confirms
+  → PUT /api/review/diagnosis/{id} { status: "accepted", reviewer, notes }
+    → ReviewService.accept_diagnosis()
+      → Update assertion.review_status = "accepted"
+      → Create review_actions record
+      → Create audit_log entry
+  → React Query invalidates diagnosis cache
+  → UI updates with "Accepted" badge</code></pre>
+</div>
+</section>
+
+<section>
+<h3>7. Configuration Management</h3>
+<div class="card">
+<h4>What Users Can Configure</h4>
+<table>
+<tr><th>Tab</th><th>Settings</th></tr>
+<tr><td>AI Engine</td><td>LLM provider (OpenAI/Azure/Gemini), model name, temperature, max tokens</td></tr>
+<tr><td>Pipeline</td><td>Chunk size, overlap, quality threshold, measurement year</td></tr>
+<tr><td>ML &amp; Risk</td><td>ML confidence threshold, TF-IDF similarity threshold</td></tr>
+<tr><td>Feature Flags</td><td>Toggle: Risk Adjustment, HEDIS, ML predictions, OCR, parallelism, audit logging</td></tr>
+<tr><td>HEDIS Measures</td><td>Browse catalog, activate/deactivate measures, edit definitions</td></tr>
+<tr><td>Prompt Templates</td><td>View/edit LLM prompts with syntax highlighting</td></tr>
+</table>
+<h4>How Changes Take Effect</h4>
+<p>Config changes are saved to the database via <code>PUT /api/config</code>. Feature flags can be changed at runtime without restart. LLM settings take effect on the next chart processing run.</p>
+</div>
+</section>
+
+<section>
+<h3>8. Dashboard &amp; Analytics</h3>
+<div class="card">
+<h4>What Users See</h4>
+<ul>
+<li><strong>6 Intelligence Tiles:</strong> Total Charts, Completed, Failed, Success Rate, Avg Processing Time, Avg Quality Score</li>
+<li><strong>Processing Time Chart:</strong> Line chart showing processing duration over time</li>
+<li><strong>Completion Status:</strong> Pie chart of completed/failed/processing</li>
+<li><strong>Recent Activity:</strong> Feed of latest chart processing events</li>
+<li><strong>Database Stats:</strong> Row counts for all major tables</li>
+<li><strong>Pipeline History:</strong> Table of pipeline runs with status, duration, mode</li>
+</ul>
+</div>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: CONFIGURATION                                             -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-config">
+
+<section>
+<h2>Configuration System</h2>
+<p>MedInsight 360 is highly configurable without code changes. Settings come from 3 sources (in priority order): API overrides &gt; Database config &gt; Environment variables.</p>
+</section>
+
+<section>
+<h3>Environment Variables (.env)</h3>
+<pre><code># Database
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=medinsight360
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+DATABASE_POOL_SIZE=10
+
+# LLM Providers
+OPENAI_API_KEY=sk-...
+AZURE_OPENAI_ENDPOINT=https://...
+AZURE_OPENAI_KEY=...
+GOOGLE_GEMINI_KEY=...
+
+# Active Provider
+ACTIVE_LLM_PROVIDER=openai    # openai | azure | gemini
+ACTIVE_LLM_MODEL=gpt-4o
+LLM_TEMPERATURE=0.1
+LLM_MAX_TOKENS=4096
+
+# ML Models
+ML_MODEL_PATH=./ml_engine/models/bioclinicalbert
+TFIDF_VECTORIZER_PATH=./ml_engine/models/tfidf_vectorizer.pkl
+ICD_CATALOG_PATH=./ml_engine/models/icd10_catalog.json
+ML_CONFIDENCE_THRESHOLD=0.3
+TFIDF_SIMILARITY_THRESHOLD=0.35
+
+# Feature Flags
+ENABLE_RISK_ADJUSTMENT=true
+ENABLE_HEDIS=true
+ENABLE_ML_PREDICTIONS=true
+ENABLE_LLM_VERIFICATION=true
+ENABLE_OCR_FALLBACK=true
+ENABLE_PARALLEL_PIPELINES=true
+
+# Pipeline
+MAX_CONCURRENT_CHARTS=3
+CHUNK_SIZE=10000
+CHUNK_OVERLAP=500
+QUALITY_THRESHOLD=60
+MEASUREMENT_YEAR=2026
+
+# Server
+API_HOST=0.0.0.0
+API_PORT=8000
+LOG_LEVEL=INFO
+CORS_ORIGINS=["http://localhost:3000","http://localhost:3008"]</code></pre>
+</section>
+
+<section>
+<h3>Feature Flags</h3>
+<p>All features can be toggled at runtime via the dashboard or API:</p>
+<table>
+<tr><th>Flag</th><th>Default</th><th>Effect</th></tr>
+<tr><td><code>ENABLE_RISK_ADJUSTMENT</code></td><td>true</td><td>Enable/disable HCC mapping + RAF scoring</td></tr>
+<tr><td><code>ENABLE_HEDIS</code></td><td>true</td><td>Enable/disable HEDIS measure evaluation</td></tr>
+<tr><td><code>ENABLE_ML_PREDICTIONS</code></td><td>true</td><td>Enable/disable BioClinicalBERT predictions</td></tr>
+<tr><td><code>ENABLE_LLM_VERIFICATION</code></td><td>true</td><td>Enable/disable GPT-4o ICD verification</td></tr>
+<tr><td><code>ENABLE_OCR_FALLBACK</code></td><td>true</td><td>Enable/disable GPT-4o Vision OCR</td></tr>
+<tr><td><code>ENABLE_PARALLEL_PIPELINES</code></td><td>true</td><td>Enable/disable parallel chunk processing</td></tr>
+<tr><td><code>ENABLE_AUDIT_LOGGING</code></td><td>true</td><td>Enable/disable audit trail</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Pipeline Modes</h3>
+<table>
+<tr><th>Mode</th><th>Description</th><th>Active Components</th></tr>
+<tr><td><code>FULL</code></td><td>Complete pipeline (default)</td><td>All: Extraction + RA + HEDIS + ML</td></tr>
+<tr><td><code>RISK_ONLY</code></td><td>Risk adjustment only</td><td>Extraction + HCC + RAF (no HEDIS)</td></tr>
+<tr><td><code>HEDIS_ONLY</code></td><td>Quality measures only</td><td>Extraction + HEDIS (no RA)</td></tr>
+<tr><td><code>HCC_PACK</code></td><td>Payable HCC focus</td><td>Extraction + HCC + RAF + verification</td></tr>
+</table>
+</section>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: DEPLOYMENT                                                -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-deployment">
+
+<section>
+<h2>Docker Deployment</h2>
+<p>MedInsight 360 ships with a complete Docker Compose stack: PostgreSQL, FastAPI backend, and React frontend with Nginx reverse proxy.</p>
+</section>
+
+<section>
+<h3>Architecture</h3>
+<div class="diagram">    <span class="hl">Docker Compose Stack</span>
+
+    ┌─────────────┐     ┌─────────────────┐     ┌─────────────┐
+    │  <span class="ac">Frontend</span>   │────▶│  <span class="wa">Nginx</span>          │     │  <span class="su">PostgreSQL</span> │
+    │  (React)    │     │  :80 → :3008    │     │  :5432      │
+    │  Vite build │     │  /api → backend │     │  16-alpine  │
+    └─────────────┘     └────────┬────────┘     └──────┬──────┘
+                                 │                      │
+                        ┌────────▼────────┐            │
+                        │  <span class="hl">API Backend</span>    │────────────┘
+                        │  (FastAPI)      │
+                        │  :8000 → :8006  │
+                        │  Python 3.12    │
+                        └─────────────────┘
+</div>
+</section>
+
+<section>
+<h3>docker-compose.yml</h3>
+<pre><code>services:
+  db:
+    image: postgres:16-alpine
+    container_name: medinsight360-db
+    environment:
+      POSTGRES_DB: medinsight360
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: ["5432:5432"]
+    volumes: [medinsight360_pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: pg_isready -U postgres -d medinsight360
+      interval: 10s
+
+  api:
+    build: .
+    container_name: medinsight360-api
+    depends_on:
+      db: { condition: service_healthy }
+    env_file: [.env]
+    environment:
+      DB_BACKEND: postgres
+      POSTGRES_HOST: db
+    ports: ["8006:8000"]
+    volumes: [./uploads:/app/uploads, ./run_outputs:/app/run_outputs]
+
+  frontend:
+    build:
+      context: ../medinsight360-frontend_codex_claude/ui-5-react-mantine
+    container_name: medinsight360-frontend
+    depends_on:
+      api: { condition: service_healthy }
+    ports: ["3008:80"]
+    volumes: [./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro]
+
+volumes:
+  medinsight360_pgdata:</code></pre>
+</section>
+
+<section>
+<h3>Backend Dockerfile</h3>
+<pre><code>FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+COPY . .
+EXPOSE 8000
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
+</section>
+
+<section>
+<h3>Frontend Dockerfile</h3>
+<pre><code>FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:1.27-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+</section>
+
+<section>
+<h3>Nginx Configuration</h3>
+<pre><code>server {
+    listen 80;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # API proxy to backend
+    location /api/ {
+        proxy_pass http://medinsight360-api:8000/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_read_timeout 300s;
+        client_max_body_size 100M;
+    }
+
+    # SPA fallback
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Cache static assets
+    location ~* \.(js|css|png|jpg|svg|woff2?)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+}</code></pre>
+</section>
+
+<section>
+<h3>Quick Start</h3>
+<pre><code># 1. Clone both repositories
+git clone &lt;backend-repo&gt; medinsight360_codex
+git clone &lt;frontend-repo&gt; medinsight360-frontend_codex_claude
+
+# 2. Configure environment
+cd medinsight360_codex
+cp .env.example .env
+# Edit .env with your API keys
+
+# 3. Launch the stack
+docker compose up -d --build
+
+# 4. Initialize database
+docker exec medinsight360-api python scripts/init_db.py
+docker exec medinsight360-api python scripts/seed_reference_data.py
+
+# 5. Access the application
+# Frontend: http://localhost:3008
+# API:      http://localhost:8006/api
+# API Docs: http://localhost:8006/docs</code></pre>
+</section>
+
+<section>
+<h3>Development Setup (without Docker)</h3>
+<pre><code># Backend
+cd medinsight360_codex
+python -m venv venv && source venv/bin/activate  # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+python scripts/init_db.py
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8006 --reload
+
+# Frontend
+cd medinsight360-frontend_codex_claude/ui-5-react-mantine
+npm install
+npm run dev    # Starts on :3008 with proxy to :8006</code></pre>
+</section>
+</div>
+
+</div> <!-- /container -->
+
+<!-- ============================================================ -->
+<!-- FOOTER                                                         -->
+<!-- ============================================================ -->
+<footer>
+<div class="container">
+<p>MedInsight 360 &mdash; Unified Risk Adjustment + Quality Intelligence Platform</p>
+<p>Built with FastAPI &middot; React &middot; PostgreSQL &middot; GPT-4o &middot; BioClinicalBERT</p>
+<p>Documentation generated March 9, 2026</p>
+</div>
+</footer>
+
+<!-- ============================================================ -->
+<!-- TAB SWITCHING SCRIPT                                           -->
+<!-- ============================================================ -->
+<script>
+(function(){
+  var btns=document.querySelectorAll('.tab-btn');
+  var tabs=document.querySelectorAll('.tab-content');
+  btns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      btns.forEach(function(b){b.classList.remove('active')});
+      tabs.forEach(function(t){t.classList.remove('active')});
+      btn.classList.add('active');
+      var id='tab-'+btn.getAttribute('data-tab');
+      var el=document.getElementById(id);
+      if(el)el.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

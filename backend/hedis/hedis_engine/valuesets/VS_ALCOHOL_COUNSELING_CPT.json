@@ -1,0 +1,17 @@
+{
+    "id": "VS_ALCOHOL_COUNSELING_CPT",
+    "name": "Brief Alcohol Intervention / Counseling Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for brief alcohol counseling and intervention services. Used in the unhealthy alcohol use screening and brief counseling (ASC) measure for numerator compliance when screening is positive.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99408", "code_system": "cpt", "description": "Alcohol and/or substance abuse structured screening and brief intervention; 15-30 minutes"},
+        {"code": "99409", "code_system": "cpt", "description": "Alcohol and/or substance abuse structured screening and brief intervention; greater than 30 minutes"},
+        {"code": "H0005", "code_system": "hcpcs", "description": "Alcohol and/or drug services; group counseling by a clinician"},
+        {"code": "H0006", "code_system": "hcpcs", "description": "Alcohol and/or drug services; case management"},
+        {"code": "H0007", "code_system": "hcpcs", "description": "Alcohol and/or drug services; crisis intervention (outpatient)"},
+        {"code": "H0015", "code_system": "hcpcs", "description": "Alcohol and/or drug services; intensive outpatient (treatment program)"},
+        {"code": "G2012", "code_system": "hcpcs", "description": "Brief counseling for alcohol misuse, 5–14 minutes"}
+    ]
+}

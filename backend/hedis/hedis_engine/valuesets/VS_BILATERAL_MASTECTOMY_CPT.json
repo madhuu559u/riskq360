@@ -1,0 +1,20 @@
+{
+    "id": "VS_BILATERAL_MASTECTOMY_CPT",
+    "name": "Bilateral Mastectomy Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and ICD-10-PCS codes for bilateral mastectomy procedures. Used as an exclusion in the breast cancer screening (BCS) measure, since members who have undergone bilateral mastectomy are excluded from the screening denominator.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "19303", "code_system": "cpt", "description": "Mastectomy, simple, complete"},
+        {"code": "19304", "code_system": "cpt", "description": "Mastectomy, subcutaneous"},
+        {"code": "19305", "code_system": "cpt", "description": "Mastectomy, radical, including pectoral muscles, axillary lymph nodes"},
+        {"code": "19306", "code_system": "cpt", "description": "Mastectomy, radical, including pectoral muscles, axillary and internal mammary lymph nodes (Urban type)"},
+        {"code": "19307", "code_system": "cpt", "description": "Mastectomy, modified radical, including axillary lymph nodes, with or without pectoralis minor muscle"},
+        {"code": "Z90.10", "code_system": "icd10cm", "description": "Acquired absence of unspecified breast and nipple"},
+        {"code": "Z90.11", "code_system": "icd10cm", "description": "Acquired absence of right breast and nipple"},
+        {"code": "Z90.12", "code_system": "icd10cm", "description": "Acquired absence of left breast and nipple"},
+        {"code": "Z90.13", "code_system": "icd10cm", "description": "Acquired absence of bilateral breasts and nipples"},
+        {"code": "50", "code_system": "modifier", "description": "Bilateral procedure modifier — applied to unilateral mastectomy CPT codes to indicate bilateral"}
+    ]
+}

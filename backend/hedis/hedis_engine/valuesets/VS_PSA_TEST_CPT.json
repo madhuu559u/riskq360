@@ -1,0 +1,14 @@
+{
+    "id": "VS_PSA_TEST_CPT",
+    "name": "PSA Laboratory Test Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for prostate-specific antigen (PSA) laboratory tests. Used in prostate cancer screening-related measures and overuse tracking.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "84153", "code_system": "cpt", "description": "Prostate specific antigen (PSA); total"},
+        {"code": "G0103", "code_system": "hcpcs", "description": "Prostate cancer screening; prostate specific antigen test (PSA)"},
+        {"code": "84154", "code_system": "cpt", "description": "Prostate specific antigen (PSA); free"},
+        {"code": "86316", "code_system": "cpt", "description": "Immunoassay for tumor antigen, other antigen, quantitative (PSA variants)"}
+    ]
+}

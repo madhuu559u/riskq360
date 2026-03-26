@@ -1,0 +1,20 @@
+{
+    "id": "VS_DEXA_SCAN_CPT",
+    "name": "DEXA Bone Density Scan Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for dual-energy x-ray absorptiometry (DEXA/DXA) bone density scans. Used in osteoporosis screening and management measures for women.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "77080", "code_system": "cpt", "description": "Dual-energy X-ray absorptiometry (DXA), bone density study, 1 or more sites; axial skeleton (e.g., hips, pelvis, spine)"},
+        {"code": "77081", "code_system": "cpt", "description": "Dual-energy X-ray absorptiometry (DXA), bone density study, 1 or more sites; appendicular skeleton (peripheral)"},
+        {"code": "77085", "code_system": "cpt", "description": "Dual-energy X-ray absorptiometry (DXA), bone density study, 1 or more sites; axial skeleton, with vertebral fracture assessment"},
+        {"code": "77086", "code_system": "cpt", "description": "Vertebral fracture assessment via dual-energy X-ray absorptiometry (DXA)"},
+        {"code": "77078", "code_system": "cpt", "description": "CT bone mineral density study, 1 or more sites; axial skeleton"},
+        {"code": "76977", "code_system": "cpt", "description": "Ultrasonic bone density measurement and interpretation, peripheral site(s)"},
+        {"code": "G0130", "code_system": "hcpcs", "description": "Single energy x-ray absorptiometry (SEXA) bone density study, one or more sites; appendicular skeleton"},
+        {"code": "38269-7", "code_system": "loinc", "description": "DXA Bone density T-score"},
+        {"code": "46278-8", "code_system": "loinc", "description": "DXA Femur-L [T-score] Bone density"},
+        {"code": "38267-1", "code_system": "loinc", "description": "DXA Lumbar spine [T-score] Bone density"}
+    ]
+}

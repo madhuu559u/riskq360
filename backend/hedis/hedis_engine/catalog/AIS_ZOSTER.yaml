@@ -1,0 +1,45 @@
+id: "AIS-ZOSTER"
+name: "Adult Immunization Status - Zoster"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether adults aged 50 and older received at least two doses of
+  the recombinant zoster vaccine (Shingrix). Herpes zoster (shingles) is
+  caused by reactivation of the varicella-zoster virus and affects
+  approximately one in three people during their lifetime. The recombinant
+  zoster vaccine is recommended by the Advisory Committee on Immunization
+  Practices (ACIP) for adults aged 50 and older and provides over 90%
+  efficacy against shingles when both doses are administered. This measure
+  has no time-window restriction; evidence of vaccination at any time
+  satisfies the numerator.
+
+eligibility:
+  age: {min: 50, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "zoster"
+      valueset: "VS_ZOSTER_VACCINE_CVX"
+      min_count: 2
+      window_months: 0  # 0 means any time (no time window restriction)
+
+valuesets_needed:
+  - VS_ZOSTER_VACCINE_CVX
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "immunization_registry"
+  - "encounters"

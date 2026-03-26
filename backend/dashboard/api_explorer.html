@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedInsight 360 — API Explorer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+  [x-cloak] { display: none !important; }
+  .json-pre { max-height: 500px; overflow: auto; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+  ::-webkit-scrollbar-track { background: #1e293b; }
+  @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+  .pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
+</style>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen" x-data="apiExplorer()" x-init="init()">
+
+<!-- Top Bar -->
+<header class="bg-slate-900 border-b border-slate-700 px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+  <div class="flex items-center gap-3">
+    <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-sm">M</div>
+    <h1 class="text-lg font-semibold text-white">MedInsight 360 <span class="text-slate-400 font-normal text-sm">API Explorer</span></h1>
+  </div>
+  <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2 text-sm">
+      <span class="text-slate-400">Base URL:</span>
+      <input type="text" x-model="baseUrl" class="bg-slate-800 border border-slate-600 rounded px-2 py-1 text-sm w-64 font-mono text-cyan-400" />
+    </div>
+    <button @click="checkHealth()" class="text-sm px-3 py-1 rounded bg-slate-800 border border-slate-600 hover:bg-slate-700">
+      <span class="inline-block w-2 h-2 rounded-full mr-1"
+            :class="serverStatus === 'online' ? 'bg-emerald-400 pulse-dot' : serverStatus === 'offline' ? 'bg-red-400' : 'bg-yellow-400'"></span>
+      <span x-text="serverStatus === 'online' ? 'Online' : serverStatus === 'offline' ? 'Offline' : 'Checking...'"></span>
+    </button>
+  </div>
+</header>
+
+<div class="flex h-[calc(100vh-53px)]">
+
+<!-- Sidebar: Endpoint List -->
+<aside class="w-80 bg-slate-900 border-r border-slate-700 overflow-y-auto flex-shrink-0">
+  <div class="p-3">
+    <input type="text" x-model="search" placeholder="Search endpoints..." class="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-sm placeholder-slate-500" />
+  </div>
+
+  <template x-for="group in filteredGroups" :key="group.name">
+    <div class="mb-1">
+      <button @click="group.open = !group.open" class="w-full px-4 py-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-slate-200 flex items-center justify-between">
+        <span x-text="group.name"></span>
+        <span class="text-xs bg-slate-700 px-1.5 rounded" x-text="group.endpoints.length"></span>
+      </button>
+      <div x-show="group.open" x-collapse>
+        <template x-for="ep in group.endpoints" :key="ep.id">
+          <button @click="selectEndpoint(ep)"
+                  class="w-full px-4 py-1.5 text-left text-sm hover:bg-slate-800 flex items-center gap-2 border-l-2 transition-colors"
+                  :class="selected?.id === ep.id ? 'bg-slate-800 border-indigo-500' : 'border-transparent'">
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded font-mono"
+                  :class="{
+                    'bg-emerald-900 text-emerald-300': ep.method === 'GET',
+                    'bg-blue-900 text-blue-300': ep.method === 'POST',
+                    'bg-amber-900 text-amber-300': ep.method === 'PUT',
+                    'bg-red-900 text-red-300': ep.method === 'DELETE'
+                  }" x-text="ep.method"></span>
+            <span class="truncate font-mono text-xs" x-text="ep.path"></span>
+          </button>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <!-- Quick Stats -->
+  <div class="p-4 border-t border-slate-700 text-xs text-slate-500">
+    <div>44 endpoints total</div>
+    <div>38 GET | 1 POST | 4 PUT | 1 DELETE</div>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto" x-cloak>
+
+  <!-- No selection state -->
+  <div x-show="!selected" class="flex items-center justify-center h-full text-slate-500">
+    <div class="text-center">
+      <div class="text-5xl mb-4 opacity-30">&#x2194;</div>
+      <p class="text-lg">Select an endpoint from the sidebar</p>
+      <p class="text-sm mt-1">Or use the search to filter</p>
+    </div>
+  </div>
+
+  <!-- Endpoint Detail -->
+  <div x-show="selected" class="p-6 max-w-5xl">
+
+    <!-- Header -->
+    <div class="flex items-start gap-3 mb-4">
+      <span class="text-sm font-bold px-2 py-1 rounded font-mono"
+            :class="{
+              'bg-emerald-900 text-emerald-300': selected?.method === 'GET',
+              'bg-blue-900 text-blue-300': selected?.method === 'POST',
+              'bg-amber-900 text-amber-300': selected?.method === 'PUT',
+              'bg-red-900 text-red-300': selected?.method === 'DELETE'
+            }" x-text="selected?.method"></span>
+      <div>
+        <h2 class="text-xl font-mono text-white" x-text="selected?.fullPath"></h2>
+        <p class="text-slate-400 text-sm mt-1" x-text="selected?.description"></p>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="flex gap-2 mb-6">
+      <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300" x-text="selected?.tag"></span>
+      <span class="text-xs px-2 py-0.5 rounded"
+            :class="selected?.type === 'READ' ? 'bg-emerald-900/50 text-emerald-400' : 'bg-amber-900/50 text-amber-400'"
+            x-text="selected?.type"></span>
+      <span class="text-xs px-2 py-0.5 rounded bg-indigo-900/50 text-indigo-400" x-text="selected?.returns"></span>
+    </div>
+
+    <!-- Parameters -->
+    <div x-show="selected?.params?.length > 0" class="mb-6">
+      <h3 class="text-sm font-semibold text-slate-300 mb-2">Parameters</h3>
+      <div class="bg-slate-900 rounded-lg border border-slate-700 overflow-hidden">
+        <template x-for="(param, i) in selected?.params || []" :key="i">
+          <div class="flex items-center gap-3 px-4 py-2 border-b border-slate-800 last:border-0">
+            <span class="text-xs font-mono bg-slate-800 px-1.5 py-0.5 rounded" :class="param.required ? 'text-red-400' : 'text-slate-400'" x-text="param.name"></span>
+            <span class="text-xs text-slate-500" x-text="param.in"></span>
+            <span class="text-xs text-slate-500" x-text="param.type"></span>
+            <div class="flex-1"></div>
+            <input :type="param.inputType || 'text'"
+                   x-model="paramValues[param.name]"
+                   :placeholder="param.placeholder || param.name"
+                   class="bg-slate-800 border border-slate-600 rounded px-2 py-1 text-sm w-40 font-mono" />
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Request Body (for POST/PUT) -->
+    <div x-show="selected?.body" class="mb-6">
+      <h3 class="text-sm font-semibold text-slate-300 mb-2">Request Body</h3>
+      <textarea x-model="requestBody" rows="6" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 font-mono text-sm text-cyan-400" placeholder="{ }"></textarea>
+    </div>
+
+    <!-- Send Button -->
+    <div class="flex items-center gap-3 mb-6">
+      <button @click="sendRequest()"
+              :disabled="loading"
+              class="px-6 py-2 rounded-lg font-semibold text-sm transition-colors"
+              :class="loading ? 'bg-slate-700 text-slate-400 cursor-wait' : 'bg-indigo-600 hover:bg-indigo-500 text-white'">
+        <span x-show="!loading">Send Request</span>
+        <span x-show="loading">Sending...</span>
+      </button>
+      <span class="text-xs text-slate-500 font-mono" x-text="resolvedUrl"></span>
+    </div>
+
+    <!-- Response -->
+    <div x-show="response !== null || responseError" class="mb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <h3 class="text-sm font-semibold text-slate-300">Response</h3>
+        <span x-show="responseStatus" class="text-xs px-2 py-0.5 rounded font-mono"
+              :class="responseStatus >= 200 && responseStatus < 300 ? 'bg-emerald-900 text-emerald-300' : 'bg-red-900 text-red-300'"
+              x-text="responseStatus"></span>
+        <span x-show="responseTime" class="text-xs text-slate-500" x-text="responseTime + 'ms'"></span>
+      </div>
+      <div class="bg-slate-900 border border-slate-700 rounded-lg overflow-hidden">
+        <pre class="p-4 text-sm font-mono json-pre whitespace-pre-wrap"
+             :class="responseError ? 'text-red-400' : 'text-emerald-400'"
+             x-text="responseError || prettyResponse"></pre>
+      </div>
+    </div>
+
+    <!-- What This Serves -->
+    <div class="bg-slate-900/50 border border-slate-800 rounded-lg p-4">
+      <h3 class="text-sm font-semibold text-slate-300 mb-2">What This Endpoint Does</h3>
+      <p class="text-sm text-slate-400 leading-relaxed" x-html="selected?.detail"></p>
+    </div>
+
+  </div>
+</main>
+</div>
+
+<!-- Upload Modal -->
+<div x-show="showUploadModal" x-cloak class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center" @click.self="showUploadModal = false">
+  <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 w-[500px]">
+    <h3 class="text-lg font-semibold text-white mb-4">Upload PDF Chart</h3>
+    <input type="file" accept=".pdf" @change="uploadFile = $event.target.files[0]" class="text-sm mb-4" />
+    <div class="flex justify-end gap-3">
+      <button @click="showUploadModal = false" class="px-4 py-2 text-sm rounded bg-slate-800 hover:bg-slate-700">Cancel</button>
+      <button @click="doUpload()" :disabled="!uploadFile" class="px-4 py-2 text-sm rounded bg-indigo-600 hover:bg-indigo-500 text-white disabled:opacity-50">Upload</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function apiExplorer() {
+  return {
+    baseUrl: 'http://localhost:8000',
+    serverStatus: 'unknown',
+    search: '',
+    selected: null,
+    paramValues: {},
+    requestBody: '',
+    response: null,
+    responseError: null,
+    responseStatus: null,
+    responseTime: null,
+    loading: false,
+    showUploadModal: false,
+    uploadFile: null,
+
+    groups: [
+      {
+        name: 'Health', open: true, endpoints: [
+          { id: 'health', method: 'GET', path: '/', fullPath: '/', tag: 'Health', type: 'READ', returns: 'JSON',
+            description: 'Server health check — verify the API is running',
+            detail: 'Returns server status, service name, and version. Use this to confirm the API is up before making other calls.',
+            params: [] },
+        ]
+      },
+      {
+        name: 'Charts', open: true, endpoints: [
+          { id: 'upload', method: 'POST', path: '/upload', fullPath: '/api/charts/upload', tag: 'Charts', type: 'WRITE', returns: 'Chart record',
+            description: 'Upload a PDF medical chart for processing',
+            detail: 'Accepts a multipart PDF file upload. Saves the file to the <code>uploads/</code> directory, creates a chart record in the database with status "uploaded". Returns chart ID and metadata. <strong>Next step</strong>: process it via CLI (<code>python scripts/process_charts.py --pdf uploads/file.pdf</code>).',
+            params: [], body: false, isUpload: true },
+          { id: 'list-charts', method: 'GET', path: '', fullPath: '/api/charts', tag: 'Charts', type: 'READ', returns: 'Chart list',
+            description: 'List all processed charts with pagination',
+            detail: 'Returns all charts in the database with their status (uploaded/processing/completed/failed), filename, page count, patient_id link, and timestamps. Supports pagination and status filtering.',
+            params: [
+              { name: 'status', in: 'query', type: 'string', placeholder: 'completed', required: false },
+              { name: 'limit', in: 'query', type: 'int', placeholder: '50', required: false },
+              { name: 'offset', in: 'query', type: 'int', placeholder: '0', required: false },
+            ] },
+          { id: 'get-chart', method: 'GET', path: '/{chart_id}', fullPath: '/api/charts/{chart_id}', tag: 'Charts', type: 'READ', returns: 'Chart detail + stats',
+            description: 'Get full chart details with summary statistics',
+            detail: 'Returns chart metadata plus aggregated stats: assertion count, diagnosis count, HCC count, RAF score, HEDIS results, processing time. This is the primary "overview" for a single chart.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'get-pages', method: 'GET', path: '/{chart_id}/pages', fullPath: '/api/charts/{chart_id}/pages', tag: 'Charts', type: 'READ', returns: 'Page-level data',
+            description: 'Get page-level text quality and extraction method per page',
+            detail: 'Returns per-page data: page number, text length, quality score (0-100), extraction method (text vs vision_ocr). Use this to understand which pages needed OCR fallback and text quality distribution.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'delete-chart', method: 'DELETE', path: '/{chart_id}', fullPath: '/api/charts/{chart_id}', tag: 'Charts', type: 'WRITE', returns: 'Confirmation',
+            description: 'Delete a chart and ALL related data (assertions, diagnoses, HEDIS, etc.)',
+            detail: '<strong class="text-red-400">Destructive operation.</strong> Deletes the chart record and cascades to all related tables: assertions, diagnoses, encounters, clinical sentences, HEDIS evidence, HCC mappings, RAF summaries, pipeline logs, processing stats. Does NOT delete the original PDF file.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+        ]
+      },
+      {
+        name: 'Patients', open: true, endpoints: [
+          { id: 'get-patient', method: 'GET', path: '/{chart_id}', fullPath: '/api/patients/{chart_id}', tag: 'Patients', type: 'READ', returns: 'Demographics JSON',
+            description: 'Get patient demographics extracted from a chart',
+            detail: 'Returns patient name, DOB, gender, age, member IDs, address, phone, social history, mental health scores, allergies, providers, and vitals. Data comes from the Demographics pipeline (Pipeline 1) extraction stored in assertions.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+        ]
+      },
+      {
+        name: 'Clinical', open: true, endpoints: [
+          { id: 'get-assertions', method: 'GET', path: '/{chart_id}/assertions', fullPath: '/api/clinical/{chart_id}/assertions', tag: 'Clinical', type: 'READ', returns: 'Assertion list',
+            description: 'Get ALL raw assertions — the central data table',
+            detail: 'Assertions are the core data model. Every extracted clinical fact becomes an assertion: diagnoses, medications, vitals, lab results, procedures, sentences. Each has a <code>category</code> (22 types) and <code>negation_status</code> (6 types: active/negated/resolved/historical/family_history/uncertain). Supports filtering by category and status.',
+            params: [
+              { name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true },
+              { name: 'category', in: 'query', type: 'string', placeholder: 'diagnosis', required: false },
+              { name: 'status', in: 'query', type: 'string', placeholder: 'active', required: false },
+              { name: 'limit', in: 'query', type: 'int', placeholder: '500', required: false },
+            ] },
+          { id: 'get-diagnoses', method: 'GET', path: '/{chart_id}/diagnoses', fullPath: '/api/clinical/{chart_id}/diagnoses', tag: 'Clinical', type: 'READ', returns: 'Diagnosis list',
+            description: 'Get all diagnoses with ICD-10 codes, evidence, and negation status',
+            detail: 'Returns extracted diagnoses from the <code>diagnoses</code> normalized table: ICD-10 code, description, negation status, supporting text, source section, date of service, provider. These come from Pipeline 3 (Risk Adjustment Diagnoses).',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'get-medications', method: 'GET', path: '/{chart_id}/medications', fullPath: '/api/clinical/{chart_id}/medications', tag: 'Clinical', type: 'READ', returns: 'Medication list',
+            description: 'Get all medications with dose, frequency, and prescriber',
+            detail: 'Returns medications from encounter_medications: drug name, dose form, instructions, indication, action (start/continue/stop). Extracted from Pipeline 5 (Encounters).',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'get-vitals', method: 'GET', path: '/{chart_id}/vitals', fullPath: '/api/clinical/{chart_id}/vitals', tag: 'Clinical', type: 'READ', returns: 'Vital signs',
+            description: 'Get vital signs — BP, weight, BMI, pulse, temp, SpO2',
+            detail: 'Returns patient vitals from the <code>patient_vitals</code> table: date, BP systolic/diastolic, weight, height, BMI, pulse, temperature, oxygen saturation. Extracted from Pipeline 1 (Demographics).',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'get-labs', method: 'GET', path: '/{chart_id}/labs', fullPath: '/api/clinical/{chart_id}/labs', tag: 'Clinical', type: 'READ', returns: 'Lab results',
+            description: 'Get lab results — HbA1c, LDL, cholesterol, GFR, etc.',
+            detail: 'Returns lab results from <code>hedis_lab_results</code>: test name, value, date, reference range, HEDIS measure link, within-target flag. Extracted from Pipeline 4 (HEDIS Evidence).',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'clin-encounters', method: 'GET', path: '/{chart_id}/encounters', fullPath: '/api/clinical/{chart_id}/encounters', tag: 'Clinical', type: 'READ', returns: 'Encounter timeline',
+            description: 'Get clinical encounter dates from assertion extraction',
+            detail: 'Returns distinct encounter dates from assertions linked to this chart. Use <code>/api/encounters/{chart_id}</code> for full encounter detail with medications, procedures, and diagnoses.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'get-categories', method: 'GET', path: '/{chart_id}/categories', fullPath: '/api/clinical/{chart_id}/categories', tag: 'Clinical', type: 'READ', returns: 'Category counts',
+            description: 'Get assertion counts grouped by category (22 types)',
+            detail: 'Returns a breakdown of how many assertions exist per category: diagnosis, medication, vital_sign, lab_result, procedure, encounter, screening, allergy, family_history, social_history, etc. Useful for understanding chart content distribution.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'ra-candidates', method: 'GET', path: '/{chart_id}/ra-candidates', fullPath: '/api/clinical/{chart_id}/ra-candidates', tag: 'Clinical', type: 'READ', returns: 'RA candidate list',
+            description: 'Get risk-adjustment candidate assertions (payable diagnoses)',
+            detail: 'Returns assertions categorized as diagnoses with ICD codes that are potentially payable for risk adjustment. Filtered to "active" negation status. These are candidates before HCC mapping and hierarchy suppression.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+        ]
+      },
+      {
+        name: 'Risk Adjustment', open: true, endpoints: [
+          { id: 'hcc-pack', method: 'GET', path: '/{chart_id}/hcc-pack', fullPath: '/api/risk/{chart_id}/hcc-pack', tag: 'Risk Adjustment', type: 'READ', returns: 'HCC Pack JSON',
+            description: 'THE PRIMARY OUTPUT — Complete Payable HCC Pack with RAF scores',
+            detail: '<strong>This is the main product output.</strong> Returns: payable HCCs (code, description, RAF weight, hierarchy info, supporting ICDs with evidence), suppressed HCCs (with suppression reason), RAF summary (total score, demographic + HCC breakdown), patient demographics, processing metadata. The HCC pack is what gets submitted for risk adjustment payment.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'raf-summary', method: 'GET', path: '/{chart_id}/raf-summary', fullPath: '/api/risk/{chart_id}/raf-summary', tag: 'Risk Adjustment', type: 'READ', returns: 'RAF breakdown',
+            description: 'Get RAF score breakdown — demographic + HCC components',
+            detail: 'Returns the Risk Adjustment Factor score decomposition: total RAF, demographic component, each HCC contribution, payable vs suppressed counts. RAF = sum of applicable CMS-HCC V28 coefficients.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'hierarchy', method: 'GET', path: '/{chart_id}/hierarchy', fullPath: '/api/risk/{chart_id}/hierarchy', tag: 'Risk Adjustment', type: 'READ', returns: 'Hierarchy details',
+            description: 'Get HCC hierarchy suppression log — which HCCs were suppressed and why',
+            detail: 'CMS-HCC V28 has 21 hierarchy groups. When a more severe HCC is present, it suppresses less severe ones (e.g., HCC 18 suppresses HCC 19). This endpoint shows which suppressions were applied and the hierarchy rules used.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+        ]
+      },
+      {
+        name: 'HEDIS Quality', open: true, endpoints: [
+          { id: 'hedis-measures', method: 'GET', path: '/{chart_id}/measures', fullPath: '/api/hedis/{chart_id}/measures', tag: 'HEDIS', type: 'READ', returns: 'Measure results',
+            description: 'Get HEDIS measure results — met, gap, not applicable, excluded',
+            detail: 'Returns evaluated HEDIS measures: CBP (blood pressure), GSD (diabetes), COL (colorectal screening), BCS (breast cancer), CCS (cervical cancer), DSF (depression follow-up). Each has status, evidence summary, and applicable criteria. Supports filtering by status.',
+            params: [
+              { name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true },
+              { name: 'status', in: 'query', type: 'string', placeholder: 'gap', required: false },
+            ] },
+          { id: 'hedis-gaps', method: 'GET', path: '/{chart_id}/gaps', fullPath: '/api/hedis/{chart_id}/gaps', tag: 'HEDIS', type: 'READ', returns: 'Care gaps',
+            description: 'Get identified HEDIS care gaps — what is missing',
+            detail: 'Returns only HEDIS measures with status "gap" — meaning the patient is eligible but evidence of compliance was not found. Each gap includes: measure code, description, what evidence is missing, and recommended action.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'hedis-evidence', method: 'GET', path: '/{chart_id}/evidence', fullPath: '/api/hedis/{chart_id}/evidence', tag: 'HEDIS', type: 'READ', returns: 'Evidence items',
+            description: 'Get HEDIS evidence items — BP readings, labs, screenings, medications',
+            detail: 'Returns all HEDIS-relevant evidence extracted from the chart: blood pressure readings, HbA1c values, screening dates (mammogram, colonoscopy, eye exam), depression scores (PHQ-9), diabetes medications. This is the raw evidence that feeds HEDIS measure evaluation.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'hedis-summary', method: 'GET', path: '/{chart_id}/summary', fullPath: '/api/hedis/{chart_id}/summary', tag: 'HEDIS', type: 'READ', returns: 'HEDIS summary',
+            description: 'Get aggregate HEDIS summary — counts of met/gap/NA',
+            detail: 'Returns high-level HEDIS summary: total measures evaluated, met count, gap count, not-applicable count, excluded count. Quick overview of quality performance for the chart.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+        ]
+      },
+      {
+        name: 'Encounters', open: false, endpoints: [
+          { id: 'enc-list', method: 'GET', path: '/{chart_id}', fullPath: '/api/encounters/{chart_id}', tag: 'Encounters', type: 'READ', returns: 'Encounter list',
+            description: 'Get full encounter timeline with medications, procedures, diagnoses',
+            detail: 'Returns encounters from the <code>encounters</code> normalized table: date, provider, facility, visit type, chief complaint, telehealth details. Each encounter includes nested: medications (name, dose, instructions), lab orders (test, result, status), procedures, referrals, and diagnoses made at this visit. Extracted from Pipeline 5.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+        ]
+      },
+      {
+        name: 'Audit & Review', open: false, endpoints: [
+          { id: 'audit-logs', method: 'GET', path: '/logs', fullPath: '/api/audit/logs', tag: 'Audit', type: 'READ', returns: 'Audit log entries',
+            description: 'Get system audit logs — every action tracked',
+            detail: 'Returns audit log entries: entity type (assertion/chart/config), entity ID, action (create/update/review), old value, new value, user, timestamp. Tracks all changes to the system.',
+            params: [
+              { name: 'entity_type', in: 'query', type: 'string', placeholder: 'assertion', required: false },
+              { name: 'limit', in: 'query', type: 'int', placeholder: '100', required: false },
+            ] },
+          { id: 'chart-reviews', method: 'GET', path: '/{chart_id}/reviews', fullPath: '/api/audit/{chart_id}/reviews', tag: 'Audit', type: 'READ', returns: 'Review actions',
+            description: 'Get review actions for a chart — accept/reject/edit history',
+            detail: 'Returns all review actions taken on assertions in this chart: assertion ID, action (accepted/rejected/edited), reviewer, notes, old/new values, timestamp. Part of the coder review workflow.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'review-assertion', method: 'PUT', path: '/review/assertion/{assertion_id}', fullPath: '/api/audit/review/assertion/{assertion_id}', tag: 'Audit', type: 'WRITE', returns: 'Updated assertion',
+            description: 'Accept, reject, or edit an assertion (coder review)',
+            detail: '<strong>Write operation.</strong> Updates an assertion\'s review_status. Actions: <code>accepted</code> (confirm as correct), <code>rejected</code> (mark as incorrect), <code>edited</code> (modify values). Creates an audit log entry. Request body: <code>{"action": "accepted", "reviewer": "Dr. Smith", "notes": "Verified"}</code>',
+            params: [{ name: 'assertion_id', in: 'path', type: 'int', placeholder: '1', required: true }],
+            body: true, defaultBody: '{\n  "action": "accepted",\n  "reviewer": "coder_name",\n  "notes": "Verified against chart"\n}' },
+          { id: 'pending-reviews', method: 'GET', path: '/pending', fullPath: '/api/audit/pending', tag: 'Audit', type: 'READ', returns: 'Pending assertions',
+            description: 'Get all assertions pending review',
+            detail: 'Returns assertions with review_status "pending" — those not yet reviewed by a coder. Optionally filter by chart_id. Used to populate the review workflow queue.',
+            params: [{ name: 'chart_id', in: 'query', type: 'int', placeholder: '', required: false }] },
+        ]
+      },
+      {
+        name: 'Configuration', open: false, endpoints: [
+          { id: 'get-config', method: 'GET', path: '', fullPath: '/api/config', tag: 'Configuration', type: 'READ', returns: 'All settings',
+            description: 'Get ALL configuration — LLM, pipeline, ML, feature flags',
+            detail: 'Returns the complete configuration state: LLM provider/model, pipeline settings (chunk size, parallelism, thresholds), ML model paths, feature flags (enable_risk_adjustment, enable_hedis, etc.), server settings. Combines .env + database configs.',
+            params: [] },
+          { id: 'update-config', method: 'PUT', path: '', fullPath: '/api/config', tag: 'Configuration', type: 'WRITE', returns: 'Updated config',
+            description: 'Update a configuration value at runtime',
+            detail: '<strong>Write operation.</strong> Updates a key-value pair in the system_config table. Changes take effect immediately. Audit-logged. Body: <code>{"key": "CHUNK_SIZE", "value": "12000"}</code>',
+            params: [], body: true, defaultBody: '{\n  "key": "CHUNK_SIZE",\n  "value": "12000"\n}' },
+          { id: 'get-flags', method: 'GET', path: '/feature-flags', fullPath: '/api/config/feature-flags', tag: 'Configuration', type: 'READ', returns: 'Feature flags',
+            description: 'Get all feature flags — what is enabled/disabled',
+            detail: 'Returns toggleable features: enable_risk_adjustment, enable_hedis, enable_ml_predictions, enable_llm_verification, enable_ocr_fallback, enable_parallel_pipelines. Each can be toggled at runtime.',
+            params: [] },
+          { id: 'update-flag', method: 'PUT', path: '/feature-flags', fullPath: '/api/config/feature-flags', tag: 'Configuration', type: 'WRITE', returns: 'Updated flag',
+            description: 'Toggle a feature flag on/off at runtime',
+            detail: '<strong>Write operation.</strong> Enable or disable a feature. Body: <code>{"flag": "enable_hedis", "enabled": false}</code>. Changes take effect on next chart processing run.',
+            params: [], body: true, defaultBody: '{\n  "flag": "enable_hedis",\n  "enabled": true\n}' },
+          { id: 'get-prompts', method: 'GET', path: '/prompts', fullPath: '/api/config/prompts', tag: 'Configuration', type: 'READ', returns: 'Prompt templates',
+            description: 'Get all LLM prompt templates (DB + filesystem)',
+            detail: 'Returns all 5 pipeline prompt templates: demographics_extraction, sentence_categorization, risk_dx_extraction, hedis_evidence, encounter_extraction. Shows both the filesystem version and any DB overrides.',
+            params: [] },
+          { id: 'update-prompt', method: 'PUT', path: '/prompts', fullPath: '/api/config/prompts', tag: 'Configuration', type: 'WRITE', returns: 'New version',
+            description: 'Create a new version of a prompt template',
+            detail: '<strong>Write operation.</strong> Saves a new prompt template version in the database. DB prompts override filesystem prompts. Includes version tracking. Body: <code>{"pipeline_name": "risk_dx_extraction", "system_prompt": "...", "notes": "v2 tuned"}</code>',
+            params: [], body: true, defaultBody: '{\n  "pipeline_name": "risk_dx_extraction",\n  "system_prompt": "You are a medical coding expert...",\n  "notes": "Tuned for better ICD specificity"\n}' },
+          { id: 'model-versions', method: 'GET', path: '/model-versions', fullPath: '/api/config/model-versions', tag: 'Configuration', type: 'READ', returns: 'Model info',
+            description: 'Get ML model version information',
+            detail: 'Returns information about loaded ML models: BioClinicalBERT version, TF-IDF vectorizer version, label encoder, ICD-10 catalog size. Tracks model versions for reproducibility.',
+            params: [] },
+          { id: 'llm-configs', method: 'GET', path: '/llm-configs', fullPath: '/api/config/llm-configs', tag: 'Configuration', type: 'READ', returns: 'LLM configs',
+            description: 'Get LLM provider configurations',
+            detail: 'Returns LLM provider settings: active provider (openai/azure/gemini), model name, temperature, max tokens, API endpoint. API keys are masked in the response.',
+            params: [] },
+        ]
+      },
+      {
+        name: 'Pipeline', open: false, endpoints: [
+          { id: 'list-runs', method: 'GET', path: '/runs', fullPath: '/api/pipeline/runs', tag: 'Pipeline', type: 'READ', returns: 'Run list',
+            description: 'List all pipeline processing runs',
+            detail: 'Returns pipeline run records: chart_id, status (running/completed/failed), start/end time, model used, config snapshot. Supports filtering by status and pagination.',
+            params: [
+              { name: 'status', in: 'query', type: 'string', placeholder: 'completed', required: false },
+              { name: 'limit', in: 'query', type: 'int', placeholder: '50', required: false },
+            ] },
+          { id: 'get-run', method: 'GET', path: '/runs/{run_id}', fullPath: '/api/pipeline/runs/{run_id}', tag: 'Pipeline', type: 'READ', returns: 'Run detail + logs',
+            description: 'Get a specific pipeline run with processing logs',
+            detail: 'Returns full pipeline run detail including step-by-step processing logs: each pipeline (demographics, sentences, risk, hedis, encounters) with timing, token usage, chunk counts, and any errors.',
+            params: [{ name: 'run_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'runs-by-chart', method: 'GET', path: '/runs/chart/{chart_id}', fullPath: '/api/pipeline/runs/chart/{chart_id}', tag: 'Pipeline', type: 'READ', returns: 'Runs for chart',
+            description: 'Get all pipeline runs for a specific chart',
+            detail: 'Returns all processing runs for a chart (a chart can be re-processed multiple times). Shows run history with status and timing.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+          { id: 'proc-stats', method: 'GET', path: '/stats/{chart_id}', fullPath: '/api/pipeline/stats/{chart_id}', tag: 'Pipeline', type: 'READ', returns: 'Processing stats',
+            description: 'Get processing performance stats for a chart',
+            detail: 'Returns processing metrics: total time, pages processed, OCR pages, extraction time per pipeline, token usage, model used, chunks processed.',
+            params: [{ name: 'chart_id', in: 'path', type: 'int', placeholder: '1', required: true }] },
+        ]
+      },
+      {
+        name: 'Dashboard', open: false, endpoints: [
+          { id: 'dash-stats', method: 'GET', path: '/stats', fullPath: '/api/dashboard/stats', tag: 'Dashboard', type: 'READ', returns: 'System stats',
+            description: 'Overall system statistics — total charts, success rate, HCCs, avg time',
+            detail: 'Returns aggregated system stats: total charts, completed/failed counts, success rate percentage, total assertions, total HCCs mapped, average processing time. The "executive summary" endpoint.',
+            params: [] },
+          { id: 'db-stats', method: 'GET', path: '/db-stats', fullPath: '/api/dashboard/db-stats', tag: 'Dashboard', type: 'READ', returns: 'Table row counts',
+            description: 'Database table row counts — health check for data',
+            detail: 'Returns row counts for every table in the database: charts, patients, assertions, diagnoses, encounters, clinical_sentences, HEDIS tables, HCC tables, etc. Quick check that data is populating correctly.',
+            params: [] },
+          { id: 'proc-metrics', method: 'GET', path: '/processing-metrics', fullPath: '/api/dashboard/processing-metrics', tag: 'Dashboard', type: 'READ', returns: 'Processing metrics',
+            description: 'Processing time and success rate metrics',
+            detail: 'Returns processing performance: average/min/max processing time, success rate, recent run details with per-run timing.',
+            params: [] },
+          { id: 'recent', method: 'GET', path: '/recent-activity', fullPath: '/api/dashboard/recent-activity', tag: 'Dashboard', type: 'READ', returns: 'Recent activity',
+            description: 'Recent chart processing activity feed',
+            detail: 'Returns the most recent chart processing events in chronological order. Shows chart name, status, processing time, key outputs (diagnosis count, HCC count, RAF score).',
+            params: [] },
+          { id: 'top-raf', method: 'GET', path: '/top-raf', fullPath: '/api/dashboard/top-raf', tag: 'Dashboard', type: 'READ', returns: 'Top RAF charts',
+            description: 'Top 20 charts ranked by RAF score',
+            detail: 'Returns charts sorted by total RAF score (highest first). Useful for identifying high-acuity patients or reviewing charts with the most risk adjustment value.',
+            params: [] },
+        ]
+      },
+    ],
+
+    get filteredGroups() {
+      if (!this.search) return this.groups;
+      const q = this.search.toLowerCase();
+      return this.groups.map(g => ({
+        ...g,
+        open: true,
+        endpoints: g.endpoints.filter(ep =>
+          ep.path.toLowerCase().includes(q) ||
+          ep.description.toLowerCase().includes(q) ||
+          ep.method.toLowerCase().includes(q) ||
+          ep.tag.toLowerCase().includes(q)
+        )
+      })).filter(g => g.endpoints.length > 0);
+    },
+
+    get resolvedUrl() {
+      if (!this.selected) return '';
+      let url = this.baseUrl + this.selected.fullPath;
+      const queryParams = [];
+      for (const p of (this.selected.params || [])) {
+        const val = this.paramValues[p.name];
+        if (!val) continue;
+        if (p.in === 'path') {
+          url = url.replace(`{${p.name}}`, val);
+        } else {
+          queryParams.push(`${p.name}=${encodeURIComponent(val)}`);
+        }
+      }
+      if (queryParams.length) url += '?' + queryParams.join('&');
+      return url;
+    },
+
+    get prettyResponse() {
+      if (this.response === null) return '';
+      try { return JSON.stringify(this.response, null, 2); }
+      catch { return String(this.response); }
+    },
+
+    init() {
+      this.checkHealth();
+    },
+
+    selectEndpoint(ep) {
+      this.selected = ep;
+      this.paramValues = {};
+      this.response = null;
+      this.responseError = null;
+      this.responseStatus = null;
+      this.responseTime = null;
+      this.requestBody = ep.defaultBody || '';
+      if (ep.isUpload) this.showUploadModal = true;
+    },
+
+    async checkHealth() {
+      this.serverStatus = 'checking';
+      try {
+        const r = await fetch(this.baseUrl + '/');
+        if (r.ok) { this.serverStatus = 'online'; }
+        else { this.serverStatus = 'offline'; }
+      } catch { this.serverStatus = 'offline'; }
+    },
+
+    async sendRequest() {
+      if (!this.selected) return;
+      this.loading = true;
+      this.response = null;
+      this.responseError = null;
+      const start = Date.now();
+      try {
+        const opts = { method: this.selected.method, headers: {} };
+        if (this.selected.body && this.requestBody && (this.selected.method === 'PUT' || this.selected.method === 'POST')) {
+          opts.headers['Content-Type'] = 'application/json';
+          opts.body = this.requestBody;
+        }
+        const r = await fetch(this.resolvedUrl, opts);
+        this.responseStatus = r.status;
+        this.responseTime = Date.now() - start;
+        const data = await r.json();
+        if (r.ok) { this.response = data; }
+        else { this.responseError = JSON.stringify(data, null, 2); }
+      } catch (e) {
+        this.responseError = e.message;
+        this.responseTime = Date.now() - start;
+      }
+      this.loading = false;
+    },
+
+    async doUpload() {
+      if (!this.uploadFile) return;
+      this.loading = true;
+      this.showUploadModal = false;
+      const start = Date.now();
+      try {
+        const fd = new FormData();
+        fd.append('file', this.uploadFile);
+        const r = await fetch(this.baseUrl + '/api/charts/upload', { method: 'POST', body: fd });
+        this.responseStatus = r.status;
+        this.responseTime = Date.now() - start;
+        this.response = await r.json();
+      } catch (e) {
+        this.responseError = e.message;
+        this.responseTime = Date.now() - start;
+      }
+      this.loading = false;
+      this.uploadFile = null;
+    },
+  };
+}
+</script>
+</body>
+</html>

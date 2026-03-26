@@ -1,0 +1,46 @@
+id: "CDC-STATIN"
+name: "Diabetes Care - Statin Therapy"
+version: "2025"
+domain: "diabetes"
+description: >
+  Assesses whether adults aged 40-75 with diabetes (type 1 or type 2)
+  are receiving statin therapy. Statin medications reduce cardiovascular
+  risk in diabetic patients, who have a substantially elevated risk of
+  cardiovascular events. Clinical guidelines recommend statin therapy for
+  most diabetic adults aged 40-75 regardless of baseline cholesterol levels.
+
+eligibility:
+  age: {min: 40, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "statin"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "medications"

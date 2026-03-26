@@ -1,0 +1,21 @@
+{
+    "id": "VS_PHYSICAL_ACTIVITY_COUNSELING_CPT",
+    "name": "Physical Activity Counseling Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for physical activity counseling, preventive medicine counseling related to exercise, therapeutic exercise programs, and exercise class services. Used in BMI/obesity management, weight management, and preventive health counseling quality measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99401", "code_system": "cpt", "description": "Preventive medicine counseling and/or risk factor reduction intervention, approximately 15 minutes"},
+        {"code": "99402", "code_system": "cpt", "description": "Preventive medicine counseling and/or risk factor reduction intervention, approximately 30 minutes"},
+        {"code": "99403", "code_system": "cpt", "description": "Preventive medicine counseling and/or risk factor reduction intervention, approximately 45 minutes"},
+        {"code": "99404", "code_system": "cpt", "description": "Preventive medicine counseling and/or risk factor reduction intervention, approximately 60 minutes"},
+        {"code": "G0442", "code_system": "hcpcs", "description": "Annual alcohol misuse screening, 15 minutes"},
+        {"code": "G0443", "code_system": "hcpcs", "description": "Brief face-to-face behavioral counseling for alcohol misuse, 15 minutes"},
+        {"code": "G0447", "code_system": "hcpcs", "description": "Face-to-face behavioral counseling for obesity, 15 minutes"},
+        {"code": "S9451", "code_system": "hcpcs", "description": "Exercise classes, non-physician provider, per session"},
+        {"code": "97110", "code_system": "cpt", "description": "Therapeutic procedure, 1 or more areas, each 15 minutes; therapeutic exercises to develop strength and endurance, flexibility and range of motion"},
+        {"code": "97530", "code_system": "cpt", "description": "Therapeutic activities, direct (one-on-one) patient contact, each 15 minutes (use of dynamic activities to improve functional performance)"},
+        {"code": "97150", "code_system": "cpt", "description": "Therapeutic procedure(s), group (2 or more individuals)"}
+    ]
+}

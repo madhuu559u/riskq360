@@ -1,0 +1,199 @@
+{
+  "description": "CMS-HCC V28 Hierarchy — higher-ranked HCC suppresses lower in same group",
+  "version": "V28-PY2026",
+  "groups": {
+    "Cancer Metastatic to Lung Liver Brain and Other Organs; Acute Myeloid Leukemia Except Promyelocytic (HCC17)": {
+      "ordered_hccs": [
+        "HCC17",
+        "HCC18",
+        "HCC19",
+        "HCC20",
+        "HCC21",
+        "HCC22",
+        "HCC23"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Pancreas Transplant Status (HCC35)": {
+      "ordered_hccs": [
+        "HCC35",
+        "HCC36",
+        "HCC37",
+        "HCC38"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Liver Transplant Status_Complications (HCC62)": {
+      "ordered_hccs": [
+        "HCC62",
+        "HCC63",
+        "HCC64",
+        "HCC65",
+        "HCC68",
+        "HCC397",
+        "HCC398",
+        "HCC202",
+        "HCC399"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Intestine Transplant Status_Complications (HCC77)": {
+      "ordered_hccs": [
+        "HCC77",
+        "HCC78",
+        "HCC80",
+        "HCC81"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders (HCC93)": {
+      "ordered_hccs": [
+        "HCC93",
+        "HCC94"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero (HCC107)": {
+      "ordered_hccs": [
+        "HCC107",
+        "HCC108"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Hemophilia Male (HCC111)": {
+      "ordered_hccs": [
+        "HCC111",
+        "HCC112"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Common Variable and Combined Immunodeficiencies (HCC114)": {
+      "ordered_hccs": [
+        "HCC114",
+        "HCC115"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Dementia Severe (HCC125)": {
+      "ordered_hccs": [
+        "HCC125",
+        "HCC126",
+        "HCC127"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Drug Use with Psychotic Complications (HCC135)": {
+      "ordered_hccs": [
+        "HCC135",
+        "HCC136",
+        "HCC137",
+        "HCC138",
+        "HCC139"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Schizophrenia (HCC151)": {
+      "ordered_hccs": [
+        "HCC151",
+        "HCC152",
+        "HCC153",
+        "HCC154",
+        "HCC155"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Quadriplegic Cerebral Palsy (HCC191)": {
+      "ordered_hccs": [
+        "HCC191",
+        "HCC180",
+        "HCC181",
+        "HCC182",
+        "HCC192",
+        "HCC253",
+        "HCC254"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Myasthenia Gravis with (Acute) Exacerbation (HCC195)": {
+      "ordered_hccs": [
+        "HCC195",
+        "HCC196"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Respirator Dependence_Tracheostomy Status_Complications (HCC211)": {
+      "ordered_hccs": [
+        "HCC211",
+        "HCC212",
+        "HCC213"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Heart Transplant Status_Complications (HCC221)": {
+      "ordered_hccs": [
+        "HCC221",
+        "HCC222",
+        "HCC223",
+        "HCC224",
+        "HCC225",
+        "HCC226",
+        "HCC227"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Acute Myocardial Infarction (HCC228)": {
+      "ordered_hccs": [
+        "HCC228",
+        "HCC229"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Intracranial Hemorrhage (HCC248)": {
+      "ordered_hccs": [
+        "HCC248",
+        "HCC249"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene (HCC263)": {
+      "ordered_hccs": [
+        "HCC263",
+        "HCC264",
+        "HCC379",
+        "HCC380",
+        "HCC381",
+        "HCC382",
+        "HCC383",
+        "HCC405",
+        "HCC409"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Lung Transplant Status_Complications (HCC276)": {
+      "ordered_hccs": [
+        "HCC276",
+        "HCC277",
+        "HCC278",
+        "HCC279",
+        "HCC280"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Aspiration and Specified Bacterial Pneumonias (HCC282)": {
+      "ordered_hccs": [
+        "HCC282",
+        "HCC283"
+      ],
+      "description": "Higher suppresses lower"
+    },
+    "Chronic Kidney Disease Stage 5 (HCC326)": {
+      "ordered_hccs": [
+        "HCC326",
+        "HCC327",
+        "HCC328",
+        "HCC329"
+      ],
+      "description": "Higher suppresses lower"
+    }
+  }
+}

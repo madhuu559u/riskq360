@@ -1,0 +1,44 @@
+id: "CCS"
+name: "Cervical Cancer Screening"
+version: "2025"
+domain: "preventive_screening"
+description: >
+  Assesses whether women aged 21-64 were appropriately screened for
+  cervical cancer. Acceptable screening includes a Pap test (every 3 years
+  for ages 21-64) or a combination of Pap test and HPV co-test (every 5 years
+  for ages 30-64). Cervical cancer screening detects precancerous changes
+  and early-stage cervical cancer, enabling timely intervention and
+  significantly reducing mortality.
+
+eligibility:
+  age: {min: 21, max: 64, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "procedure"
+    valueset: "VS_HYSTERECTOMY_CPT"
+    lookback_months: 0
+    description: "Hysterectomy with no residual cervix (any time)"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_CERVICAL_SCREENING_CPT"
+      window_months: 36
+
+valuesets_needed:
+  - VS_CERVICAL_SCREENING_CPT
+  - VS_HOSPICE
+  - VS_HYSTERECTOMY_CPT
+
+data_sources:
+  - "claims"
+  - "encounters"

@@ -1,0 +1,48 @@
+id: "DDE-FALLS"
+name: "Drug-Disease Interaction - Falls/Hip Fracture and CNS-Active Drugs"
+version: "2025"
+domain: "medication_safety"
+description: >
+  Assesses whether older adults aged 65 and older with a history of falls
+  or hip fracture received a potentially harmful CNS-active medication
+  during the measurement year. CNS-active drugs (including benzodiazepines,
+  opioids, antipsychotics, and sedative-hypnotics) increase the risk of
+  recurrent falls, fractures, and fall-related injuries in older adults
+  who already have an established fall history. This is an INVERSE measure
+  where the numerator event (receiving a CNS-active medication) represents
+  an UNDESIRABLE outcome. A lower rate indicates better performance.
+
+inverse: true
+
+eligibility:
+  age: {min: 65, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_FALLS_HIP_FRACTURE_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "cns_active"
+      window_months: 12
+
+valuesets_needed:
+  - VS_FALLS_HIP_FRACTURE_ICD10
+  - VS_CNS_ACTIVE_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"
+  - "encounters"

@@ -1,0 +1,57 @@
+id: "KED"
+name: "Kidney Health Evaluation for Patients with Diabetes"
+version: "2025"
+domain: "diabetes"
+description: >
+  Assesses whether adults aged 18-85 with diabetes (type 1 or type 2)
+  had both an estimated glomerular filtration rate (eGFR) test and a
+  urine albumin-creatinine ratio (uACR) test during the measurement
+  year. This measure replaces the older CDC-Nephropathy screening
+  measure and reflects updated clinical guidelines emphasizing the
+  importance of comprehensive kidney health evaluation in diabetic
+  patients. Early detection of diabetic kidney disease through both
+  eGFR and uACR testing enables timely intervention to slow disease
+  progression and prevent end-stage renal disease.
+
+eligibility:
+  age: {min: 18, max: 85, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  all_of:
+    - type: "lab_exists"
+      lab: "EGFR"
+      window_months: 12
+      description: "Estimated glomerular filtration rate (eGFR) test"
+    - type: "lab_exists"
+      lab: "UACR"
+      window_months: 12
+      description: "Urine albumin-creatinine ratio (uACR) test"
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_EGFR_TEST_CPT
+  - VS_UACR_TEST_CPT
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "labs"

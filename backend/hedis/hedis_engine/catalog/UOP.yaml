@@ -1,0 +1,61 @@
+id: "UOP"
+name: "Use of Opioids from Multiple Providers"
+version: "2025"
+domain: "overuse"
+inverse: true
+description: >
+  Assesses whether members aged 18 and older who received opioid prescriptions
+  obtained opioids from multiple prescribers or multiple pharmacies, indicating
+  potential unsafe prescribing patterns or opioid misuse. This is an INVERSE
+  measure where a LOWER rate indicates better performance — receiving opioids
+  from multiple providers is an undesirable event. NOTE: This is a PLACEHOLDER
+  implementation. The full HEDIS measure requires pharmacy claims data with
+  prescriber and pharmacy identifiers to determine whether opioids were obtained
+  from >= 4 prescribers or >= 4 pharmacies. Our current data model does not
+  track prescriber or pharmacy identifiers, so this measure checks only for the
+  presence of an opioid medication as a denominator qualifier and uses a
+  placeholder numerator that requires multi-prescriber evidence. When pharmacy
+  claims integration is available, this measure should be enhanced to compute
+  actual prescriber and pharmacy counts.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_medication:
+    medication_class: "opioid"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_CANCER_ICD10"
+    lookback_months: 12
+    description: "Active cancer diagnosis (cancer-related pain management excluded)"
+  - type: "diagnosis"
+    valueset: "VS_PALLIATIVE_CARE_ICD10"
+    lookback_months: 12
+    description: "Palliative care"
+
+numerator:
+  any_of:
+    - type: "diagnosis"
+      valueset: "VS_OPIOID_MULTI_PRESCRIBER_FLAG"
+      window_months: 12
+      description: "Evidence of opioids from multiple prescribers (placeholder — requires pharmacy claims data for accurate determination)"
+
+valuesets_needed:
+  - VS_OPIOID_MEDICATIONS
+  - VS_OPIOID_MULTI_PRESCRIBER_FLAG
+  - VS_CANCER_ICD10
+  - VS_PALLIATIVE_CARE_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "pharmacy"
+  - "claims"

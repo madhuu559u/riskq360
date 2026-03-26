@@ -1,0 +1,19 @@
+{
+    "id": "VS_LDL_TEST_CPT",
+    "name": "LDL Cholesterol Test Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and LOINC codes for LDL (low-density lipoprotein) cholesterol laboratory tests including direct measurement and calculated values. Used in statin therapy for patients with cardiovascular disease (SPC) and related lipid management quality measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "83721", "code_system": "cpt", "description": "Lipoprotein, direct measurement; LDL cholesterol"},
+        {"code": "80061", "code_system": "cpt", "description": "Lipid panel (includes LDL cholesterol as component)"},
+        {"code": "2089-1", "code_system": "loinc", "description": "LDL Cholesterol [Mass/volume] in Serum or Plasma"},
+        {"code": "18262-6", "code_system": "loinc", "description": "LDL Cholesterol [Mass/volume] in Serum or Plasma by Direct assay"},
+        {"code": "13457-7", "code_system": "loinc", "description": "LDL Cholesterol [Mass/volume] in Serum or Plasma by calculation"},
+        {"code": "22748-8", "code_system": "loinc", "description": "LDL Cholesterol [Moles/volume] in Serum or Plasma"},
+        {"code": "49132-4", "code_system": "loinc", "description": "LDL Cholesterol [Mass/volume] in Serum or Plasma by Electrophoresis"},
+        {"code": "39469-2", "code_system": "loinc", "description": "LDL Cholesterol [Mass or Moles/volume] in Serum or Plasma by calculation"},
+        {"code": "96259-7", "code_system": "loinc", "description": "LDL Cholesterol [Mass/volume] in Serum or Plasma by Direct assay — enzymatic method"}
+    ]
+}

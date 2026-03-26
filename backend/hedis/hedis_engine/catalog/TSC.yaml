@@ -1,0 +1,43 @@
+id: "TSC"
+name: "Tobacco Use Screening and Cessation"
+version: "2025"
+domain: "preventive_screening"
+description: >
+  Assesses whether adults aged 18 and older were screened for tobacco use
+  and, if identified as a tobacco user, received cessation counseling or
+  a tobacco cessation intervention within the past 24 months. Tobacco use
+  is the leading preventable cause of death in the United States. Screening
+  and brief intervention by healthcare providers significantly increases
+  quit rates.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_TOBACCO_SCREENING_CPT"
+      window_months: 24
+    - type: "procedure"
+      valueset: "VS_TOBACCO_CESSATION_CPT"
+      window_months: 24
+
+valuesets_needed:
+  - VS_TOBACCO_SCREENING_CPT
+  - VS_TOBACCO_CESSATION_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

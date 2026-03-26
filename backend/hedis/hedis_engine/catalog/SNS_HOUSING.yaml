@@ -1,0 +1,45 @@
+id: "SNS-HOUSING"
+name: "Social Need Screening - Housing Instability"
+version: "2025"
+domain: "social_determinants"
+description: >
+  Assesses whether adults aged 18 and older who had an outpatient encounter
+  during the measurement year were screened for housing instability using a
+  standardized social needs screening tool (e.g., PRAPARE, Accountable Health
+  Communities, HRSN). Housing instability encompasses homelessness, frequent
+  moves, overcrowding, and unaffordable housing costs, all of which are
+  strongly associated with adverse health outcomes including increased
+  emergency department visits, chronic disease exacerbation, and mental
+  health deterioration. Clinical screening enables identification and
+  referral to housing assistance programs and social services.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_SOCIAL_NEEDS_SCREENING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_SOCIAL_NEEDS_SCREENING_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

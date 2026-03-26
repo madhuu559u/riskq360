@@ -1,0 +1,19 @@
+{
+    "id": "VS_PRENATAL_DEPRESSION_SCREENING_CPT",
+    "name": "Prenatal Depression Screening Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, HCPCS, and quality measure codes for prenatal and postpartum depression screening. Used in the prenatal depression screening and follow-up (PND-E) measure to identify screening performed during pregnancy and postpartum period.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "96127", "code_system": "cpt", "description": "Brief emotional/behavioral assessment with scoring and documentation, per standardized instrument"},
+        {"code": "G8431", "code_system": "hcpcs", "description": "Screening for clinical depression, documented as positive, and follow-up plan documented"},
+        {"code": "G8510", "code_system": "hcpcs", "description": "Screening for clinical depression is documented as negative, a follow-up plan is not required"},
+        {"code": "G8433", "code_system": "hcpcs", "description": "Screening for clinical depression not documented; patient not eligible"},
+        {"code": "96160", "code_system": "cpt", "description": "Administration of patient-focused health risk assessment instrument with scoring and documentation"},
+        {"code": "99420", "code_system": "cpt", "description": "Administration and interpretation of health risk assessment instrument"},
+        {"code": "71354-6", "code_system": "loinc", "description": "Edinburgh Postnatal Depression Scale (EPDS) total score"},
+        {"code": "44249-1", "code_system": "loinc", "description": "PHQ-9 total score"},
+        {"code": "48543-4", "code_system": "loinc", "description": "PHQ-2 total score"}
+    ]
+}

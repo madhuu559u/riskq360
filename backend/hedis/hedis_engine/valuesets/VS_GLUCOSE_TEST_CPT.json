@@ -1,0 +1,22 @@
+{
+    "id": "VS_GLUCOSE_TEST_CPT",
+    "name": "Glucose / Blood Sugar Test Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and LOINC codes for blood glucose and related tests including fasting glucose, glucose tolerance test, and random glucose. Used in diabetes screening for people with schizophrenia or bipolar disorder (SSD/SMD) and prediabetes identification measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "82947", "code_system": "cpt", "description": "Glucose; quantitative, blood (except reagent strip)"},
+        {"code": "82950", "code_system": "cpt", "description": "Glucose; post glucose dose (includes glucose)"},
+        {"code": "82951", "code_system": "cpt", "description": "Glucose; tolerance test (GTT), three specimens (includes glucose)"},
+        {"code": "82952", "code_system": "cpt", "description": "Glucose; tolerance test, each additional beyond three specimens"},
+        {"code": "82962", "code_system": "cpt", "description": "Glucose, blood by glucose monitoring device(s) cleared by the FDA specifically for home use"},
+        {"code": "2345-7", "code_system": "loinc", "description": "Glucose [Mass/volume] in Serum or Plasma"},
+        {"code": "1558-6", "code_system": "loinc", "description": "Fasting glucose [Mass/volume] in Serum or Plasma"},
+        {"code": "2339-0", "code_system": "loinc", "description": "Glucose [Mass/volume] in Blood"},
+        {"code": "1554-5", "code_system": "loinc", "description": "Glucose [Mass/volume] in Urine"},
+        {"code": "14771-0", "code_system": "loinc", "description": "Fasting glucose [Mass/volume] in Capillary blood"},
+        {"code": "6777-7", "code_system": "loinc", "description": "Deprecated Fasting glucose [Mass/volume] in Serum or Plasma"},
+        {"code": "14769-4", "code_system": "loinc", "description": "Glucose [Mass/volume] in Capillary blood by Glucometer"}
+    ]
+}

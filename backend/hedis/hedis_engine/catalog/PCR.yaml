@@ -1,0 +1,50 @@
+id: "PCR"
+name: "Plan All-Cause Readmissions"
+version: "2025"
+domain: "utilization"
+inverse: true
+description: >
+  Assesses the rate of acute inpatient and observation stay readmissions that
+  occurred within 30 days of an acute inpatient or observation stay discharge
+  during the measurement year. This is an INVERSE measure where a LOWER rate
+  indicates better performance — readmission represents a quality gap.
+  Readmissions are often indicative of suboptimal care transitions, inadequate
+  discharge planning, or insufficient post-discharge follow-up. This simplified
+  implementation approximates the measure by checking for any readmission
+  evidence (additional inpatient encounter) during the measurement year for
+  members who had a qualifying inpatient discharge. The full HEDIS measure
+  uses a 30-day window from each index discharge; this approximation uses a
+  12-month window and flags any subsequent inpatient encounter as a potential
+  readmission.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_encounter:
+    encounter_types: ["inpatient"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "encounter"
+      encounter_types: ["inpatient"]
+      window_months: 12
+      description: "Subsequent inpatient encounter indicating potential readmission (approximate — real measure requires 30-day window from index discharge)"
+
+valuesets_needed:
+  - VS_INPATIENT_ENCOUNTER
+  - VS_INPATIENT_STAY_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

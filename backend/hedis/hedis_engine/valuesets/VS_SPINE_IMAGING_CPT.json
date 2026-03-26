@@ -1,0 +1,30 @@
+{
+    "id": "VS_SPINE_IMAGING_CPT",
+    "name": "Spine Imaging Procedure Codes",
+    "code_system": "cpt",
+    "placeholder": true,
+    "description": "CPT codes for lumbar and thoracic spine imaging procedures including X-ray, CT, and MRI. Used in the use of imaging studies for low back pain (LBP) measure to identify potentially inappropriate early imaging.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "72020", "description": "Radiologic examination, spine, single view"},
+        {"code": "72040", "description": "Radiologic examination, spine, cervical; 2 or 3 views"},
+        {"code": "72050", "description": "Radiologic examination, spine, cervical; 4 or 5 views"},
+        {"code": "72070", "description": "Radiologic examination, spine; thoracic, 2 views"},
+        {"code": "72100", "description": "Radiologic examination, spine, lumbosacral; 2 or 3 views"},
+        {"code": "72110", "description": "Radiologic examination, spine, lumbosacral; minimum of 4 views"},
+        {"code": "72114", "description": "Radiologic examination, spine, lumbosacral; complete, including bending views"},
+        {"code": "72120", "description": "Radiologic examination, spine, lumbosacral; bending views only, 2 or 3 views"},
+        {"code": "72131", "description": "Computed tomography, lumbar spine; without contrast material"},
+        {"code": "72132", "description": "Computed tomography, lumbar spine; with contrast material"},
+        {"code": "72133", "description": "Computed tomography, lumbar spine; without contrast material, followed by contrast material and further sections"},
+        {"code": "72141", "description": "Magnetic resonance imaging, spinal canal and contents, cervical; without contrast material"},
+        {"code": "72142", "description": "Magnetic resonance imaging, spinal canal and contents, cervical; with contrast material"},
+        {"code": "72146", "description": "Magnetic resonance imaging, spinal canal and contents, thoracic; without contrast material"},
+        {"code": "72147", "description": "Magnetic resonance imaging, spinal canal and contents, thoracic; with contrast material"},
+        {"code": "72148", "description": "Magnetic resonance imaging, spinal canal and contents, lumbar; without contrast material"},
+        {"code": "72149", "description": "Magnetic resonance imaging, spinal canal and contents, lumbar; with contrast material"},
+        {"code": "72156", "description": "Magnetic resonance imaging, spinal canal and contents, without contrast material, followed by contrast material and further sequences; cervical"},
+        {"code": "72157", "description": "Magnetic resonance imaging, spinal canal and contents, without contrast material, followed by contrast material and further sequences; thoracic"},
+        {"code": "72158", "description": "Magnetic resonance imaging, spinal canal and contents, without contrast material, followed by contrast material and further sequences; lumbar"}
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "id": "VS_HOSPICE",
+    "name": "Hospice Care Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Codes indicating hospice care enrollment or encounter. Used as a global exclusion across most HEDIS measures — members in hospice are typically excluded from quality measure denominators.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "Z51.5", "code_system": "icd10cm", "description": "Encounter for palliative care"},
+        {"code": "Z51.81", "code_system": "icd10cm", "description": "Encounter for therapeutic drug level monitoring"},
+        {"code": "99377", "code_system": "cpt", "description": "Physician supervision of hospice patient, 15-29 minutes"},
+        {"code": "99378", "code_system": "cpt", "description": "Physician supervision of hospice patient, 30+ minutes"},
+        {"code": "G0182", "code_system": "hcpcs", "description": "Physician certification of patient for Medicare-covered home health services"},
+        {"code": "G9473", "code_system": "hcpcs", "description": "Services performed by chaplain in the hospice setting"},
+        {"code": "G9474", "code_system": "hcpcs", "description": "Services performed by dietary counselor in the hospice setting"},
+        {"code": "Q5001", "code_system": "hcpcs", "description": "Hospice facility — routine home care"},
+        {"code": "Q5002", "code_system": "hcpcs", "description": "Hospice facility — continuous home care"},
+        {"code": "Q5003", "code_system": "hcpcs", "description": "Hospice facility — inpatient respite care"},
+        {"code": "Q5004", "code_system": "hcpcs", "description": "Hospice facility — general inpatient care"},
+        {"code": "T2042", "code_system": "hcpcs", "description": "Hospice routine home care; per diem"},
+        {"code": "T2043", "code_system": "hcpcs", "description": "Hospice continuous home care; per diem"},
+        {"code": "T2044", "code_system": "hcpcs", "description": "Hospice inpatient respite care; per diem"},
+        {"code": "T2045", "code_system": "hcpcs", "description": "Hospice general inpatient care; per diem"}
+    ]
+}

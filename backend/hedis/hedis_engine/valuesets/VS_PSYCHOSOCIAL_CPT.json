@@ -1,0 +1,22 @@
+{
+    "id": "VS_PSYCHOSOCIAL_CPT",
+    "name": "Psychosocial Therapy Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for psychosocial therapy services including individual, group, and family psychotherapy, as well as biofeedback and community-based rehabilitation. Used in behavioral health follow-up and engagement measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "90832", "code_system": "cpt", "description": "Psychotherapy, 30 minutes with patient"},
+        {"code": "90834", "code_system": "cpt", "description": "Psychotherapy, 45 minutes with patient"},
+        {"code": "90837", "code_system": "cpt", "description": "Psychotherapy, 60 minutes with patient"},
+        {"code": "90839", "code_system": "cpt", "description": "Psychotherapy for crisis; first 60 minutes"},
+        {"code": "90846", "code_system": "cpt", "description": "Family psychotherapy without the patient present, 50 minutes"},
+        {"code": "90847", "code_system": "cpt", "description": "Family psychotherapy with the patient present, 50 minutes"},
+        {"code": "90849", "code_system": "cpt", "description": "Multiple-family group psychotherapy"},
+        {"code": "90853", "code_system": "cpt", "description": "Group psychotherapy (other than of a multiple-family group)"},
+        {"code": "90875", "code_system": "cpt", "description": "Individual psychophysiological therapy incorporating biofeedback; 30 minutes"},
+        {"code": "90876", "code_system": "cpt", "description": "Individual psychophysiological therapy incorporating biofeedback; 45 minutes"},
+        {"code": "H0031", "code_system": "hcpcs", "description": "Mental health assessment, by non-physician"},
+        {"code": "H2019", "code_system": "hcpcs", "description": "Therapeutic behavioral services, per 15 minutes"}
+    ]
+}

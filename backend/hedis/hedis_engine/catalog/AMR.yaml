@@ -1,0 +1,67 @@
+id: "AMR"
+name: "Asthma Medication Ratio"
+version: "2025"
+domain: "respiratory"
+description: >
+  Assesses whether members aged 5-64 with persistent asthma who were prescribed
+  asthma medications had an asthma controller medication present during the
+  measurement year. The full HEDIS measure evaluates whether the ratio of
+  controller medications to total asthma medications is >= 0.50, indicating
+  appropriate use of long-term controller therapy over rescue-only approaches.
+  This simplified implementation checks for the presence of a controller
+  medication (inhaled corticosteroids, ICS-LABA combinations, leukotriene
+  modifiers, or other long-term controller agents) as a proxy for appropriate
+  medication management. Proper controller therapy reduces asthma exacerbations,
+  emergency department visits, and hospitalizations.
+
+eligibility:
+  age: {min: 5, max: 64, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_ASTHMA_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+  requires_medication:
+    medication_class: "asthma"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_COPD_ICD10"
+    lookback_months: 24
+    description: "COPD diagnosis"
+  - type: "diagnosis"
+    valueset: "VS_EMPHYSEMA_ICD10"
+    lookback_months: 24
+    description: "Emphysema diagnosis"
+  - type: "diagnosis"
+    valueset: "VS_CYSTIC_FIBROSIS_ICD10"
+    lookback_months: 24
+    description: "Cystic fibrosis diagnosis"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "asthma_controller"
+      window_months: 12
+      description: "Asthma controller medication (ICS, ICS-LABA, LTRA, or other controller) during measurement year"
+
+valuesets_needed:
+  - VS_ASTHMA_ICD10
+  - VS_ASTHMA_MEDICATIONS
+  - VS_ASTHMA_CONTROLLER_MEDICATIONS
+  - VS_COPD_ICD10
+  - VS_EMPHYSEMA_ICD10
+  - VS_CYSTIC_FIBROSIS_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

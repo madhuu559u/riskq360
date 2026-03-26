@@ -1,0 +1,53 @@
+id: "FUI-30"
+name: "Follow-Up After High-Intensity Care for Substance Use Disorder - 30 Day"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 13 and older who were discharged from
+  an acute inpatient stay with a principal diagnosis of a substance use
+  disorder (alcohol or drug) had a follow-up visit with a behavioral
+  health or substance use treatment provider within 30 days of discharge.
+  The 30-day follow-up window provides a broader timeframe than the 7-day
+  measure while still emphasizing the importance of timely outpatient
+  engagement after high-intensity inpatient care for substance use
+  disorders. Timely post-discharge follow-up is associated with improved
+  treatment engagement, reduced relapse, and lower readmission rates.
+  This measure uses a 1-month window approximation due to data granularity
+  limitations.
+
+eligibility:
+  age: {min: 13, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_SUBSTANCE_USE_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+  requires_encounter:
+    encounter_types: ["inpatient"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "encounter"
+      encounter_types: ["outpatient", "telehealth"]
+      window_months: 1
+      description: "Outpatient or telehealth follow-up within 30 days of inpatient discharge for SUD"
+
+valuesets_needed:
+  - VS_SUBSTANCE_USE_ICD10
+  - VS_SUD_INPATIENT_ENCOUNTER
+  - VS_SUD_OUTPATIENT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

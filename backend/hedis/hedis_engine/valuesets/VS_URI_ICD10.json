@@ -1,0 +1,19 @@
+{
+    "id": "VS_URI_ICD10",
+    "name": "Upper Respiratory Infection Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for upper respiratory infections. Used in the avoidance of antibiotic treatment for acute upper respiratory infection (URI) measure to identify episodes where antibiotics are inappropriate.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "J06.0", "description": "Acute laryngopharyngitis"},
+        {"code": "J06.9", "description": "Acute upper respiratory infection, unspecified"},
+        {"code": "J00", "description": "Acute nasopharyngitis (common cold)"},
+        {"code": "J04.0", "description": "Acute laryngitis"},
+        {"code": "J04.10", "description": "Acute tracheitis without obstruction"},
+        {"code": "J04.11", "description": "Acute tracheitis with obstruction"},
+        {"code": "J04.2", "description": "Acute laryngotracheitis"},
+        {"code": "J04.30", "description": "Supraglottitis, unspecified, without obstruction"},
+        {"code": "J04.31", "description": "Supraglottitis, unspecified, with obstruction"}
+    ]
+}

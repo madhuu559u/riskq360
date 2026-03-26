@@ -1,0 +1,67 @@
+# ─── Environment & Secrets ───────────────────────────────────
+.env
+*.pem
+*.key
+
+# ─── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+venv/
+.venv/
+*.so
+
+# ─── Node.js ─────────────────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/node_modules/
+.npm
+.eslintcache
+
+# ─── IDE ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Docker ──────────────────────────────────────────────────
+.docker/
+
+# ─── Logs & Output ───────────────────────────────────────────
+*.log
+logs/
+backend/logs/
+backend/run_outputs/
+backend/outputs/
+
+# ─── ML Models (too large for git) ──────────────────────────
+backend/ml_engine/models/bioclinicalbert/
+backend/ml_engine/models/*.pkl
+backend/ml_engine/models/*.npy
+backend/ml_engine/models/*.pt
+!backend/ml_engine/models/.gitkeep
+!backend/ml_engine/models/icd10_catalog.json
+!backend/ml_engine/models/icd10_descriptions.csv
+
+# ─── Database ────────────────────────────────────────────────
+*.db
+*.sqlite3
+
+# ─── Uploads (runtime data) ─────────────────────────────────
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# ─── Backups ─────────────────────────────────────────────────
+backend/backups/
+
+# ─── OS files ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini

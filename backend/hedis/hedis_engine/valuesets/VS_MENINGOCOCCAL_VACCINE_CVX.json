@@ -1,0 +1,22 @@
+{
+    "id": "VS_MENINGOCOCCAL_VACCINE_CVX",
+    "name": "Meningococcal Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for meningococcal vaccines including MenACWY (conjugate) and MenB (serogroup B). Used in adolescent immunization (IMA) measures. MenACWY requires 1 dose at 11-12 years with a booster at 16.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "108", "code_system": "cvx", "description": "Meningococcal ACWY vaccine, unspecified formulation"},
+        {"code": "114", "code_system": "cvx", "description": "Meningococcal polysaccharide (groups A, C, Y, W-135) diphtheria toxoid conjugate vaccine (MenACWY-D, Menactra)"},
+        {"code": "136", "code_system": "cvx", "description": "Meningococcal oligosaccharide (groups A, C, Y, W-135) CRM197 conjugate vaccine (MenACWY-CRM, Menveo)"},
+        {"code": "147", "code_system": "cvx", "description": "Meningococcal, MenB-4C (Bexsero)"},
+        {"code": "148", "code_system": "cvx", "description": "Meningococcal, MenB-FHbp (Trumenba)"},
+        {"code": "163", "code_system": "cvx", "description": "Meningococcal polysaccharide (groups A, C, Y, W-135) TT conjugate vaccine (MenACWY-TT, MenQuadfi)"},
+        {"code": "167", "code_system": "cvx", "description": "Meningococcal vaccine of unknown formulation and target serogroup"},
+        {"code": "203", "code_system": "cvx", "description": "Meningococcal polysaccharide (groups A, C, Y, W-135) TT conjugate vaccine (Penbraya)"},
+        {"code": "90734", "code_system": "cpt", "description": "Meningococcal conjugate vaccine, serogroups A, C, Y and W-135 (MenACWY or MCV4)"},
+        {"code": "90619", "code_system": "cpt", "description": "Meningococcal conjugate vaccine, serogroups A, C, Y, W-135, MenACWY-TT"},
+        {"code": "90620", "code_system": "cpt", "description": "Meningococcal recombinant protein and outer membrane vesicle vaccine, serogroup B (MenB-4C, Bexsero)"},
+        {"code": "90621", "code_system": "cpt", "description": "Meningococcal recombinant lipoprotein vaccine, serogroup B (MenB-FHbp, Trumenba)"}
+    ]
+}

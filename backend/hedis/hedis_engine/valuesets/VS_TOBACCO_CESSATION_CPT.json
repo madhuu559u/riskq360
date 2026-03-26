@@ -1,0 +1,19 @@
+{
+    "id": "VS_TOBACCO_CESSATION_CPT",
+    "name": "Tobacco Cessation Counseling and Intervention Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for tobacco cessation counseling, behavioral interventions, and pharmacotherapy. Used in the tobacco cessation intervention component of the tobacco screening measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99406", "code_system": "cpt", "description": "Smoking and tobacco use cessation counseling visit; intermediate, 3-10 minutes"},
+        {"code": "99407", "code_system": "cpt", "description": "Smoking and tobacco use cessation counseling visit; intensive, greater than 10 minutes"},
+        {"code": "4004F", "code_system": "cpt", "description": "Patient screened for tobacco use AND received tobacco cessation intervention"},
+        {"code": "4001F", "code_system": "cpt", "description": "Tobacco use cessation intervention, counseling"},
+        {"code": "S9453", "code_system": "hcpcs", "description": "Smoking cessation classes, non-physician provider, per session"},
+        {"code": "G0436", "code_system": "hcpcs", "description": "Smoking and tobacco cessation counseling visit for the asymptomatic patient; intermediate, 3-10 min"},
+        {"code": "G0437", "code_system": "hcpcs", "description": "Smoking and tobacco cessation counseling visit for the asymptomatic patient; intensive, greater than 10 min"},
+        {"code": "1035F", "code_system": "cpt", "description": "Current smokeless tobacco user, received cessation intervention"},
+        {"code": "G9906", "code_system": "hcpcs", "description": "Patient identified as tobacco user received cessation intervention during the measurement period"}
+    ]
+}

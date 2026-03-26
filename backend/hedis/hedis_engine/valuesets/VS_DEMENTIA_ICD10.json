@@ -1,0 +1,27 @@
+{
+    "id": "VS_DEMENTIA_ICD10",
+    "name": "Dementia Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for dementia diagnoses including vascular dementia, dementia in other diseases, unspecified dementia, Alzheimer disease, and other degenerative diseases of the nervous system. Used in dementia care quality measures and high-risk medication avoidance measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "F01.50", "description": "Vascular dementia, unspecified severity, without behavioral disturbance"},
+        {"code": "F01.51", "description": "Vascular dementia, unspecified severity, with behavioral disturbance"},
+        {"code": "F02.80", "description": "Dementia in other diseases classified elsewhere, unspecified severity, without behavioral disturbance"},
+        {"code": "F02.81", "description": "Dementia in other diseases classified elsewhere, unspecified severity, with behavioral disturbance"},
+        {"code": "F03.90", "description": "Unspecified dementia, unspecified severity, without behavioral disturbance"},
+        {"code": "F03.91", "description": "Unspecified dementia, unspecified severity, with behavioral disturbance"},
+        {"code": "G30.0", "description": "Alzheimer disease with early onset"},
+        {"code": "G30.1", "description": "Alzheimer disease with late onset"},
+        {"code": "G30.8", "description": "Other Alzheimer disease"},
+        {"code": "G30.9", "description": "Alzheimer disease, unspecified"},
+        {"code": "G31.01", "description": "Pick disease (frontotemporal dementia)"},
+        {"code": "G31.09", "description": "Other frontotemporal dementia"},
+        {"code": "G31.1", "description": "Senile degeneration of brain, not elsewhere classified"},
+        {"code": "G31.83", "description": "Dementia with Lewy bodies"},
+        {"code": "G31.84", "description": "Mild cognitive impairment, so stated"},
+        {"code": "G31.85", "description": "Corticobasal degeneration"},
+        {"code": "G31.89", "description": "Other specified degenerative diseases of nervous system"}
+    ]
+}

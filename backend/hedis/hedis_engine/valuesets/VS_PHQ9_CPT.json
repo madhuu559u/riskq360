@@ -1,0 +1,21 @@
+{
+    "id": "VS_PHQ9_CPT",
+    "name": "PHQ-9 Depression Screening Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, HCPCS, and LOINC codes for PHQ-9 (Patient Health Questionnaire-9) screening, including brief emotional/behavioral assessment, annual depression screening, and PHQ-9 specific scoring and documentation. Used in depression screening and follow-up (DSF) and depression remission or response measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "96127", "code_system": "cpt", "description": "Brief emotional/behavioral assessment (e.g., depression inventory, ADHD scale), with scoring and documentation, per standardized instrument"},
+        {"code": "G0444", "code_system": "hcpcs", "description": "Annual depression screening, 15 minutes"},
+        {"code": "G8431", "code_system": "hcpcs", "description": "Screening for clinical depression documented as performed using age-appropriate standardized tool AND follow-up plan documented if positive"},
+        {"code": "G8510", "code_system": "hcpcs", "description": "Screening for clinical depression documented as positive AND follow-up plan documented"},
+        {"code": "G8511", "code_system": "hcpcs", "description": "Screening for clinical depression documented as negative, follow-up plan not required"},
+        {"code": "96160", "code_system": "cpt", "description": "Administration of patient-focused health risk assessment instrument with scoring and documentation"},
+        {"code": "96161", "code_system": "cpt", "description": "Administration of caregiver-focused health risk assessment instrument for patient benefit, with scoring and documentation"},
+        {"code": "44249-1", "code_system": "loinc", "description": "PHQ-9 quick depression assessment panel [Reported]"},
+        {"code": "44261-6", "code_system": "loinc", "description": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]"},
+        {"code": "55758-7", "code_system": "loinc", "description": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]"},
+        {"code": "73831-0", "code_system": "loinc", "description": "Adolescent depression screening assessment"}
+    ]
+}

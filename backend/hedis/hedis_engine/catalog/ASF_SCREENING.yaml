@@ -1,0 +1,49 @@
+id: "ASF-SCREENING"
+name: "Alcohol Screening"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether adults aged 18 and older who had an outpatient encounter
+  during the measurement year were screened for unhealthy alcohol use using
+  a standardized screening tool (e.g., AUDIT, AUDIT-C, CAGE, SASQ). Unhealthy
+  alcohol use is a leading cause of preventable morbidity and mortality, and
+  screening in primary care settings enables early identification of at-risk
+  individuals before they develop alcohol use disorders. The USPSTF recommends
+  screening all adults for unhealthy alcohol use and providing brief counseling
+  interventions for those who screen positive.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_DEMENTIA_ICD10"
+    lookback_months: 24
+    description: "Dementia diagnosis (unable to reliably complete screening tools)"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_ALCOHOL_SCREENING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_ALCOHOL_SCREENING_CPT
+  - VS_HOSPICE
+  - VS_DEMENTIA_ICD10
+
+data_sources:
+  - "claims"
+  - "encounters"

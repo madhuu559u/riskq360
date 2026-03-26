@@ -1,0 +1,45 @@
+id: "CDC-A1C-TEST"
+name: "Diabetes Care - HbA1c Testing"
+version: "2025"
+domain: "diabetes"
+description: >
+  Assesses whether adults aged 18-75 with diabetes (type 1 or type 2)
+  had a hemoglobin A1c (HbA1c) test performed during the measurement year.
+  Regular A1c testing is essential for monitoring glycemic control and guiding
+  treatment decisions in diabetic patients.
+
+eligibility:
+  age: {min: 18, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  any_of:
+    - type: "lab_exists"
+      lab: "A1C"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "labs"

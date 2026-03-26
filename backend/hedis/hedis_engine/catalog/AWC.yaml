@@ -1,0 +1,37 @@
+id: "AWC"
+name: "Adolescent Well-Care Visits"
+version: "2025"
+domain: "pediatric_preventive"
+description: >
+  Assesses whether adolescents and young adults aged 12-21 had at least
+  one comprehensive well-care visit with a PCP or OB/GYN during the
+  measurement year. These visits address physical, emotional, and social
+  development and provide age-appropriate screenings and counseling.
+
+eligibility:
+  age: {min: 12, max: 21, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_WELL_ADOLESCENT_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_WELL_ADOLESCENT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

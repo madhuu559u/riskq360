@@ -1,0 +1,3039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RiskQ360 Documentation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ===================================================================
+   CSS RESET & BASE
+   =================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #1c2129;
+  --bg-card: #161b22;
+  --bg-code: #0d1117;
+  --bg-hover: #1f2937;
+  --border-primary: #30363d;
+  --border-secondary: #21262d;
+  --text-primary: #c9d1d9;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+  --text-heading: #e6edf3;
+  --accent-blue: #58a6ff;
+  --accent-green: #3fb950;
+  --accent-orange: #d29922;
+  --accent-red: #f85149;
+  --accent-purple: #bc8cff;
+  --accent-cyan: #39d2c0;
+  --accent-pink: #f778ba;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --tab-height: 52px;
+  --header-height: 64px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================================================
+   HEADER
+   =================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  background: rgba(22, 27, 34, 0.92);
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-heading);
+  letter-spacing: -0.3px;
+}
+
+.logo-text span {
+  color: var(--accent-blue);
+}
+
+.header-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-green);
+  background: rgba(63, 185, 80, 0.12);
+  border: 1px solid rgba(63, 185, 80, 0.25);
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.search-container {
+  position: relative;
+  width: 320px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 14px 8px 38px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input::placeholder { color: var(--text-muted); }
+.search-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.search-kbd {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 400px;
+  overflow-y: auto;
+  display: none;
+  z-index: 1001;
+}
+
+.search-results.active { display: block; }
+
+.search-result-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-secondary);
+  transition: background 0.15s;
+}
+
+.search-result-item:hover { background: var(--bg-hover); }
+.search-result-item:last-child { border-bottom: none; }
+
+.search-result-tab {
+  font-size: 11px;
+  color: var(--accent-blue);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-result-text {
+  font-size: 13px;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+.search-result-text mark {
+  background: rgba(88, 166, 255, 0.25);
+  color: var(--accent-blue);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* ===================================================================
+   TAB BAR
+   =================================================================== */
+.tab-bar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  height: var(--tab-height);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  z-index: 999;
+  padding: 0 24px;
+  scrollbar-width: none;
+}
+
+.tab-bar::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(88, 166, 255, 0.04);
+}
+
+.tab-btn.active {
+  color: var(--accent-blue);
+  border-bottom-color: var(--accent-blue);
+}
+
+.tab-btn .tab-icon {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.tab-btn.active .tab-icon { opacity: 1; }
+
+.tab-btn .tab-num {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--bg-primary);
+  color: var(--text-muted);
+  padding: 1px 6px;
+  border-radius: 10px;
+  margin-left: 2px;
+}
+
+.tab-btn.active .tab-num {
+  background: rgba(88, 166, 255, 0.15);
+  color: var(--accent-blue);
+}
+
+/* ===================================================================
+   MAIN CONTENT
+   =================================================================== */
+.main-content {
+  margin-top: calc(var(--header-height) + var(--tab-height));
+  padding: 32px;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-panel.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================================================================
+   TYPOGRAPHY
+   =================================================================== */
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-heading);
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-heading);
+  letter-spacing: -0.3px;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+p { margin-bottom: 14px; color: var(--text-primary); }
+
+.subtitle {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+a { color: var(--accent-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+strong { color: var(--text-heading); font-weight: 600; }
+
+/* ===================================================================
+   CARDS
+   =================================================================== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+
+.card:hover { border-color: rgba(88, 166, 255, 0.3); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.card-icon.blue { background: rgba(88, 166, 255, 0.12); color: var(--accent-blue); }
+.card-icon.green { background: rgba(63, 185, 80, 0.12); color: var(--accent-green); }
+.card-icon.orange { background: rgba(210, 153, 34, 0.12); color: var(--accent-orange); }
+.card-icon.purple { background: rgba(188, 140, 255, 0.12); color: var(--accent-purple); }
+.card-icon.red { background: rgba(248, 81, 73, 0.12); color: var(--accent-red); }
+.card-icon.cyan { background: rgba(57, 210, 192, 0.12); color: var(--accent-cyan); }
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent-blue);
+  letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* ===================================================================
+   TABLES
+   =================================================================== */
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead th {
+  background: var(--bg-tertiary);
+  color: var(--text-heading);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-primary);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-secondary);
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) { background: rgba(22, 27, 34, 0.5); }
+tbody tr:hover { background: var(--bg-hover); }
+tbody tr:last-child td { border-bottom: none; }
+
+/* ===================================================================
+   CODE BLOCKS
+   =================================================================== */
+code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--bg-code);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border-secondary);
+  color: var(--accent-cyan);
+}
+
+pre {
+  background: var(--bg-code);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+/* Syntax highlighting classes */
+.kw { color: var(--accent-purple); font-weight: 500; }    /* keyword */
+.str { color: var(--accent-green); }                       /* string */
+.num { color: var(--accent-orange); }                      /* number */
+.cm { color: var(--text-muted); font-style: italic; }     /* comment */
+.fn { color: var(--accent-blue); }                        /* function */
+.type { color: var(--accent-cyan); }                      /* type */
+.op { color: var(--accent-red); }                         /* operator */
+.attr { color: var(--accent-pink); }                      /* attribute/key */
+.val { color: var(--accent-green); }                      /* value */
+
+.pre-label {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-secondary);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ===================================================================
+   METHOD BADGES
+   =================================================================== */
+.method {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.method.get    { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); }
+.method.post   { background: rgba(88, 166, 255, 0.15); color: var(--accent-blue); }
+.method.put    { background: rgba(210, 153, 34, 0.15); color: var(--accent-orange); }
+.method.delete { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); }
+.method.patch  { background: rgba(188, 140, 255, 0.15); color: var(--accent-purple); }
+
+.endpoint-path {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-heading);
+  margin-left: 10px;
+}
+
+/* ===================================================================
+   BADGES & TAGS
+   =================================================================== */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  letter-spacing: 0.3px;
+}
+
+.badge.blue { background: rgba(88, 166, 255, 0.15); color: var(--accent-blue); }
+.badge.green { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); }
+.badge.orange { background: rgba(210, 153, 34, 0.15); color: var(--accent-orange); }
+.badge.purple { background: rgba(188, 140, 255, 0.15); color: var(--accent-purple); }
+.badge.red { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); }
+.badge.cyan { background: rgba(57, 210, 192, 0.15); color: var(--accent-cyan); }
+
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+
+/* ===================================================================
+   ENDPOINT CARD
+   =================================================================== */
+.endpoint-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.endpoint-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+  gap: 12px;
+}
+
+.endpoint-header:hover { background: var(--bg-hover); }
+
+.endpoint-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.endpoint-body {
+  display: none;
+  padding: 0 18px 18px;
+  border-top: 1px solid var(--border-secondary);
+}
+
+.endpoint-card.open .endpoint-body { display: block; }
+
+.endpoint-chevron {
+  color: var(--text-muted);
+  font-size: 12px;
+  transition: transform 0.2s;
+  margin-left: 8px;
+}
+
+.endpoint-card.open .endpoint-chevron { transform: rotate(90deg); }
+
+/* ===================================================================
+   ASCII DIAGRAM
+   =================================================================== */
+.diagram-box {
+  background: var(--bg-code);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  overflow-x: auto;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  white-space: pre;
+}
+
+.diagram-box .highlight { color: var(--accent-blue); font-weight: 600; }
+.diagram-box .hl-green { color: var(--accent-green); font-weight: 600; }
+.diagram-box .hl-orange { color: var(--accent-orange); font-weight: 600; }
+.diagram-box .hl-purple { color: var(--accent-purple); font-weight: 600; }
+.diagram-box .hl-cyan { color: var(--accent-cyan); font-weight: 600; }
+.diagram-box .hl-red { color: var(--accent-red); font-weight: 600; }
+.diagram-box .hl-pink { color: var(--accent-pink); font-weight: 600; }
+
+/* ===================================================================
+   LISTS
+   =================================================================== */
+ul, ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+li {
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+li code { font-size: 12px; }
+
+/* ===================================================================
+   COLUMN TYPES
+   =================================================================== */
+.col-type {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-purple);
+}
+
+.col-pk { color: var(--accent-orange); font-weight: 600; }
+.col-fk { color: var(--accent-blue); }
+.col-idx { color: var(--accent-cyan); font-size: 10px; }
+.col-null { color: var(--text-muted); font-size: 11px; }
+
+/* ===================================================================
+   SECTION DIVIDER
+   =================================================================== */
+.section-divider {
+  height: 1px;
+  background: var(--border-primary);
+  margin: 40px 0;
+}
+
+/* ===================================================================
+   ALERT / NOTE BOXES
+   =================================================================== */
+.note-box {
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.note-box.info {
+  background: rgba(88, 166, 255, 0.08);
+  border: 1px solid rgba(88, 166, 255, 0.2);
+  color: var(--accent-blue);
+}
+
+.note-box.warn {
+  background: rgba(210, 153, 34, 0.08);
+  border: 1px solid rgba(210, 153, 34, 0.2);
+  color: var(--accent-orange);
+}
+
+.note-box.success {
+  background: rgba(63, 185, 80, 0.08);
+  border: 1px solid rgba(63, 185, 80, 0.2);
+  color: var(--accent-green);
+}
+
+.note-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+/* ===================================================================
+   FLOW STEPS
+   =================================================================== */
+.flow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 24px;
+}
+
+.flow-step {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  position: relative;
+}
+
+.flow-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 52px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-primary);
+}
+
+.flow-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 2px solid var(--accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent-blue);
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.flow-content { flex: 1; }
+.flow-content h4 { margin-top: 0; margin-bottom: 6px; }
+.flow-content p { margin-bottom: 0; font-size: 14px; color: var(--text-secondary); }
+
+/* ===================================================================
+   FILE TREE
+   =================================================================== */
+.file-tree {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  background: var(--bg-code);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.file-tree .dir { color: var(--accent-blue); font-weight: 500; }
+.file-tree .file { color: var(--text-primary); }
+.file-tree .conf { color: var(--accent-orange); }
+.file-tree .py { color: var(--accent-green); }
+.file-tree .ts { color: var(--accent-cyan); }
+
+/* ===================================================================
+   FOOTER
+   =================================================================== */
+.site-footer {
+  text-align: center;
+  padding: 32px;
+  border-top: 1px solid var(--border-primary);
+  margin-top: 64px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.site-footer .version {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* ===================================================================
+   ENV VAR TABLE
+   =================================================================== */
+.env-var {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-cyan);
+  font-weight: 500;
+}
+
+.env-default {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-green);
+}
+
+/* ===================================================================
+   RESPONSIVE
+   =================================================================== */
+@media (max-width: 768px) {
+  .site-header { padding: 0 16px; }
+  .main-content { padding: 20px 16px; }
+  .search-container { width: 200px; }
+  .card-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
+  .tab-btn { padding: 0 12px; font-size: 12px; }
+}
+
+/* ===================================================================
+   PRINT STYLES
+   =================================================================== */
+@media print {
+  .site-header, .tab-bar, .search-container { display: none !important; }
+  .main-content { margin-top: 0; }
+  .tab-panel { display: block !important; page-break-before: always; }
+  .tab-panel:first-child { page-break-before: avoid; }
+  body { background: #fff; color: #1a1a1a; }
+  .card { border-color: #ddd; }
+  pre { background: #f5f5f5; border-color: #ddd; }
+  code { background: #f5f5f5; color: #1a1a1a; }
+}
+
+/* Schema model cards */
+.schema-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.schema-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.schema-name {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.schema-body { padding: 16px 18px; }
+
+/* Two-col layout for wider sections */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* Router group header */
+.router-group {
+  margin-bottom: 32px;
+}
+
+.router-group-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.router-group-path {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* Docker service card */
+.docker-service {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.docker-service-name {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+     ================================================================ -->
+<header class="site-header">
+  <div class="logo-area">
+    <div class="logo-icon">RQ</div>
+    <div class="logo-text">Risk<span>Q360</span></div>
+    <span class="header-badge">v1.0.0</span>
+  </div>
+  <div class="search-container">
+    <span class="search-icon">&#128269;</span>
+    <input type="text" class="search-input" id="searchInput" placeholder="Search documentation..." autocomplete="off">
+    <span class="search-kbd">/</span>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</header>
+
+<!-- ================================================================
+     TAB BAR
+     ================================================================ -->
+<nav class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="overview"><span class="tab-icon">&#9670;</span> Overview</button>
+  <button class="tab-btn" data-tab="frontend"><span class="tab-icon">&#9671;</span> Frontend</button>
+  <button class="tab-btn" data-tab="backend"><span class="tab-icon">&#9672;</span> Backend</button>
+  <button class="tab-btn" data-tab="api"><span class="tab-icon">&#8644;</span> API Reference</button>
+  <button class="tab-btn" data-tab="database"><span class="tab-icon">&#9707;</span> Database</button>
+  <button class="tab-btn" data-tab="schemas"><span class="tab-icon">&#10100;</span> Schemas</button>
+  <button class="tab-btn" data-tab="architecture"><span class="tab-icon">&#9881;</span> Architecture</button>
+  <button class="tab-btn" data-tab="docker"><span class="tab-icon">&#9783;</span> Docker</button>
+  <button class="tab-btn" data-tab="setup"><span class="tab-icon">&#9889;</span> Setup Guide</button>
+  <button class="tab-btn" data-tab="config"><span class="tab-icon">&#9881;</span> Configuration</button>
+</nav>
+
+<!-- ================================================================
+     MAIN CONTENT
+     ================================================================ -->
+<main class="main-content">
+
+<!-- ================================================================
+     TAB 1: OVERVIEW
+     ================================================================ -->
+<section class="tab-panel active" id="panel-overview" data-search-label="Overview">
+  <h1>RiskQ360 Platform</h1>
+  <p class="subtitle">AI-powered clinical documentation analytics for healthcare risk adjustment (HCC/RAF) and quality metrics (HEDIS). Built on an assertion-centric architecture with MiniMax single-pass LLM extraction.</p>
+
+  <div class="card-grid">
+    <div class="stat-card">
+      <div class="stat-value">30+</div>
+      <div class="stat-label">Database Tables</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">40+</div>
+      <div class="stat-label">API Endpoints</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Docker Services</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">6</div>
+      <div class="stat-label">Processing Stages</div>
+    </div>
+  </div>
+
+  <h2>What is RiskQ360?</h2>
+  <p>RiskQ360 is a unified clinical documentation analytics platform that processes medical chart PDFs through an AI-powered pipeline to produce:</p>
+  <ul>
+    <li><strong>Payable HCC Packs</strong> -- CMS-HCC V28 risk adjustment with ICD-10 mapping, hierarchy suppression, and RAF score computation</li>
+    <li><strong>HEDIS Quality Measures</strong> -- Automated measure evaluation for CBP, CDC, COL, BCS, CCS, and more</li>
+    <li><strong>Clinical Assertions</strong> -- Structured extraction of diagnoses, medications, vitals, labs, and encounters with full provenance</li>
+    <li><strong>Audit-Ready Evidence</strong> -- MEAT validation, evidence spans, negation detection, and review workflows</li>
+  </ul>
+
+  <h2>System Architecture</h2>
+  <div class="diagram-box"><span class="highlight">+-------------------------------------------------------------------+</span>
+<span class="highlight">|                      RiskQ360 Platform                            |</span>
+<span class="highlight">+-------------------------------------------------------------------+</span>
+|                                                                     |
+|  <span class="hl-cyan">[ React 19 + Mantine 8 Frontend ]</span>  <--- Nginx (port 3008) ---&gt;   |
+|       |                                                             |
+|       | HTTP / REST                                                 |
+|       v                                                             |
+|  <span class="hl-green">[ FastAPI Backend ]</span>  <--- Uvicorn (port 8006) ---&gt;              |
+|       |                                                             |
+|       +-- <span class="hl-orange">Routers</span> (charts, clinical, risk, hedis, config, etc.)   |
+|       +-- <span class="hl-orange">Schemas</span> (Pydantic request/response models)              |
+|       +-- <span class="hl-orange">Middleware</span> (CORS, logging, error handling)              |
+|       |                                                             |
+|       v                                                             |
+|  <span class="hl-purple">[ Core Orchestrator ]</span>                                          |
+|       |                                                             |
+|       +-- Ingestion (PDF, OCR, quality scoring)                     |
+|       +-- Extraction (MiniMax single-pass LLM)                      |
+|       +-- ML Engine (BioClinicalBERT, TF-IDF, NegEx)               |
+|       +-- Decisioning (HCC mapping, RAF calc, HEDIS eval)           |
+|       |                                                             |
+|       v                                                             |
+|  <span class="hl-red">[ PostgreSQL Database ]</span>  <--- port 5432 ---&gt;                    |
+|       Assertions, HCCs, RAF, HEDIS, Audit, Config                   |
+|                                                                     |
+<span class="highlight">+-------------------------------------------------------------------+</span></div>
+
+  <h2>Tech Stack</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon blue">F</div>
+        <div class="card-title">Frontend</div>
+      </div>
+      <ul>
+        <li>React 19 with TypeScript</li>
+        <li>Mantine 8 component library</li>
+        <li>Vite build system</li>
+        <li>Zustand state management</li>
+        <li>Axios API client</li>
+        <li>React Router v6</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green">B</div>
+        <div class="card-title">Backend</div>
+      </div>
+      <ul>
+        <li>FastAPI (Python 3.12)</li>
+        <li>SQLAlchemy ORM</li>
+        <li>Pydantic v2 schemas</li>
+        <li>Structlog (JSON logging)</li>
+        <li>Alembic migrations</li>
+        <li>asyncpg / psycopg2</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon purple">I</div>
+        <div class="card-title">Infrastructure</div>
+      </div>
+      <ul>
+        <li>PostgreSQL 16 (Alpine)</li>
+        <li>Docker + Docker Compose</li>
+        <li>Nginx reverse proxy</li>
+        <li>Uvicorn ASGI server</li>
+        <li>Alembic DB migrations</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon orange">A</div>
+        <div class="card-title">AI / ML</div>
+      </div>
+      <ul>
+        <li>GPT-4o / Azure OpenAI / Gemini</li>
+        <li>BioClinicalBERT (HCC prediction)</li>
+        <li>TF-IDF ICD-10 retrieval</li>
+        <li>ConText/NegEx negation detection</li>
+        <li>MiniMax single-pass extraction</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Key Concepts</h2>
+  <div class="card">
+    <h3>Assertion-Centric Architecture</h3>
+    <p>The <code>assertions</code> table is the central entity in RiskQ360. Every clinical fact extracted from a medical chart (diagnosis, medication, vital sign, lab result, etc.) is stored as a single assertion row with full provenance including exact quotes, page numbers, character offsets, and enrichment data (ICD codes, dates, negation status).</p>
+  </div>
+  <div class="card">
+    <h3>MiniMax Single-Pass Extraction</h3>
+    <p>Rather than running separate LLM pipelines for different clinical categories, RiskQ360 uses a unified single-pass extraction model that extracts ALL assertion types in one LLM call per text chunk. This approach reduces API costs, improves consistency, and enables cross-reference between clinical facts.</p>
+  </div>
+  <div class="card">
+    <h3>6-Status Negation Model</h3>
+    <p>Every clinical assertion is tagged with one of six polarity statuses: <span class="badge green">active</span> <span class="badge red">negated</span> <span class="badge orange">resolved</span> <span class="badge purple">historical</span> <span class="badge cyan">family_history</span> <span class="badge blue">uncertain</span>. Only <strong>active</strong> assertions are candidates for payable HCCs. Historical assertions may qualify if supported by current-year encounter evidence.</p>
+  </div>
+</section>
+
+<!-- ================================================================
+     TAB 2: FRONTEND
+     ================================================================ -->
+<section class="tab-panel" id="panel-frontend" data-search-label="Frontend">
+  <h1>Frontend Architecture</h1>
+  <p class="subtitle">React 19 + Mantine 8 + TypeScript + Vite single-page application with Zustand state management.</p>
+
+  <div class="tag-row">
+    <span class="badge blue">React 19</span>
+    <span class="badge cyan">TypeScript</span>
+    <span class="badge purple">Mantine 8</span>
+    <span class="badge orange">Vite</span>
+    <span class="badge green">Zustand</span>
+    <span class="badge red">Axios</span>
+  </div>
+
+  <h2>Project Structure</h2>
+  <div class="file-tree"><span class="dir">frontend/src/</span>
+  &#9500;&#9472; <span class="ts">App.tsx</span>                    <span style="color:var(--text-muted)"># Root component with routes</span>
+  &#9500;&#9472; <span class="ts">main.tsx</span>                   <span style="color:var(--text-muted)"># Entry point</span>
+  &#9500;&#9472; <span class="file">index.css</span>                  <span style="color:var(--text-muted)"># Global styles</span>
+  &#9500;&#9472; <span class="dir">api/</span>                       <span style="color:var(--text-muted)"># API client layer</span>
+  &#9474;   &#9500;&#9472; <span class="ts">client.ts</span>              <span style="color:var(--text-muted)"># Axios instance + interceptors</span>
+  &#9474;   &#9500;&#9472; <span class="ts">charts.ts</span>              <span style="color:var(--text-muted)"># Chart CRUD operations</span>
+  &#9474;   &#9500;&#9472; <span class="ts">clinical.ts</span>            <span style="color:var(--text-muted)"># Clinical data (diagnoses, vitals, labs)</span>
+  &#9474;   &#9500;&#9472; <span class="ts">risk.ts</span>                <span style="color:var(--text-muted)"># HCC pack, RAF summary</span>
+  &#9474;   &#9500;&#9472; <span class="ts">hedis.ts</span>               <span style="color:var(--text-muted)"># HEDIS measures and gaps</span>
+  &#9474;   &#9500;&#9472; <span class="ts">dashboard.ts</span>           <span style="color:var(--text-muted)"># Dashboard statistics</span>
+  &#9474;   &#9500;&#9472; <span class="ts">config.ts</span>              <span style="color:var(--text-muted)"># Configuration management</span>
+  &#9474;   &#9500;&#9472; <span class="ts">pipeline.ts</span>            <span style="color:var(--text-muted)"># Pipeline status and logs</span>
+  &#9474;   &#9500;&#9472; <span class="ts">audit.ts</span>               <span style="color:var(--text-muted)"># Audit trail queries</span>
+  &#9474;   &#9492;&#9472; <span class="ts">review.ts</span>              <span style="color:var(--text-muted)"># Review workflow actions</span>
+  &#9500;&#9472; <span class="dir">components/</span>                <span style="color:var(--text-muted)"># UI components by domain</span>
+  &#9474;   &#9500;&#9472; <span class="dir">layout/</span>                <span style="color:var(--text-muted)"># AppLayout, shell, sidebar</span>
+  &#9474;   &#9500;&#9472; <span class="dir">auth/</span>                  <span style="color:var(--text-muted)"># LoginPage</span>
+  &#9474;   &#9500;&#9472; <span class="dir">charts/</span>                <span style="color:var(--text-muted)"># ChartList, ChartCard, Upload</span>
+  &#9474;   &#9500;&#9472; <span class="dir">viewer/</span>                <span style="color:var(--text-muted)"># ChartViewer (detail page)</span>
+  &#9474;   &#9500;&#9472; <span class="dir">clinical/</span>              <span style="color:var(--text-muted)"># Diagnosis, vitals, labs views</span>
+  &#9474;   &#9500;&#9472; <span class="dir">hcc/</span>                   <span style="color:var(--text-muted)"># HCC pack, RAF, hierarchy</span>
+  &#9474;   &#9500;&#9472; <span class="dir">hedis/</span>                 <span style="color:var(--text-muted)"># HEDIS measures, gaps</span>
+  &#9474;   &#9500;&#9472; <span class="dir">dashboard/</span>             <span style="color:var(--text-muted)"># DashboardPage, widgets</span>
+  &#9474;   &#9500;&#9472; <span class="dir">config/</span>                <span style="color:var(--text-muted)"># ConfigPanel, settings</span>
+  &#9474;   &#9500;&#9472; <span class="dir">pipeline/</span>              <span style="color:var(--text-muted)"># Pipeline monitor</span>
+  &#9474;   &#9500;&#9472; <span class="dir">audit/</span>                 <span style="color:var(--text-muted)"># Audit trail viewer</span>
+  &#9474;   &#9500;&#9472; <span class="dir">pdf/</span>                   <span style="color:var(--text-muted)"># PDF viewer components</span>
+  &#9474;   &#9492;&#9472; <span class="dir">shared/</span>                <span style="color:var(--text-muted)"># Reusable atoms (badges, etc.)</span>
+  &#9500;&#9472; <span class="dir">stores/</span>                    <span style="color:var(--text-muted)"># Zustand state stores</span>
+  &#9474;   &#9500;&#9472; <span class="ts">chartStore.ts</span>          <span style="color:var(--text-muted)"># Chart list/detail state</span>
+  &#9474;   &#9500;&#9472; <span class="ts">configStore.ts</span>         <span style="color:var(--text-muted)"># Config state</span>
+  &#9474;   &#9500;&#9472; <span class="ts">pdfStore.ts</span>            <span style="color:var(--text-muted)"># PDF viewer state</span>
+  &#9474;   &#9492;&#9472; <span class="ts">themeStore.ts</span>          <span style="color:var(--text-muted)"># Theme (dark/light) state</span>
+  &#9500;&#9472; <span class="dir">hooks/</span>                     <span style="color:var(--text-muted)"># Custom React hooks</span>
+  &#9500;&#9472; <span class="dir">themes/</span>                    <span style="color:var(--text-muted)"># Mantine theme config</span>
+  &#9500;&#9472; <span class="dir">types/</span>                     <span style="color:var(--text-muted)"># TypeScript type definitions</span>
+  &#9492;&#9472; <span class="dir">utils/</span>                     <span style="color:var(--text-muted)"># Utility functions</span></div>
+
+  <h2>Routing</h2>
+  <p>The app uses React Router v6 with a protected layout wrapper. All routes except <code>/login</code> require session-based authentication.</p>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Path</th><th>Component</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>/login</code></td><td>LoginPage</td><td>Authentication page (session-based)</td></tr>
+        <tr><td><code>/</code></td><td>ChartList</td><td>Charts overview with upload, filters, status</td></tr>
+        <tr><td><code>/charts/:chartId</code></td><td>ChartViewer</td><td>Full chart detail -- clinical, HCC, HEDIS, PDF viewer</td></tr>
+        <tr><td><code>/dashboard</code></td><td>DashboardPage</td><td>System statistics, processing metrics, recent activity</td></tr>
+        <tr><td><code>/settings</code></td><td>ConfigPanel</td><td>Configuration management -- LLM, pipeline, features</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>State Management (Zustand)</h2>
+  <p>Lightweight Zustand stores manage client-side state without boilerplate.</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header"><div class="card-icon blue">C</div><div class="card-title">chartStore</div></div>
+      <p>Manages chart list, selected chart, loading states, pagination, and filter criteria.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-icon green">S</div><div class="card-title">configStore</div></div>
+      <p>Holds configuration state (LLM settings, feature flags, pipeline config) synced with backend.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-icon purple">P</div><div class="card-title">pdfStore</div></div>
+      <p>PDF viewer state -- current page, zoom level, annotations, highlight coordinates.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-icon orange">T</div><div class="card-title">themeStore</div></div>
+      <p>Theme selection (dark/light mode) with persistence via localStorage.</p>
+    </div>
+  </div>
+
+  <h2>API Client Layer</h2>
+  <p>A centralized Axios instance at <code>src/api/client.ts</code> handles all HTTP communication with the FastAPI backend. It includes:</p>
+  <ul>
+    <li>Base URL from environment variable <code>VITE_API_BASE_URL</code> (defaults to <code>/api</code>)</li>
+    <li>60-second request timeout</li>
+    <li>Automatic error interception with Mantine notification toasts</li>
+    <li>HTTP status-specific error titles (404, 422, 500, network errors)</li>
+  </ul>
+  <p>Individual API modules (charts.ts, clinical.ts, risk.ts, etc.) import the shared client and expose typed functions for each endpoint.</p>
+
+  <h2>Component Architecture</h2>
+  <p>Components are organized by domain feature with a clean separation of concerns:</p>
+  <ul>
+    <li><strong>Layout components</strong> -- AppLayout wraps all authenticated pages with navigation shell and sidebar</li>
+    <li><strong>Page components</strong> -- Top-level route handlers (ChartList, ChartViewer, DashboardPage, ConfigPanel)</li>
+    <li><strong>Feature components</strong> -- Domain-specific views (HCC pack viewer, HEDIS gaps, clinical assertions)</li>
+    <li><strong>Shared components</strong> -- Reusable atoms like status badges, loading skeletons, data tables</li>
+  </ul>
+</section>
+
+<!-- ================================================================
+     TAB 3: BACKEND
+     ================================================================ -->
+<section class="tab-panel" id="panel-backend" data-search-label="Backend">
+  <h1>Backend Architecture</h1>
+  <p class="subtitle">FastAPI + Python 3.12 with SQLAlchemy ORM, Pydantic v2 schemas, and a layered service architecture.</p>
+
+  <div class="tag-row">
+    <span class="badge green">FastAPI</span>
+    <span class="badge blue">Python 3.12</span>
+    <span class="badge purple">SQLAlchemy</span>
+    <span class="badge orange">Pydantic v2</span>
+    <span class="badge cyan">Structlog</span>
+    <span class="badge red">Alembic</span>
+  </div>
+
+  <h2>Project Structure</h2>
+  <div class="file-tree"><span class="dir">backend/</span>
+  &#9500;&#9472; <span class="dir">api/</span>                          <span style="color:var(--text-muted)"># REST API layer</span>
+  &#9474;   &#9500;&#9472; <span class="py">main.py</span>                   <span style="color:var(--text-muted)"># FastAPI app init, lifespan, CORS</span>
+  &#9474;   &#9500;&#9472; <span class="py">middleware.py</span>             <span style="color:var(--text-muted)"># Auth, logging, error handling</span>
+  &#9474;   &#9500;&#9472; <span class="dir">routers/</span>                  <span style="color:var(--text-muted)"># Route handlers by domain</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">charts.py</span>             <span style="color:var(--text-muted)"># Upload, list, process, delete</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">clinical.py</span>           <span style="color:var(--text-muted)"># Diagnoses, vitals, labs, meds</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">risk_adjustment.py</span>    <span style="color:var(--text-muted)"># HCC pack, RAF, hierarchy</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">hedis.py</span>              <span style="color:var(--text-muted)"># Measures, gaps, evidence</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">dashboard.py</span>          <span style="color:var(--text-muted)"># Stats, metrics, activity</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">config.py</span>             <span style="color:var(--text-muted)"># Settings, flags, prompts</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">pipeline.py</span>           <span style="color:var(--text-muted)"># Run status, logs, reprocess</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">audit.py</span>              <span style="color:var(--text-muted)"># Audit log queries</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">review.py</span>             <span style="color:var(--text-muted)"># Review workflow</span>
+  &#9474;   &#9474;   &#9500;&#9472; <span class="py">patients.py</span>           <span style="color:var(--text-muted)"># Patient demographics</span>
+  &#9474;   &#9474;   &#9492;&#9472; <span class="py">encounters.py</span>         <span style="color:var(--text-muted)"># Encounter data</span>
+  &#9474;   &#9492;&#9472; <span class="dir">schemas/</span>                  <span style="color:var(--text-muted)"># Pydantic models</span>
+  &#9474;       &#9500;&#9472; <span class="py">chart_schemas.py</span>
+  &#9474;       &#9500;&#9472; <span class="py">clinical_schemas.py</span>
+  &#9474;       &#9500;&#9472; <span class="py">risk_schemas.py</span>
+  &#9474;       &#9500;&#9472; <span class="py">hedis_schemas.py</span>
+  &#9474;       &#9492;&#9472; <span class="py">config_schemas.py</span>
+  &#9500;&#9472; <span class="dir">core/</span>                         <span style="color:var(--text-muted)"># Business logic</span>
+  &#9474;   &#9500;&#9472; <span class="py">orchestrator.py</span>           <span style="color:var(--text-muted)"># Main pipeline orchestrator</span>
+  &#9474;   &#9500;&#9472; <span class="py">feature_registry.py</span>       <span style="color:var(--text-muted)"># Runtime feature flags</span>
+  &#9474;   &#9500;&#9472; <span class="py">exceptions.py</span>             <span style="color:var(--text-muted)"># Custom exception classes</span>
+  &#9474;   &#9500;&#9472; <span class="py">hcc_bridge.py</span>             <span style="color:var(--text-muted)"># ICD-to-HCC mapping + hierarchy</span>
+  &#9474;   &#9500;&#9472; <span class="py">hcc_ensemble.py</span>           <span style="color:var(--text-muted)"># Multi-source HCC ensembling</span>
+  &#9474;   &#9492;&#9472; <span class="py">hedis_bridge.py</span>           <span style="color:var(--text-muted)"># HEDIS measure evaluation</span>
+  &#9500;&#9472; <span class="dir">config/</span>                       <span style="color:var(--text-muted)"># Configuration layer</span>
+  &#9474;   &#9500;&#9472; <span class="py">settings.py</span>               <span style="color:var(--text-muted)"># Pydantic BaseSettings (all config)</span>
+  &#9474;   &#9500;&#9472; <span class="py">feature_flags.py</span>          <span style="color:var(--text-muted)"># Dynamic flag registry</span>
+  &#9474;   &#9500;&#9472; <span class="py">llm_config.py</span>             <span style="color:var(--text-muted)"># LLM provider settings</span>
+  &#9474;   &#9500;&#9472; <span class="py">model_config.py</span>           <span style="color:var(--text-muted)"># ML model paths/thresholds</span>
+  &#9474;   &#9500;&#9472; <span class="py">pipeline_config.py</span>        <span style="color:var(--text-muted)"># Pipeline settings</span>
+  &#9474;   &#9492;&#9472; <span class="dir">prompts/</span>                  <span style="color:var(--text-muted)"># LLM prompt templates</span>
+  &#9500;&#9472; <span class="dir">database/</span>                     <span style="color:var(--text-muted)"># Data access layer</span>
+  &#9474;   &#9500;&#9472; <span class="py">models.py</span>                 <span style="color:var(--text-muted)"># SQLAlchemy ORM models (30+ tables)</span>
+  &#9474;   &#9500;&#9472; <span class="py">connection.py</span>             <span style="color:var(--text-muted)"># DB connection pool</span>
+  &#9474;   &#9500;&#9472; <span class="py">session.py</span>                <span style="color:var(--text-muted)"># Session management</span>
+  &#9474;   &#9500;&#9472; <span class="py">persist.py</span>                <span style="color:var(--text-muted)"># Persistence helpers</span>
+  &#9474;   &#9492;&#9472; <span class="dir">repositories/</span>             <span style="color:var(--text-muted)"># Repository pattern DAL</span>
+  &#9474;       &#9500;&#9472; <span class="py">chart_repo.py</span>         <span style="color:var(--text-muted)"># Chart CRUD</span>
+  &#9474;       &#9500;&#9472; <span class="py">assertion_repo.py</span>     <span style="color:var(--text-muted)"># Assertion queries</span>
+  &#9474;       &#9500;&#9472; <span class="py">diagnosis_repo.py</span>     <span style="color:var(--text-muted)"># Diagnosis operations</span>
+  &#9474;       &#9500;&#9472; <span class="py">hcc_repo.py</span>           <span style="color:var(--text-muted)"># HCC pack queries</span>
+  &#9474;       &#9500;&#9472; <span class="py">raf_repo.py</span>           <span style="color:var(--text-muted)"># RAF summary operations</span>
+  &#9474;       &#9500;&#9472; <span class="py">hedis_repo.py</span>         <span style="color:var(--text-muted)"># HEDIS results</span>
+  &#9474;       &#9500;&#9472; <span class="py">audit_repo.py</span>         <span style="color:var(--text-muted)"># Audit log queries</span>
+  &#9474;       &#9500;&#9472; <span class="py">config_repo.py</span>        <span style="color:var(--text-muted)"># Config CRUD</span>
+  &#9474;       &#9500;&#9472; <span class="py">pipeline_repo.py</span>      <span style="color:var(--text-muted)"># Pipeline run tracking</span>
+  &#9474;       &#9500;&#9472; <span class="py">encounter_repo.py</span>     <span style="color:var(--text-muted)"># Encounter queries</span>
+  &#9474;       &#9500;&#9472; <span class="py">patient_repo.py</span>       <span style="color:var(--text-muted)"># Patient operations</span>
+  &#9474;       &#9492;&#9472; <span class="py">lineage_repo.py</span>       <span style="color:var(--text-muted)"># Data lineage tracking</span>
+  &#9500;&#9472; <span class="dir">ingestion/</span>                    <span style="color:var(--text-muted)"># PDF processing layer</span>
+  &#9500;&#9472; <span class="dir">extraction/</span>                   <span style="color:var(--text-muted)"># LLM extraction layer</span>
+  &#9500;&#9472; <span class="dir">ml_engine/</span>                    <span style="color:var(--text-muted)"># ML models (BERT, TF-IDF, NegEx)</span>
+  &#9500;&#9472; <span class="dir">decisioning/</span>                  <span style="color:var(--text-muted)"># HCC mapper, RAF calc, HEDIS eval</span>
+  &#9500;&#9472; <span class="dir">hedis/</span>                        <span style="color:var(--text-muted)"># HEDIS engine and measures</span>
+  &#9500;&#9472; <span class="dir">alembic/</span>                      <span style="color:var(--text-muted)"># Database migrations</span>
+  &#9500;&#9472; <span class="conf">requirements.txt</span>              <span style="color:var(--text-muted)"># Python dependencies</span>
+  &#9500;&#9472; <span class="conf">Dockerfile</span>                    <span style="color:var(--text-muted)"># API container build</span>
+  &#9492;&#9472; <span class="conf">alembic.ini</span>                   <span style="color:var(--text-muted)"># Migration config</span></div>
+
+  <h2>Layered Architecture</h2>
+  <div class="card">
+    <h3>Request Flow</h3>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <h4>Router Layer</h4>
+          <p>FastAPI route handlers validate request parameters, delegate to service/repository layer, and return Pydantic response models.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <h4>Service / Core Layer</h4>
+          <p>Business logic in the orchestrator, HCC bridge, HEDIS bridge, and ensemble engine. Coordinates between extraction, ML, and decisioning.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <h4>Repository Layer</h4>
+          <p>Data access objects that encapsulate all SQLAlchemy queries. Each repository handles one domain entity (charts, assertions, HCCs, etc.).</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <h4>Database Layer</h4>
+          <p>SQLAlchemy ORM models, connection pooling (asyncpg/psycopg2), session management, and Alembic migrations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Middleware Stack</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Middleware</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CORS</strong></td><td>Cross-origin resource sharing for frontend requests (configurable origins)</td></tr>
+        <tr><td><strong>Request Logging</strong></td><td>Structured JSON logging (structlog) of all incoming requests with timing</td></tr>
+        <tr><td><strong>Error Handling</strong></td><td>Global exception handler returning consistent error response shapes</td></tr>
+        <tr><td><strong>Auth</strong></td><td>Session-based authentication (optional, controlled by <code>enable_auth</code> setting)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Configuration System</h2>
+  <p>Settings are managed via Pydantic BaseSettings with hierarchical configuration. See the <strong>Configuration</strong> tab for full details. The <code>Settings</code> root class aggregates:</p>
+  <ul>
+    <li><code>DatabaseSettings</code> -- PostgreSQL connection parameters</li>
+    <li><code>LLMSettings</code> -- LLM provider selection and API keys</li>
+    <li><code>MLSettings</code> -- ML model paths and thresholds</li>
+    <li><code>FeatureFlags</code> -- Runtime-toggleable feature flags</li>
+    <li><code>PipelineSettings</code> -- Chunk size, concurrency, thresholds</li>
+    <li><code>ServerSettings</code> -- Host, port, reload</li>
+    <li><code>PathSettings</code> -- Output, log, upload directories</li>
+  </ul>
+</section>
+
+<!-- ================================================================
+     TAB 4: API REFERENCE
+     ================================================================ -->
+<section class="tab-panel" id="panel-api" data-search-label="API Reference">
+  <h1>API Reference</h1>
+  <p class="subtitle">Complete REST API endpoint reference organized by router. All endpoints are prefixed with <code>/api</code>.</p>
+
+  <!-- CHARTS -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon blue" style="width:28px;height:28px;font-size:14px;">C</span> Charts</div>
+    <div class="router-group-path">Base path: /api/charts</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/charts/upload</span>
+        <span class="endpoint-desc">Upload a medical chart PDF for processing</span>
+        <span class="endpoint-chevron">&#9654;</span>
+      </div>
+      <div class="endpoint-body">
+        <h4>Request</h4>
+        <p>Multipart form data with PDF file.</p>
+        <pre><code><span class="cm">// Content-Type: multipart/form-data</span>
+<span class="attr">file</span>: &lt;binary PDF&gt;
+<span class="attr">mode</span>: <span class="str">"full"</span> | <span class="str">"risk_only"</span> | <span class="str">"hedis_only"</span> | <span class="str">"hcc_pack"</span></code></pre>
+        <h4>Response (200)</h4>
+        <pre><code>{
+  <span class="attr">"status"</span>: <span class="str">"processing"</span>,
+  <span class="attr">"filename"</span>: <span class="str">"patient_chart.pdf"</span>,
+  <span class="attr">"file_path"</span>: <span class="str">"/app/uploads/abc123.pdf"</span>,
+  <span class="attr">"message"</span>: <span class="str">"Chart uploaded and processing started"</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/charts</span>
+        <span class="endpoint-desc">List all charts with pagination and filters</span>
+        <span class="endpoint-chevron">&#9654;</span>
+      </div>
+      <div class="endpoint-body">
+        <h4>Query Parameters</h4>
+        <div class="table-wrapper"><table>
+          <thead><tr><th>Param</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>offset</code></td><td>int</td><td>0</td><td>Pagination offset</td></tr>
+            <tr><td><code>limit</code></td><td>int</td><td>50</td><td>Items per page</td></tr>
+            <tr><td><code>status</code></td><td>string</td><td>--</td><td>Filter by status (uploaded, processing, completed, failed)</td></tr>
+          </tbody>
+        </table></div>
+        <h4>Response (200)</h4>
+        <pre><code>{
+  <span class="attr">"charts"</span>: [
+    {
+      <span class="attr">"chart_id"</span>: <span class="str">"42"</span>,
+      <span class="attr">"status"</span>: <span class="str">"completed"</span>,
+      <span class="attr">"run_id"</span>: <span class="str">"7"</span>,
+      <span class="attr">"started_at"</span>: <span class="str">"2026-03-25T14:30:00Z"</span>,
+      <span class="attr">"completed_at"</span>: <span class="str">"2026-03-25T14:31:12Z"</span>,
+      <span class="attr">"total_seconds"</span>: <span class="num">72.3</span>,
+      <span class="attr">"pages_processed"</span>: <span class="num">28</span>,
+      <span class="attr">"mode"</span>: <span class="str">"full"</span>,
+      <span class="attr">"raf_summary"</span>: { ... }
+    }
+  ],
+  <span class="attr">"total"</span>: <span class="num">156</span>,
+  <span class="attr">"offset"</span>: <span class="num">0</span>,
+  <span class="attr">"limit"</span>: <span class="num">50</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/charts/{id}</span>
+        <span class="endpoint-desc">Get chart metadata and processing status</span>
+        <span class="endpoint-chevron">&#9654;</span>
+      </div>
+      <div class="endpoint-body">
+        <p>Returns the ChartSummary for a specific chart including status, timing, page count, and RAF summary.</p>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header">
+        <span class="method delete">DELETE</span>
+        <span class="endpoint-path">/api/charts/{id}</span>
+        <span class="endpoint-desc">Delete a chart and all associated data</span>
+        <span class="endpoint-chevron">&#9654;</span>
+      </div>
+      <div class="endpoint-body">
+        <p>Cascading delete of the chart, pages, assertions, HCCs, RAF summaries, HEDIS results, audit logs, and uploaded files.</p>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/charts/{id}/file</span>
+        <span class="endpoint-desc">Download the original PDF file</span>
+        <span class="endpoint-chevron">&#9654;</span>
+      </div>
+      <div class="endpoint-body">
+        <p>Returns the original uploaded PDF as a binary stream with <code>application/pdf</code> content type.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLINICAL -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon green" style="width:28px;height:28px;font-size:14px;">Cl</span> Clinical</div>
+    <div class="router-group-path">Base path: /api/clinical/{chart_id}</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/clinical/{id}/diagnoses</span><span class="endpoint-desc">All diagnoses with ICD codes and evidence</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body">
+        <pre><code>[{
+  <span class="attr">"icd10_code"</span>: <span class="str">"E11.65"</span>,
+  <span class="attr">"description"</span>: <span class="str">"Type 2 diabetes with hyperglycemia"</span>,
+  <span class="attr">"negation_status"</span>: <span class="str">"active"</span>,
+  <span class="attr">"supporting_text"</span>: <span class="str">"Patient has uncontrolled T2DM..."</span>,
+  <span class="attr">"source_section"</span>: <span class="str">"Assessment/Plan"</span>,
+  <span class="attr">"date_of_service"</span>: <span class="str">"2026-01-15"</span>,
+  <span class="attr">"provider"</span>: <span class="str">"Dr. Smith"</span>,
+  <span class="attr">"confidence"</span>: <span class="num">0.94</span>
+}]</code></pre>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/clinical/{id}/vitals</span><span class="endpoint-desc">Vital signs (BP, weight, BMI, etc.)</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns assertion records with <code>category = "vital_sign"</code>, including structured BP readings, weight, height, BMI.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/clinical/{id}/labs</span><span class="endpoint-desc">Lab results (A1C, LDL, creatinine, etc.)</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns assertion records with <code>category = "lab_result"</code>. Values, units, dates, and reference ranges from the structured JSONB field.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/clinical/{id}/medications</span><span class="endpoint-desc">Active and historical medications</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns assertion records with <code>category = "medication"</code>. Includes normalized drug name, strength, frequency, route from <code>medication_normalized</code> JSONB.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/clinical/{id}/encounters</span><span class="endpoint-desc">Encounter timeline with providers</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns structured encounter records: date of service, provider, facility, visit type, chief complaint, associated medications and procedures.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/clinical/{id}/assertions</span><span class="endpoint-desc">All raw assertions (full extraction output)</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns all assertion records for a chart with optional category filtering. This is the full MiniMax extraction output.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/clinical/{id}/ra-candidates</span><span class="endpoint-desc">Risk adjustment candidate assertions</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns assertions flagged as RA candidates (<code>is_payable_ra_candidate = true</code>) with their ICD codes, evidence, and review status.</p></div>
+    </div>
+  </div>
+
+  <!-- RISK -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon orange" style="width:28px;height:28px;font-size:14px;">R</span> Risk Adjustment</div>
+    <div class="router-group-path">Base path: /api/risk/{chart_id}</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/risk/{id}/hcc-pack</span><span class="endpoint-desc">Complete Payable HCC Pack</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body">
+        <p>The primary output endpoint. Returns the full HCC Pack with payable HCCs, supported ICDs, MEAT evidence, RAF breakdown, hierarchy details, and pipeline metadata.</p>
+        <pre><code>{
+  <span class="attr">"chart_id"</span>: <span class="str">"42"</span>,
+  <span class="attr">"patient"</span>: { <span class="attr">"name"</span>: <span class="str">"Jane Doe"</span>, <span class="attr">"dob"</span>: <span class="str">"1955-03-12"</span>, ... },
+  <span class="attr">"measurement_year"</span>: <span class="num">2026</span>,
+  <span class="attr">"payable_hccs"</span>: [
+    {
+      <span class="attr">"hcc_code"</span>: <span class="str">"HCC 18"</span>,
+      <span class="attr">"hcc_description"</span>: <span class="str">"Diabetes with Chronic Complications"</span>,
+      <span class="attr">"raf_weight"</span>: <span class="num">0.302</span>,
+      <span class="attr">"hierarchy_applied"</span>: <span class="kw">true</span>,
+      <span class="attr">"suppresses"</span>: [<span class="str">"HCC 19"</span>],
+      <span class="attr">"supported_icds"</span>: [ ... ],
+      <span class="attr">"audit_risk"</span>: <span class="str">"low"</span>
+    }
+  ],
+  <span class="attr">"raf_summary"</span>: { <span class="attr">"total_raf_score"</span>: <span class="num">1.847</span>, ... },
+  <span class="attr">"pipeline_metadata"</span>: { ... }
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/risk/{id}/raf-summary</span><span class="endpoint-desc">RAF score breakdown</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body">
+        <pre><code>{
+  <span class="attr">"total_raf_score"</span>: <span class="num">1.847</span>,
+  <span class="attr">"demographic_raf"</span>: <span class="num">0.523</span>,
+  <span class="attr">"hcc_raf"</span>: <span class="num">1.324</span>,
+  <span class="attr">"hcc_count"</span>: <span class="num">7</span>,
+  <span class="attr">"payable_hcc_count"</span>: <span class="num">5</span>,
+  <span class="attr">"suppressed_hcc_count"</span>: <span class="num">2</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/risk/{id}/hierarchy</span><span class="endpoint-desc">HCC hierarchy suppression details</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns hierarchy log showing which HCCs were suppressed and by which higher-level HCCs, with group names and reasoning.</p></div>
+    </div>
+  </div>
+
+  <!-- HEDIS -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon purple" style="width:28px;height:28px;font-size:14px;">H</span> HEDIS Quality</div>
+    <div class="router-group-path">Base path: /api/hedis/{chart_id}</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/hedis/{id}/measures</span><span class="endpoint-desc">Measure eligibility and compliance</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body">
+        <pre><code>[{
+  <span class="attr">"measure_code"</span>: <span class="str">"CBP"</span>,
+  <span class="attr">"measure_name"</span>: <span class="str">"Controlling Blood Pressure"</span>,
+  <span class="attr">"eligible"</span>: <span class="kw">true</span>,
+  <span class="attr">"status"</span>: <span class="str">"met"</span>,
+  <span class="attr">"evidence"</span>: [ ... ],
+  <span class="attr">"target"</span>: <span class="str">"BP &lt; 140/90"</span>
+}]</code></pre>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/hedis/{id}/gaps</span><span class="endpoint-desc">Identified care gaps</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body">
+        <pre><code>[{
+  <span class="attr">"measure_code"</span>: <span class="str">"COL"</span>,
+  <span class="attr">"measure_name"</span>: <span class="str">"Colorectal Cancer Screening"</span>,
+  <span class="attr">"gap_description"</span>: <span class="str">"No colonoscopy within 10 years"</span>,
+  <span class="attr">"missing_evidence"</span>: <span class="str">"Colonoscopy or FIT-DNA test"</span>,
+  <span class="attr">"recommended_action"</span>: <span class="str">"Schedule colonoscopy"</span>,
+  <span class="attr">"priority"</span>: <span class="str">"high"</span>
+}]</code></pre>
+      </div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/hedis/{id}/evidence</span><span class="endpoint-desc">All HEDIS evidence items</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns all assertions flagged as HEDIS evidence (<code>is_hedis_evidence = true</code>) with their associated measure linkages.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/hedis/{id}/summary</span><span class="endpoint-desc">Aggregate HEDIS summary</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns total measures, applicable count, met count, gap count, excluded count, and measurement year.</p></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon cyan" style="width:28px;height:28px;font-size:14px;">D</span> Dashboard</div>
+    <div class="router-group-path">Base path: /api/dashboard</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/dashboard/stats</span><span class="endpoint-desc">Overall system statistics</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Total charts, processed count, average RAF score, average processing time, success rate.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/dashboard/db-stats</span><span class="endpoint-desc">Database table counts and sizes</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Row counts for all major tables (charts, assertions, payable_hccs, hedis_results, etc.).</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/dashboard/processing-metrics</span><span class="endpoint-desc">Processing time and success rates</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Average, median, P95, and P99 processing times. Breakdown by extraction, HCC mapping, and HEDIS evaluation stages.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/dashboard/model-performance</span><span class="endpoint-desc">ML model accuracy metrics</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Precision, recall, F1 scores for active ML models. Tracked per model version.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/dashboard/recent-activity</span><span class="endpoint-desc">Recent chart processing activity feed</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Last 50 pipeline runs with chart names, statuses, timings, and RAF scores.</p></div>
+    </div>
+  </div>
+
+  <!-- CONFIG -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon orange" style="width:28px;height:28px;font-size:14px;">Cf</span> Configuration</div>
+    <div class="router-group-path">Base path: /api/config</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/config</span><span class="endpoint-desc">Get full system configuration</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns LLM settings, pipeline settings, ML settings, and feature flags.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method post">POST</span><span class="endpoint-path">/api/config</span><span class="endpoint-desc">Update system configuration</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Accepts partial config updates. Changes are persisted to the <code>system_config</code> table and audit-logged.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/config/prompts</span><span class="endpoint-desc">Get all LLM prompt templates</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns all active prompt templates from the <code>prompt_templates</code> table with pipeline names and version numbers.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/config/feature-flags</span><span class="endpoint-desc">Get current feature flag states</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><pre><code>{
+  <span class="attr">"risk_adjustment"</span>: <span class="kw">true</span>,
+  <span class="attr">"hedis"</span>: <span class="kw">true</span>,
+  <span class="attr">"ml_predictions"</span>: <span class="kw">true</span>,
+  <span class="attr">"llm_verification"</span>: <span class="kw">true</span>,
+  <span class="attr">"ocr_fallback"</span>: <span class="kw">true</span>,
+  <span class="attr">"parallel_pipelines"</span>: <span class="kw">true</span>,
+  <span class="attr">"audit_logging"</span>: <span class="kw">true</span>
+}</code></pre></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method post">POST</span><span class="endpoint-path">/api/config/feature-flags</span><span class="endpoint-desc">Update feature flags</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><pre><code>{ <span class="attr">"flag"</span>: <span class="str">"ml_predictions"</span>, <span class="attr">"enabled"</span>: <span class="kw">false</span> }</code></pre></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/config/model-versions</span><span class="endpoint-desc">ML model version tracking</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns all registered model versions with type, file path, precision/recall/F1, and active status.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/config/hedis/measures</span><span class="endpoint-desc">HEDIS measure definitions catalog</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns all HEDIS measure definitions from <code>hedis_measure_definitions</code> with eligibility criteria, value sets, and compliance targets.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/config/hedis/profile</span><span class="endpoint-desc">HEDIS evaluation profile</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns the active HEDIS profile (measurement year, enabled measures, evaluation mode).</p></div>
+    </div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon red" style="width:28px;height:28px;font-size:12px;">Pl</span> Pipeline</div>
+    <div class="router-group-path">Base path: /api/pipeline</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/pipeline/{id}</span><span class="endpoint-desc">Get pipeline run status</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns pipeline run metadata: status, mode, model used, chunk count, duration, assertion counts.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/pipeline/{id}/logs</span><span class="endpoint-desc">Pipeline execution logs</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns detailed step-by-step logs for a pipeline run with log levels, step names, messages, and durations.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method post">POST</span><span class="endpoint-path">/api/pipeline/reprocess</span><span class="endpoint-desc">Reprocess a chart through the pipeline</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Triggers a new pipeline run for an existing chart. Accepts optional mode override and feature flag overrides.</p></div>
+    </div>
+  </div>
+
+  <!-- AUDIT -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon cyan" style="width:28px;height:28px;font-size:12px;">Au</span> Audit</div>
+    <div class="router-group-path">Base path: /api/audit</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method get">GET</span><span class="endpoint-path">/api/audit/{id}/log</span><span class="endpoint-desc">Audit trail for a chart</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Returns all audit log entries for a chart: user actions, system events, review decisions, configuration changes.</p></div>
+    </div>
+  </div>
+
+  <!-- REVIEW -->
+  <div class="router-group">
+    <div class="router-group-title"><span class="card-icon purple" style="width:28px;height:28px;font-size:12px;">Rv</span> Review Workflow</div>
+    <div class="router-group-path">Base path: /api/review</div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method post">POST</span><span class="endpoint-path">/api/review/diagnosis</span><span class="endpoint-desc">Submit diagnosis review action</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Create a review action on a diagnosis assertion (approve, reject, modify). Logs to audit trail.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method put">PUT</span><span class="endpoint-path">/api/review/diagnosis/{id}</span><span class="endpoint-desc">Update diagnosis review status</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Updates the review_status on an assertion (pending/approved/rejected) with reviewer name and notes.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method delete">DELETE</span><span class="endpoint-path">/api/review/diagnosis/{id}</span><span class="endpoint-desc">Remove a diagnosis review action</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Reverts a review action, setting the assertion back to pending status.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method post">POST</span><span class="endpoint-path">/api/review/hcc</span><span class="endpoint-desc">Submit HCC review action</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Accept or reject a payable HCC assignment. Recalculates RAF if needed.</p></div>
+    </div>
+
+    <div class="endpoint-card" onclick="this.classList.toggle('open')">
+      <div class="endpoint-header"><span class="method put">PUT</span><span class="endpoint-path">/api/review/hedis/{id}</span><span class="endpoint-desc">Update HEDIS evidence review</span><span class="endpoint-chevron">&#9654;</span></div>
+      <div class="endpoint-body"><p>Override a HEDIS measure status (e.g., accept evidence that was flagged as insufficient).</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     TAB 5: DATABASE
+     ================================================================ -->
+<section class="tab-panel" id="panel-database" data-search-label="Database">
+  <h1>Database Schema</h1>
+  <p class="subtitle">PostgreSQL 16 with 30+ tables organized across core, clinical, risk adjustment, HEDIS, audit, config, and analytics domains.</p>
+
+  <div class="note-box info">
+    <span class="note-icon">&#9432;</span>
+    <div>The <code>assertions</code> table is the central entity. All clinical facts flow through this table. Domain-specific tables (payable_hccs, hedis_results) are derived aggregations.</div>
+  </div>
+
+  <!-- CORE TABLES -->
+  <h2>Core Tables</h2>
+
+  <h3>charts</h3>
+  <p>Master chart record. One row per uploaded PDF.</p>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK, sequence</td><td>Auto-increment primary key</td></tr>
+      <tr><td><span class="col-fk">patient_id</span></td><td><span class="col-type">Integer</span></td><td>FK patients(id) SET NULL</td><td>Linked patient</td></tr>
+      <tr><td>filename</td><td><span class="col-type">String(255)</span></td><td>NOT NULL</td><td>Original PDF filename</td></tr>
+      <tr><td>file_path</td><td><span class="col-type">Text</span></td><td>NOT NULL</td><td>Server-side file path</td></tr>
+      <tr><td>file_size_bytes</td><td><span class="col-type">Integer</span></td><td></td><td>File size in bytes</td></tr>
+      <tr><td>page_count</td><td><span class="col-type">Integer</span></td><td></td><td>Total pages in PDF</td></tr>
+      <tr><td>pages_with_text</td><td><span class="col-type">Integer</span></td><td></td><td>Pages that yielded text</td></tr>
+      <tr><td>total_chars</td><td><span class="col-type">Integer</span></td><td></td><td>Total characters extracted</td></tr>
+      <tr><td>upload_source</td><td><span class="col-type">String(20)</span></td><td>default 'cli'</td><td>cli | api | batch</td></tr>
+      <tr><td>status</td><td><span class="col-type">String(30)</span></td><td>default 'uploaded'</td><td>uploaded | processing | completed | failed</td></tr>
+      <tr><td>quality_score_avg</td><td><span class="col-type">Float</span></td><td></td><td>Average page quality (0-100)</td></tr>
+      <tr><td>created_at</td><td><span class="col-type">DateTime</span></td><td>server_default now()</td><td>Upload timestamp</td></tr>
+      <tr><td>updated_at</td><td><span class="col-type">DateTime</span></td><td>auto-update</td><td>Last modified</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="col-idx">Indexes:</span> <code>ix_charts_status</code>, <code>ix_charts_created</code>, <code>ix_charts_patient</code></p>
+
+  <h3>chart_pages</h3>
+  <p>Per-page extracted text with quality scores.</p>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td><td>Auto-increment</td></tr>
+      <tr><td><span class="col-fk">chart_id</span></td><td><span class="col-type">Integer</span></td><td>FK CASCADE</td><td>Parent chart</td></tr>
+      <tr><td><span class="col-fk">run_id</span></td><td><span class="col-type">Integer</span></td><td>FK nullable</td><td>Pipeline run</td></tr>
+      <tr><td>page_number</td><td><span class="col-type">Integer</span></td><td>NOT NULL</td><td>1-based page number</td></tr>
+      <tr><td>text_content</td><td><span class="col-type">Text</span></td><td></td><td>Extracted text</td></tr>
+      <tr><td>text_length</td><td><span class="col-type">Integer</span></td><td></td><td>Character count</td></tr>
+      <tr><td>quality_score</td><td><span class="col-type">Float</span></td><td></td><td>Text quality (0-100)</td></tr>
+      <tr><td>extraction_method</td><td><span class="col-type">String(20)</span></td><td>default 'text'</td><td>text | ocr | vision</td></tr>
+      <tr><td>page_best_dos</td><td><span class="col-type">String(20)</span></td><td></td><td>Best date of service found</td></tr>
+      <tr><td>dates_found</td><td><span class="col-type">JSON</span></td><td></td><td>[{iso, kind, raw}]</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>pipeline_runs</h3>
+  <p>Pipeline execution records with status tracking.</p>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td><td>Auto-increment</td></tr>
+      <tr><td><span class="col-fk">chart_id</span></td><td><span class="col-type">Integer</span></td><td>FK CASCADE</td><td>Chart being processed</td></tr>
+      <tr><td>run_number</td><td><span class="col-type">Integer</span></td><td>default 1</td><td>Run sequence number</td></tr>
+      <tr><td>status</td><td><span class="col-type">String(30)</span></td><td>default 'running'</td><td>running | completed | failed</td></tr>
+      <tr><td>mode</td><td><span class="col-type">String(30)</span></td><td>default 'full'</td><td>full | risk_only | hedis_only | hcc_pack</td></tr>
+      <tr><td>model</td><td><span class="col-type">String(100)</span></td><td></td><td>LLM model used</td></tr>
+      <tr><td>chunk_count</td><td><span class="col-type">Integer</span></td><td></td><td>Number of text chunks</td></tr>
+      <tr><td>config_snapshot</td><td><span class="col-type">JSON</span></td><td></td><td>Frozen config at run start</td></tr>
+      <tr><td>started_at</td><td><span class="col-type">DateTime</span></td><td>server_default now()</td><td>Run start time</td></tr>
+      <tr><td>completed_at</td><td><span class="col-type">DateTime</span></td><td></td><td>Run end time</td></tr>
+      <tr><td>duration_seconds</td><td><span class="col-type">Float</span></td><td></td><td>Total run duration</td></tr>
+      <tr><td>assertions_raw</td><td><span class="col-type">Integer</span></td><td>default 0</td><td>Raw assertions extracted</td></tr>
+      <tr><td>assertions_audited</td><td><span class="col-type">Integer</span></td><td>default 0</td><td>Assertions after audit</td></tr>
+      <tr><td>error_message</td><td><span class="col-type">Text</span></td><td></td><td>Error details (if failed)</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="col-idx">Indexes:</span> <code>ix_pipeline_runs_status</code>, <code>ix_pipeline_runs_chart</code></p>
+
+  <h3>pipeline_logs</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td></tr>
+      <tr><td><span class="col-fk">run_id</span></td><td><span class="col-type">Integer</span></td><td>FK pipeline_runs CASCADE</td></tr>
+      <tr><td>log_level</td><td><span class="col-type">String(10)</span></td><td>INFO | WARN | ERROR | DEBUG</td></tr>
+      <tr><td>step</td><td><span class="col-type">String(100)</span></td><td>Pipeline step name</td></tr>
+      <tr><td>message</td><td><span class="col-type">Text</span></td><td>Log message</td></tr>
+      <tr><td>details</td><td><span class="col-type">JSON</span></td><td>Structured details</td></tr>
+      <tr><td>duration_seconds</td><td><span class="col-type">Float</span></td><td>Step duration</td></tr>
+      <tr><td>created_at</td><td><span class="col-type">DateTime</span></td><td>Timestamp</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- CLINICAL -->
+  <h2>Clinical Tables</h2>
+
+  <h3>assertions (Central Table)</h3>
+  <p>The central clinical facts table. Every extracted assertion (diagnosis, medication, vital, lab, encounter) is stored here with full provenance.</p>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td></tr>
+      <tr><td><span class="col-fk">chart_id</span></td><td><span class="col-type">Integer</span></td><td>FK charts CASCADE</td></tr>
+      <tr><td><span class="col-fk">run_id</span></td><td><span class="col-type">Integer</span></td><td>FK pipeline_runs</td></tr>
+      <tr><td>assertion_id</td><td><span class="col-type">String(30)</span></td><td>Unique ID (e.g. "p003_000012")</td></tr>
+      <tr><td>category</td><td><span class="col-type">String(50)</span></td><td>diagnosis | medication | vital_sign | lab_result | ...</td></tr>
+      <tr><td>concept</td><td><span class="col-type">Text</span></td><td>Clinical concept name</td></tr>
+      <tr><td>canonical_concept</td><td><span class="col-type">Text</span></td><td>Normalized concept name</td></tr>
+      <tr><td>text</td><td><span class="col-type">Text</span></td><td>Source text</td></tr>
+      <tr><td>clean_text</td><td><span class="col-type">Text</span></td><td>Cleaned text</td></tr>
+      <tr><td>status</td><td><span class="col-type">String(20)</span></td><td>active | negated | historical | resolved | uncertain | family_history</td></tr>
+      <tr><td>subject</td><td><span class="col-type">String(30)</span></td><td>patient | family_member | provider_plan</td></tr>
+      <tr><td>evidence_rank</td><td><span class="col-type">Integer</span></td><td>1=strong, 2=moderate, 3=weak</td></tr>
+      <tr><td>page_number</td><td><span class="col-type">Integer</span></td><td>Source page</td></tr>
+      <tr><td>exact_quote</td><td><span class="col-type">Text</span></td><td>Exact quote from chart</td></tr>
+      <tr><td>char_start / char_end</td><td><span class="col-type">Integer</span></td><td>Character offsets</td></tr>
+      <tr><td>icd_codes</td><td><span class="col-type">JSON</span></td><td>[{code, description}]</td></tr>
+      <tr><td>effective_date</td><td><span class="col-type">String(20)</span></td><td>ISO date of service</td></tr>
+      <tr><td>negation_trigger</td><td><span class="col-type">String(100)</span></td><td>Trigger phrase for negation</td></tr>
+      <tr><td>structured</td><td><span class="col-type">JSON</span></td><td>Structured data (vitals, scores)</td></tr>
+      <tr><td>medication_normalized</td><td><span class="col-type">JSON</span></td><td>{ingredient, strength, frequency, route}</td></tr>
+      <tr><td>is_hcc_candidate</td><td><span class="col-type">Boolean</span></td><td>HCC candidate flag</td></tr>
+      <tr><td>is_payable_ra_candidate</td><td><span class="col-type">Boolean</span></td><td>Payable RA candidate</td></tr>
+      <tr><td>is_hedis_evidence</td><td><span class="col-type">Boolean</span></td><td>HEDIS evidence flag</td></tr>
+      <tr><td>review_status</td><td><span class="col-type">String(20)</span></td><td>pending | approved | rejected</td></tr>
+      <tr><td>created_at</td><td><span class="col-type">DateTime</span></td><td>Creation timestamp</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="col-idx">Indexes:</span> <code>ix_assertions_chart</code>, <code>ix_assertions_category</code>, <code>ix_assertions_status</code>, <code>ix_assertions_page</code>, <code>ix_assertions_hcc_candidate</code>, <code>ix_assertions_payable_ra</code>, <code>ix_assertions_hedis</code>, <code>ix_assertions_condition_group</code>, <code>ix_assertions_review</code>, <code>ix_assertions_effective_date</code></p>
+
+  <h3>condition_groups</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td></tr>
+      <tr><td><span class="col-fk">chart_id</span></td><td><span class="col-type">Integer</span></td><td>FK charts CASCADE</td></tr>
+      <tr><td>group_id</td><td><span class="col-type">String(20)</span></td><td>e.g. "g0001"</td></tr>
+      <tr><td>group_key</td><td><span class="col-type">Text</span></td><td>ICD:E11.65 or CAN:essential hypertension</td></tr>
+      <tr><td>canonical_concept</td><td><span class="col-type">Text</span></td><td>Normalized concept</td></tr>
+      <tr><td>best_evidence_assertion_id</td><td><span class="col-type">String(30)</span></td><td>Best evidence assertion</td></tr>
+      <tr><td>assertion_count</td><td><span class="col-type">Integer</span></td><td>Number of supporting assertions</td></tr>
+      <tr><td>icd_codes</td><td><span class="col-type">JSON</span></td><td>Associated ICD codes</td></tr>
+      <tr><td>status</td><td><span class="col-type">String(20)</span></td><td>active | resolved etc.</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- RISK ADJ TABLES -->
+  <h2>Risk Adjustment Tables</h2>
+
+  <h3>payable_hccs</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td></tr>
+      <tr><td><span class="col-fk">chart_id</span></td><td><span class="col-type">Integer</span></td><td>FK charts CASCADE</td></tr>
+      <tr><td>hcc_code</td><td><span class="col-type">String(20)</span></td><td>e.g. "HCC 18"</td></tr>
+      <tr><td>hcc_description</td><td><span class="col-type">String(255)</span></td><td>HCC description</td></tr>
+      <tr><td>raf_weight</td><td><span class="col-type">Numeric(6,4)</span></td><td>RAF coefficient</td></tr>
+      <tr><td>confidence</td><td><span class="col-type">Numeric(6,4)</span></td><td>Ensemble confidence (0-1)</td></tr>
+      <tr><td>source</td><td><span class="col-type">String(20)</span></td><td>llm | tfidf | trained_bert | ensemble</td></tr>
+      <tr><td>llm_verified</td><td><span class="col-type">Boolean</span></td><td>LLM verification passed</td></tr>
+      <tr><td>hierarchy_applied</td><td><span class="col-type">Boolean</span></td><td>Hierarchy suppression applied</td></tr>
+      <tr><td>supported_icds</td><td><span class="col-type">JSON</span></td><td>[{icd10_code, concept, page, quote}]</td></tr>
+      <tr><td>measurement_year</td><td><span class="col-type">Integer</span></td><td>e.g. 2026</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>suppressed_hccs</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td></tr>
+      <tr><td><span class="col-fk">chart_id</span></td><td><span class="col-type">Integer</span></td><td>FK charts CASCADE</td></tr>
+      <tr><td>hcc_code</td><td><span class="col-type">String(20)</span></td><td>Suppressed HCC</td></tr>
+      <tr><td>hcc_description</td><td><span class="col-type">String(255)</span></td><td>Description</td></tr>
+      <tr><td>suppressed_by</td><td><span class="col-type">String(20)</span></td><td>Higher-priority HCC</td></tr>
+      <tr><td>hierarchy_group</td><td><span class="col-type">String(100)</span></td><td>V28 hierarchy group name</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>raf_summaries</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td></tr>
+      <tr><td><span class="col-fk">chart_id</span></td><td><span class="col-type">Integer</span></td><td>FK charts CASCADE</td></tr>
+      <tr><td>total_raf_score</td><td><span class="col-type">Numeric(8,4)</span></td><td>Total RAF</td></tr>
+      <tr><td>demographic_raf</td><td><span class="col-type">Numeric(8,4)</span></td><td>Demographic component</td></tr>
+      <tr><td>hcc_raf</td><td><span class="col-type">Numeric(8,4)</span></td><td>HCC component</td></tr>
+      <tr><td>hcc_count</td><td><span class="col-type">Integer</span></td><td>Total HCCs identified</td></tr>
+      <tr><td>payable_hcc_count</td><td><span class="col-type">Integer</span></td><td>Payable after hierarchy</td></tr>
+      <tr><td>suppressed_hcc_count</td><td><span class="col-type">Integer</span></td><td>Suppressed by hierarchy</td></tr>
+      <tr><td>ensemble_version</td><td><span class="col-type">String(20)</span></td><td>v4 | llm_only</td></tr>
+      <tr><td>ensemble_metadata</td><td><span class="col-type">JSON</span></td><td>Full ensemble tracking</td></tr>
+      <tr><td>measurement_year</td><td><span class="col-type">Integer</span></td><td>e.g. 2026</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- HEDIS TABLES -->
+  <h2>HEDIS Tables</h2>
+
+  <h3>hedis_results</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td></tr>
+      <tr><td><span class="col-fk">chart_id</span></td><td><span class="col-type">Integer</span></td><td>FK charts CASCADE</td></tr>
+      <tr><td>measure_id</td><td><span class="col-type">String(50)</span></td><td>e.g. "CBP", "CDC_A1C"</td></tr>
+      <tr><td>measure_name</td><td><span class="col-type">String(255)</span></td><td>Measure full name</td></tr>
+      <tr><td>status</td><td><span class="col-type">String(20)</span></td><td>met | gap | not_applicable | excluded</td></tr>
+      <tr><td>applicable</td><td><span class="col-type">Boolean</span></td><td>Member eligible for measure</td></tr>
+      <tr><td>compliant</td><td><span class="col-type">Boolean</span></td><td>Measure numerator met</td></tr>
+      <tr><td>evidence_used</td><td><span class="col-type">JSON</span></td><td>Evidence items used</td></tr>
+      <tr><td>gaps</td><td><span class="col-type">JSON</span></td><td>Gap details</td></tr>
+      <tr><td>measurement_year</td><td><span class="col-type">Integer</span></td><td>Measurement year</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>hedis_summaries</h3>
+  <p>Aggregate HEDIS stats per chart: total_measures, applicable_count, met_count, gap_count, excluded_count, indeterminate_count.</p>
+
+  <h3>hedis_measure_definitions</h3>
+  <p>DB-backed measure catalog: measure_id, version, definition_json (eligibility criteria, value sets, targets), is_active.</p>
+
+  <h3>hedis_valuesets</h3>
+  <p>DB-backed HEDIS value sets: valueset_id, code_system, payload_json (codes), is_active.</p>
+
+  <!-- AUDIT TABLES -->
+  <h2>Audit and Review Tables</h2>
+
+  <h3>audit_logs</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="col-pk">id</span></td><td><span class="col-type">Integer</span></td><td>PK</td></tr>
+      <tr><td>user_name</td><td><span class="col-type">String(100)</span></td><td>Who performed the action</td></tr>
+      <tr><td>action</td><td><span class="col-type">String(50)</span></td><td>Action type</td></tr>
+      <tr><td>entity_type</td><td><span class="col-type">String(50)</span></td><td>assertion | hcc | hedis | config</td></tr>
+      <tr><td>entity_id</td><td><span class="col-type">Integer</span></td><td>Target entity ID</td></tr>
+      <tr><td>details</td><td><span class="col-type">JSON</span></td><td>Before/after values</td></tr>
+      <tr><td>ip_address</td><td><span class="col-type">String(50)</span></td><td>Client IP</td></tr>
+      <tr><td>created_at</td><td><span class="col-type">DateTime</span></td><td>Timestamp</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>review_actions</h3>
+  <p>Coder accept/reject/modify actions: entity_type (assertion | hcc | hedis), entity_id, action, previous_value (JSON), new_value (JSON), reviewer, notes.</p>
+
+  <!-- CONFIG TABLES -->
+  <h2>Configuration Tables</h2>
+  <p>Configuration is stored in three tables: <code>system_config</code> (key-value pairs), <code>llm_configs</code> (LLM provider settings), and <code>prompt_templates</code> (versioned LLM prompts).</p>
+
+  <h3>system_config</h3>
+  <p>Generic key-value store: config_key (unique), config_value (JSON), description, updated_by, updated_at.</p>
+
+  <h3>llm_configs</h3>
+  <p>LLM provider configurations: provider, model_name, temperature, max_tokens, is_active.</p>
+
+  <h3>prompt_templates</h3>
+  <p>Versioned prompts: pipeline_name, version, system_prompt (Text), is_active, notes, created_by. Unique constraint on (pipeline_name, version).</p>
+
+  <!-- REFERENCE TABLES -->
+  <h2>Reference and Analytics Tables</h2>
+
+  <h3>icd_hcc_mappings</h3>
+  <p>CMS-HCC V28 reference table: icd10_code, hcc_category, hcc_description, raf_weight, is_payment_hcc, model_year.</p>
+
+  <h3>processing_stats</h3>
+  <p>Per-chart metrics: total_processing_seconds, extraction_seconds, hcc_mapping_seconds, hedis_evaluation_seconds, pages_processed, ocr_pages, assertions_raw, model_used.</p>
+
+  <h3>hcc_hierarchy_log</h3>
+  <p>Hierarchy suppression records: suppressed_hcc, suppressed_by, group_name.</p>
+
+  <h3>model_versions</h3>
+  <p>ML model tracking: model_name, version, model_type, file_path, precision, recall, f1_score, is_active.</p>
+
+  <h3>patients</h3>
+  <p>Master patient demographics: patient_name, date_of_birth, gender, age, language, race_ethnicity, insurance, allergies (JSON), address fields, social history, mental health scores. Related tables: patient_vitals, patient_providers, patient_family_history, patient_member_ids, patient_phones.</p>
+</section>
+
+<!-- ================================================================
+     TAB 6: SCHEMAS
+     ================================================================ -->
+<section class="tab-panel" id="panel-schemas" data-search-label="Schemas">
+  <h1>Pydantic Schemas</h1>
+  <p class="subtitle">Request and response models for all API endpoints. All schemas use Pydantic v2 BaseModel.</p>
+
+  <h2>Chart Schemas</h2>
+  <p>Defined in <code>backend/api/schemas/chart_schemas.py</code></p>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">ChartUploadResponse</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">ChartUploadResponse</span>(<span class="type">BaseModel</span>):
+    <span class="attr">status</span>: <span class="type">str</span>
+    <span class="attr">filename</span>: <span class="type">str</span>
+    <span class="attr">file_path</span>: <span class="type">str</span>
+    <span class="attr">message</span>: <span class="type">str</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">ChartProcessResponse</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">ChartProcessResponse</span>(<span class="type">BaseModel</span>):
+    <span class="attr">chart_id</span>: <span class="type">str</span>
+    <span class="attr">run_id</span>: <span class="type">str</span>
+    <span class="attr">status</span>: <span class="type">str</span>
+    <span class="attr">started_at</span>: <span class="type">str</span>
+    <span class="attr">completed_at</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">raf_summary</span>: <span class="type">Optional[Dict[str, Any]]</span> = <span class="kw">None</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">ChartSummary</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">ChartSummary</span>(<span class="type">BaseModel</span>):
+    <span class="attr">chart_id</span>: <span class="type">str</span>
+    <span class="attr">status</span>: <span class="type">str</span>
+    <span class="attr">run_id</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">started_at</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">completed_at</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">total_seconds</span>: <span class="type">Optional[float]</span> = <span class="kw">None</span>
+    <span class="attr">pages_processed</span>: <span class="type">Optional[int]</span> = <span class="kw">None</span>
+    <span class="attr">mode</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">raf_summary</span>: <span class="type">Optional[Dict[str, Any]]</span> = <span class="kw">None</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">ChartListResponse</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">ChartListResponse</span>(<span class="type">BaseModel</span>):
+    <span class="attr">charts</span>: <span class="type">List[ChartSummary]</span>
+    <span class="attr">total</span>: <span class="type">int</span>
+    <span class="attr">offset</span>: <span class="type">int</span>
+    <span class="attr">limit</span>: <span class="type">int</span></code></pre>
+    </div>
+  </div>
+
+  <h2>Clinical Schemas</h2>
+  <p>Defined in <code>backend/api/schemas/clinical_schemas.py</code></p>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">DiagnosisSchema</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">DiagnosisSchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">icd10_code</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">description</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">negation_status</span>: <span class="type">str</span> = <span class="str">"active"</span>
+    <span class="attr">supporting_text</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">source_section</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">date_of_service</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">provider</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">confidence</span>: <span class="type">Optional[float]</span> = <span class="kw">None</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">EncounterSchema</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">EncounterSchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">date</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">provider</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">facility</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">encounter_type</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">chief_complaint</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">medications</span>: <span class="type">List[Dict[str, Any]]</span> = []
+    <span class="attr">procedures</span>: <span class="type">List[Dict[str, Any]]</span> = []</code></pre>
+    </div>
+  </div>
+
+  <h2>Risk Adjustment Schemas</h2>
+  <p>Defined in <code>backend/api/schemas/risk_schemas.py</code></p>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">HCCPackSchema</span><span class="badge blue">Primary Output</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">HCCPackSchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">chart_id</span>: <span class="type">str</span>
+    <span class="attr">patient</span>: <span class="type">Optional[Dict[str, Any]]</span> = <span class="kw">None</span>
+    <span class="attr">measurement_year</span>: <span class="type">int</span> = <span class="num">2026</span>
+    <span class="attr">payable_hccs</span>: <span class="type">List[PayableHCCSchema]</span> = []
+    <span class="attr">unsupported_candidates</span>: <span class="type">List[Dict[str, Any]]</span> = []
+    <span class="attr">raf_summary</span>: <span class="type">RAFSummarySchema</span> = <span class="fn">RAFSummarySchema</span>()
+    <span class="attr">pipeline_metadata</span>: <span class="type">Optional[Dict[str, Any]]</span> = <span class="kw">None</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">PayableHCCSchema</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">PayableHCCSchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">hcc_code</span>: <span class="type">str</span>
+    <span class="attr">hcc_description</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">raf_weight</span>: <span class="type">float</span> = <span class="num">0.0</span>
+    <span class="attr">hierarchy_applied</span>: <span class="type">bool</span> = <span class="kw">False</span>
+    <span class="attr">suppresses</span>: <span class="type">List[str]</span> = []
+    <span class="attr">supported_icds</span>: <span class="type">List[SupportedICDSchema]</span> = []
+    <span class="attr">audit_risk</span>: <span class="type">str</span> = <span class="str">"low"</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">SupportedICDSchema</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">SupportedICDSchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">icd10_code</span>: <span class="type">str</span>
+    <span class="attr">icd10_description</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">confidence</span>: <span class="type">float</span> = <span class="num">0.0</span>
+    <span class="attr">ml_confidence</span>: <span class="type">float</span> = <span class="num">0.0</span>
+    <span class="attr">llm_confidence</span>: <span class="type">float</span> = <span class="num">0.0</span>
+    <span class="attr">polarity</span>: <span class="type">str</span> = <span class="str">"active"</span>
+    <span class="attr">negation_method</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">meat_evidence</span>: <span class="type">Optional[MEATEvidenceSchema]</span> = <span class="kw">None</span>
+    <span class="attr">evidence_spans</span>: <span class="type">List[EvidenceSpanSchema]</span> = []
+    <span class="attr">date_of_service</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">provider</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">MEATEvidenceSchema</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">MEATEvidenceSchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">monitored</span>: <span class="type">bool</span> = <span class="kw">False</span>
+    <span class="attr">monitoring_text</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">evaluated</span>: <span class="type">bool</span> = <span class="kw">False</span>
+    <span class="attr">evaluation_text</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">assessed</span>: <span class="type">bool</span> = <span class="kw">False</span>
+    <span class="attr">assessment_text</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">treated</span>: <span class="type">bool</span> = <span class="kw">False</span>
+    <span class="attr">treatment_text</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">RAFSummarySchema</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">RAFSummarySchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">total_raf_score</span>: <span class="type">float</span> = <span class="num">0.0</span>
+    <span class="attr">demographic_raf</span>: <span class="type">float</span> = <span class="num">0.0</span>
+    <span class="attr">hcc_raf</span>: <span class="type">float</span> = <span class="num">0.0</span>
+    <span class="attr">hcc_count</span>: <span class="type">int</span> = <span class="num">0</span>
+    <span class="attr">payable_hcc_count</span>: <span class="type">int</span> = <span class="num">0</span>
+    <span class="attr">suppressed_hcc_count</span>: <span class="type">int</span> = <span class="num">0</span></code></pre>
+    </div>
+  </div>
+
+  <h2>HEDIS Schemas</h2>
+  <p>Defined in <code>backend/api/schemas/hedis_schemas.py</code></p>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">HEDISMeasureResult</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">HEDISMeasureResult</span>(<span class="type">BaseModel</span>):
+    <span class="attr">measure_code</span>: <span class="type">str</span>
+    <span class="attr">measure_name</span>: <span class="type">str</span>
+    <span class="attr">eligible</span>: <span class="type">bool</span> = <span class="kw">False</span>
+    <span class="attr">status</span>: <span class="type">str</span> = <span class="str">"unknown"</span>
+    <span class="attr">evidence</span>: <span class="type">List[Dict[str, Any]]</span> = []
+    <span class="attr">target</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">HEDISGapSchema</span><span class="badge orange">Gap</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">HEDISGapSchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">measure_code</span>: <span class="type">str</span>
+    <span class="attr">measure_name</span>: <span class="type">str</span>
+    <span class="attr">gap_description</span>: <span class="type">str</span>
+    <span class="attr">missing_evidence</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">recommended_action</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">priority</span>: <span class="type">str</span> = <span class="str">"standard"</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">HEDISQualityPack</span><span class="badge blue">Primary Output</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">HEDISQualityPack</span>(<span class="type">BaseModel</span>):
+    <span class="attr">measurement_year</span>: <span class="type">int</span>
+    <span class="attr">measures</span>: <span class="type">List[HEDISMeasureResult]</span> = []
+    <span class="attr">gaps</span>: <span class="type">List[HEDISGapSchema]</span> = []
+    <span class="attr">total_eligible</span>: <span class="type">int</span> = <span class="num">0</span>
+    <span class="attr">total_met</span>: <span class="type">int</span> = <span class="num">0</span>
+    <span class="attr">total_gaps</span>: <span class="type">int</span> = <span class="num">0</span></code></pre>
+    </div>
+  </div>
+
+  <h2>Config Schemas</h2>
+  <p>Defined in <code>backend/api/schemas/config_schemas.py</code></p>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">ConfigResponse</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">ConfigResponse</span>(<span class="type">BaseModel</span>):
+    <span class="attr">llm</span>: <span class="type">Dict[str, Any]</span>
+    <span class="attr">pipeline</span>: <span class="type">Dict[str, Any]</span>
+    <span class="attr">ml</span>: <span class="type">Dict[str, Any]</span>
+    <span class="attr">feature_flags</span>: <span class="type">Dict[str, bool]</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">FeatureFlagUpdate</span><span class="badge orange">Request</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">FeatureFlagUpdate</span>(<span class="type">BaseModel</span>):
+    <span class="attr">flag</span>: <span class="type">str</span>
+    <span class="attr">enabled</span>: <span class="type">bool</span></code></pre>
+    </div>
+  </div>
+
+  <div class="schema-card">
+    <div class="schema-header"><span class="schema-name">EvidenceSpanSchema</span><span class="badge green">Response</span></div>
+    <div class="schema-body">
+      <pre><code><span class="kw">class</span> <span class="type">EvidenceSpanSchema</span>(<span class="type">BaseModel</span>):
+    <span class="attr">text</span>: <span class="type">str</span>
+    <span class="attr">page</span>: <span class="type">Optional[int]</span> = <span class="kw">None</span>
+    <span class="attr">section</span>: <span class="type">Optional[str]</span> = <span class="kw">None</span>
+    <span class="attr">char_start</span>: <span class="type">Optional[int]</span> = <span class="kw">None</span>
+    <span class="attr">char_end</span>: <span class="type">Optional[int]</span> = <span class="kw">None</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     TAB 7: ARCHITECTURE
+     ================================================================ -->
+<section class="tab-panel" id="panel-architecture" data-search-label="Architecture">
+  <h1>System Architecture</h1>
+  <p class="subtitle">End-to-end data flow from PDF upload through LLM extraction, ML prediction, and decisioning to payable HCC/HEDIS output.</p>
+
+  <h2>Pipeline Data Flow</h2>
+  <div class="diagram-box">
+<span class="highlight">PDF Upload</span>
+    |
+    v
+<span class="hl-cyan">[1. INGESTION]</span> --------+-------- PDF Processor
+    |                     |         Quality Scorer (0-100 per page)
+    |                     |         OCR Engine (GPT-4o Vision fallback)
+    |                     +-------- Text Normalizer
+    v
+<span class="hl-green">[2. EXTRACTION]</span> -------+-------- MiniMax Single-Pass LLM
+    |                     |         One call per text chunk
+    |                     |         Extracts ALL assertion types:
+    |                     |           - Diagnoses + ICD codes
+    |                     |           - Medications (normalized)
+    |                     |           - Vitals (structured BP, BMI)
+    |                     |           - Lab results (values, units)
+    |                     |           - Encounters (DOS, provider)
+    |                     +-------- Assertions + provenance (quotes, pages, offsets)
+    v
+<span class="hl-orange">[3. ENRICHMENT]</span> ------+-------- Deterministic post-processing
+    |                     |         Quote repair + matching
+    |                     |         Date inference
+    |                     |         Negation detection (6-status)
+    |                     |         Condition grouping
+    |                     +-------- Code assignment (ICD, CPT, HCPCS)
+    v
+<span class="hl-purple">[4. HCC BRIDGE]</span> ------+-------- ICD-to-HCC V28 Mapping
+    |                     |         Hierarchy Suppression
+    |                     |         RAF Score Computation
+    |                     |         Ensemble Scoring (LLM + TF-IDF + BERT)
+    |                     +-------- Payable HCC Pack generation
+    v
+<span class="hl-pink">[5. HEDIS BRIDGE]</span> ----+-------- Measure Eligibility Check
+    |                     |         Evidence Matching (valuesets)
+    |                     |         Gap Identification
+    |                     +-------- Quality Pack generation
+    v
+<span class="hl-red">[6. PERSISTENCE]</span> ----+-------- PostgreSQL (30+ tables)
+    |                     |         Assertions (central)
+    |                     |         Payable HCCs + RAF Summaries
+    |                     |         HEDIS Results + Summaries
+    |                     +-------- Audit Logs + Pipeline Logs
+    v
+<span class="highlight">API / Dashboard Output</span></div>
+
+  <h2>Assertion-Centric Architecture</h2>
+  <div class="card">
+    <p>The <code>assertions</code> table is the single source of truth for all clinical facts. Every pipeline stage reads from and writes back to this table. This design provides:</p>
+    <ul>
+      <li><strong>Single audit trail</strong> -- Every clinical fact has provenance (exact_quote, page_number, char_start/end)</li>
+      <li><strong>Cross-reference</strong> -- Diagnoses, medications, and labs can be linked via condition_group_id</li>
+      <li><strong>Review workflow</strong> -- Every assertion has review_status (pending/approved/rejected)</li>
+      <li><strong>Flexible querying</strong> -- Category-based filtering for diagnoses, vitals, labs, medications, etc.</li>
+    </ul>
+  </div>
+
+  <div class="diagram-box">
+                   <span class="highlight">+---------------------------+</span>
+                   <span class="highlight">|       ASSERTIONS          |</span>
+                   <span class="highlight">|      (Central Table)      |</span>
+                   <span class="highlight">+---------------------------+</span>
+                            |
+         +------------------+------------------+
+         |                  |                  |
+         v                  v                  v
+  <span class="hl-orange">+------------+</span>   <span class="hl-purple">+------------+</span>   <span class="hl-pink">+------------+</span>
+  <span class="hl-orange">| Payable    |</span>   <span class="hl-purple">| Condition  |</span>   <span class="hl-pink">| HEDIS      |</span>
+  <span class="hl-orange">| HCCs       |</span>   <span class="hl-purple">| Groups     |</span>   <span class="hl-pink">| Results    |</span>
+  <span class="hl-orange">+------------+</span>   <span class="hl-purple">+------------+</span>   <span class="hl-pink">+------------+</span>
+         |                                     |
+         v                                     v
+  <span class="hl-orange">+------------+</span>                          <span class="hl-pink">+------------+</span>
+  <span class="hl-orange">| RAF        |</span>                          <span class="hl-pink">| HEDIS      |</span>
+  <span class="hl-orange">| Summaries  |</span>                          <span class="hl-pink">| Summaries  |</span>
+  <span class="hl-orange">+------------+</span>                          <span class="hl-pink">+------------+</span></div>
+
+  <h2>MiniMax Single-Pass Extraction</h2>
+  <div class="card">
+    <p>The MiniMax architecture extracts ALL clinical assertion types in a single LLM call per text chunk, rather than running separate specialized pipelines. This provides:</p>
+    <ul>
+      <li><strong>Cost efficiency</strong> -- One API call vs. five separate pipeline calls per chunk</li>
+      <li><strong>Consistency</strong> -- Cross-category references are preserved within the same context window</li>
+      <li><strong>Speed</strong> -- Parallel chunk processing without pipeline coordination overhead</li>
+      <li><strong>Structured output</strong> -- JSON schema enforcement ensures consistent assertion shape</li>
+    </ul>
+    <h4>Extraction Categories</h4>
+    <p>Each assertion is classified into one of these categories:</p>
+    <div class="tag-row">
+      <span class="badge blue">diagnosis</span>
+      <span class="badge green">medication</span>
+      <span class="badge orange">vital_sign</span>
+      <span class="badge purple">lab_result</span>
+      <span class="badge cyan">procedure</span>
+      <span class="badge red">encounter</span>
+      <span class="badge blue">allergy</span>
+      <span class="badge green">social_history</span>
+      <span class="badge orange">family_history</span>
+      <span class="badge purple">screening</span>
+      <span class="badge cyan">immunization</span>
+    </div>
+  </div>
+
+  <h2>HCC Ensemble Strategy</h2>
+  <div class="card">
+    <p>RiskQ360 uses a multi-source ensemble for HCC identification, combining three evidence channels:</p>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <h4>LLM Direct Extraction</h4>
+          <p>MiniMax extraction outputs ICD-10 codes directly from clinical text. Good for obvious diagnoses but can hallucinate codes.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <h4>TF-IDF ICD Retrieval</h4>
+          <p>Matches clinical language to ICD-10 descriptions using TF-IDF similarity over the 7,903-code catalog. Finds correct code specificity.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <h4>BioClinicalBERT HCC Prediction</h4>
+          <p>Multi-label classifier predicts HCC categories directly from raw text. Catches patterns LLMs miss in long documents.</p>
+        </div>
+      </div>
+    </div>
+    <p>The ensemble merges candidates from all three sources, deduplicates, applies NegEx gating, and produces confidence-weighted final HCCs.</p>
+  </div>
+</section>
+
+<!-- ================================================================
+     TAB 8: DOCKER
+     ================================================================ -->
+<section class="tab-panel" id="panel-docker" data-search-label="Docker">
+  <h1>Docker Deployment</h1>
+  <p class="subtitle">Docker Compose orchestration with three services: PostgreSQL, FastAPI API, and React Frontend + Nginx.</p>
+
+  <h2>Services Overview</h2>
+  <div class="card-grid">
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent-green)">5432</div>
+      <div class="stat-label">PostgreSQL</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent-blue)">8006</div>
+      <div class="stat-label">FastAPI Backend</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color:var(--accent-purple)">3008</div>
+      <div class="stat-label">React Frontend</div>
+    </div>
+  </div>
+
+  <h2>Docker Compose Configuration</h2>
+  <pre><code><span class="cm"># docker-compose.yml</span>
+<span class="attr">version</span>: <span class="str">"3.9"</span>
+
+<span class="attr">services</span>:
+  <span class="cm"># PostgreSQL Database</span>
+  <span class="attr">db</span>:
+    <span class="attr">image</span>: <span class="str">postgres:16-alpine</span>
+    <span class="attr">container_name</span>: <span class="str">riskq360-db</span>
+    <span class="attr">restart</span>: <span class="str">unless-stopped</span>
+    <span class="attr">environment</span>:
+      <span class="attr">POSTGRES_DB</span>: <span class="str">${POSTGRES_DB:-medinsight360}</span>
+      <span class="attr">POSTGRES_USER</span>: <span class="str">${POSTGRES_USER:-postgres}</span>
+      <span class="attr">POSTGRES_PASSWORD</span>: <span class="str">${POSTGRES_PASSWORD:-postgres}</span>
+    <span class="attr">ports</span>:
+      - <span class="str">"${POSTGRES_PORT:-5432}:5432"</span>
+    <span class="attr">volumes</span>:
+      - <span class="str">riskq360_pgdata:/var/lib/postgresql/data</span>
+    <span class="attr">healthcheck</span>:
+      <span class="attr">test</span>: [<span class="str">"CMD-SHELL"</span>, <span class="str">"pg_isready -U ${POSTGRES_USER:-postgres}"</span>]
+      <span class="attr">interval</span>: <span class="num">10s</span>
+      <span class="attr">timeout</span>: <span class="num">5s</span>
+      <span class="attr">retries</span>: <span class="num">10</span>
+
+  <span class="cm"># FastAPI Backend</span>
+  <span class="attr">api</span>:
+    <span class="attr">build</span>:
+      <span class="attr">context</span>: <span class="str">./backend</span>
+      <span class="attr">dockerfile</span>: <span class="str">Dockerfile</span>
+    <span class="attr">container_name</span>: <span class="str">riskq360-api</span>
+    <span class="attr">restart</span>: <span class="str">unless-stopped</span>
+    <span class="attr">depends_on</span>:
+      <span class="attr">db</span>:
+        <span class="attr">condition</span>: <span class="str">service_healthy</span>
+    <span class="attr">env_file</span>: <span class="str">.env</span>
+    <span class="attr">environment</span>:
+      <span class="attr">DB_BACKEND</span>: <span class="str">postgres</span>
+      <span class="attr">POSTGRES_HOST</span>: <span class="str">db</span>
+      <span class="attr">POSTGRES_PORT</span>: <span class="num">5432</span>
+      <span class="attr">API_PORT</span>: <span class="num">8000</span>
+    <span class="attr">ports</span>:
+      - <span class="str">"8006:8000"</span>
+    <span class="attr">volumes</span>:
+      - <span class="str">./backend/uploads:/app/uploads</span>
+      - <span class="str">./backend/run_outputs:/app/run_outputs</span>
+      - <span class="str">./backend/input:/app/input</span>
+
+  <span class="cm"># React/Mantine Frontend + Nginx</span>
+  <span class="attr">frontend</span>:
+    <span class="attr">build</span>:
+      <span class="attr">context</span>: <span class="str">./frontend</span>
+      <span class="attr">dockerfile</span>: <span class="str">Dockerfile</span>
+    <span class="attr">container_name</span>: <span class="str">riskq360-frontend</span>
+    <span class="attr">restart</span>: <span class="str">unless-stopped</span>
+    <span class="attr">depends_on</span>:
+      <span class="attr">api</span>:
+        <span class="attr">condition</span>: <span class="str">service_healthy</span>
+    <span class="attr">ports</span>:
+      - <span class="str">"3008:80"</span>
+    <span class="attr">volumes</span>:
+      - <span class="str">./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro</span>
+
+<span class="attr">volumes</span>:
+  <span class="attr">riskq360_pgdata</span>:
+    <span class="attr">driver</span>: <span class="str">local</span></code></pre>
+
+  <h2>Service Details</h2>
+
+  <div class="docker-service">
+    <div class="docker-service-name">db (PostgreSQL 16 Alpine)</div>
+    <ul>
+      <li><strong>Image:</strong> <code>postgres:16-alpine</code></li>
+      <li><strong>Container:</strong> <code>riskq360-db</code></li>
+      <li><strong>Port:</strong> 5432 (host) to 5432 (container)</li>
+      <li><strong>Volume:</strong> <code>riskq360_pgdata</code> for persistent storage</li>
+      <li><strong>Health check:</strong> <code>pg_isready</code> every 10 seconds</li>
+    </ul>
+  </div>
+
+  <div class="docker-service">
+    <div class="docker-service-name">api (FastAPI + Uvicorn)</div>
+    <ul>
+      <li><strong>Build:</strong> <code>./backend/Dockerfile</code></li>
+      <li><strong>Container:</strong> <code>riskq360-api</code></li>
+      <li><strong>Port:</strong> 8006 (host) to 8000 (container)</li>
+      <li><strong>Depends on:</strong> db (healthy)</li>
+      <li><strong>Volumes:</strong> uploads, run_outputs, input directories</li>
+      <li><strong>Health check:</strong> <code>curl http://localhost:8000/</code> every 15 seconds</li>
+    </ul>
+  </div>
+
+  <div class="docker-service">
+    <div class="docker-service-name">frontend (React + Nginx)</div>
+    <ul>
+      <li><strong>Build:</strong> <code>./frontend/Dockerfile</code> (multi-stage: Node build + Nginx serve)</li>
+      <li><strong>Container:</strong> <code>riskq360-frontend</code></li>
+      <li><strong>Port:</strong> 3008 (host) to 80 (container/Nginx)</li>
+      <li><strong>Depends on:</strong> api (healthy)</li>
+      <li><strong>Nginx config:</strong> <code>./nginx/default.conf</code> (reverse proxy /api to backend)</li>
+    </ul>
+  </div>
+
+  <h2>Build and Run</h2>
+  <pre><code><span class="cm"># Build all images</span>
+docker compose build
+
+<span class="cm"># Start all services (detached)</span>
+docker compose up -d
+
+<span class="cm"># View logs</span>
+docker compose logs -f
+
+<span class="cm"># Stop all services</span>
+docker compose down
+
+<span class="cm"># Full rebuild (no cache)</span>
+docker compose build --no-cache
+docker compose up -d</code></pre>
+
+  <h2>Environment Variables</h2>
+  <p>Create a <code>.env</code> file at the project root. See the <strong>Configuration</strong> tab for all available variables.</p>
+
+  <div class="note-box warn">
+    <span class="note-icon">&#9888;</span>
+    <div>Never commit <code>.env</code> files with real API keys to version control. Use <code>.env.example</code> as a template.</div>
+  </div>
+</section>
+
+<!-- ================================================================
+     TAB 9: SETUP GUIDE
+     ================================================================ -->
+<section class="tab-panel" id="panel-setup" data-search-label="Setup Guide">
+  <h1>Setup Guide</h1>
+  <p class="subtitle">Step-by-step instructions for development and production deployment.</p>
+
+  <h2>Prerequisites</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header"><div class="card-icon green">Py</div><div class="card-title">Python 3.12+</div></div>
+      <p>Required for the FastAPI backend. Includes pip and venv.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-icon blue">N</div><div class="card-title">Node.js 20+</div></div>
+      <p>Required for the React frontend build. Includes npm.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-icon orange">PG</div><div class="card-title">PostgreSQL 16</div></div>
+      <p>Database server. Can run locally or via Docker.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-icon purple">D</div><div class="card-title">Docker (Optional)</div></div>
+      <p>For containerized deployment. Docker Desktop or Docker Engine + Compose.</p>
+    </div>
+  </div>
+
+  <h2>Option A: Docker Deployment (Recommended)</h2>
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <h4>Clone the Repository</h4>
+        <pre><code>git clone &lt;repository-url&gt; RiskQ360_FINAL_VERSION
+cd RiskQ360_FINAL_VERSION</code></pre>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <h4>Configure Environment</h4>
+        <pre><code>cp .env.example .env
+<span class="cm"># Edit .env with your API keys and settings</span></code></pre>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <h4>Build and Start</h4>
+        <pre><code>docker compose up -d --build</code></pre>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <h4>Verify</h4>
+        <pre><code><span class="cm"># Check all services are running</span>
+docker compose ps
+
+<span class="cm"># Backend API: http://localhost:8006</span>
+<span class="cm"># Frontend UI: http://localhost:3008</span>
+<span class="cm"># PostgreSQL:  localhost:5432</span></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <h2>Option B: Local Development</h2>
+
+  <h3>1. Database Setup</h3>
+  <pre><code><span class="cm"># Start PostgreSQL (Docker or local)</span>
+docker run -d --name riskq360-db \
+  -e POSTGRES_DB=medinsight360 \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -p 5432:5432 \
+  postgres:16-alpine
+
+<span class="cm"># Or use an existing PostgreSQL installation</span>
+createdb medinsight360</code></pre>
+
+  <h3>2. Backend Setup</h3>
+  <pre><code><span class="cm"># Navigate to backend</span>
+cd backend
+
+<span class="cm"># Create virtual environment</span>
+python -m venv venv
+
+<span class="cm"># Activate (Linux/Mac)</span>
+source venv/bin/activate
+<span class="cm"># Activate (Windows)</span>
+venv\Scripts\activate
+
+<span class="cm"># Install dependencies</span>
+pip install -r requirements.txt
+
+<span class="cm"># Configure environment</span>
+cp .env.example .env
+<span class="cm"># Edit .env with database credentials and API keys</span>
+
+<span class="cm"># Run database migrations</span>
+alembic upgrade head
+
+<span class="cm"># Start the API server</span>
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload</code></pre>
+
+  <h3>3. Frontend Setup</h3>
+  <pre><code><span class="cm"># Navigate to frontend</span>
+cd frontend
+
+<span class="cm"># Install dependencies</span>
+npm install
+
+<span class="cm"># Configure API URL</span>
+<span class="cm"># Create .env.local with:</span>
+<span class="cm"># VITE_API_BASE_URL=http://localhost:8000/api</span>
+
+<span class="cm"># Start dev server</span>
+npm run dev
+
+<span class="cm"># Build for production</span>
+npm run build</code></pre>
+
+  <h2>Post-Setup Verification</h2>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Check</th><th>URL / Command</th><th>Expected Result</th></tr></thead>
+    <tbody>
+      <tr><td>API Health</td><td><code>curl http://localhost:8006/</code></td><td>JSON response with version info</td></tr>
+      <tr><td>API Docs</td><td><code>http://localhost:8006/docs</code></td><td>Swagger UI</td></tr>
+      <tr><td>Frontend</td><td><code>http://localhost:3008</code></td><td>Login page</td></tr>
+      <tr><td>DB Connection</td><td><code>curl http://localhost:8006/api/dashboard/db-stats</code></td><td>Table row counts</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================
+     TAB 10: CONFIGURATION
+     ================================================================ -->
+<section class="tab-panel" id="panel-config" data-search-label="Configuration">
+  <h1>Configuration Reference</h1>
+  <p class="subtitle">All environment variables, feature flags, LLM settings, pipeline parameters, and HEDIS configuration.</p>
+
+  <h2>Environment Variables</h2>
+
+  <h3>Database</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="env-var">POSTGRES_HOST</span></td><td><span class="env-default">localhost</span></td><td>PostgreSQL host</td></tr>
+      <tr><td><span class="env-var">POSTGRES_PORT</span></td><td><span class="env-default">5432</span></td><td>PostgreSQL port</td></tr>
+      <tr><td><span class="env-var">POSTGRES_DB</span></td><td><span class="env-default">medinsight360</span></td><td>Database name</td></tr>
+      <tr><td><span class="env-var">POSTGRES_USER</span></td><td><span class="env-default">medinsight</span></td><td>Database user</td></tr>
+      <tr><td><span class="env-var">POSTGRES_PASSWORD</span></td><td><span class="env-default">change_me_in_production</span></td><td>Database password</td></tr>
+      <tr><td><span class="env-var">DATABASE_POOL_SIZE</span></td><td><span class="env-default">10</span></td><td>Connection pool size</td></tr>
+      <tr><td><span class="env-var">DATABASE_MAX_OVERFLOW</span></td><td><span class="env-default">20</span></td><td>Max overflow connections</td></tr>
+      <tr><td><span class="env-var">DB_BACKEND</span></td><td><span class="env-default">auto</span></td><td>Database backend: auto | postgres | sqlite</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>LLM Providers</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="env-var">ACTIVE_LLM_PROVIDER</span></td><td><span class="env-default">openai</span></td><td>Active provider: openai | azure | gemini</td></tr>
+      <tr><td><span class="env-var">ACTIVE_LLM_MODEL</span></td><td><span class="env-default">gpt-4o</span></td><td>Model name</td></tr>
+      <tr><td><span class="env-var">LLM_TEMPERATURE</span></td><td><span class="env-default">0.1</span></td><td>Temperature for LLM calls</td></tr>
+      <tr><td><span class="env-var">LLM_MAX_TOKENS</span></td><td><span class="env-default">16384</span></td><td>Max output tokens</td></tr>
+      <tr><td><span class="env-var">LLM_TIMEOUT</span></td><td><span class="env-default">120</span></td><td>LLM call timeout (seconds)</td></tr>
+      <tr><td><span class="env-var">OPENAI_API_KEY</span></td><td><span class="env-default">(empty)</span></td><td>OpenAI API key</td></tr>
+      <tr><td><span class="env-var">OPENAI_BASE_URL</span></td><td><span class="env-default">(empty)</span></td><td>Custom OpenAI base URL</td></tr>
+      <tr><td><span class="env-var">AZURE_OPENAI_ENDPOINT</span></td><td><span class="env-default">(empty)</span></td><td>Azure endpoint URL</td></tr>
+      <tr><td><span class="env-var">AZURE_OPENAI_KEY</span></td><td><span class="env-default">(empty)</span></td><td>Azure API key</td></tr>
+      <tr><td><span class="env-var">AZURE_OPENAI_DEPLOYMENT</span></td><td><span class="env-default">gpt-4o</span></td><td>Azure deployment name</td></tr>
+      <tr><td><span class="env-var">AZURE_OPENAI_API_VERSION</span></td><td><span class="env-default">2024-08-06</span></td><td>Azure API version</td></tr>
+      <tr><td><span class="env-var">GOOGLE_GEMINI_KEY</span></td><td><span class="env-default">(empty)</span></td><td>Google Gemini API key</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>ML Models</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="env-var">ML_MODEL_PATH</span></td><td><span class="env-default">./ml_engine/models/bioclinicalbert</span></td><td>BioClinicalBERT model directory</td></tr>
+      <tr><td><span class="env-var">TFIDF_VECTORIZER_PATH</span></td><td><span class="env-default">./ml_engine/models/tfidf_vectorizer.pkl</span></td><td>Fitted TF-IDF vectorizer</td></tr>
+      <tr><td><span class="env-var">ICD_CATALOG_PATH</span></td><td><span class="env-default">./ml_engine/models/icd10_catalog.json</span></td><td>ICD-10-CM catalog (7,903 codes)</td></tr>
+      <tr><td><span class="env-var">ML_CONFIDENCE_THRESHOLD</span></td><td><span class="env-default">0.3</span></td><td>Min confidence for ML predictions</td></tr>
+      <tr><td><span class="env-var">TFIDF_SIMILARITY_THRESHOLD</span></td><td><span class="env-default">0.35</span></td><td>Min TF-IDF similarity for ICD retrieval</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Pipeline Settings</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="env-var">MAX_CONCURRENT_CHARTS</span></td><td><span class="env-default">3</span></td><td>Max charts processed in parallel</td></tr>
+      <tr><td><span class="env-var">MAX_CONCURRENT_PIPELINES</span></td><td><span class="env-default">5</span></td><td>Max pipeline workers</td></tr>
+      <tr><td><span class="env-var">CHUNK_SIZE</span></td><td><span class="env-default">10000</span></td><td>Text chunk size (characters)</td></tr>
+      <tr><td><span class="env-var">CHUNK_OVERLAP</span></td><td><span class="env-default">500</span></td><td>Chunk overlap (characters)</td></tr>
+      <tr><td><span class="env-var">QUALITY_THRESHOLD</span></td><td><span class="env-default">60</span></td><td>Page quality threshold for OCR (0-100)</td></tr>
+      <tr><td><span class="env-var">LLM_VERIFICATION_THRESHOLD</span></td><td><span class="env-default">0.5</span></td><td>Min LLM verification confidence</td></tr>
+      <tr><td><span class="env-var">MEASUREMENT_YEAR</span></td><td><span class="env-default">2026</span></td><td>HEDIS/RAF measurement year</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Server</h3>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="env-var">API_HOST</span></td><td><span class="env-default">0.0.0.0</span></td><td>API bind host</td></tr>
+      <tr><td><span class="env-var">API_PORT</span></td><td><span class="env-default">8000</span></td><td>API bind port</td></tr>
+      <tr><td><span class="env-var">LOG_LEVEL</span></td><td><span class="env-default">INFO</span></td><td>Log level: DEBUG | INFO | WARNING | ERROR</td></tr>
+      <tr><td><span class="env-var">LOG_FORMAT</span></td><td><span class="env-default">json</span></td><td>Log format (json for structured)</td></tr>
+      <tr><td><span class="env-var">SECRET_KEY</span></td><td><span class="env-default">(change me)</span></td><td>Application secret key</td></tr>
+      <tr><td><span class="env-var">CORS_ORIGINS</span></td><td><span class="env-default">http://localhost:3000,...</span></td><td>Allowed CORS origins</td></tr>
+      <tr><td><span class="env-var">ENABLE_AUTH</span></td><td><span class="env-default">false</span></td><td>Enable authentication</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Feature Flags</h2>
+  <p>Feature flags can be set via environment variables (prefix <code>ENABLE_</code>) or toggled at runtime via the API/dashboard.</p>
+
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Flag</th><th>Env Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>risk_adjustment</code></td><td><span class="env-var">ENABLE_RISK_ADJUSTMENT</span></td><td><span class="badge green">true</span></td><td>Enable HCC/RAF risk adjustment pipeline</td></tr>
+      <tr><td><code>hedis</code></td><td><span class="env-var">ENABLE_HEDIS</span></td><td><span class="badge green">true</span></td><td>Enable HEDIS quality measure evaluation</td></tr>
+      <tr><td><code>ml_predictions</code></td><td><span class="env-var">ENABLE_ML_PREDICTIONS</span></td><td><span class="badge green">true</span></td><td>Enable BioClinicalBERT and TF-IDF</td></tr>
+      <tr><td><code>llm_verification</code></td><td><span class="env-var">ENABLE_LLM_VERIFICATION</span></td><td><span class="badge green">true</span></td><td>Enable LLM verification of ICD codes</td></tr>
+      <tr><td><code>ocr_fallback</code></td><td><span class="env-var">ENABLE_OCR_FALLBACK</span></td><td><span class="badge green">true</span></td><td>Enable GPT-4o Vision OCR for low-quality pages</td></tr>
+      <tr><td><code>parallel_pipelines</code></td><td><span class="env-var">ENABLE_PARALLEL_PIPELINES</span></td><td><span class="badge green">true</span></td><td>Enable parallel chunk processing</td></tr>
+      <tr><td><code>audit_logging</code></td><td><span class="env-var">ENABLE_AUDIT_LOGGING</span></td><td><span class="badge green">true</span></td><td>Enable detailed audit logging</td></tr>
+      <tr><td><code>dashboard</code></td><td><span class="env-var">ENABLE_DASHBOARD</span></td><td><span class="badge green">true</span></td><td>Enable dashboard endpoints</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Pipeline Mode Presets</h2>
+  <p>Pipeline modes automatically toggle feature flags for common workflows:</p>
+  <div class="table-wrapper"><table>
+    <thead><tr><th>Mode</th><th>risk_adjustment</th><th>hedis</th><th>ml_predictions</th><th>llm_verification</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge blue">full</span></td><td><span class="badge green">on</span></td><td><span class="badge green">on</span></td><td><span class="badge green">on</span></td><td><span class="badge green">on</span></td></tr>
+      <tr><td><span class="badge orange">risk_only</span></td><td><span class="badge green">on</span></td><td><span class="badge red">off</span></td><td><span class="badge green">on</span></td><td><span class="badge green">on</span></td></tr>
+      <tr><td><span class="badge purple">hedis_only</span></td><td><span class="badge red">off</span></td><td><span class="badge green">on</span></td><td><span class="badge red">off</span></td><td><span class="badge red">off</span></td></tr>
+      <tr><td><span class="badge cyan">hcc_pack</span></td><td><span class="badge green">on</span></td><td><span class="badge red">off</span></td><td><span class="badge green">on</span></td><td><span class="badge green">on</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>LLM Configuration</h2>
+  <div class="card">
+    <h3>Provider Selection</h3>
+    <p>Set <code>ACTIVE_LLM_PROVIDER</code> to one of:</p>
+    <ul>
+      <li><code>openai</code> -- Direct OpenAI API (requires <code>OPENAI_API_KEY</code>)</li>
+      <li><code>azure</code> -- Azure OpenAI Service (requires <code>AZURE_OPENAI_ENDPOINT</code>, <code>AZURE_OPENAI_KEY</code>)</li>
+      <li><code>gemini</code> -- Google Gemini (requires <code>GOOGLE_GEMINI_KEY</code>)</li>
+    </ul>
+    <p>The provider can be changed at runtime via the Configuration API or dashboard without restarting the server.</p>
+  </div>
+
+  <h2>HEDIS Configuration</h2>
+  <div class="card">
+    <h3>Measurement Year</h3>
+    <p>Set via <code>MEASUREMENT_YEAR</code> environment variable (default: 2026). This controls which HEDIS measure definitions are active and what date ranges are evaluated.</p>
+    <h3>Measure Definitions</h3>
+    <p>HEDIS measures are stored in the <code>hedis_measure_definitions</code> table and loaded from YAML files at startup. Measures can be enabled/disabled per profile via the API.</p>
+    <h3>Value Sets</h3>
+    <p>Code value sets for each measure are stored in <code>hedis_valuesets</code> with code_system and payload_json containing the actual codes (ICD-10, CPT, LOINC, etc.).</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ================================================================
+     FOOTER
+     ================================================================ -->
+<footer class="site-footer">
+  <span class="version">RiskQ360 v1.0.0</span> &mdash; AI-Powered Clinical Documentation Analytics<br>
+  Generated 2026-03-26
+</footer>
+
+<!-- ================================================================
+     JAVASCRIPT
+     ================================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // -------------------------------------------------------------------
+  // Tab Switching
+  // -------------------------------------------------------------------
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  function activateTab(tabId) {
+    tabBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tabId);
+    });
+    panels.forEach(panel => {
+      panel.classList.toggle('active', panel.id === 'panel-' + tabId);
+    });
+    // Scroll to top of content
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+  });
+
+  // -------------------------------------------------------------------
+  // Search Functionality
+  // -------------------------------------------------------------------
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  // Build search index from all tab panels
+  const searchIndex = [];
+  panels.forEach(panel => {
+    const tabLabel = panel.dataset.searchLabel || panel.id.replace('panel-', '');
+    const tabId = panel.id.replace('panel-', '');
+
+    // Index headings
+    panel.querySelectorAll('h1, h2, h3, h4').forEach(heading => {
+      searchIndex.push({
+        tab: tabLabel,
+        tabId: tabId,
+        text: heading.textContent.trim(),
+        type: 'heading',
+        el: heading
+      });
+    });
+
+    // Index table cells with code
+    panel.querySelectorAll('code').forEach(code => {
+      const text = code.textContent.trim();
+      if (text.length > 2 && text.length < 100 && !text.includes('\n')) {
+        searchIndex.push({
+          tab: tabLabel,
+          tabId: tabId,
+          text: text,
+          type: 'code',
+          el: code.closest('tr') || code.closest('p') || code.parentElement
+        });
+      }
+    });
+
+    // Index endpoint paths
+    panel.querySelectorAll('.endpoint-path').forEach(ep => {
+      searchIndex.push({
+        tab: tabLabel,
+        tabId: tabId,
+        text: ep.textContent.trim(),
+        type: 'endpoint',
+        el: ep.closest('.endpoint-card')
+      });
+    });
+
+    // Index schema names
+    panel.querySelectorAll('.schema-name').forEach(sn => {
+      searchIndex.push({
+        tab: tabLabel,
+        tabId: tabId,
+        text: sn.textContent.trim(),
+        type: 'schema',
+        el: sn.closest('.schema-card')
+      });
+    });
+  });
+
+  function performSearch(query) {
+    if (!query || query.length < 2) {
+      searchResults.classList.remove('active');
+      return;
+    }
+
+    const lower = query.toLowerCase();
+    const matches = searchIndex.filter(item =>
+      item.text.toLowerCase().includes(lower)
+    ).slice(0, 15);
+
+    if (matches.length === 0) {
+      searchResults.innerHTML = '<div style="padding:16px;color:var(--text-muted);text-align:center;">No results found</div>';
+      searchResults.classList.add('active');
+      return;
+    }
+
+    searchResults.innerHTML = matches.map((m, i) => {
+      const highlighted = m.text.replace(
+        new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'),
+        '<mark>$1</mark>'
+      );
+      return `<div class="search-result-item" data-index="${i}">
+        <div class="search-result-tab">${m.tab} &middot; ${m.type}</div>
+        <div class="search-result-text">${highlighted}</div>
+      </div>`;
+    }).join('');
+
+    searchResults.classList.add('active');
+
+    // Click handler for results
+    searchResults.querySelectorAll('.search-result-item').forEach((item, i) => {
+      item.addEventListener('click', () => {
+        const match = matches[i];
+        activateTab(match.tabId);
+        searchResults.classList.remove('active');
+        searchInput.value = '';
+
+        // Scroll to element after tab switch
+        setTimeout(() => {
+          if (match.el) {
+            match.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            match.el.style.outline = '2px solid var(--accent-blue)';
+            match.el.style.outlineOffset = '4px';
+            setTimeout(() => {
+              match.el.style.outline = '';
+              match.el.style.outlineOffset = '';
+            }, 2000);
+          }
+        }, 100);
+      });
+    });
+  }
+
+  searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+
+  // Close search on click outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
+      searchResults.classList.remove('active');
+    }
+  });
+
+  // Keyboard shortcut: / to focus search
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+    }
+    if (e.key === 'Escape') {
+      searchResults.classList.remove('active');
+      searchInput.blur();
+    }
+  });
+
+  // -------------------------------------------------------------------
+  // Endpoint Card Toggle (already handled inline, this is a fallback)
+  // -------------------------------------------------------------------
+  // The onclick on endpoint-card handles toggling via classList.toggle('open')
+
+})();
+</script>
+
+</body>
+</html>

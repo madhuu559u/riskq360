@@ -1,0 +1,32 @@
+{
+    "id": "VS_INFLUENZA_VACCINE_CVX",
+    "name": "Influenza Vaccine CVX Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for influenza (flu) vaccines including inactivated, live attenuated, recombinant, cell-culture, and high-dose formulations. Used in childhood immunization status (CIS), adult immunization (AIS), and annual influenza vaccination measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "135", "code_system": "cvx", "description": "Influenza, high dose seasonal, preservative-free (Fluzone High-Dose)"},
+        {"code": "140", "code_system": "cvx", "description": "Influenza, seasonal, injectable, preservative free"},
+        {"code": "141", "code_system": "cvx", "description": "Influenza, seasonal, injectable"},
+        {"code": "150", "code_system": "cvx", "description": "Influenza, injectable, quadrivalent, preservative free"},
+        {"code": "153", "code_system": "cvx", "description": "Influenza, injectable, Madin Darby Canine Kidney (MDCK), preservative free (Flucelvax)"},
+        {"code": "155", "code_system": "cvx", "description": "Influenza, recombinant, injectable, preservative free (Flublok)"},
+        {"code": "158", "code_system": "cvx", "description": "Influenza, injectable, quadrivalent, contains preservative"},
+        {"code": "161", "code_system": "cvx", "description": "Influenza, injectable, quadrivalent, preservative free, pediatric"},
+        {"code": "168", "code_system": "cvx", "description": "Influenza, trivalent, adjuvanted (Fluad)"},
+        {"code": "171", "code_system": "cvx", "description": "Influenza, injectable, MDCK, preservative free, quadrivalent (Flucelvax Quadrivalent)"},
+        {"code": "185", "code_system": "cvx", "description": "Influenza, recombinant, quadrivalent, injectable, preservative free (Flublok Quadrivalent)"},
+        {"code": "186", "code_system": "cvx", "description": "Influenza, injectable, MDCK, quadrivalent, preservative (Flucelvax Quadrivalent)"},
+        {"code": "197", "code_system": "cvx", "description": "Influenza, high-dose seasonal, quadrivalent, preservative free (Fluzone High-Dose Quadrivalent)"},
+        {"code": "205", "code_system": "cvx", "description": "Influenza, seasonal vaccine, quadrivalent, adjuvanted (Fluad Quadrivalent)"},
+        {"code": "111", "code_system": "cvx", "description": "Influenza, live, intranasal (FluMist)"},
+        {"code": "149", "code_system": "cvx", "description": "Influenza, live, intranasal, quadrivalent (FluMist Quadrivalent)"},
+        {"code": "88", "code_system": "cvx", "description": "Influenza virus vaccine, unspecified formulation"},
+        {"code": "90686", "code_system": "cpt", "description": "Influenza virus vaccine, quadrivalent (IIV4), split virus, preservative free, for intramuscular use"},
+        {"code": "90688", "code_system": "cpt", "description": "Influenza virus vaccine, quadrivalent (IIV4), split virus, for intramuscular use"},
+        {"code": "90694", "code_system": "cpt", "description": "Influenza virus vaccine, quadrivalent (ccIIV4), derived from cell cultures, preservative free, for intramuscular use"},
+        {"code": "90756", "code_system": "cpt", "description": "Influenza virus vaccine, quadrivalent (ccIIV4), derived from cell cultures, preservative free, 0.5 mL dosage, for intramuscular use"},
+        {"code": "90662", "code_system": "cpt", "description": "Influenza virus vaccine, split virus, preservative free, enhanced immunogenicity via increased antigen content, for intramuscular use (high-dose)"}
+    ]
+}

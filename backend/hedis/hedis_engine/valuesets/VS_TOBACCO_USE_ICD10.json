@@ -1,0 +1,22 @@
+{
+    "id": "VS_TOBACCO_USE_ICD10",
+    "name": "Tobacco/Nicotine Use Disorder Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for tobacco use, nicotine dependence, and related disorders. Used to identify current tobacco users in the tobacco screening and cessation measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "F17.200", "description": "Nicotine dependence, unspecified, uncomplicated"},
+        {"code": "F17.201", "description": "Nicotine dependence, unspecified, in remission"},
+        {"code": "F17.210", "description": "Nicotine dependence, cigarettes, uncomplicated"},
+        {"code": "F17.211", "description": "Nicotine dependence, cigarettes, in remission"},
+        {"code": "F17.220", "description": "Nicotine dependence, chewing tobacco, uncomplicated"},
+        {"code": "F17.221", "description": "Nicotine dependence, chewing tobacco, in remission"},
+        {"code": "F17.290", "description": "Nicotine dependence, other tobacco product, uncomplicated"},
+        {"code": "F17.291", "description": "Nicotine dependence, other tobacco product, in remission"},
+        {"code": "Z72.0", "description": "Tobacco use"},
+        {"code": "Z87.891", "description": "Personal history of nicotine dependence"},
+        {"code": "T65.211A", "description": "Toxic effect of chewing tobacco, accidental (unintentional), initial encounter"},
+        {"code": "T65.221A", "description": "Toxic effect of tobacco cigarettes, accidental (unintentional), initial encounter"}
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "id": "VS_OBESITY_ICD10",
+    "name": "Obesity Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for overweight and obesity diagnoses. Used in BMI-related counseling measures and as comorbidity identifiers in various quality measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "E66.01", "description": "Morbid (severe) obesity due to excess calories"},
+        {"code": "E66.09", "description": "Other obesity due to excess calories"},
+        {"code": "E66.1", "description": "Drug-induced obesity"},
+        {"code": "E66.2", "description": "Morbid (severe) obesity with alveolar hypoventilation"},
+        {"code": "E66.3", "description": "Overweight"},
+        {"code": "E66.8", "description": "Other obesity"},
+        {"code": "E66.9", "description": "Obesity, unspecified"},
+        {"code": "Z68.30", "description": "Body mass index [BMI] 30.0-30.9, adult"},
+        {"code": "Z68.35", "description": "Body mass index [BMI] 35.0-35.9, adult"},
+        {"code": "Z68.39", "description": "Body mass index [BMI] 39.0-39.9, adult"},
+        {"code": "Z68.41", "description": "Body mass index [BMI] 40.0-44.9, adult"},
+        {"code": "Z68.42", "description": "Body mass index [BMI] 45.0-49.9, adult"},
+        {"code": "Z68.43", "description": "Body mass index [BMI] 50.0-59.9, adult"},
+        {"code": "Z68.44", "description": "Body mass index [BMI] 60.0-69.9, adult"},
+        {"code": "Z68.45", "description": "Body mass index [BMI] 70 or greater, adult"}
+    ]
+}

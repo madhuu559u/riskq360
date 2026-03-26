@@ -1,0 +1,25 @@
+{
+    "id": "VS_SUD_OUTPATIENT_CPT",
+    "name": "Substance Use Disorder Outpatient Treatment Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "HCPCS and CPT codes for substance use disorder (SUD) outpatient treatment services including assessment, individual and group counseling, intensive outpatient programs, and screening/brief intervention. Used in initiation and engagement of substance use disorder treatment (IET) and follow-up after ED visit for substance use (FUA) measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "H0001", "code_system": "hcpcs", "description": "Alcohol and/or drug assessment"},
+        {"code": "H0004", "code_system": "hcpcs", "description": "Behavioral health counseling and therapy, per 15 minutes"},
+        {"code": "H0005", "code_system": "hcpcs", "description": "Alcohol and/or drug services; group counseling by a clinician"},
+        {"code": "H0006", "code_system": "hcpcs", "description": "Alcohol and/or drug services; case management"},
+        {"code": "H0007", "code_system": "hcpcs", "description": "Alcohol and/or drug services; crisis intervention (outpatient)"},
+        {"code": "H0015", "code_system": "hcpcs", "description": "Alcohol and/or drug services; intensive outpatient (treatment program)"},
+        {"code": "H0020", "code_system": "hcpcs", "description": "Alcohol and/or drug services; methadone administration and/or service"},
+        {"code": "H0022", "code_system": "hcpcs", "description": "Alcohol and/or drug intervention service (planned clinical services)"},
+        {"code": "H2035", "code_system": "hcpcs", "description": "Alcohol and/or other drug treatment program, per hour"},
+        {"code": "99408", "code_system": "cpt", "description": "Alcohol and/or substance abuse structured screening and brief intervention; 15-30 minutes"},
+        {"code": "99409", "code_system": "cpt", "description": "Alcohol and/or substance abuse structured screening and brief intervention; greater than 30 minutes"},
+        {"code": "G0396", "code_system": "hcpcs", "description": "Alcohol and/or substance abuse structured screening and brief intervention, 15-30 minutes"},
+        {"code": "G0397", "code_system": "hcpcs", "description": "Alcohol and/or substance abuse structured screening and brief intervention, greater than 30 minutes"},
+        {"code": "G2086", "code_system": "hcpcs", "description": "Office-based treatment for opioid use disorder, first 70 minutes"},
+        {"code": "G2087", "code_system": "hcpcs", "description": "Office-based treatment for opioid use disorder, each additional 30 minutes"}
+    ]
+}

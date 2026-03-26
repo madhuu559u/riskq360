@@ -1,0 +1,17 @@
+{
+    "id": "VS_TD_VACCINE_CVX",
+    "name": "Td/Tdap Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for tetanus-diphtheria (Td) and tetanus-diphtheria-acellular pertussis (Tdap) vaccines. Used in adult and adolescent immunization quality measures for tetanus and pertussis vaccination.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "115", "code_system": "cvx", "description": "Tetanus toxoid, reduced diphtheria toxoid, and acellular pertussis vaccine, adsorbed (Tdap)"},
+        {"code": "138", "code_system": "cvx", "description": "Tetanus and diphtheria toxoids, adsorbed, preservative free, for adult use (Td)"},
+        {"code": "139", "code_system": "cvx", "description": "Tetanus and diphtheria toxoids, adsorbed (Td)"},
+        {"code": "09", "code_system": "cvx", "description": "Tetanus and diphtheria toxoids, adsorbed, for adult use"},
+        {"code": "113", "code_system": "cvx", "description": "Tetanus and diphtheria toxoids, not adsorbed, for adult use"},
+        {"code": "90714", "code_system": "cpt", "description": "Tetanus and diphtheria toxoids adsorbed (Td), preservative free, when administered to individuals 7 years or older, for intramuscular use"},
+        {"code": "90715", "code_system": "cpt", "description": "Tetanus, diphtheria toxoids and acellular pertussis vaccine (Tdap), when administered to individuals 7 years or older, for intramuscular use"}
+    ]
+}

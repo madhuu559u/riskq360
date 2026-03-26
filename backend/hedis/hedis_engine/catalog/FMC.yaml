@@ -1,0 +1,52 @@
+id: "FMC"
+name: "Follow-Up After Emergency Department Visit for People with Multiple High-Risk Chronic Conditions"
+version: "2025"
+domain: "care_coordination"
+description: >
+  Assesses whether members aged 18 and older with multiple high-risk
+  chronic conditions (such as heart failure, COPD, diabetes with
+  complications, chronic kidney disease, and other complex chronic
+  illnesses) who had an emergency department visit received a follow-up
+  outpatient visit within 7 days of the ED visit. Patients with multiple
+  chronic conditions are at elevated risk for fragmented care, adverse
+  outcomes, and repeated ED utilization. Timely post-ED follow-up is
+  critical for care coordination, medication reconciliation, and
+  preventing avoidable hospital admissions. This measure uses a 1-month
+  window approximation due to data granularity limitations.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_MULTIPLE_CHRONIC_CONDITIONS_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+  requires_encounter:
+    encounter_types: ["emergency"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "encounter"
+      encounter_types: ["outpatient", "telehealth"]
+      window_months: 12
+      description: "Outpatient or telehealth follow-up after ED visit for multiple chronic conditions during measurement year"
+
+valuesets_needed:
+  - VS_MULTIPLE_CHRONIC_CONDITIONS_ICD10
+  - VS_ED_ENCOUNTER
+  - VS_OUTPATIENT_FOLLOWUP_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

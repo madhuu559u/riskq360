@@ -1,0 +1,22 @@
+{
+    "id": "VS_WELL_CHILD_CPT",
+    "name": "Well-Child Visit Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for well-child visits and preventive medicine services for children (ages 0-17). Used in well-child visit measures (W15, W34) and as qualifying encounters for pediatric screening measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99381", "code_system": "cpt", "description": "Initial comprehensive preventive medicine evaluation, infant (age younger than 1 year)"},
+        {"code": "99382", "code_system": "cpt", "description": "Initial comprehensive preventive medicine evaluation, early childhood (age 1-4 years)"},
+        {"code": "99383", "code_system": "cpt", "description": "Initial comprehensive preventive medicine evaluation, late childhood (age 5-11 years)"},
+        {"code": "99384", "code_system": "cpt", "description": "Initial comprehensive preventive medicine evaluation, adolescent (age 12-17 years)"},
+        {"code": "99391", "code_system": "cpt", "description": "Periodic comprehensive preventive medicine evaluation, infant (age younger than 1 year)"},
+        {"code": "99392", "code_system": "cpt", "description": "Periodic comprehensive preventive medicine evaluation, early childhood (age 1-4 years)"},
+        {"code": "99393", "code_system": "cpt", "description": "Periodic comprehensive preventive medicine evaluation, late childhood (age 5-11 years)"},
+        {"code": "99394", "code_system": "cpt", "description": "Periodic comprehensive preventive medicine evaluation, adolescent (age 12-17 years)"},
+        {"code": "99461", "code_system": "cpt", "description": "Initial care, per day, for evaluation and management of normal newborn infant"},
+        {"code": "G0438", "code_system": "hcpcs", "description": "Annual wellness visit; includes a health risk assessment, first visit"},
+        {"code": "G0439", "code_system": "hcpcs", "description": "Annual wellness visit; includes a health risk assessment, subsequent visit"},
+        {"code": "99460", "code_system": "cpt", "description": "Initial hospital or birthing center care, per day, for evaluation and management of normal newborn infant"}
+    ]
+}

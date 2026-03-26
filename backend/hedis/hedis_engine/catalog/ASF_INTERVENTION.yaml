@@ -1,0 +1,54 @@
+id: "ASF-INTERVENTION"
+name: "Alcohol Brief Intervention"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether adults aged 18 and older who had an outpatient encounter
+  and a positive alcohol screening during the measurement year received a
+  brief counseling intervention. Brief interventions for unhealthy alcohol
+  use typically include feedback on screening results, advice to reduce
+  consumption, motivational interviewing techniques, and goal setting.
+  Evidence demonstrates that brief interventions in primary care settings
+  reduce alcohol consumption and related harms. This measure complements
+  the alcohol screening measure (ASF-SCREENING) by assessing follow-up
+  care for those who screen positive.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+  requires_procedure:
+    valueset: "VS_ALCOHOL_SCREENING_CPT"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_DEMENTIA_ICD10"
+    lookback_months: 24
+    description: "Dementia diagnosis (unable to reliably participate in counseling)"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_ALCOHOL_COUNSELING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_ALCOHOL_SCREENING_CPT
+  - VS_ALCOHOL_COUNSELING_CPT
+  - VS_HOSPICE
+  - VS_DEMENTIA_ICD10
+
+data_sources:
+  - "claims"
+  - "encounters"

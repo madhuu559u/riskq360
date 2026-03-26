@@ -1,0 +1,15 @@
+{
+    "id": "VS_GROUP_A_STREP_CPT",
+    "name": "Group A Streptococcus Testing Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for Group A streptococcus testing including rapid antigen detection tests, throat cultures, and nucleic acid amplification tests. Used in the appropriate testing for pharyngitis (CWP) measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "87880", "code_system": "cpt", "description": "Infectious agent antigen detection by immunoassay, direct observation; Streptococcus, Group A (rapid strep test)"},
+        {"code": "87081", "code_system": "cpt", "description": "Culture, presumptive, pathogenic organisms, screening only; with colony estimation (throat culture)"},
+        {"code": "87430", "code_system": "cpt", "description": "Infectious agent antigen detection by enzyme immunoassay technique; Streptococcus, Group A"},
+        {"code": "87651", "code_system": "cpt", "description": "Infectious agent detection by nucleic acid (DNA or RNA); Streptococcus, Group A, amplified probe technique"},
+        {"code": "87652", "code_system": "cpt", "description": "Infectious agent detection by nucleic acid (DNA or RNA); Streptococcus, Group A, quantification"}
+    ]
+}

@@ -1,0 +1,52 @@
+id: "CDC-A1C-POOR-9"
+name: "Diabetes Care - HbA1c Poor Control (>9%)"
+version: "2025"
+domain: "diabetes"
+description: >
+  Assesses whether adults aged 18-75 with diabetes (type 1 or type 2)
+  had their most recent hemoglobin A1c (HbA1c) level greater than 9.0%
+  during the measurement year. This is an INVERSE measure where a LOWER
+  rate indicates better performance. Poor glycemic control (A1c > 9%)
+  is associated with significantly increased risk of diabetes complications.
+  Members without an A1c test on record are also considered non-compliant
+  (poor control assumed if untested).
+
+inverse: true
+
+eligibility:
+  age: {min: 18, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  any_of:
+    - type: "lab_value"
+      lab: "A1C"
+      comparator: "gt"
+      threshold: 9.0
+      window_months: 12
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "labs"

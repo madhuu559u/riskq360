@@ -1,0 +1,44 @@
+id: "PND"
+name: "Prenatal Depression Screening"
+version: "2025"
+domain: "maternity"
+description: >
+  Assesses whether pregnant women aged 15-44 who had a delivery during the
+  measurement year received screening for depression during the prenatal
+  period using a standardized screening tool. Perinatal depression affects
+  approximately 10-20% of pregnant women and can have significant adverse
+  effects on maternal health, fetal development, and infant outcomes.
+  Prenatal depression screening enables early identification and intervention,
+  reducing the risk of untreated depression during pregnancy and the
+  postpartum period.
+
+eligibility:
+  age: {min: 15, max: 44, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_procedure:
+    valueset: "VS_DELIVERY_CPT"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_PRENATAL_DEPRESSION_SCREENING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DELIVERY_CPT
+  - VS_PRENATAL_DEPRESSION_SCREENING_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

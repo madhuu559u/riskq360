@@ -1,0 +1,18 @@
+{
+    "id": "VS_MMR_VACCINE_CVX",
+    "name": "MMR Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for measles, mumps, and rubella (MMR) vaccines. Used in childhood immunization (CIS) and adolescent immunization (IMA) measures. Requires 2 doses for full series.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "03", "code_system": "cvx", "description": "Measles, mumps and rubella virus vaccine (MMR)"},
+        {"code": "94", "code_system": "cvx", "description": "Measles, mumps, rubella, and varicella virus vaccine (MMRV)"},
+        {"code": "05", "code_system": "cvx", "description": "Measles virus vaccine"},
+        {"code": "06", "code_system": "cvx", "description": "Rubella virus vaccine"},
+        {"code": "07", "code_system": "cvx", "description": "Mumps virus vaccine"},
+        {"code": "04", "code_system": "cvx", "description": "Measles and rubella virus vaccine"},
+        {"code": "90707", "code_system": "cpt", "description": "Measles, mumps and rubella virus vaccine (MMR), live, for subcutaneous use"},
+        {"code": "90710", "code_system": "cpt", "description": "Measles, mumps, rubella, and varicella vaccine (MMRV), live, for subcutaneous use"}
+    ]
+}

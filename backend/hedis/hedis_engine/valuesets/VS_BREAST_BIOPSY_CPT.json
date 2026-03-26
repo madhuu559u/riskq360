@@ -1,0 +1,23 @@
+{
+    "id": "VS_BREAST_BIOPSY_CPT",
+    "name": "Breast Biopsy Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT codes for breast biopsy procedures including core needle biopsy, fine needle aspiration, and open/excisional biopsy. Used in the follow-up after abnormal mammogram (FMA) measure as a qualifying follow-up action after an abnormal screening mammogram result.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "19081", "code_system": "cpt", "description": "Biopsy, breast, with placement of breast localization device(s), percutaneous; first lesion, including stereotactic guidance"},
+        {"code": "19082", "code_system": "cpt", "description": "Biopsy, breast, with placement of breast localization device(s), percutaneous; each additional lesion, including stereotactic guidance"},
+        {"code": "19083", "code_system": "cpt", "description": "Biopsy, breast, with placement of breast localization device(s), percutaneous; first lesion, including ultrasound guidance"},
+        {"code": "19084", "code_system": "cpt", "description": "Biopsy, breast, with placement of breast localization device(s), percutaneous; each additional lesion, including ultrasound guidance"},
+        {"code": "19085", "code_system": "cpt", "description": "Biopsy, breast, with placement of breast localization device(s), percutaneous; first lesion, including magnetic resonance guidance"},
+        {"code": "19086", "code_system": "cpt", "description": "Biopsy, breast, with placement of breast localization device(s), percutaneous; each additional lesion, including magnetic resonance guidance"},
+        {"code": "19100", "code_system": "cpt", "description": "Biopsy of breast; percutaneous, needle core, not using imaging guidance (historical code)"},
+        {"code": "19101", "code_system": "cpt", "description": "Biopsy of breast; open, incisional (historical code)"},
+        {"code": "19120", "code_system": "cpt", "description": "Excision of cyst, fibroadenoma, or other benign or malignant tumor, aberrant breast tissue; 1 or more lesions"},
+        {"code": "10021", "code_system": "cpt", "description": "Fine needle aspiration biopsy, without imaging guidance; first lesion"},
+        {"code": "10004", "code_system": "cpt", "description": "Fine needle aspiration biopsy, without imaging guidance; each additional lesion"},
+        {"code": "10005", "code_system": "cpt", "description": "Fine needle aspiration biopsy, with ultrasound guidance; first lesion"},
+        {"code": "10006", "code_system": "cpt", "description": "Fine needle aspiration biopsy, with ultrasound guidance; each additional lesion"}
+    ]
+}

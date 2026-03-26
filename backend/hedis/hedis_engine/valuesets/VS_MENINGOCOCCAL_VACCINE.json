@@ -1,0 +1,23 @@
+{
+    "id": "VS_MENINGOCOCCAL_VACCINE",
+    "name": "Meningococcal Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for meningococcal vaccines including MenACWY (conjugate) and MenB (serogroup B) formulations. Used in immunizations for adolescents (IMA) measure. MenACWY is routinely recommended at ages 11-12 with a booster at 16.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "108", "code_system": "cvx", "description": "Meningococcal ACWY vaccine, unspecified formulation"},
+        {"code": "114", "code_system": "cvx", "description": "Meningococcal polysaccharide vaccine, serogroups A, C, Y, W-135, diphtheria toxoid conjugate (MenACWY-D, Menactra)"},
+        {"code": "136", "code_system": "cvx", "description": "Meningococcal polysaccharide vaccine, serogroups A, C, Y, W-135, CRM197 conjugate (MenACWY-CRM, Menveo)"},
+        {"code": "147", "code_system": "cvx", "description": "Meningococcal polysaccharide vaccine, serogroups A, C, Y, W-135, tetanus toxoid conjugate (MenACWY-TT, MenQuadfi)"},
+        {"code": "148", "code_system": "cvx", "description": "Meningococcal groups C and Y and Hib conjugate vaccine (MenHibrix)"},
+        {"code": "162", "code_system": "cvx", "description": "Meningococcal B vaccine, fully recombinant (MenB-4C, Bexsero)"},
+        {"code": "163", "code_system": "cvx", "description": "Meningococcal B vaccine, recombinant, OMV, adjuvanted (MenB-FHbp, Trumenba)"},
+        {"code": "167", "code_system": "cvx", "description": "Meningococcal vaccine of unknown serogroups"},
+        {"code": "203", "code_system": "cvx", "description": "Meningococcal polysaccharide vaccine, serogroups A, B, C, W, Y (MenABCWY, Penbraya)"},
+        {"code": "90734", "code_system": "cpt", "description": "Meningococcal conjugate vaccine, serogroups A, C, Y, W-135 (MenACWY or MCV4), for intramuscular use"},
+        {"code": "90619", "code_system": "cpt", "description": "Meningococcal conjugate vaccine, serogroups A, C, Y, W-135, tetanus toxoid carrier (MenACWY-TT), for intramuscular use"},
+        {"code": "90620", "code_system": "cpt", "description": "Meningococcal recombinant protein and outer membrane vesicle vaccine, serogroup B (MenB-4C), 2 dose schedule, for intramuscular use"},
+        {"code": "90621", "code_system": "cpt", "description": "Meningococcal recombinant lipoprotein vaccine, serogroup B (MenB-FHbp), 3 dose schedule, for intramuscular use"}
+    ]
+}

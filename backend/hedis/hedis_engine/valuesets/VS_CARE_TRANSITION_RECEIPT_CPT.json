@@ -1,0 +1,15 @@
+{
+    "id": "VS_CARE_TRANSITION_RECEIPT_CPT",
+    "name": "Care Transition Discharge Information Receipt Codes",
+    "code_system": "cpt",
+    "placeholder": true,
+    "description": "CPT codes for receipt and documentation of discharge information including transitional care management services, observation care discharge, and hospital discharge day management. Used in care transition quality measures to verify that discharge information was received and processed by the receiving care setting.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99495", "description": "Transitional care management services with moderate medical decision complexity; communication within 2 business days of discharge, face-to-face visit within 14 days"},
+        {"code": "99496", "description": "Transitional care management services with high medical decision complexity; communication within 2 business days of discharge, face-to-face visit within 7 days"},
+        {"code": "99217", "description": "Observation care discharge day management"},
+        {"code": "99238", "description": "Hospital discharge day management; 30 minutes or less"},
+        {"code": "99239", "description": "Hospital discharge day management; more than 30 minutes"}
+    ]
+}

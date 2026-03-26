@@ -1,0 +1,13 @@
+{
+    "id": "VS_PROSTATE_CANCER_ICD10",
+    "name": "Prostate Cancer Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for prostate cancer diagnoses. Used as an exclusion in PSA screening overuse measures and for identifying members with active prostate cancer who may appropriately receive PSA testing.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "C61", "description": "Malignant neoplasm of prostate"},
+        {"code": "D07.5", "description": "Carcinoma in situ of prostate"},
+        {"code": "Z85.46", "description": "Personal history of malignant neoplasm of prostate"}
+    ]
+}

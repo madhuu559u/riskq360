@@ -1,0 +1,54 @@
+id: "CDC-NEPHROPATHY"
+name: "Diabetes Care - Nephropathy Screening"
+version: "2025"
+domain: "diabetes"
+description: >
+  Assesses whether adults aged 18-75 with diabetes (type 1 or type 2)
+  had a nephropathy screening test (e.g., urine albumin or
+  albumin-to-creatinine ratio) or were treated with an ACE inhibitor
+  or ARB medication during the measurement year. Diabetic nephropathy
+  is a leading cause of chronic kidney disease and end-stage renal
+  disease, making annual screening and treatment essential.
+
+eligibility:
+  age: {min: 18, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_NEPHROPATHY_SCREENING"
+      window_months: 12
+    - type: "medication"
+      medication_class: "ace_arb"
+      valueset: "VS_ACE_ARB_MEDICATIONS"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_NEPHROPATHY_SCREENING
+  - VS_ACE_ARB_MEDICATIONS
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "labs"
+  - "medications"

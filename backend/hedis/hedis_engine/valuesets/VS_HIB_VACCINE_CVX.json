@@ -1,0 +1,23 @@
+{
+    "id": "VS_HIB_VACCINE_CVX",
+    "name": "Haemophilus Influenzae Type b (Hib) Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for Haemophilus influenzae type b (Hib) conjugate vaccines. Used in childhood immunization (CIS) measures. Requires 3-4 doses depending on product (PRP-OMP 3 doses; PRP-T 4 doses).",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "17", "code_system": "cvx", "description": "Haemophilus influenzae type b vaccine, conjugate unspecified formulation"},
+        {"code": "46", "code_system": "cvx", "description": "Haemophilus influenzae type b vaccine, PRP-D conjugate"},
+        {"code": "47", "code_system": "cvx", "description": "Haemophilus influenzae type b vaccine, HbOC conjugate"},
+        {"code": "48", "code_system": "cvx", "description": "Haemophilus influenzae type b vaccine, PRP-T conjugate (ActHIB, Hiberix)"},
+        {"code": "49", "code_system": "cvx", "description": "Haemophilus influenzae type b vaccine, PRP-OMP conjugate (PedvaxHIB)"},
+        {"code": "50", "code_system": "cvx", "description": "DTaP-Haemophilus influenzae type b conjugate vaccine"},
+        {"code": "51", "code_system": "cvx", "description": "Haemophilus influenzae type b conjugate and Hepatitis B vaccine (Comvax)"},
+        {"code": "120", "code_system": "cvx", "description": "DTaP-IPV vaccine (may include Hib component in some combination)"},
+        {"code": "146", "code_system": "cvx", "description": "DTaP-IPV/Hib vaccine (Pentacel)"},
+        {"code": "148", "code_system": "cvx", "description": "DTaP-IPV-Hib-HepB vaccine (Vaxelis)"},
+        {"code": "90647", "code_system": "cpt", "description": "Haemophilus influenzae type b vaccine (Hib), PRP-OMP conjugate, 3 dose schedule, for intramuscular use"},
+        {"code": "90648", "code_system": "cpt", "description": "Haemophilus influenzae type b vaccine (Hib), PRP-T conjugate, 4 dose schedule, for intramuscular use"},
+        {"code": "90698", "code_system": "cpt", "description": "DTaP-IPV/Hib vaccine, for intramuscular use"}
+    ]
+}

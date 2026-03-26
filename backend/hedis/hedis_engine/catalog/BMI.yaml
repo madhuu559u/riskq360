@@ -1,0 +1,48 @@
+id: "BMI"
+name: "Adult BMI Assessment"
+version: "2025"
+domain: "preventive_screening"
+description: >
+  Assesses whether adults aged 18-74 had their body mass index (BMI)
+  documented during an outpatient visit in the measurement year. BMI
+  assessment is a foundational component of preventive care, enabling
+  identification of underweight, overweight, and obese individuals who
+  may benefit from nutritional counseling, lifestyle modification programs,
+  or medical intervention. Obesity is associated with increased risk of
+  type 2 diabetes, cardiovascular disease, and certain cancers.
+
+eligibility:
+  age: {min: 18, max: 74, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy (BMI interpretation differs during pregnancy)"
+
+numerator:
+  any_of:
+    - type: "vital"
+      vital_type: "bmi"
+      window_months: 12
+
+valuesets_needed:
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "vitals"
+  - "encounters"

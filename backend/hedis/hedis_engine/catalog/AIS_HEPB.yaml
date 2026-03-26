@@ -1,0 +1,44 @@
+id: "AIS-HEPB"
+name: "Adult Immunization Status - Hepatitis B"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether adults aged 19-59 have received at least two doses of
+  hepatitis B vaccine. Hepatitis B is a serious liver infection caused by the
+  hepatitis B virus (HBV) that can become chronic, leading to liver failure,
+  cirrhosis, and hepatocellular carcinoma. The Advisory Committee on
+  Immunization Practices (ACIP) recommends hepatitis B vaccination for all
+  adults aged 19-59 who have not previously been vaccinated. This measure
+  has no time-window restriction; evidence of vaccination at any time
+  satisfies the numerator.
+
+eligibility:
+  age: {min: 19, max: 59, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "hepatitis_b"
+      valueset: "VS_HEPB_ADULT_VACCINE_CVX"
+      min_count: 2
+      window_months: 0  # 0 means any time (no time window restriction)
+
+valuesets_needed:
+  - VS_HEPB_ADULT_VACCINE_CVX
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "immunization_registry"
+  - "encounters"

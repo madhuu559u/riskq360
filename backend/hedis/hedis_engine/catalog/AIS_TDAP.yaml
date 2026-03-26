@@ -1,0 +1,43 @@
+id: "AIS-TDAP"
+name: "Adult Immunization Status - Td/Tdap"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether adults aged 19 and older received at least one tetanus and
+  diphtheria (Td) or tetanus, diphtheria, and acellular pertussis (Tdap)
+  vaccination within the past 9 years (108 months). The Advisory Committee on
+  Immunization Practices (ACIP) recommends a Td booster every 10 years for
+  all adults, with at least one dose being Tdap for pertussis protection.
+  Tetanus is a life-threatening condition, and pertussis outbreaks continue
+  to affect communities, particularly endangering unvaccinated infants.
+
+eligibility:
+  age: {min: 19, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "tdap"
+      valueset: "VS_TD_VACCINE_CVX"
+      min_count: 1
+      window_months: 108
+
+valuesets_needed:
+  - VS_TD_VACCINE_CVX
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "immunization_registry"
+  - "encounters"

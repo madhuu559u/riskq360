@@ -1,0 +1,60 @@
+id: "FMA"
+name: "Follow-Up After Abnormal Mammogram Assessment"
+version: "2025"
+domain: "prevention"
+description: >
+  Assesses whether women aged 40-74 who received an abnormal mammogram result
+  had appropriate follow-up with a diagnostic mammogram or breast biopsy within
+  the measurement year. Timely follow-up after an abnormal screening mammogram
+  is critical for early detection and treatment of breast cancer. Delays in
+  diagnostic evaluation following an abnormal screening result are associated
+  with later-stage cancer diagnosis, more aggressive treatment, and worse
+  clinical outcomes. This measure promotes closing the loop between screening
+  and definitive diagnostic workup.
+
+eligibility:
+  age: {min: 40, max: 74, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_procedure:
+    valueset: "VS_MAMMOGRAPHY_CPT"
+    window_months: 12
+  requires_diagnosis:
+    valueset: "VS_ABNORMAL_MAMMOGRAM_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "procedure"
+    valueset: "VS_BILATERAL_MASTECTOMY_CPT"
+    lookback_months: 0
+    description: "Bilateral mastectomy (any time)"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_DIAGNOSTIC_MAMMOGRAPHY_CPT"
+      window_months: 12
+      description: "Diagnostic mammogram during measurement year"
+    - type: "procedure"
+      valueset: "VS_BREAST_BIOPSY_CPT"
+      window_months: 12
+      description: "Breast biopsy during measurement year"
+
+valuesets_needed:
+  - VS_MAMMOGRAPHY_CPT
+  - VS_ABNORMAL_MAMMOGRAM_ICD10
+  - VS_DIAGNOSTIC_MAMMOGRAPHY_CPT
+  - VS_BREAST_BIOPSY_CPT
+  - VS_BILATERAL_MASTECTOMY_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

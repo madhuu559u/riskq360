@@ -1,0 +1,25 @@
+{
+    "id": "VS_HEPATITIS_B_VACCINE_CVX",
+    "name": "Hepatitis B Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for hepatitis B vaccines. Used in childhood immunization (CIS) measures. Requires 3-dose series (0, 1, 6 months) or 2-dose adult series with HepB-CpG.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "08", "code_system": "cvx", "description": "Hepatitis B vaccine, pediatric or pediatric/adolescent dosage"},
+        {"code": "42", "code_system": "cvx", "description": "Hepatitis B vaccine, adolescent/high risk infant dosage (historical)"},
+        {"code": "43", "code_system": "cvx", "description": "Hepatitis B vaccine, adult dosage"},
+        {"code": "44", "code_system": "cvx", "description": "Hepatitis B vaccine, dialysis patient dosage"},
+        {"code": "45", "code_system": "cvx", "description": "Hepatitis B vaccine, unspecified formulation"},
+        {"code": "51", "code_system": "cvx", "description": "Haemophilus influenzae type b conjugate and Hepatitis B vaccine (Hib-HepB)"},
+        {"code": "102", "code_system": "cvx", "description": "DTP-Haemophilus influenzae type b conjugate and hepatitis B vaccine"},
+        {"code": "104", "code_system": "cvx", "description": "Hepatitis A-Hepatitis B vaccine (HepA-HepB)"},
+        {"code": "110", "code_system": "cvx", "description": "DTaP-hepatitis B-IPV vaccine (Pediarix)"},
+        {"code": "189", "code_system": "cvx", "description": "Hepatitis B vaccine (recombinant), adjuvanted (HepB-CpG)"},
+        {"code": "220", "code_system": "cvx", "description": "Hepatitis B vaccine (recombinant), 3-antigen (PreHevbri)"},
+        {"code": "90740", "code_system": "cpt", "description": "Hepatitis B vaccine (HepB), dialysis or immunosuppressed patient dosage, 3 dose schedule, for intramuscular use"},
+        {"code": "90744", "code_system": "cpt", "description": "Hepatitis B vaccine (HepB), pediatric/adolescent dosage, 3 dose schedule, for intramuscular use"},
+        {"code": "90746", "code_system": "cpt", "description": "Hepatitis B vaccine (HepB), adult dosage, 3 dose schedule, for intramuscular use"},
+        {"code": "90747", "code_system": "cpt", "description": "Hepatitis B vaccine (HepB), dialysis or immunosuppressed patient dosage, 4 dose schedule, for intramuscular use"}
+    ]
+}

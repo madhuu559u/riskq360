@@ -1,0 +1,54 @@
+id: "LBP"
+name: "Use of Imaging Studies for Low Back Pain"
+version: "2025"
+domain: "overuse"
+inverse: true
+description: >
+  Assesses whether members aged 18-75 with a new diagnosis of low back
+  pain did NOT have an imaging study (plain X-ray, MRI, or CT scan of the
+  spine) within 28 days of diagnosis. This is an INVERSE measure where a
+  LOWER rate indicates better performance. Clinical guidelines recommend
+  against routine imaging for acute low back pain without red-flag symptoms,
+  as early imaging does not improve outcomes, exposes patients to
+  unnecessary radiation, may lead to incidental findings that trigger
+  further unnecessary procedures, and significantly increases healthcare
+  costs. The numerator captures the undesirable event (spine imaging
+  performed); members without imaging are considered compliant.
+
+eligibility:
+  age: {min: 18, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_LOW_BACK_PAIN_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_CANCER_ICD10"
+    lookback_months: 12
+    description: "Cancer diagnosis (red-flag condition warranting imaging)"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_SPINE_IMAGING_CPT"
+      window_months: 12
+      description: "Spine imaging study performed (undesirable for uncomplicated low back pain)"
+
+valuesets_needed:
+  - VS_LOW_BACK_PAIN_ICD10
+  - VS_SPINE_IMAGING_CPT
+  - VS_CANCER_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

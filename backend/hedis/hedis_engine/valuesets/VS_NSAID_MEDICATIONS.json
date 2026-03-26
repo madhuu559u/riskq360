@@ -1,0 +1,30 @@
+{
+    "id": "VS_NSAID_MEDICATIONS",
+    "name": "NSAID Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication codes for non-steroidal anti-inflammatory drugs (NSAIDs) including traditional NSAIDs and COX-2 selective inhibitors. Used in drug-drug interaction measures, high-risk medication measures for elderly, and GI/renal safety measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "ibuprofen", "code_system": "medication_name", "description": "Ibuprofen (Advil, Motrin) — nonselective NSAID"},
+        {"code": "naproxen", "code_system": "medication_name", "description": "Naproxen (Aleve, Naprosyn) — nonselective NSAID"},
+        {"code": "diclofenac", "code_system": "medication_name", "description": "Diclofenac (Voltaren) — nonselective NSAID"},
+        {"code": "celecoxib", "code_system": "medication_name", "description": "Celecoxib (Celebrex) — COX-2 selective NSAID"},
+        {"code": "meloxicam", "code_system": "medication_name", "description": "Meloxicam (Mobic) — preferential COX-2 NSAID"},
+        {"code": "indomethacin", "code_system": "medication_name", "description": "Indomethacin (Indocin) — nonselective NSAID"},
+        {"code": "piroxicam", "code_system": "medication_name", "description": "Piroxicam (Feldene) — long-acting nonselective NSAID"},
+        {"code": "ketorolac", "code_system": "medication_name", "description": "Ketorolac (Toradol) — potent nonselective NSAID, short-term use"},
+        {"code": "nabumetone", "code_system": "medication_name", "description": "Nabumetone (Relafen) — nonselective NSAID prodrug"},
+        {"code": "sulindac", "code_system": "medication_name", "description": "Sulindac (Clinoril) — nonselective NSAID"},
+        {"code": "etodolac", "code_system": "medication_name", "description": "Etodolac (Lodine) — preferential COX-2 NSAID"},
+        {"code": "oxaprozin", "code_system": "medication_name", "description": "Oxaprozin (Daypro) — long-acting nonselective NSAID"},
+        {"code": "ketoprofen", "code_system": "medication_name", "description": "Ketoprofen (Orudis) — nonselective NSAID"},
+        {"code": "fenoprofen", "code_system": "medication_name", "description": "Fenoprofen (Nalfon) — nonselective NSAID"},
+        {"code": "flurbiprofen", "code_system": "medication_name", "description": "Flurbiprofen (Ansaid) — nonselective NSAID"},
+        {"code": "5640", "code_system": "rxnorm", "description": "Ibuprofen"},
+        {"code": "7258", "code_system": "rxnorm", "description": "Naproxen"},
+        {"code": "3355", "code_system": "rxnorm", "description": "Diclofenac"},
+        {"code": "140587", "code_system": "rxnorm", "description": "Celecoxib"},
+        {"code": "41493", "code_system": "rxnorm", "description": "Meloxicam"}
+    ]
+}

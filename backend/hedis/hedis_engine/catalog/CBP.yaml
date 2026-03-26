@@ -1,0 +1,53 @@
+id: "CBP"
+name: "Controlling High Blood Pressure"
+version: "2025"
+domain: "cardiovascular"
+description: >
+  Assesses whether adults aged 18-85 diagnosed with hypertension have
+  adequately controlled blood pressure (systolic < 140 mmHg and
+  diastolic < 90 mmHg) based on the most recent blood pressure reading
+  during the measurement year. Uncontrolled hypertension is a major risk
+  factor for stroke, heart attack, heart failure, and kidney disease.
+
+eligibility:
+  age: {min: 18, max: 85, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_HYPERTENSION_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+  - type: "diagnosis"
+    valueset: "VS_ESRD_ICD10"
+    lookback_months: 12
+    description: "End-stage renal disease"
+
+numerator:
+  any_of:
+    - type: "bp_controlled"
+      systolic_threshold: 140
+      diastolic_threshold: 90
+      window_months: 12
+      rule: "latest"
+
+valuesets_needed:
+  - VS_HYPERTENSION_ICD10
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+  - VS_ESRD_ICD10
+
+data_sources:
+  - "claims"
+  - "vitals"

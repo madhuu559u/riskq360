@@ -1,0 +1,53 @@
+id: "AAF"
+name: "Follow-Up After Acute/Urgent Care Visit for Asthma"
+version: "2025"
+domain: "respiratory"
+description: >
+  Assesses whether members aged 5-64 with asthma who had an acute or
+  urgent care visit (emergency department) received a follow-up outpatient
+  visit within a specified period after the acute encounter. Timely
+  follow-up after an acute asthma exacerbation is essential for reviewing
+  and adjusting controller therapy, reinforcing self-management education,
+  and reducing the risk of subsequent exacerbations and emergency
+  utilization. Appropriate post-acute follow-up has been associated with
+  lower rates of repeat ED visits and hospitalizations for asthma.
+
+eligibility:
+  age: {min: 5, max: 64, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_ASTHMA_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+  requires_encounter:
+    encounter_types: ["emergency"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_COPD_EXACERBATION_ICD10"
+    lookback_months: 12
+    description: "COPD diagnosis"
+
+numerator:
+  all_of:
+    - type: "encounter"
+      encounter_types: ["outpatient"]
+      window_months: 12
+      description: "Outpatient follow-up visit after acute asthma encounter during measurement year"
+
+valuesets_needed:
+  - VS_ASTHMA_ICD10
+  - VS_COPD_EXACERBATION_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

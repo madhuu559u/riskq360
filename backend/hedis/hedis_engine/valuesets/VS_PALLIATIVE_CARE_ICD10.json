@@ -1,0 +1,15 @@
+{
+    "id": "VS_PALLIATIVE_CARE_ICD10",
+    "name": "Palliative Care Diagnosis and Encounter Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "ICD-10-CM and CPT codes for palliative care encounters and services. Used as an exclusion criterion in opioid-related measures (UOP, HDO) and other quality measures where palliative care patients are appropriately excluded from performance calculations due to different treatment goals and clinical contexts.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "Z51.5", "code_system": "icd10cm", "description": "Encounter for palliative care"},
+        {"code": "99497", "code_system": "cpt", "description": "Advance care planning, first 30 minutes"},
+        {"code": "99498", "code_system": "cpt", "description": "Advance care planning, each additional 30 minutes"},
+        {"code": "G9054", "code_system": "hcpcs", "description": "Oncology; primary focus of visit; supervising, coordinating or managing care of patient receiving palliative care"},
+        {"code": "G0182", "code_system": "hcpcs", "description": "Physician certification for Medicare-covered home health services under a home health plan of care"}
+    ]
+}

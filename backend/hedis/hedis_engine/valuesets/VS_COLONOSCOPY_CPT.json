@@ -1,0 +1,25 @@
+{
+    "id": "VS_COLONOSCOPY_CPT",
+    "name": "Colonoscopy Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for colonoscopy procedures. Used in the colorectal cancer screening measure (COL). Colonoscopy satisfies the screening requirement for 10 years from the date of the procedure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "44388", "code_system": "cpt", "description": "Colonoscopy through stoma; diagnostic"},
+        {"code": "44389", "code_system": "cpt", "description": "Colonoscopy through stoma; with biopsy"},
+        {"code": "44390", "code_system": "cpt", "description": "Colonoscopy through stoma; with removal of foreign body"},
+        {"code": "44391", "code_system": "cpt", "description": "Colonoscopy through stoma; with control of bleeding"},
+        {"code": "44392", "code_system": "cpt", "description": "Colonoscopy through stoma; with removal of tumor(s), polyp(s), or other lesion(s) by hot biopsy forceps"},
+        {"code": "45378", "code_system": "cpt", "description": "Colonoscopy, flexible; diagnostic"},
+        {"code": "45379", "code_system": "cpt", "description": "Colonoscopy, flexible; with removal of foreign body"},
+        {"code": "45380", "code_system": "cpt", "description": "Colonoscopy, flexible; with biopsy, single or multiple"},
+        {"code": "45381", "code_system": "cpt", "description": "Colonoscopy, flexible; with directed submucosal injection(s)"},
+        {"code": "45382", "code_system": "cpt", "description": "Colonoscopy, flexible; with control of bleeding"},
+        {"code": "45383", "code_system": "cpt", "description": "Colonoscopy, flexible; with ablation of tumor(s), polyp(s)"},
+        {"code": "45384", "code_system": "cpt", "description": "Colonoscopy, flexible; with removal of tumor(s), polyp(s), by hot biopsy forceps"},
+        {"code": "45385", "code_system": "cpt", "description": "Colonoscopy, flexible; with removal of tumor(s), polyp(s), by snare technique"},
+        {"code": "G0105", "code_system": "hcpcs", "description": "Colorectal cancer screening; colonoscopy on individual at high risk"},
+        {"code": "G0121", "code_system": "hcpcs", "description": "Colorectal cancer screening; colonoscopy on individual not meeting criteria for high risk"}
+    ]
+}

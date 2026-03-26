@@ -1,0 +1,31 @@
+{
+    "id": "VS_PCP_VISIT_CPT",
+    "name": "Primary Care Visit Codes",
+    "code_system": "cpt",
+    "placeholder": true,
+    "description": "CPT codes for primary care office visits and preventive medicine evaluations. Used in adults access to preventive/ambulatory health services (AAP) and other measures requiring evidence of a primary care encounter.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99202", "description": "Office or other outpatient visit, new patient; straightforward MDM"},
+        {"code": "99203", "description": "Office or other outpatient visit, new patient; low level MDM"},
+        {"code": "99204", "description": "Office or other outpatient visit, new patient; moderate level MDM"},
+        {"code": "99205", "description": "Office or other outpatient visit, new patient; high level MDM"},
+        {"code": "99211", "description": "Office or other outpatient visit, established patient; may not require presence of physician"},
+        {"code": "99212", "description": "Office or other outpatient visit, established patient; straightforward MDM"},
+        {"code": "99213", "description": "Office or other outpatient visit, established patient; low level MDM"},
+        {"code": "99214", "description": "Office or other outpatient visit, established patient; moderate level MDM"},
+        {"code": "99215", "description": "Office or other outpatient visit, established patient; high level MDM"},
+        {"code": "99381", "description": "Initial comprehensive preventive medicine E/M, new patient; infant (age under 1 year)"},
+        {"code": "99382", "description": "Initial comprehensive preventive medicine E/M, new patient; age 1 through 4 years"},
+        {"code": "99383", "description": "Initial comprehensive preventive medicine E/M, new patient; age 5 through 11 years"},
+        {"code": "99384", "description": "Initial comprehensive preventive medicine E/M, new patient; age 12 through 17 years"},
+        {"code": "99385", "description": "Initial comprehensive preventive medicine E/M, new patient; age 18 through 39 years"},
+        {"code": "99386", "description": "Initial comprehensive preventive medicine E/M, new patient; age 40 through 64 years"},
+        {"code": "99387", "description": "Initial comprehensive preventive medicine E/M, new patient; 65 years and older"},
+        {"code": "99391", "description": "Periodic comprehensive preventive medicine E/M, established patient; infant (age under 1 year)"},
+        {"code": "99392", "description": "Periodic comprehensive preventive medicine E/M, established patient; age 1 through 4 years"},
+        {"code": "99393", "description": "Periodic comprehensive preventive medicine E/M, established patient; age 5 through 11 years"},
+        {"code": "99394", "description": "Periodic comprehensive preventive medicine E/M, established patient; age 12 through 17 years"},
+        {"code": "99395", "description": "Periodic comprehensive preventive medicine E/M, established patient; age 18 through 39 years"}
+    ]
+}

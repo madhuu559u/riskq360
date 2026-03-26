@@ -1,0 +1,29 @@
+{
+    "id": "VS_COVID_VACCINE_CVX",
+    "name": "COVID-19 Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for COVID-19 vaccines including initial series and booster doses from Pfizer-BioNTech, Moderna, Johnson & Johnson/Janssen, and Novavax. Used in COVID-19 vaccination status measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "207", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, PF, 100 mcg/0.5mL or 50 mcg/0.25mL dose (Moderna)"},
+        {"code": "208", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, PF, 30 mcg/0.3 mL dose (Pfizer-BioNTech)"},
+        {"code": "210", "code_system": "cvx", "description": "COVID-19 vaccine, vector-nr, rS-ChAdOx1, PF, 0.5 mL (AstraZeneca)"},
+        {"code": "211", "code_system": "cvx", "description": "COVID-19, subunit, rS-nanoparticle+Matrix-M1 Adjuvant, PF, 0.5 mL (Novavax)"},
+        {"code": "212", "code_system": "cvx", "description": "COVID-19 vaccine, vector-nr, rS-Ad26, PF, 0.5 mL (Janssen/J&J)"},
+        {"code": "213", "code_system": "cvx", "description": "COVID-19 vaccine, unspecified"},
+        {"code": "217", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, PF, 30 mcg/0.3 mL dose, tris-sucrose (Pfizer 12+)"},
+        {"code": "218", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, PF, 10 mcg/0.2 mL dose, tris-sucrose (Pfizer 5-11)"},
+        {"code": "219", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, PF, 3 mcg/0.2 mL dose, tris-sucrose (Pfizer 6mo-4yr)"},
+        {"code": "227", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, bivalent, PF, 50 mcg/0.5 mL or 25 mcg/0.25 mL dose (Moderna bivalent)"},
+        {"code": "228", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, bivalent, PF, 30 mcg/0.3 mL dose (Pfizer bivalent 12+)"},
+        {"code": "229", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, bivalent, PF, 10 mcg/0.2 mL dose (Pfizer bivalent 5-11)"},
+        {"code": "230", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, bivalent, PF, 3 mcg/0.2 mL dose (Pfizer bivalent 6mo-4yr)"},
+        {"code": "300", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, bivalent, PF (2023-2024 formulation, Pfizer)"},
+        {"code": "301", "code_system": "cvx", "description": "COVID-19, mRNA, LNP-S, bivalent, PF (2023-2024 formulation, Moderna)"},
+        {"code": "302", "code_system": "cvx", "description": "COVID-19, subunit, rS-nanoparticle+Matrix-M1 Adjuvant, PF (2023-2024 formulation, Novavax)"},
+        {"code": "91300", "code_system": "cpt", "description": "SARS-CoV-2 vaccine, mRNA-LNP, PF, 30 mcg/0.3 mL, diluent reconstituted (Pfizer)"},
+        {"code": "91301", "code_system": "cpt", "description": "SARS-CoV-2 vaccine, mRNA-LNP, S, PF, 100 mcg/0.5 mL (Moderna)"},
+        {"code": "91303", "code_system": "cpt", "description": "SARS-CoV-2 vaccine, Ad26 vector, S, PF, 0.5 mL (Janssen)"}
+    ]
+}

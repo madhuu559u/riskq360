@@ -1,0 +1,59 @@
+id: "SMD"
+name: "Diabetes Monitoring for People with Schizophrenia or Bipolar Disorder and Diabetes"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether adults aged 18-64 with schizophrenia, schizoaffective
+  disorder, or bipolar disorder who also have a diabetes diagnosis received
+  appropriate diabetes monitoring through both an HbA1c test and an LDL
+  cholesterol test during the measurement year. Individuals with serious
+  mental illness (SMI) and comorbid diabetes face compounded cardiovascular
+  risk and are particularly vulnerable to metabolic complications from
+  antipsychotic medications. Despite higher disease burden, this population
+  frequently receives substandard metabolic monitoring compared to the general
+  diabetes population. This measure promotes integrated physical and behavioral
+  health care by requiring both glycemic and lipid monitoring for members with
+  co-occurring SMI and diabetes.
+
+eligibility:
+  age: {min: 18, max: 64, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_SCHIZOPHRENIA_BIPOLAR_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+  requires_diagnosis_secondary:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "lab_exists"
+      lab: "A1C"
+      window_months: 12
+      description: "HbA1c test during measurement year"
+    - type: "lab_exists"
+      lab: "LDL"
+      window_months: 12
+      description: "LDL cholesterol test during measurement year"
+
+valuesets_needed:
+  - VS_SCHIZOPHRENIA_BIPOLAR_ICD10
+  - VS_DIABETES_ICD10
+  - VS_A1C_TEST_CPT
+  - VS_LDL_TEST_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"

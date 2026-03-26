@@ -1,0 +1,50 @@
+id: "PCE-CORTICOSTEROID"
+name: "Pharmacotherapy Management of COPD Exacerbation - Systemic Corticosteroid"
+version: "2025"
+domain: "respiratory"
+description: >
+  Assesses whether members aged 40 and older who had a COPD exacerbation
+  requiring an inpatient or emergency department encounter were dispensed
+  a systemic corticosteroid within a defined period. Systemic corticosteroids
+  are a cornerstone of COPD exacerbation management, reducing airway
+  inflammation, accelerating recovery, shortening hospital length of stay,
+  and decreasing the risk of treatment failure and relapse. Clinical
+  guidelines strongly recommend systemic corticosteroid therapy for
+  moderate-to-severe COPD exacerbations.
+
+eligibility:
+  age: {min: 40, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_COPD_EXACERBATION_ICD10"
+    lookback_months: 12
+    status: ["active"]
+  requires_encounter:
+    encounter_types: ["inpatient", "emergency"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "systemic_corticosteroid"
+      window_months: 12
+      description: "Systemic corticosteroid dispensed during measurement year for COPD exacerbation"
+
+valuesets_needed:
+  - VS_COPD_EXACERBATION_ICD10
+  - VS_SYSTEMIC_CORTICOSTEROID_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"
+  - "pharmacy"

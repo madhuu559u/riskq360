@@ -1,0 +1,45 @@
+id: "FUH-7"
+name: "Follow-Up After Hospitalization for Mental Illness - 7 Day"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 6 and older who were hospitalized for
+  treatment of selected mental illness or intentional self-harm diagnoses
+  had a follow-up visit with a mental health practitioner within 7 days
+  of discharge. Timely follow-up after psychiatric hospitalization is
+  associated with reduced readmission rates and improved continuity of
+  care during the critical post-discharge transition period. This measure
+  uses an approximation of 1-month window due to data granularity
+  limitations.
+
+eligibility:
+  age: {min: 6, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_MENTAL_HEALTH_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "encounter"
+      encounter_types: ["outpatient"]
+      window_months: 1
+
+valuesets_needed:
+  - VS_MENTAL_HEALTH_ICD10
+  - VS_MENTAL_HEALTH_OUTPATIENT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

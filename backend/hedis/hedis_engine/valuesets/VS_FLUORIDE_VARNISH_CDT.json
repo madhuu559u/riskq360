@@ -1,0 +1,16 @@
+{
+    "id": "VS_FLUORIDE_VARNISH_CDT",
+    "name": "Fluoride Varnish Application Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CDT and CPT codes for topical fluoride varnish application. Used in preventive dental/oral health measures for children, particularly dental fluoride varnish (DFV) for ages 0-6.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "D1206", "code_system": "cdt", "description": "Topical application of fluoride varnish"},
+        {"code": "D1208", "code_system": "cdt", "description": "Topical application of fluoride — excluding varnish"},
+        {"code": "99188", "code_system": "cpt", "description": "Application of topical fluoride varnish by a physician or other qualified health care professional"},
+        {"code": "D1310", "code_system": "cdt", "description": "Nutritional counseling for control of dental disease"},
+        {"code": "D1320", "code_system": "cdt", "description": "Tobacco counseling for the control and prevention of oral disease"},
+        {"code": "D1330", "code_system": "cdt", "description": "Oral hygiene instructions"}
+    ]
+}

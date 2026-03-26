@@ -1,0 +1,22 @@
+{
+    "id": "VS_BP_SCREENING_CPT",
+    "name": "Blood Pressure Measurement Codes",
+    "code_system": "cpt",
+    "placeholder": true,
+    "description": "CPT codes for blood pressure measurement and screening services. Used in BP control measures to identify encounters where BP was measured. Note: actual BP values come from vital sign data, not procedure codes alone.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99091", "description": "Collection and interpretation of physiologic data digitally stored and/or transmitted by the patient"},
+        {"code": "3074F", "description": "Most recent systolic blood pressure less than 130 mm Hg"},
+        {"code": "3075F", "description": "Most recent systolic blood pressure 130-139 mm Hg"},
+        {"code": "3077F", "description": "Most recent systolic blood pressure greater than or equal to 140 mm Hg"},
+        {"code": "3078F", "description": "Most recent diastolic blood pressure less than 80 mm Hg"},
+        {"code": "3079F", "description": "Most recent diastolic blood pressure 80-89 mm Hg"},
+        {"code": "3080F", "description": "Most recent diastolic blood pressure greater than or equal to 90 mm Hg"},
+        {"code": "2000F", "description": "Blood pressure measured"},
+        {"code": "93784", "description": "Ambulatory blood pressure monitoring, utilizing a system such as magnetic tape and/or computer disk, 24 hours or longer; including recording, scanning analysis, interpretation and report"},
+        {"code": "93786", "description": "Ambulatory blood pressure monitoring, utilizing a system such as magnetic tape and/or computer disk, 24 hours or longer; recording only"},
+        {"code": "93788", "description": "Ambulatory blood pressure monitoring, utilizing a system such as magnetic tape and/or computer disk, 24 hours or longer; scanning analysis with report"},
+        {"code": "93790", "description": "Ambulatory blood pressure monitoring, physician review with interpretation and report"}
+    ]
+}

@@ -1,0 +1,42 @@
+id: "AIS-FLU"
+name: "Adult Immunization Status - Influenza"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether adults aged 19 and older received an influenza vaccination
+  during the measurement year flu season. Annual influenza vaccination is
+  recommended by the Advisory Committee on Immunization Practices (ACIP) for
+  all adults. Influenza causes significant morbidity and mortality each year,
+  particularly among older adults, pregnant women, and individuals with
+  chronic medical conditions. This measure focuses specifically on adult
+  immunization status distinct from the general population flu measure.
+
+eligibility:
+  age: {min: 19, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "influenza"
+      min_count: 1
+      window_months: 12
+
+valuesets_needed:
+  - VS_INFLUENZA_VACCINE_CVX
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "immunization_registry"
+  - "encounters"

@@ -1,0 +1,43 @@
+id: "AMM-CONTINUATION"
+name: "Antidepressant Medication Management - Continuation Phase Treatment"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether adults aged 18 and older diagnosed with a new episode
+  of major depression and treated with antidepressant medication remained
+  on an antidepressant medication for at least 180 days (6 months) during
+  the continuation treatment phase. Sustained continuation-phase treatment
+  is critical for preventing relapse and achieving full recovery from
+  major depressive episodes.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DEPRESSION_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "antidepressant"
+      window_months: 6
+
+valuesets_needed:
+  - VS_DEPRESSION_ICD10
+  - VS_ANTIDEPRESSANT_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

@@ -1,0 +1,29 @@
+{
+    "id": "VS_FALLS_HIP_FRACTURE_ICD10",
+    "name": "Falls and Hip Fracture Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for falls, hip fractures, and fall risk. Used in fall risk management measures, high-risk medication avoidance for the elderly, and osteoporosis management measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "S72.001A", "description": "Fracture of unspecified part of neck of right femur, initial encounter for closed fracture"},
+        {"code": "S72.002A", "description": "Fracture of unspecified part of neck of left femur, initial encounter for closed fracture"},
+        {"code": "S72.009A", "description": "Fracture of unspecified part of neck of unspecified femur, initial encounter for closed fracture"},
+        {"code": "S72.011A", "description": "Unspecified intracapsular fracture of right femur, initial encounter for closed fracture"},
+        {"code": "S72.012A", "description": "Unspecified intracapsular fracture of left femur, initial encounter for closed fracture"},
+        {"code": "S72.019A", "description": "Unspecified intracapsular fracture of unspecified femur, initial encounter for closed fracture"},
+        {"code": "S72.091A", "description": "Other fracture of head and neck of right femur, initial encounter for closed fracture"},
+        {"code": "S72.092A", "description": "Other fracture of head and neck of left femur, initial encounter for closed fracture"},
+        {"code": "S72.101A", "description": "Unspecified trochanteric fracture of right femur, initial encounter for closed fracture"},
+        {"code": "S72.102A", "description": "Unspecified trochanteric fracture of left femur, initial encounter for closed fracture"},
+        {"code": "S72.109A", "description": "Unspecified trochanteric fracture of unspecified femur, initial encounter for closed fracture"},
+        {"code": "W01.0XXA", "description": "Fall on same level from slipping, tripping and stumbling without subsequent striking against object, initial encounter"},
+        {"code": "W01.10XA", "description": "Fall on same level from slipping, tripping and stumbling with subsequent striking against unspecified object, initial encounter"},
+        {"code": "W06.XXXA", "description": "Fall from bed, initial encounter"},
+        {"code": "W10.0XXA", "description": "Fall on or from escalator, initial encounter"},
+        {"code": "W10.9XXA", "description": "Fall on and from unspecified stairs and steps, initial encounter"},
+        {"code": "W18.00XA", "description": "Striking against unspecified object with subsequent fall, initial encounter"},
+        {"code": "W19.XXXA", "description": "Unspecified fall, initial encounter"},
+        {"code": "R29.6", "description": "Repeated falls"}
+    ]
+}

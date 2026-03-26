@@ -1,0 +1,52 @@
+id: "APM-GLUCOSE"
+name: "Metabolic Monitoring - Blood Glucose Testing"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether children and adolescents aged 1-17 on antipsychotic
+  medications had blood glucose or HbA1c testing during the measurement
+  year. Antipsychotic medications are associated with metabolic side
+  effects including hyperglycemia and new-onset diabetes. Regular
+  metabolic monitoring enables early detection and management of these
+  adverse effects. The actual HEDIS specification requires two or more
+  antipsychotic prescription fills; this implementation is simplified to
+  check for an outpatient encounter as a denominator proxy combined with
+  glucose/A1c lab monitoring.
+
+eligibility:
+  age: {min: 1, max: 17, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_encounter:
+    encounter_types: ["outpatient"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "lab_exists"
+      lab: "GLUCOSE"
+      window_months: 12
+      description: "Blood glucose test during measurement year"
+    - type: "lab_exists"
+      lab: "A1C"
+      window_months: 12
+      description: "HbA1c test during measurement year"
+
+valuesets_needed:
+  - VS_ANTIPSYCHOTIC_MEDICATIONS
+  - VS_GLUCOSE_TEST_CPT
+  - VS_A1C_TEST_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"
+  - "pharmacy"

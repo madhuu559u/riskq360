@@ -1,0 +1,436 @@
+/* ============================================================================
+   RiskQ360 — Risk. Quality. Everything in between. — Global Styles
+   ============================================================================ */
+
+/* --- Mantine CSS imports are done in main.tsx --- */
+
+/* --- CSS Custom Properties (defaults - overridden by theme system) --- */
+:root {
+  --mi-primary: #0176D3;
+  --mi-primary-hover: #014486;
+  --mi-secondary: #747474;
+  --mi-accent: #1B96FF;
+  --mi-background: #F3F3F3;
+  --mi-surface: #FFFFFF;
+  --mi-surface-hover: #F5F5F5;
+  --mi-border: #DDDBDA;
+  --mi-text: #181818;
+  --mi-text-secondary: #444444;
+  --mi-text-muted: #706E6B;
+  --mi-success: #2E844A;
+  --mi-warning: #DD7A01;
+  --mi-error: #EA001E;
+  --mi-info: #0176D3;
+
+  /* Derived / utility */
+  --mi-glass-bg: rgba(255, 255, 255, 0.72);
+  --mi-glass-border: rgba(255, 255, 255, 0.3);
+  --mi-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --mi-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --mi-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
+  --mi-shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.06);
+  --mi-radius-sm: 8px;
+  --mi-radius-md: 12px;
+  --mi-radius-lg: 16px;
+  --mi-radius-xl: 20px;
+  --mi-radius-full: 9999px;
+  --mi-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --mi-transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --mi-transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --mi-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mi-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.dark {
+  --mi-glass-bg: rgba(30, 34, 40, 0.78);
+  --mi-glass-border: rgba(255, 255, 255, 0.08);
+  --mi-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
+  --mi-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.15);
+  --mi-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.2);
+  --mi-shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* --- Base Styles --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--mi-font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  background-color: var(--mi-background);
+  color: var(--mi-text);
+  transition: background-color var(--mi-transition-normal), color var(--mi-transition-normal);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Smooth Scrollbar --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mi-border);
+  border-radius: var(--mi-radius-full);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mi-text-muted);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mi-border) transparent;
+}
+
+/* --- Glass Morphism Utilities --- */
+.glass {
+  background: var(--mi-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--mi-glass-border);
+}
+
+.glass-subtle {
+  background: var(--mi-glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.glass-strong {
+  background: var(--mi-glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--mi-glass-border);
+}
+
+/* --- Animation Keyframes --- */
+@keyframes mi-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mi-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mi-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mi-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes mi-pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(var(--mi-primary-rgb, 1, 118, 211), 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(var(--mi-primary-rgb, 1, 118, 211), 0);
+  }
+}
+
+@keyframes mi-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes mi-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes mi-count-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mi-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* --- Animation Utility Classes --- */
+.animate-fade-in {
+  animation: mi-fade-in var(--mi-transition-normal) forwards;
+}
+
+.animate-slide-up {
+  animation: mi-slide-up var(--mi-transition-normal) forwards;
+}
+
+.animate-slide-down {
+  animation: mi-slide-down var(--mi-transition-normal) forwards;
+}
+
+.animate-scale-in {
+  animation: mi-scale-in var(--mi-transition-normal) forwards;
+}
+
+.animate-pulse-glow {
+  animation: mi-pulse-glow 2s infinite;
+}
+
+/* --- Staggered Animation (for lists) --- */
+.stagger-children > * {
+  opacity: 0;
+  animation: mi-slide-up 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 350ms; }
+.stagger-children > *:nth-child(n+9) { animation-delay: 400ms; }
+
+/* --- Gradient Text --- */
+.gradient-text {
+  background: linear-gradient(135deg, var(--mi-primary), var(--mi-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* --- Mantine Theme Overrides --- */
+
+/* Override Mantine's default card to use our surface colors */
+.mantine-Card-root {
+  background-color: var(--mi-surface);
+  border-color: var(--mi-border);
+  transition: box-shadow var(--mi-transition-fast), transform var(--mi-transition-fast);
+}
+
+/* Override Mantine buttons */
+.mantine-Button-root[data-variant="filled"] {
+  transition: all var(--mi-transition-fast);
+}
+
+/* Override Mantine input */
+.mantine-TextInput-input,
+.mantine-Textarea-input,
+.mantine-Select-input,
+.mantine-NumberInput-input {
+  background-color: var(--mi-surface);
+  border-color: var(--mi-border);
+  color: var(--mi-text);
+  transition: border-color var(--mi-transition-fast), box-shadow var(--mi-transition-fast);
+}
+
+.mantine-TextInput-input:focus,
+.mantine-Textarea-input:focus,
+.mantine-Select-input:focus,
+.mantine-NumberInput-input:focus {
+  border-color: var(--mi-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mi-primary) 20%, transparent);
+}
+
+/* Override Mantine Modal/Spotlight backdrop */
+.mantine-Modal-overlay,
+.mantine-Spotlight-overlay {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Override Mantine tabs */
+.mantine-Tabs-tab {
+  transition: all var(--mi-transition-fast);
+}
+
+.mantine-Tabs-tab[data-active] {
+  border-color: var(--mi-primary);
+  color: var(--mi-primary);
+}
+
+/* Override badge colors to be softer */
+.mantine-Badge-root {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Override tooltip */
+.mantine-Tooltip-tooltip {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Override Dropzone */
+.mantine-Dropzone-root {
+  border-color: var(--mi-border);
+  background-color: var(--mi-surface);
+  transition: all var(--mi-transition-fast);
+}
+
+.mantine-Dropzone-root:hover {
+  border-color: var(--mi-primary);
+  background-color: var(--mi-surface-hover);
+}
+
+.mantine-Dropzone-root[data-accept] {
+  border-color: var(--mi-success);
+  background-color: color-mix(in srgb, var(--mi-success) 5%, var(--mi-surface));
+}
+
+.mantine-Dropzone-root[data-reject] {
+  border-color: var(--mi-error);
+  background-color: color-mix(in srgb, var(--mi-error) 5%, var(--mi-surface));
+}
+
+/* Override Notifications */
+.mantine-Notification-root {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* --- Responsive Container --- */
+.content-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    padding: 0 16px;
+  }
+}
+
+/* --- Selection --- */
+::selection {
+  background-color: color-mix(in srgb, var(--mi-primary) 30%, transparent);
+  color: var(--mi-text);
+}
+
+/* --- Focus Visible --- */
+:focus-visible {
+  outline: 2px solid var(--mi-primary);
+  outline-offset: 2px;
+}
+
+/* --- Enhanced Evidence Popover Animations --- */
+@keyframes mi-popover-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- Highlight hover enhancement --- */
+.pdf-highlight-overlay:hover {
+  filter: brightness(1.08);
+  transform: scale(1.02);
+}
+
+/* --- Mantine Accordion panel transitions --- */
+.mantine-Accordion-panel {
+  transition: all 0.2s ease;
+}
+
+/* --- Better tab styling --- */
+.mantine-Tabs-tab {
+  font-size: 12px !important;
+  padding: 6px 8px !important;
+}
+
+/* --- Compact badge refinements --- */
+.mantine-Badge-root {
+  letter-spacing: 0.02em;
+}
+
+/* --- Evidence popover glass effect --- */
+.evidence-popover-card {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* --- Scrollbar refinements for side panels --- */
+.mantine-Tabs-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mantine-Tabs-panel::-webkit-scrollbar-thumb {
+  background: var(--mi-border);
+  border-radius: 3px;
+}
+
+.mantine-Tabs-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--mi-text-muted);
+}

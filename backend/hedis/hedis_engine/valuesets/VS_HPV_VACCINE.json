@@ -1,0 +1,17 @@
+{
+    "id": "VS_HPV_VACCINE",
+    "name": "Human Papillomavirus (HPV) Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for human papillomavirus (HPV) vaccines. Used in immunizations for adolescents (IMA) measure. Recommended 2-dose series for ages 9-14 or 3-dose series for ages 15-26. Gardasil 9 (9-valent) is the current standard.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "62", "code_system": "cvx", "description": "HPV vaccine, quadrivalent (Gardasil — historical)"},
+        {"code": "118", "code_system": "cvx", "description": "HPV vaccine, bivalent (Cervarix — historical)"},
+        {"code": "137", "code_system": "cvx", "description": "HPV vaccine, unspecified formulation"},
+        {"code": "165", "code_system": "cvx", "description": "HPV vaccine, 9-valent (Gardasil 9)"},
+        {"code": "90649", "code_system": "cpt", "description": "Human papillomavirus vaccine, types 6, 11, 16, 18 (quadrivalent), 3 dose schedule, for intramuscular use"},
+        {"code": "90650", "code_system": "cpt", "description": "Human papillomavirus vaccine, types 16, 18 (bivalent), 3 dose schedule, for intramuscular use"},
+        {"code": "90651", "code_system": "cpt", "description": "Human papillomavirus vaccine, types 6, 11, 16, 18, 31, 33, 45, 52, 58 (9-valent), 2 or 3 dose schedule, for intramuscular use"}
+    ]
+}

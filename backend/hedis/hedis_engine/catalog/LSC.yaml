@@ -1,0 +1,39 @@
+id: "LSC"
+name: "Lead Screening in Children"
+version: "2025"
+domain: "pediatric"
+description: >
+  Assesses whether children who turned 2 years old during the measurement year
+  had at least one capillary or venous blood lead level test performed by their
+  second birthday. Lead exposure in young children can cause irreversible
+  neurological damage, developmental delays, and behavioral problems. Early
+  screening enables identification of elevated blood lead levels and timely
+  intervention to reduce ongoing exposure and mitigate health effects.
+
+eligibility:
+  age: {min: 2, max: 2, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "lab_exists"
+      lab: "LEAD"
+      window_months: 24
+
+valuesets_needed:
+  - VS_LEAD_TEST
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"

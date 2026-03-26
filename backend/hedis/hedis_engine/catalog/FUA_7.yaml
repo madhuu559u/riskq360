@@ -1,0 +1,50 @@
+id: "FUA-7"
+name: "Follow-Up After Emergency Department Visit for Substance Use - 7 Day"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 13 and older who had an emergency
+  department visit with a principal diagnosis of a substance use disorder
+  (alcohol or drug) had a follow-up visit with a behavioral health or
+  substance use treatment provider within 7 days of the ED visit. Timely
+  follow-up after an ED visit for substance use is critical for initiating
+  or continuing treatment, reducing the risk of subsequent ED visits,
+  overdose, and other complications. This measure uses a 1-month window
+  approximation due to data granularity limitations.
+
+eligibility:
+  age: {min: 13, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_SUBSTANCE_USE_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+  requires_encounter:
+    encounter_types: ["emergency"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "encounter"
+      encounter_types: ["outpatient", "telehealth"]
+      window_months: 12
+      description: "Outpatient or telehealth follow-up after ED visit for substance use during measurement year"
+
+valuesets_needed:
+  - VS_SUBSTANCE_USE_ICD10
+  - VS_ED_ENCOUNTER
+  - VS_SUD_OUTPATIENT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

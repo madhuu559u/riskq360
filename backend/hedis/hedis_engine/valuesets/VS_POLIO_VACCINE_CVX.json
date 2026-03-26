@@ -1,0 +1,19 @@
+{
+    "id": "VS_POLIO_VACCINE_CVX",
+    "name": "Polio (IPV) Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for inactivated poliovirus vaccine (IPV). Used in childhood immunization (CIS) measures. Requires 3 doses by age 2.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "10", "code_system": "cvx", "description": "Poliovirus vaccine, inactivated (IPV)"},
+        {"code": "02", "code_system": "cvx", "description": "Trivalent poliovirus vaccine, live, oral (OPV — historical)"},
+        {"code": "89", "code_system": "cvx", "description": "Poliovirus vaccine, unspecified formulation"},
+        {"code": "110", "code_system": "cvx", "description": "DTaP-hepatitis B-IPV vaccine (Pediarix)"},
+        {"code": "120", "code_system": "cvx", "description": "DTaP-IPV vaccine (Kinrix, Quadracel)"},
+        {"code": "130", "code_system": "cvx", "description": "DTaP-IPV-Hib-HepB vaccine (Vaxelis)"},
+        {"code": "146", "code_system": "cvx", "description": "DTaP-IPV-Hib vaccine (Pentacel)"},
+        {"code": "90713", "code_system": "cpt", "description": "Poliovirus vaccine (IPV), inactivated, for subcutaneous or intramuscular use"},
+        {"code": "90723", "code_system": "cpt", "description": "Diphtheria, tetanus toxoids, acellular pertussis vaccine, hepatitis B, and inactivated poliovirus vaccine (DTaP-HepB-IPV), for intramuscular use"}
+    ]
+}

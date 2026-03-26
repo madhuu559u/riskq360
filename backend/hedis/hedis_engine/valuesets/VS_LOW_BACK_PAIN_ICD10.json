@@ -1,0 +1,20 @@
+{
+    "id": "VS_LOW_BACK_PAIN_ICD10",
+    "name": "Low Back Pain Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for low back pain diagnoses. Used in the use of imaging studies for low back pain (LBP) measure to identify episodes where early imaging may be inappropriate without red-flag symptoms.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "M54.5", "description": "Low back pain"},
+        {"code": "M54.4", "description": "Lumbago with sciatica, unspecified side"},
+        {"code": "M54.40", "description": "Lumbago with sciatica, unspecified side"},
+        {"code": "M54.41", "description": "Lumbago with sciatica, right side"},
+        {"code": "M54.42", "description": "Lumbago with sciatica, left side"},
+        {"code": "M54.89", "description": "Other dorsalgia"},
+        {"code": "M54.9", "description": "Dorsalgia, unspecified"},
+        {"code": "M54.50", "description": "Low back pain, unspecified"},
+        {"code": "M54.51", "description": "Vertebrogenic low back pain"},
+        {"code": "M54.59", "description": "Other low back pain"}
+    ]
+}

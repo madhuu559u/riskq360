@@ -1,0 +1,25 @@
+{
+    "id": "VS_BRONCHODILATOR_MEDICATIONS",
+    "name": "Bronchodilator Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication codes for bronchodilator medications including short-acting and long-acting beta-agonists (SABA/LABA) and anticholinergic agents. Used in COPD exacerbation pharmacotherapy (PCE) and asthma-related measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "albuterol", "code_system": "medication_name", "description": "Albuterol (ProAir, Ventolin, Proventil) — short-acting beta-2 agonist (SABA)"},
+        {"code": "levalbuterol", "code_system": "medication_name", "description": "Levalbuterol (Xopenex) — short-acting beta-2 agonist (SABA)"},
+        {"code": "ipratropium", "code_system": "medication_name", "description": "Ipratropium (Atrovent) — short-acting muscarinic antagonist (SAMA)"},
+        {"code": "ipratropium-albuterol", "code_system": "medication_name", "description": "Ipratropium/Albuterol (Combivent, DuoNeb) — SAMA/SABA combination"},
+        {"code": "tiotropium", "code_system": "medication_name", "description": "Tiotropium (Spiriva) — long-acting muscarinic antagonist (LAMA)"},
+        {"code": "umeclidinium", "code_system": "medication_name", "description": "Umeclidinium (Incruse Ellipta) — long-acting muscarinic antagonist (LAMA)"},
+        {"code": "aclidinium", "code_system": "medication_name", "description": "Aclidinium (Tudorza) — long-acting muscarinic antagonist (LAMA)"},
+        {"code": "salmeterol", "code_system": "medication_name", "description": "Salmeterol (Serevent) — long-acting beta-2 agonist (LABA)"},
+        {"code": "formoterol", "code_system": "medication_name", "description": "Formoterol (Foradil, Perforomist) — long-acting beta-2 agonist (LABA)"},
+        {"code": "indacaterol", "code_system": "medication_name", "description": "Indacaterol (Arcapta) — ultra-long-acting beta-2 agonist (LABA)"},
+        {"code": "olodaterol", "code_system": "medication_name", "description": "Olodaterol (Striverdi) — long-acting beta-2 agonist (LABA)"},
+        {"code": "435", "code_system": "rxnorm", "description": "Albuterol"},
+        {"code": "237159", "code_system": "rxnorm", "description": "Levalbuterol"},
+        {"code": "7213", "code_system": "rxnorm", "description": "Ipratropium"},
+        {"code": "69120", "code_system": "rxnorm", "description": "Tiotropium"}
+    ]
+}

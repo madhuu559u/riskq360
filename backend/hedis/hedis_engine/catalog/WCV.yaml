@@ -1,0 +1,40 @@
+id: "WCV"
+name: "Well-Child Visits in the Third, Fourth, Fifth, and Sixth Years of Life"
+version: "2025"
+domain: "pediatric_preventive"
+description: >
+  Assesses whether children aged 3-11 had at least one well-child visit
+  with a PCP or OB/GYN during the measurement year. Regular well-child
+  visits are essential for monitoring growth and development, administering
+  immunizations, and identifying health concerns early.
+
+eligibility:
+  age: {min: 3, max: 11, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_WELL_CHILD_CPT"
+      window_months: 12
+    - type: "encounter"
+      encounter_types: ["outpatient"]
+      window_months: 12
+
+valuesets_needed:
+  - VS_WELL_CHILD_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

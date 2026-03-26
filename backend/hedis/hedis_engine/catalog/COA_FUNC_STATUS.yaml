@@ -1,0 +1,41 @@
+id: "COA-FUNC-STATUS"
+name: "Care for Older Adults - Functional Status Assessment"
+version: "2025"
+domain: "geriatric"
+description: >
+  Assesses whether adults aged 66 and older had a functional status assessment
+  conducted during the measurement year. Functional status assessments evaluate
+  a patient's ability to perform activities of daily living (ADLs) and
+  instrumental activities of daily living (IADLs), and are critical for
+  identifying older adults at risk for falls, disability, institutionalization,
+  and loss of independence. Early identification of functional decline enables
+  targeted interventions such as physical therapy, home modifications, and
+  care coordination.
+
+eligibility:
+  age: {min: 66, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_FUNCTIONAL_ASSESSMENT_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_FUNCTIONAL_ASSESSMENT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

@@ -1,0 +1,23 @@
+{
+    "id": "VS_BMI_SCREENING_CPT",
+    "name": "BMI Screening and Counseling Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for BMI screening, weight assessment, and nutritional/physical activity counseling. Used in adult BMI assessment and child/adolescent weight assessment measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "97802", "code_system": "cpt", "description": "Medical nutrition therapy; initial assessment and intervention, individual, face-to-face, 15 minutes"},
+        {"code": "97803", "code_system": "cpt", "description": "Medical nutrition therapy; re-assessment and intervention, individual, face-to-face, 15 minutes"},
+        {"code": "97804", "code_system": "cpt", "description": "Medical nutrition therapy; group, 30 minutes"},
+        {"code": "G0270", "code_system": "hcpcs", "description": "Medical nutrition therapy; reassessment and subsequent intervention(s)"},
+        {"code": "G0271", "code_system": "hcpcs", "description": "Medical nutrition therapy, reassessment and subsequent intervention(s), group"},
+        {"code": "G0447", "code_system": "hcpcs", "description": "Face-to-face behavioral counseling for obesity, 15 minutes"},
+        {"code": "G0473", "code_system": "hcpcs", "description": "Face-to-face behavioral counseling for obesity, group, 30 minutes"},
+        {"code": "3008F", "code_system": "cpt", "description": "Body mass index (BMI), documented"},
+        {"code": "39156-5", "code_system": "loinc", "description": "Body mass index (BMI) [Ratio]"},
+        {"code": "59576-9", "code_system": "loinc", "description": "Body mass index (BMI) [Percentile] Per age and gender"},
+        {"code": "S9449", "code_system": "hcpcs", "description": "Weight management classes, non-physician provider, per session"},
+        {"code": "S9451", "code_system": "hcpcs", "description": "Exercise class, non-physician provider, per session"},
+        {"code": "S9452", "code_system": "hcpcs", "description": "Nutrition class, non-physician provider, per session"}
+    ]
+}

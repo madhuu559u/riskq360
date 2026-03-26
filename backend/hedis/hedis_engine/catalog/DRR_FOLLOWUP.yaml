@@ -1,0 +1,45 @@
+id: "DRR-FOLLOWUP"
+name: "Depression Remission or Response - Follow-Up"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 12 and older with a diagnosis of
+  depression had a follow-up PHQ-9 assessment documented during the
+  measurement year. The PHQ-9 is a validated instrument for monitoring
+  depression severity and treatment response. Regular follow-up
+  assessment enables clinicians to evaluate treatment effectiveness and
+  adjust care plans accordingly.
+
+eligibility:
+  age: {min: 12, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DEPRESSION_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "lab_exists"
+      lab: "PHQ9"
+      window_months: 12
+      description: "Follow-up PHQ-9 documented during measurement year"
+
+valuesets_needed:
+  - VS_DEPRESSION_ICD10
+  - VS_PHQ9_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"
+  - "encounters"

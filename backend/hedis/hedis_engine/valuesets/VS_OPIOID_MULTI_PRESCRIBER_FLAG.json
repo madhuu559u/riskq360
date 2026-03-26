@@ -1,0 +1,9 @@
+{
+    "id": "VS_OPIOID_MULTI_PRESCRIBER_FLAG",
+    "name": "Opioid Multiple Prescriber Evidence Flag (Placeholder)",
+    "code_system": "custom",
+    "placeholder": true,
+    "description": "PLACEHOLDER value set for the Use of Opioids from Multiple Providers (UOP) measure. This value set is intended to capture evidence that a member received opioid prescriptions from multiple prescribers (>= 4) or multiple pharmacies (>= 4). In a fully implemented system, this would be derived from pharmacy claims data with prescriber and pharmacy identifiers. Since our current clinical extraction pipeline does not capture prescriber or pharmacy counts, this value set contains no active codes and the UOP measure numerator will not match, resulting in all qualifying members being marked as 'met' (desirable for an inverse measure where the numerator represents the undesirable event). When pharmacy claims integration is available, this value set should be replaced with derived logic or flagging codes.",
+    "source": "Internal placeholder — requires pharmacy claims integration for accurate implementation",
+    "codes": []
+}

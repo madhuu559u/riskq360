@@ -1,0 +1,18 @@
+{
+    "id": "VS_PCV13_VACCINE",
+    "name": "Pneumococcal Conjugate Vaccine (PCV13/PCV15/PCV20) Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for pneumococcal conjugate vaccines including PCV13 (Prevnar 13), PCV15 (Vaxneuvance), and PCV20 (Prevnar 20). Used in childhood immunization status (CIS) measure. Requires 4 doses (at 2, 4, 6, and 12-15 months).",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "133", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 13 valent (PCV13, Prevnar 13)"},
+        {"code": "152", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 7 valent (PCV7, Prevnar — historical)"},
+        {"code": "215", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 15 valent (PCV15, Vaxneuvance)"},
+        {"code": "216", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 20 valent (PCV20, Prevnar 20)"},
+        {"code": "109", "code_system": "cvx", "description": "Pneumococcal vaccine, unspecified formulation"},
+        {"code": "90670", "code_system": "cpt", "description": "Pneumococcal conjugate vaccine, 13 valent (PCV13), for intramuscular use"},
+        {"code": "90671", "code_system": "cpt", "description": "Pneumococcal conjugate vaccine, 15 valent (PCV15), for intramuscular use"},
+        {"code": "90677", "code_system": "cpt", "description": "Pneumococcal conjugate vaccine, 20 valent (PCV20), for intramuscular use"}
+    ]
+}

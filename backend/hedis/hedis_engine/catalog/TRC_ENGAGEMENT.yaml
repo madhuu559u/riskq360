@@ -1,0 +1,43 @@
+id: "TRC-ENGAGEMENT"
+name: "Transitions of Care - Patient Engagement After Discharge"
+version: "2025"
+domain: "care_transitions"
+description: >
+  Assesses whether adult members discharged from an acute inpatient
+  setting had a follow-up visit (outpatient or telehealth) within 30 days
+  of discharge. Timely post-discharge engagement is critical for
+  preventing readmissions, reconciling medications, and ensuring
+  continuity of care. Poor transitions of care are associated with
+  adverse events, medication errors, and avoidable hospital readmissions.
+
+eligibility:
+  age: {min: 18, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_encounter:
+    encounter_types: ["inpatient"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "encounter"
+      encounter_types: ["outpatient", "telehealth"]
+      window_months: 12
+      description: "Follow-up visit within 30 days after inpatient discharge"
+
+valuesets_needed:
+  - VS_INPATIENT_ENCOUNTER
+  - VS_OUTPATIENT_FOLLOWUP_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

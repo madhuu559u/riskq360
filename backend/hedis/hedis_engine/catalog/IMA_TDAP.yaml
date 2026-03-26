@@ -1,0 +1,45 @@
+id: "IMA-TDAP"
+name: "Immunizations for Adolescents - Tdap"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether adolescents who turned 13 years old during the measurement
+  year received at least one dose of the tetanus, diphtheria, and acellular
+  pertussis (Tdap) booster vaccine by their 13th birthday. The Tdap booster
+  is recommended at age 11-12 to maintain protection against pertussis
+  (whooping cough), which remains a significant public health concern,
+  and to boost waning tetanus and diphtheria immunity from childhood DTaP.
+
+eligibility:
+  age: {min: 13, max: 13, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_IMMUNIZATION_CONTRAINDICATION"
+    lookback_months: 24
+    description: "Contraindication to vaccine"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "tdap"
+      min_count: 1
+      window_months: 156
+
+valuesets_needed:
+  - VS_TDAP_VACCINE
+  - VS_HOSPICE
+  - VS_IMMUNIZATION_CONTRAINDICATION
+
+data_sources:
+  - "claims"
+  - "immunization_registry"

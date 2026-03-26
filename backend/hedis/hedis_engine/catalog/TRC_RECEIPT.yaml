@@ -1,0 +1,49 @@
+id: "TRC-RECEIPT"
+name: "Transitions of Care - Receipt of Discharge Information"
+version: "2025"
+domain: "care_transitions"
+description: >
+  Assesses whether adult members discharged from an acute inpatient setting
+  had discharge information received by the outpatient provider or care
+  coordinator. Receipt of discharge information — including discharge
+  diagnoses, medication changes, pending tests, follow-up instructions,
+  and patient functional status — is essential for safe care transitions.
+  Gaps in discharge information transfer are a leading cause of post-discharge
+  adverse events, medication errors, and avoidable readmissions. This measure
+  evaluates whether the outpatient provider documented receipt of critical
+  discharge data, ensuring bidirectional communication between inpatient
+  and outpatient settings. This measure complements the TRC Notification
+  and Engagement measures by focusing on the completeness of information
+  transfer at discharge.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_encounter:
+    encounter_types: ["inpatient"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_CARE_TRANSITION_RECEIPT_CPT"
+      window_months: 12
+      description: "Receipt of discharge information by outpatient provider"
+
+valuesets_needed:
+  - VS_INPATIENT_ENCOUNTER
+  - VS_CARE_TRANSITION_RECEIPT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

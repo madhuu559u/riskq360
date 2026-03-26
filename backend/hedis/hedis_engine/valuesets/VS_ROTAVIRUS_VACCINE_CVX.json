@@ -1,0 +1,16 @@
+{
+    "id": "VS_ROTAVIRUS_VACCINE_CVX",
+    "name": "Rotavirus Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for rotavirus vaccines. Used in childhood immunization (CIS) measures. RotaTeq (RV5) requires 3 doses; Rotarix (RV1) requires 2 doses.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "116", "code_system": "cvx", "description": "Rotavirus vaccine, pentavalent (RotaTeq, RV5)"},
+        {"code": "119", "code_system": "cvx", "description": "Rotavirus vaccine, monovalent (Rotarix, RV1)"},
+        {"code": "122", "code_system": "cvx", "description": "Rotavirus vaccine, unspecified formulation"},
+        {"code": "74", "code_system": "cvx", "description": "Rotavirus vaccine, tetravalent, live, oral (RotaShield — withdrawn)"},
+        {"code": "90680", "code_system": "cpt", "description": "Rotavirus vaccine, pentavalent (RV5), 3 dose schedule, live, for oral use"},
+        {"code": "90681", "code_system": "cpt", "description": "Rotavirus vaccine, human, attenuated (RV1), 2 dose schedule, live, for oral use"}
+    ]
+}

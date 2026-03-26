@@ -1,0 +1,50 @@
+id: "SPR"
+name: "Statin Therapy for Patients with Cardiovascular Disease"
+version: "2025"
+domain: "cardiovascular"
+description: >
+  Assesses whether adults aged 21-75 with clinical atherosclerotic
+  cardiovascular disease (ASCVD) are receiving statin therapy. High-intensity
+  or moderate-intensity statin therapy is recommended for secondary prevention
+  in patients with established ASCVD, including those with a history of
+  myocardial infarction, coronary artery disease, peripheral arterial disease,
+  or ischemic stroke. Statin therapy significantly reduces the risk of
+  recurrent cardiovascular events and mortality in this population. Note:
+  clinical guidelines specify males 21-75 and females 40-75, but this
+  definition uses 21-75 for both genders for simplicity.
+
+eligibility:
+  age: {min: 21, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_ASCVD_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "statin"
+      window_months: 12
+
+valuesets_needed:
+  - VS_ASCVD_ICD10
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "medications"

@@ -1,0 +1,46 @@
+id: "FLU"
+name: "Influenza Immunization"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether members aged 6 months and older received an influenza
+  (flu) vaccination during the measurement year flu season. Annual influenza
+  vaccination is recommended for virtually all individuals aged 6 months
+  and older by the Advisory Committee on Immunization Practices (ACIP).
+  Influenza causes significant morbidity and mortality each year,
+  particularly among young children, older adults, and immunocompromised
+  individuals.
+
+eligibility:
+  age: {min: 0, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_EGG_ALLERGY_ICD10"
+    lookback_months: 0
+    description: "Severe egg allergy or prior vaccine reaction (contraindication)"
+
+numerator:
+  any_of:
+    - type: "vaccine"
+      vaccine_type: "influenza"
+      window_months: 12
+
+valuesets_needed:
+  - VS_INFLUENZA_VACCINE_CVX
+  - VS_HOSPICE
+  - VS_EGG_ALLERGY_ICD10
+
+data_sources:
+  - "claims"
+  - "immunization_registry"
+  - "encounters"

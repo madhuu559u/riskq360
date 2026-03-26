@@ -1,0 +1,49 @@
+id: "DSF"
+name: "Depression Screening and Follow-Up"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 12 and older were screened for clinical
+  depression using a standardized screening tool (e.g., PHQ-2, PHQ-9,
+  Beck Depression Inventory) during the measurement year and, if the
+  screen was positive, whether a follow-up plan was documented. Depression
+  is one of the most common mental health conditions and is associated
+  with significant functional impairment and increased healthcare
+  utilization. Universal screening enables early identification and
+  treatment.
+
+eligibility:
+  age: {min: 12, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_DEPRESSION_ACTIVE_ICD10"
+    lookback_months: 12
+    description: "Active depression diagnosis with current treatment (already managed)"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_DEPRESSION_SCREENING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DEPRESSION_SCREENING_CPT
+  - VS_DEPRESSION_ACTIVE_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

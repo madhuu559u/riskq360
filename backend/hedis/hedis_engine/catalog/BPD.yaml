@@ -1,0 +1,49 @@
+id: "BPD"
+name: "Blood Pressure Control for Patients with Diabetes"
+version: "2025"
+domain: "cardiovascular"
+description: >
+  Assesses whether adults aged 18-75 with diabetes have adequately controlled
+  blood pressure (systolic < 140 mmHg and diastolic < 90 mmHg) based on the
+  most recent blood pressure reading during the measurement year. Patients
+  with diabetes are at significantly elevated cardiovascular risk, and blood
+  pressure control is a critical component of comprehensive diabetes management
+  to reduce the risk of macrovascular and microvascular complications.
+
+eligibility:
+  age: {min: 18, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  all_of:
+    - type: "bp_controlled"
+      systolic_threshold: 140
+      diastolic_threshold: 90
+      window_months: 12
+      rule: "latest"
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "vitals"

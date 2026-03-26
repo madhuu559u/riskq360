@@ -1,0 +1,29 @@
+{
+    "id": "VS_OUD_PHARMACOTHERAPY",
+    "name": "Opioid Use Disorder Pharmacotherapy Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication and procedure codes for FDA-approved pharmacotherapy for opioid use disorder (OUD), including buprenorphine (sublingual, implant, injection), naltrexone (oral and extended-release injectable), and methadone. Used in the pharmacotherapy for opioid use disorder (OUD) and initiation/engagement of substance use treatment (IET) measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "buprenorphine", "code_system": "medication_name", "description": "Buprenorphine (Subutex) — partial opioid agonist for OUD"},
+        {"code": "buprenorphine-naloxone", "code_system": "medication_name", "description": "Buprenorphine/Naloxone (Suboxone) — combination partial agonist/antagonist for OUD"},
+        {"code": "naltrexone", "code_system": "medication_name", "description": "Naltrexone oral (ReVia) — opioid antagonist for OUD"},
+        {"code": "naltrexone injectable", "code_system": "medication_name", "description": "Naltrexone extended-release injectable (Vivitrol) — long-acting opioid antagonist"},
+        {"code": "methadone", "code_system": "medication_name", "description": "Methadone — full opioid agonist for OUD maintenance (OTP setting)"},
+        {"code": "buprenorphine implant", "code_system": "medication_name", "description": "Buprenorphine subdermal implant (Probuphine) — 6-month implant for OUD"},
+        {"code": "buprenorphine injection", "code_system": "medication_name", "description": "Buprenorphine extended-release injection (Sublocade) — monthly injection for OUD"},
+        {"code": "1819", "code_system": "rxnorm", "description": "Buprenorphine"},
+        {"code": "7052", "code_system": "rxnorm", "description": "Naltrexone"},
+        {"code": "6813", "code_system": "rxnorm", "description": "Methadone"},
+        {"code": "352364", "code_system": "rxnorm", "description": "Buprenorphine/Naloxone sublingual film"},
+        {"code": "1597568", "code_system": "rxnorm", "description": "Naltrexone 380 MG extended-release injection"},
+        {"code": "1666338", "code_system": "rxnorm", "description": "Buprenorphine 74.2 MG subdermal implant (Probuphine)"},
+        {"code": "2058257", "code_system": "rxnorm", "description": "Buprenorphine 300 MG/ML extended-release subcutaneous injection (Sublocade)"},
+        {"code": "J0571", "code_system": "hcpcs", "description": "Buprenorphine, oral, 1 mg"},
+        {"code": "J0572", "code_system": "hcpcs", "description": "Buprenorphine/naloxone, oral, less than or equal to 3 mg buprenorphine"},
+        {"code": "J0573", "code_system": "hcpcs", "description": "Buprenorphine/naloxone, oral, greater than 3 mg, up to 6 mg buprenorphine"},
+        {"code": "J2315", "code_system": "hcpcs", "description": "Injection, naltrexone, depot form, 1 mg"},
+        {"code": "H0020", "code_system": "hcpcs", "description": "Alcohol and/or drug services; methadone administration and/or service"}
+    ]
+}

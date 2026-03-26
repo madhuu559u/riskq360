@@ -1,0 +1,27 @@
+{
+    "id": "VS_IMMUNIZATION_CONTRAINDICATION",
+    "name": "Immunization Contraindication Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for conditions that represent contraindications to vaccination, including anaphylaxis to vaccine components, encephalopathy following vaccination, severe combined immunodeficiency, and other immune conditions. Used as exclusion criteria in childhood immunization (CIS) and adolescent immunization (IMA) measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "T78.00XA", "description": "Anaphylactic reaction due to unspecified food, initial encounter"},
+        {"code": "T78.02XA", "description": "Anaphylactic reaction due to shellfish, initial encounter"},
+        {"code": "T78.09XA", "description": "Anaphylactic reaction due to other food, initial encounter"},
+        {"code": "T78.2XXA", "description": "Anaphylactic shock, unspecified, initial encounter"},
+        {"code": "T80.52XA", "description": "Anaphylactic reaction due to vaccination, initial encounter"},
+        {"code": "T80.59XA", "description": "Anaphylactic reaction due to other serum, initial encounter"},
+        {"code": "T80.62XA", "description": "Other serum reaction due to vaccination, initial encounter"},
+        {"code": "G04.02", "description": "Postimmunization acute disseminated encephalomyelitis (ADEM)"},
+        {"code": "G04.81", "description": "Other encephalitis and encephalomyelitis"},
+        {"code": "D81.0", "description": "Severe combined immunodeficiency (SCID) with reticular dysgenesis"},
+        {"code": "D81.1", "description": "Severe combined immunodeficiency with low T- and B-cell numbers"},
+        {"code": "D81.2", "description": "Severe combined immunodeficiency with low or normal B-cell numbers"},
+        {"code": "D81.9", "description": "Combined immunodeficiency, unspecified"},
+        {"code": "D83.9", "description": "Common variable immunodeficiency, unspecified"},
+        {"code": "D84.9", "description": "Immunodeficiency, unspecified"},
+        {"code": "Z88.1", "description": "Allergy status to other antibiotic agents"},
+        {"code": "Z88.8", "description": "Allergy status to other drugs, medicaments and biological substances"}
+    ]
+}

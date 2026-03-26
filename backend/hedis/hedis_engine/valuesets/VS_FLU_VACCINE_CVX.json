@@ -1,0 +1,25 @@
+{
+    "id": "VS_FLU_VACCINE_CVX",
+    "name": "Influenza Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX, CPT, and HCPCS codes for influenza (flu) vaccines. Used in immunization measures for both pediatric and adult populations. Includes injectable and intranasal formulations.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "140", "code_system": "cvx", "description": "Influenza, seasonal, injectable, preservative free"},
+        {"code": "141", "code_system": "cvx", "description": "Influenza, seasonal, injectable"},
+        {"code": "150", "code_system": "cvx", "description": "Influenza, injectable, quadrivalent, preservative free"},
+        {"code": "153", "code_system": "cvx", "description": "Influenza, injectable, Madin Darby Canine Kidney, preservative free"},
+        {"code": "155", "code_system": "cvx", "description": "Influenza, recombinant, injectable, preservative free"},
+        {"code": "158", "code_system": "cvx", "description": "Influenza, injectable, quadrivalent, contains preservative"},
+        {"code": "161", "code_system": "cvx", "description": "Influenza, injectable, quadrivalent, preservative free, pediatric"},
+        {"code": "168", "code_system": "cvx", "description": "Influenza, trivalent, adjuvanted, preservative free"},
+        {"code": "171", "code_system": "cvx", "description": "Influenza, injectable, Madin Darby Canine Kidney, quadrivalent, preservative free"},
+        {"code": "185", "code_system": "cvx", "description": "Influenza, recombinant, quadrivalent, injectable, preservative free"},
+        {"code": "197", "code_system": "cvx", "description": "Influenza, high-dose seasonal, quadrivalent, preservative free"},
+        {"code": "90630", "code_system": "cpt", "description": "Influenza virus vaccine, quadrivalent (IIV4), split virus, preservative free, 0.5 mL dosage, for intramuscular use"},
+        {"code": "90656", "code_system": "cpt", "description": "Influenza virus vaccine, trivalent (IIV3), split virus, preservative free, 0.5 mL dosage, for intramuscular use"},
+        {"code": "90686", "code_system": "cpt", "description": "Influenza virus vaccine, quadrivalent (IIV4), split virus, preservative free, 0.5 mL dosage, for intramuscular use"},
+        {"code": "90688", "code_system": "cpt", "description": "Influenza virus vaccine, quadrivalent (IIV4), split virus, 0.5 mL dosage, for intramuscular use"}
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "id": "VS_OPIOID_MEDICATIONS",
+    "name": "Opioid Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication codes for opioid analgesics including short-acting and long-acting formulations. Used in the use of opioids at high dosage (HDO) measure, use of opioids from multiple providers (UOP) measure, and concurrent opioid-benzodiazepine prescribing measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "codeine", "code_system": "medication_name", "description": "Codeine — natural opiate alkaloid"},
+        {"code": "hydrocodone", "code_system": "medication_name", "description": "Hydrocodone (Vicodin, Norco) — semisynthetic opioid"},
+        {"code": "oxycodone", "code_system": "medication_name", "description": "Oxycodone (OxyContin, Percocet) — semisynthetic opioid"},
+        {"code": "morphine", "code_system": "medication_name", "description": "Morphine (MS Contin, Kadian) — natural opioid"},
+        {"code": "fentanyl", "code_system": "medication_name", "description": "Fentanyl (Duragesic, Actiq, Sublimaze) — synthetic opioid"},
+        {"code": "tramadol", "code_system": "medication_name", "description": "Tramadol (Ultram, ConZip) — atypical centrally-acting opioid"},
+        {"code": "hydromorphone", "code_system": "medication_name", "description": "Hydromorphone (Dilaudid, Exalgo) — semisynthetic opioid"},
+        {"code": "oxymorphone", "code_system": "medication_name", "description": "Oxymorphone (Opana) — semisynthetic opioid"},
+        {"code": "methadone", "code_system": "medication_name", "description": "Methadone (Dolophine) — synthetic opioid (for pain, not OUD)"},
+        {"code": "meperidine", "code_system": "medication_name", "description": "Meperidine (Demerol) — synthetic opioid, generally avoided"},
+        {"code": "tapentadol", "code_system": "medication_name", "description": "Tapentadol (Nucynta) — atypical centrally-acting opioid"},
+        {"code": "buprenorphine pain", "code_system": "medication_name", "description": "Buprenorphine (Butrans patch, Belbuca) — partial agonist for chronic pain"},
+        {"code": "codeine-acetaminophen", "code_system": "medication_name", "description": "Codeine/Acetaminophen (Tylenol #3, #4) — combination opioid"},
+        {"code": "hydrocodone-acetaminophen", "code_system": "medication_name", "description": "Hydrocodone/Acetaminophen (Vicodin, Norco, Lortab) — combination opioid"},
+        {"code": "oxycodone-acetaminophen", "code_system": "medication_name", "description": "Oxycodone/Acetaminophen (Percocet, Endocet) — combination opioid"},
+        {"code": "2670", "code_system": "rxnorm", "description": "Codeine"},
+        {"code": "5489", "code_system": "rxnorm", "description": "Hydrocodone"},
+        {"code": "7804", "code_system": "rxnorm", "description": "Oxycodone"},
+        {"code": "7052", "code_system": "rxnorm", "description": "Morphine"},
+        {"code": "4337", "code_system": "rxnorm", "description": "Fentanyl"},
+        {"code": "10689", "code_system": "rxnorm", "description": "Tramadol"},
+        {"code": "3423", "code_system": "rxnorm", "description": "Hydromorphone"},
+        {"code": "6813", "code_system": "rxnorm", "description": "Methadone"}
+    ]
+}

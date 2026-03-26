@@ -1,0 +1,53 @@
+id: "APP"
+name: "First-Line Psychosocial Care for Children and Adolescents on Antipsychotics"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether children and adolescents aged 1-17 who are newly dispensed
+  an antipsychotic medication received psychosocial care (e.g., psychotherapy,
+  cognitive behavioral therapy, family therapy, or other psychosocial
+  interventions) within 12 months. Clinical guidelines recommend that
+  psychosocial interventions be considered as first-line treatment for most
+  behavioral health conditions in youth, with antipsychotic medications
+  reserved for cases where psychosocial interventions alone are insufficient.
+  This measure promotes appropriate use of psychosocial care alongside or
+  prior to pharmacological treatment, reducing unnecessary antipsychotic
+  exposure and its associated metabolic and neurological side effects in
+  developing children and adolescents.
+
+eligibility:
+  age: {min: 1, max: 17, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_medication:
+    medication_class: "antipsychotic"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_SCHIZOPHRENIA_ICD10"
+    lookback_months: 24
+    description: "Schizophrenia diagnosis (antipsychotic use is standard first-line treatment)"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_PSYCHOSOCIAL_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_ANTIPSYCHOTIC_MEDICATIONS
+  - VS_PSYCHOSOCIAL_CPT
+  - VS_SCHIZOPHRENIA_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"
+  - "pharmacy"

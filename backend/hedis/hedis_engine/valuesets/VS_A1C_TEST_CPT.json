@@ -1,0 +1,21 @@
+{
+    "id": "VS_A1C_TEST_CPT",
+    "name": "HbA1c Testing Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and LOINC codes for hemoglobin A1c (glycated hemoglobin) laboratory testing. Used in diabetes care measures to determine if A1c testing was performed and to evaluate A1c control thresholds.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "83036", "code_system": "cpt", "description": "Hemoglobin; glycosylated (A1c)"},
+        {"code": "83037", "code_system": "cpt", "description": "Hemoglobin; glycosylated (A1c) by device cleared by FDA for home use"},
+        {"code": "4548-4", "code_system": "loinc", "description": "Hemoglobin A1c/Hemoglobin.total in Blood"},
+        {"code": "4549-2", "code_system": "loinc", "description": "Hemoglobin A1c/Hemoglobin.total in Blood by HPLC"},
+        {"code": "17856-6", "code_system": "loinc", "description": "Hemoglobin A1c/Hemoglobin.total in Blood by calculation"},
+        {"code": "59261-8", "code_system": "loinc", "description": "Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol"},
+        {"code": "62388-4", "code_system": "loinc", "description": "Hemoglobin A1c/Hemoglobin.total in Blood by JDS/JSCC protocol"},
+        {"code": "71875-9", "code_system": "loinc", "description": "Hemoglobin A1c/Hemoglobin.total in Blood by calculation (IFCC)"},
+        {"code": "3044F", "code_system": "cpt", "description": "Most recent hemoglobin A1c level less than 7.0%"},
+        {"code": "3045F", "code_system": "cpt", "description": "Most recent hemoglobin A1c level 7.0-9.0%"},
+        {"code": "3046F", "code_system": "cpt", "description": "Most recent hemoglobin A1c level greater than 9.0%"}
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "id": "VS_OUD_MEDICATIONS",
+    "name": "Opioid Use Disorder Pharmacotherapy Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication codes for FDA-approved pharmacotherapy for opioid use disorder (OUD), including buprenorphine, naltrexone, and methadone. Used in the pharmacotherapy for opioid use disorder (OUD) measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "buprenorphine", "code_system": "medication_name", "description": "Buprenorphine (Subutex) — partial opioid agonist for OUD"},
+        {"code": "buprenorphine-naloxone", "code_system": "medication_name", "description": "Buprenorphine/Naloxone (Suboxone) — combination partial agonist/antagonist for OUD"},
+        {"code": "naltrexone", "code_system": "medication_name", "description": "Naltrexone oral (ReVia) — opioid antagonist for OUD"},
+        {"code": "naltrexone injectable", "code_system": "medication_name", "description": "Naltrexone extended-release injectable (Vivitrol) — long-acting opioid antagonist"},
+        {"code": "methadone", "code_system": "medication_name", "description": "Methadone — full opioid agonist for OUD (OTP setting)"},
+        {"code": "buprenorphine implant", "code_system": "medication_name", "description": "Buprenorphine subdermal implant (Probuphine) — 6-month implant for OUD"},
+        {"code": "buprenorphine injection", "code_system": "medication_name", "description": "Buprenorphine extended-release injection (Sublocade) — monthly injection for OUD"},
+        {"code": "1819", "code_system": "rxnorm", "description": "Buprenorphine"},
+        {"code": "7052", "code_system": "rxnorm", "description": "Naltrexone"},
+        {"code": "6813", "code_system": "rxnorm", "description": "Methadone"},
+        {"code": "352364", "code_system": "rxnorm", "description": "Buprenorphine/Naloxone sublingual film"},
+        {"code": "1597568", "code_system": "rxnorm", "description": "Naltrexone 380 MG extended-release injection"}
+    ]
+}

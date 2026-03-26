@@ -1,0 +1,20 @@
+{
+    "id": "VS_EGFR_TEST_CPT",
+    "name": "Estimated Glomerular Filtration Rate (eGFR) Test Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and LOINC codes for estimated glomerular filtration rate (eGFR) and creatinine tests used to assess kidney function. Used in kidney health evaluation for patients with diabetes (KED) and chronic kidney disease (CKD) monitoring measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "82565", "code_system": "cpt", "description": "Creatinine; blood"},
+        {"code": "82575", "code_system": "cpt", "description": "Creatinine; clearance"},
+        {"code": "33914-3", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)"},
+        {"code": "48642-3", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted among non-Blacks [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)"},
+        {"code": "48643-1", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted among Blacks [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)"},
+        {"code": "62238-1", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)"},
+        {"code": "69405-9", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI 2021)"},
+        {"code": "88293-6", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine and Cystatin C-based formula (CKD-EPI)"},
+        {"code": "2160-0", "code_system": "loinc", "description": "Creatinine [Mass/volume] in Serum or Plasma"},
+        {"code": "38483-4", "code_system": "loinc", "description": "Creatinine [Mass/volume] in Blood"}
+    ]
+}

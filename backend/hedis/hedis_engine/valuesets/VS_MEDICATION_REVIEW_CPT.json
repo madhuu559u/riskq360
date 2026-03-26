@@ -1,0 +1,16 @@
+{
+    "id": "VS_MEDICATION_REVIEW_CPT",
+    "name": "Medication Review and Reconciliation Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for medication review, medication therapy management (MTM), medication list documentation, and pharmacologic management services. Used in medication management quality measures for older adults and care transitions.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99483", "code_system": "cpt", "description": "Assessment of and care planning for a patient with cognitive impairment, including medication review"},
+        {"code": "99605", "code_system": "cpt", "description": "Medication therapy management service(s) provided by a pharmacist, individual, face-to-face, initial 15 minutes, new patient"},
+        {"code": "99606", "code_system": "cpt", "description": "Medication therapy management service(s) provided by a pharmacist, individual, face-to-face, initial 15 minutes, established patient"},
+        {"code": "1160F", "code_system": "cpt", "description": "Review of all medications by a prescribing practitioner or clinical pharmacist documented in the medical record"},
+        {"code": "1159F", "code_system": "cpt", "description": "Medication list documented in medical record and communicated to the patient/caregiver and/or forwarded to the receiving provider"},
+        {"code": "90863", "code_system": "cpt", "description": "Pharmacologic management, including prescription and review of medication, when performed with psychotherapy services"}
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "id": "VS_WELL_ADOLESCENT_CPT",
+    "name": "Adolescent Well-Care Visit Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for adolescent well-care visits and preventive medicine services for ages 12-21. Used in the adolescent well-care visit (AWC) measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99384", "code_system": "cpt", "description": "Initial comprehensive preventive medicine evaluation, adolescent (age 12-17 years)"},
+        {"code": "99385", "code_system": "cpt", "description": "Initial comprehensive preventive medicine evaluation, 18-39 years"},
+        {"code": "99394", "code_system": "cpt", "description": "Periodic comprehensive preventive medicine evaluation, adolescent (age 12-17 years)"},
+        {"code": "99395", "code_system": "cpt", "description": "Periodic comprehensive preventive medicine evaluation, 18-39 years"},
+        {"code": "G0438", "code_system": "hcpcs", "description": "Annual wellness visit; includes a health risk assessment, first visit"},
+        {"code": "G0439", "code_system": "hcpcs", "description": "Annual wellness visit; includes a health risk assessment, subsequent visit"},
+        {"code": "99201", "code_system": "cpt", "description": "Office or other outpatient visit for the evaluation and management of a new patient (level 1)"},
+        {"code": "99202", "code_system": "cpt", "description": "Office or other outpatient visit for the evaluation and management of a new patient (level 2)"},
+        {"code": "99211", "code_system": "cpt", "description": "Office or other outpatient visit for the evaluation and management of an established patient (level 1)"},
+        {"code": "99212", "code_system": "cpt", "description": "Office or other outpatient visit for the evaluation and management of an established patient (level 2)"},
+        {"code": "99213", "code_system": "cpt", "description": "Office or other outpatient visit for the evaluation and management of an established patient (level 3)"}
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "id": "VS_CARDIAC_REHAB_CPT",
+    "name": "Cardiac Rehabilitation Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for outpatient cardiac rehabilitation services including physician-supervised programs with and without continuous ECG monitoring. Used in cardiac rehabilitation quality measures to identify completion of rehabilitation following a qualifying cardiac event.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "93797", "code_system": "cpt", "description": "Physician or other qualified health care professional services for outpatient cardiac rehabilitation; without continuous ECG monitoring (per session)"},
+        {"code": "93798", "code_system": "cpt", "description": "Physician or other qualified health care professional services for outpatient cardiac rehabilitation; with continuous ECG monitoring (per session)"},
+        {"code": "S9472", "code_system": "hcpcs", "description": "Cardiac rehabilitation program, non-physician provider, per diem"},
+        {"code": "93668", "code_system": "cpt", "description": "Manometric studies of the esophagus — Note: sometimes referenced as superset cardiac monitoring; verify applicability"},
+        {"code": "G0422", "code_system": "hcpcs", "description": "Intensive cardiac rehabilitation; with or without continuous ECG monitoring with exercise, per session"},
+        {"code": "G0423", "code_system": "hcpcs", "description": "Intensive cardiac rehabilitation; with or without continuous ECG monitoring without exercise, per session"}
+    ]
+}

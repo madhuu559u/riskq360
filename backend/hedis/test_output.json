@@ -1,0 +1,1913 @@
+{
+  "member_id": "M12345",
+  "measurement_year": 2025,
+  "measures": [
+    {
+      "id": "AMM-ACUTE",
+      "name": "Antidepressant Medication Management - Acute Phase Treatment",
+      "applicable": true,
+      "compliant": false,
+      "status": "gap",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-150)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [
+        {
+          "type": "missing_medication",
+          "description": "No antidepressant medication found",
+          "required_event": "antidepressant",
+          "window": "2025-10-02..2025-12-31"
+        }
+      ],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "F33.0",
+          "system": "icd10cm",
+          "date": "2025-02-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 6,
+            "exact_quote": "Recurrent major depression, currently mild on sertraline"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 0.5,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-150)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_DEPRESSION_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "F33.0",
+              "system": "icd10cm",
+              "date": "2025-02-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 6,
+                "exact_quote": "Recurrent major depression, currently mild on sertraline"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "numerator_all_medication",
+          "result": false,
+          "detail": "No matching medication for antidepressant"
+        }
+      ]
+    },
+    {
+      "id": "AMM-CONTINUATION",
+      "name": "Antidepressant Medication Management - Continuation Phase Treatment",
+      "applicable": true,
+      "compliant": false,
+      "status": "gap",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-150)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [
+        {
+          "type": "missing_medication",
+          "description": "No antidepressant medication found",
+          "required_event": "antidepressant",
+          "window": "2025-07-04..2025-12-31"
+        }
+      ],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "F33.0",
+          "system": "icd10cm",
+          "date": "2025-02-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 6,
+            "exact_quote": "Recurrent major depression, currently mild on sertraline"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 0.5,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-150)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_DEPRESSION_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "F33.0",
+              "system": "icd10cm",
+              "date": "2025-02-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 6,
+                "exact_quote": "Recurrent major depression, currently mild on sertraline"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "numerator_all_medication",
+          "result": false,
+          "detail": "No matching medication for antidepressant"
+        }
+      ]
+    },
+    {
+      "id": "AWC",
+      "name": "Adolescent Well-Care Visits",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 12-21)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 12-21)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "BCS",
+      "name": "Breast Cancer Screening",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 50-74)",
+        "Gender female matches ['female']"
+      ],
+      "compliance_reason": [
+        "Found 1 matching procedures in VS_MAMMOGRAPHY_CPT"
+      ],
+      "gaps": [],
+      "evidence_used": [
+        {
+          "type": "procedure",
+          "code": "77067",
+          "system": "cpt",
+          "date": "2025-01-15",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 10,
+            "exact_quote": "Bilateral screening mammogram \u2014 BIRADS 1, negative"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 50-74)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_age_only",
+          "result": true,
+          "detail": "Denominator = age/gender eligible population"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_procedure_VS_BILATERAL_MASTECTOMY_CPT",
+          "result": false,
+          "detail": "No matching procedure in VS_BILATERAL_MASTECTOMY_CPT"
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": true,
+          "detail": "Found 1 matching procedures in VS_MAMMOGRAPHY_CPT",
+          "evidence": [
+            {
+              "type": "procedure",
+              "code": "77067",
+              "system": "cpt",
+              "date": "2025-01-15",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 10,
+                "exact_quote": "Bilateral screening mammogram \u2014 BIRADS 1, negative"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BMI",
+      "name": "Adult BMI Assessment",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-74)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [
+        "Found 1 bmi reading(s)"
+      ],
+      "gaps": [],
+      "evidence_used": [
+        {
+          "type": "vital",
+          "code": "bmi",
+          "value": "28.5",
+          "date": "2025-09-15",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 7,
+            "exact_quote": "BMI 28.5 kg/m2"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-74)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_age_only",
+          "result": true,
+          "detail": "Denominator = age/gender eligible population"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_PREGNANCY_ICD10"
+        },
+        {
+          "rule": "numerator_any_vital",
+          "result": true,
+          "detail": "Found 1 bmi reading(s)",
+          "evidence": [
+            {
+              "type": "vital",
+              "code": "bmi",
+              "value": "28.5",
+              "date": "2025-09-15",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 7,
+                "exact_quote": "BMI 28.5 kg/m2"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CBP",
+      "name": "Controlling High Blood Pressure",
+      "applicable": true,
+      "compliant": false,
+      "status": "gap",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-85)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [
+        {
+          "type": "missing_vital",
+          "description": "No blood pressure reading found",
+          "required_event": "BP",
+          "window": "2025-01-05..2025-12-31"
+        }
+      ],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "I10",
+          "system": "icd10cm",
+          "date": "2025-06-15",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 5,
+            "exact_quote": "HTN \u2014 continue current regimen"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 0.5,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-85)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_HYPERTENSION_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "I10",
+              "system": "icd10cm",
+              "date": "2025-06-15",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 5,
+                "exact_quote": "HTN \u2014 continue current regimen"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_PREGNANCY_ICD10"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_ESRD_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_ESRD_ICD10"
+        },
+        {
+          "rule": "numerator_any_bp_controlled",
+          "result": false,
+          "detail": "No BP readings found in window"
+        }
+      ]
+    },
+    {
+      "id": "CCS",
+      "name": "Cervical Cancer Screening",
+      "applicable": true,
+      "compliant": false,
+      "status": "gap",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 21-64)",
+        "Gender female matches ['female']"
+      ],
+      "compliance_reason": [],
+      "gaps": [
+        {
+          "type": "missing_procedure",
+          "description": "Missing procedure from VS_CERVICAL_SCREENING_CPT",
+          "required_event": "VS_CERVICAL_SCREENING_CPT",
+          "window": "2023-01-16..2025-12-31"
+        }
+      ],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 0.5,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 21-64)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_age_only",
+          "result": true,
+          "detail": "Denominator = age/gender eligible population"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_procedure_VS_HYSTERECTOMY_CPT",
+          "result": false,
+          "detail": "No matching procedure in VS_HYSTERECTOMY_CPT"
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": false,
+          "detail": "No matching procedure in VS_CERVICAL_SCREENING_CPT"
+        }
+      ]
+    },
+    {
+      "id": "CDC-A1C-CONTROL-8",
+      "name": "Diabetes Care - HbA1c Control (<8%)",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-75)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [
+        "A1C value 7.8 lt 8.0 = True"
+      ],
+      "gaps": [],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "E11.9",
+          "system": "icd10cm",
+          "date": "2025-03-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 3,
+            "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+          }
+        },
+        {
+          "type": "lab",
+          "code": "A1C",
+          "value": "7.8",
+          "date": "2025-09-15",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 7,
+            "exact_quote": "HbA1c 7.8%"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-75)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_DIABETES_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "E11.9",
+              "system": "icd10cm",
+              "date": "2025-03-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 3,
+                "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_PREGNANCY_ICD10"
+        },
+        {
+          "rule": "numerator_any_lab_value",
+          "result": true,
+          "detail": "A1C value 7.8 lt 8.0 = True",
+          "evidence": [
+            {
+              "type": "lab",
+              "code": "A1C",
+              "value": "7.8",
+              "date": "2025-09-15",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 7,
+                "exact_quote": "HbA1c 7.8%"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CDC-A1C-POOR-9",
+      "name": "Diabetes Care - HbA1c Poor Control (>9%)",
+      "applicable": true,
+      "compliant": false,
+      "status": "gap",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-75)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [
+        {
+          "type": "value_out_of_range",
+          "description": "A1C value not gt 9.0",
+          "required_event": "A1C",
+          "window": "2025-01-05..2025-12-31"
+        }
+      ],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "E11.9",
+          "system": "icd10cm",
+          "date": "2025-03-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 3,
+            "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 0.9,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-75)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_DIABETES_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "E11.9",
+              "system": "icd10cm",
+              "date": "2025-03-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 3,
+                "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_PREGNANCY_ICD10"
+        },
+        {
+          "rule": "numerator_any_lab_value",
+          "result": false,
+          "detail": "A1C value 7.8 gt 9.0 = False"
+        }
+      ]
+    },
+    {
+      "id": "CDC-A1C-TEST",
+      "name": "Diabetes Care - HbA1c Testing",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-75)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [
+        "Found 1 A1C lab(s)"
+      ],
+      "gaps": [],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "E11.9",
+          "system": "icd10cm",
+          "date": "2025-03-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 3,
+            "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+          }
+        },
+        {
+          "type": "lab",
+          "code": "A1C",
+          "value": "7.8",
+          "date": "2025-09-15",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 7,
+            "exact_quote": "HbA1c 7.8%"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-75)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_DIABETES_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "E11.9",
+              "system": "icd10cm",
+              "date": "2025-03-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 3,
+                "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_PREGNANCY_ICD10"
+        },
+        {
+          "rule": "numerator_any_lab_exists",
+          "result": true,
+          "detail": "Found 1 A1C lab(s)",
+          "evidence": [
+            {
+              "type": "lab",
+              "code": "A1C",
+              "value": "7.8",
+              "date": "2025-09-15",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 7,
+                "exact_quote": "HbA1c 7.8%"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CDC-EYE",
+      "name": "Diabetes Care - Eye Exam",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-75)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [
+        "Found 1 matching procedures in VS_EYE_EXAM_CPT"
+      ],
+      "gaps": [],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "E11.9",
+          "system": "icd10cm",
+          "date": "2025-03-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 3,
+            "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+          }
+        },
+        {
+          "type": "procedure",
+          "code": "92014",
+          "system": "cpt",
+          "date": "2025-05-20",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 8,
+            "exact_quote": "Diabetic retinal exam \u2014 no retinopathy detected"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-75)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_DIABETES_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "E11.9",
+              "system": "icd10cm",
+              "date": "2025-03-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 3,
+                "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_PREGNANCY_ICD10"
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": true,
+          "detail": "Found 1 matching procedures in VS_EYE_EXAM_CPT",
+          "evidence": [
+            {
+              "type": "procedure",
+              "code": "92014",
+              "system": "cpt",
+              "date": "2025-05-20",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 8,
+                "exact_quote": "Diabetic retinal exam \u2014 no retinopathy detected"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CDC-NEPHROPATHY",
+      "name": "Diabetes Care - Nephropathy Screening",
+      "applicable": true,
+      "compliant": false,
+      "status": "gap",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-75)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [
+        {
+          "type": "missing_procedure",
+          "description": "Missing procedure from VS_NEPHROPATHY_SCREENING",
+          "required_event": "VS_NEPHROPATHY_SCREENING",
+          "window": "2025-01-05..2025-12-31"
+        },
+        {
+          "type": "missing_medication",
+          "description": "No ace_arb medication found",
+          "required_event": "ace_arb",
+          "window": "2025-01-05..2025-12-31"
+        }
+      ],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "E11.9",
+          "system": "icd10cm",
+          "date": "2025-03-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 3,
+            "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 0.5,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-75)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_DIABETES_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "E11.9",
+              "system": "icd10cm",
+              "date": "2025-03-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 3,
+                "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_PREGNANCY_ICD10"
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": false,
+          "detail": "No matching procedure in VS_NEPHROPATHY_SCREENING"
+        },
+        {
+          "rule": "numerator_any_medication",
+          "result": false,
+          "detail": "No matching medication for ace_arb"
+        }
+      ]
+    },
+    {
+      "id": "CDC-STATIN",
+      "name": "Diabetes Care - Statin Therapy",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 40-75)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [
+        "Found 1 matching medication(s) for statin"
+      ],
+      "gaps": [],
+      "evidence_used": [
+        {
+          "type": "diagnosis",
+          "code": "E11.9",
+          "system": "icd10cm",
+          "date": "2025-03-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 3,
+            "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+          }
+        },
+        {
+          "type": "medication",
+          "code": "Atorvastatin 40mg daily",
+          "value": "statin",
+          "date": "2025-04-20",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 4,
+            "exact_quote": "Continue atorvastatin 40mg daily"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 40-75)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": true,
+          "detail": "Found 1 matching dx in VS_DIABETES_ICD10",
+          "evidence": [
+            {
+              "type": "diagnosis",
+              "code": "E11.9",
+              "system": "icd10cm",
+              "date": "2025-03-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 3,
+                "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_PREGNANCY_ICD10"
+        },
+        {
+          "rule": "numerator_any_medication",
+          "result": true,
+          "detail": "Found 1 matching medication(s) for statin",
+          "evidence": [
+            {
+              "type": "medication",
+              "code": "Atorvastatin 40mg daily",
+              "value": "statin",
+              "date": "2025-04-20",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 4,
+                "exact_quote": "Continue atorvastatin 40mg daily"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CHL",
+      "name": "Chlamydia Screening in Women",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 16-24)",
+        "Gender female matches ['female']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 16-24)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-DTAP",
+      "name": "Childhood Immunization Status - DTaP",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-HEPA",
+      "name": "Childhood Immunization Status - Hepatitis A",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-HEPB",
+      "name": "Childhood Immunization Status - Hepatitis B",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-HIB",
+      "name": "Childhood Immunization Status - Hib",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-MMR",
+      "name": "Childhood Immunization Status - MMR",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-PCV",
+      "name": "Childhood Immunization Status - Pneumococcal Conjugate (PCV13)",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-POLIO",
+      "name": "Childhood Immunization Status - Polio (IPV)",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-RV",
+      "name": "Childhood Immunization Status - Rotavirus",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "CIS-VZV",
+      "name": "Childhood Immunization Status - Varicella (VZV)",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 2-2)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 2-2)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "COL",
+      "name": "Colorectal Cancer Screening",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 45-75)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [
+        "Found 1 matching procedures in VS_COLONOSCOPY_CPT"
+      ],
+      "gaps": [],
+      "evidence_used": [
+        {
+          "type": "procedure",
+          "code": "45378",
+          "system": "cpt",
+          "date": "2022-09-10",
+          "source": {
+            "pdf": "chart_001.pdf",
+            "page": 12,
+            "exact_quote": "Colonoscopy 9/2022 \u2014 normal, repeat in 10 years"
+          }
+        }
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 45-75)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_age_only",
+          "result": true,
+          "detail": "Denominator = age/gender eligible population"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_COLORECTAL_CANCER_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_COLORECTAL_CANCER_ICD10"
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": true,
+          "detail": "Found 1 matching procedures in VS_COLONOSCOPY_CPT",
+          "evidence": [
+            {
+              "type": "procedure",
+              "code": "45378",
+              "system": "cpt",
+              "date": "2022-09-10",
+              "source": {
+                "pdf": "chart_001.pdf",
+                "page": 12,
+                "exact_quote": "Colonoscopy 9/2022 \u2014 normal, repeat in 10 years"
+              }
+            }
+          ]
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": false,
+          "detail": "No matching procedure in VS_FIT_TEST_CPT"
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": false,
+          "detail": "No matching procedure in VS_SIGMOIDOSCOPY_CPT"
+        }
+      ]
+    },
+    {
+      "id": "DSF",
+      "name": "Depression Screening and Follow-Up",
+      "applicable": true,
+      "compliant": false,
+      "status": "gap",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 12-150)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [
+        {
+          "type": "missing_procedure",
+          "description": "Missing procedure from VS_DEPRESSION_SCREENING_CPT",
+          "required_event": "VS_DEPRESSION_SCREENING_CPT",
+          "window": "2025-01-05..2025-12-31"
+        }
+      ],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 0.5,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 12-150)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_age_only",
+          "result": true,
+          "detail": "Denominator = age/gender eligible population"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_DEPRESSION_ACTIVE_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_DEPRESSION_ACTIVE_ICD10"
+        },
+        {
+          "rule": "numerator_all_procedure",
+          "result": false,
+          "detail": "No matching procedure in VS_DEPRESSION_SCREENING_CPT"
+        }
+      ]
+    },
+    {
+      "id": "FLU",
+      "name": "Influenza Immunization",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 0-150)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [
+        "Found 1/1 influenza immunization(s)"
+      ],
+      "gaps": [],
+      "evidence_used": [
+        {
+          "type": "immunization",
+          "code": "158",
+          "system": "cvx",
+          "date": "2025-10-01"
+        }
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 0-150)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_age_only",
+          "result": true,
+          "detail": "Denominator = age/gender eligible population"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_EGG_ALLERGY_ICD10",
+          "result": false,
+          "detail": "No matching diagnosis in VS_EGG_ALLERGY_ICD10"
+        },
+        {
+          "rule": "numerator_any_immunization",
+          "result": true,
+          "detail": "Found 1/1 influenza immunization(s)",
+          "evidence": [
+            {
+              "type": "immunization",
+              "code": "158",
+              "system": "cvx",
+              "date": "2025-10-01"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FUH-30",
+      "name": "Follow-Up After Hospitalization for Mental Illness - 30 Day",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 6-150)",
+        "Gender female matches ['female', 'male']",
+        "Denominator criteria not met"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 6-150)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": false,
+          "detail": "No matching diagnosis in VS_MENTAL_HEALTH_ICD10"
+        }
+      ]
+    },
+    {
+      "id": "FUH-7",
+      "name": "Follow-Up After Hospitalization for Mental Illness - 7 Day",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 6-150)",
+        "Gender female matches ['female', 'male']",
+        "Denominator criteria not met"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 6-150)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "denominator_diagnosis",
+          "result": false,
+          "detail": "No matching diagnosis in VS_MENTAL_HEALTH_ICD10"
+        }
+      ]
+    },
+    {
+      "id": "IMA-HPV",
+      "name": "Immunizations for Adolescents - Human Papillomavirus (HPV)",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 13-13)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 13-13)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "IMA-MENING",
+      "name": "Immunizations for Adolescents - Meningococcal",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 13-13)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 13-13)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "IMA-TDAP",
+      "name": "Immunizations for Adolescents - Tdap",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 13-13)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 13-13)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    },
+    {
+      "id": "OMW",
+      "name": "Osteoporosis Management in Women Who Had a Fracture",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 67-85)",
+        "Gender female matches ['female']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 67-85)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        }
+      ]
+    },
+    {
+      "id": "PNU",
+      "name": "Pneumococcal Immunization",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 65-150)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 65-150)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        }
+      ]
+    },
+    {
+      "id": "TSC",
+      "name": "Tobacco Use Screening and Cessation",
+      "applicable": true,
+      "compliant": false,
+      "status": "gap",
+      "eligibility_reason": [
+        "Age 60 as of 2025-12-31 (within 18-150)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [
+        {
+          "type": "missing_procedure",
+          "description": "Missing procedure from VS_TOBACCO_SCREENING_CPT",
+          "required_event": "VS_TOBACCO_SCREENING_CPT",
+          "window": "2024-01-11..2025-12-31"
+        },
+        {
+          "type": "missing_procedure",
+          "description": "Missing procedure from VS_TOBACCO_CESSATION_CPT",
+          "required_event": "VS_TOBACCO_CESSATION_CPT",
+          "window": "2024-01-11..2025-12-31"
+        }
+      ],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 0.5,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": true,
+          "detail": "Age 60 as of 2025-12-31 (within 18-150)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        },
+        {
+          "rule": "enrollment_check",
+          "result": true,
+          "detail": "Enrollment check stub \u2014 assumed enrolled"
+        },
+        {
+          "rule": "denominator_age_only",
+          "result": true,
+          "detail": "Denominator = age/gender eligible population"
+        },
+        {
+          "rule": "exclusion_diagnosis_VS_HOSPICE",
+          "result": false,
+          "detail": "No matching diagnosis in VS_HOSPICE"
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": false,
+          "detail": "No matching procedure in VS_TOBACCO_SCREENING_CPT"
+        },
+        {
+          "rule": "numerator_any_procedure",
+          "result": false,
+          "detail": "No matching procedure in VS_TOBACCO_CESSATION_CPT"
+        }
+      ]
+    },
+    {
+      "id": "WCV",
+      "name": "Well-Child Visits in the Third, Fourth, Fifth, and Sixth Years of Life",
+      "applicable": false,
+      "compliant": null,
+      "status": "not_applicable",
+      "eligibility_reason": [
+        "Age not eligible: Age 60 as of 2025-12-31 (outside 3-11)",
+        "Gender female matches ['female', 'male']"
+      ],
+      "compliance_reason": [],
+      "gaps": [],
+      "evidence_used": [],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {
+          "rule": "age_check",
+          "result": false,
+          "detail": "Age 60 as of 2025-12-31 (outside 3-11)"
+        },
+        {
+          "rule": "gender_check",
+          "result": true,
+          "detail": "Gender female matches ['female', 'male']"
+        }
+      ]
+    }
+  ]
+}

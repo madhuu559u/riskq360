@@ -1,0 +1,19 @@
+{
+    "id": "VS_VARICELLA_DISEASE_HISTORY",
+    "name": "Varicella Disease History Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for varicella (chickenpox) disease and personal history of varicella. A documented history of varicella disease may exempt a child from the varicella vaccination requirement in childhood immunization status (CIS) and immunizations for adolescents (IMA) measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "B01.0", "description": "Varicella meningitis"},
+        {"code": "B01.11", "description": "Varicella encephalitis and encephalomyelitis"},
+        {"code": "B01.12", "description": "Varicella myelitis"},
+        {"code": "B01.2", "description": "Varicella pneumonia"},
+        {"code": "B01.81", "description": "Varicella keratitis"},
+        {"code": "B01.89", "description": "Other varicella complications"},
+        {"code": "B01.9", "description": "Varicella without complication"},
+        {"code": "Z86.13", "description": "Personal history of other infectious and parasitic diseases (used for history of chickenpox/varicella)"},
+        {"code": "Z86.19", "description": "Personal history of other infectious and parasitic diseases"}
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "id": "VS_CHLAMYDIA_SCREENING_CPT",
+    "name": "Chlamydia Screening Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and LOINC codes for chlamydia screening laboratory tests. Used in the chlamydia screening in women (CHL) measure for sexually active women ages 16-24.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "87110", "code_system": "cpt", "description": "Culture, chlamydia, any source"},
+        {"code": "87270", "code_system": "cpt", "description": "Infectious agent antigen detection, Chlamydia trachomatis, direct fluorescent antibody (DFA)"},
+        {"code": "87320", "code_system": "cpt", "description": "Infectious agent antigen detection, Chlamydia trachomatis, enzyme immunoassay (EIA)"},
+        {"code": "87490", "code_system": "cpt", "description": "Infectious agent detection, Chlamydia trachomatis, direct probe technique"},
+        {"code": "87491", "code_system": "cpt", "description": "Infectious agent detection, Chlamydia trachomatis, amplified probe technique (NAAT)"},
+        {"code": "87810", "code_system": "cpt", "description": "Infectious agent antigen detection, Chlamydia trachomatis, immunoassay with direct optical observation"},
+        {"code": "6349-5", "code_system": "loinc", "description": "Chlamydia trachomatis [Presence] in Specimen by Organism specific culture"},
+        {"code": "21190-4", "code_system": "loinc", "description": "Chlamydia trachomatis DNA [Presence] in Cervix by NAA with probe detection"},
+        {"code": "21191-2", "code_system": "loinc", "description": "Chlamydia trachomatis DNA [Presence] in Urethra by NAA with probe detection"},
+        {"code": "21613-5", "code_system": "loinc", "description": "Chlamydia trachomatis DNA [Presence] in Specimen by NAA with probe detection"},
+        {"code": "43304-5", "code_system": "loinc", "description": "Chlamydia trachomatis rRNA [Presence] in Specimen by NAA with probe detection"},
+        {"code": "53925-4", "code_system": "loinc", "description": "Chlamydia trachomatis rRNA [Presence] in Urine by NAA with probe detection"}
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "id": "VS_ACE_ARB_MEDICATIONS",
+    "name": "ACE Inhibitor and ARB Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication names and codes for angiotensin-converting enzyme (ACE) inhibitors and angiotensin II receptor blockers (ARBs). Used in heart failure, nephropathy, and hypertension-related medication adherence measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "lisinopril", "code_system": "medication_name", "description": "Lisinopril (Prinivil, Zestril) — ACE inhibitor"},
+        {"code": "enalapril", "code_system": "medication_name", "description": "Enalapril (Vasotec) — ACE inhibitor"},
+        {"code": "ramipril", "code_system": "medication_name", "description": "Ramipril (Altace) — ACE inhibitor"},
+        {"code": "benazepril", "code_system": "medication_name", "description": "Benazepril (Lotensin) — ACE inhibitor"},
+        {"code": "captopril", "code_system": "medication_name", "description": "Captopril (Capoten) — ACE inhibitor"},
+        {"code": "fosinopril", "code_system": "medication_name", "description": "Fosinopril (Monopril) — ACE inhibitor"},
+        {"code": "quinapril", "code_system": "medication_name", "description": "Quinapril (Accupril) — ACE inhibitor"},
+        {"code": "losartan", "code_system": "medication_name", "description": "Losartan (Cozaar) — ARB"},
+        {"code": "valsartan", "code_system": "medication_name", "description": "Valsartan (Diovan) — ARB"},
+        {"code": "irbesartan", "code_system": "medication_name", "description": "Irbesartan (Avapro) — ARB"},
+        {"code": "olmesartan", "code_system": "medication_name", "description": "Olmesartan (Benicar) — ARB"},
+        {"code": "candesartan", "code_system": "medication_name", "description": "Candesartan (Atacand) — ARB"},
+        {"code": "telmisartan", "code_system": "medication_name", "description": "Telmisartan (Micardis) — ARB"},
+        {"code": "azilsartan", "code_system": "medication_name", "description": "Azilsartan medoxomil (Edarbi) — ARB"}
+    ]
+}

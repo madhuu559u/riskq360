@@ -1,0 +1,22 @@
+{
+    "id": "VS_DEPRESSION_SCREENING_CPT",
+    "name": "Depression Screening Tool Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, HCPCS, and LOINC codes for depression screening instruments including PHQ-2, PHQ-9, PHQ-A, and other validated screening tools. Used in the depression screening and follow-up (DSF) measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "96127", "code_system": "cpt", "description": "Brief emotional/behavioral assessment with scoring and documentation, per standardized instrument"},
+        {"code": "96160", "code_system": "cpt", "description": "Administration of patient-focused health risk assessment instrument with scoring and documentation"},
+        {"code": "96161", "code_system": "cpt", "description": "Administration of caregiver-focused health risk assessment instrument with scoring and documentation"},
+        {"code": "G0444", "code_system": "hcpcs", "description": "Annual depression screening, 15 minutes"},
+        {"code": "G8431", "code_system": "hcpcs", "description": "Screening for depression is documented as being positive and a follow-up plan is documented"},
+        {"code": "G8510", "code_system": "hcpcs", "description": "Screening for depression is documented as negative, a follow-up plan is not required"},
+        {"code": "44249-1", "code_system": "loinc", "description": "PHQ-9 quick depression assessment panel"},
+        {"code": "55758-7", "code_system": "loinc", "description": "Patient Health Questionnaire 2 item (PHQ-2) total score"},
+        {"code": "44261-6", "code_system": "loinc", "description": "Patient Health Questionnaire 9 item (PHQ-9) total score"},
+        {"code": "73832-8", "code_system": "loinc", "description": "PHQ-9 Modified for Adolescents (PHQ-A) total score"},
+        {"code": "71354-5", "code_system": "loinc", "description": "Edinburgh Postnatal Depression Scale (EPDS) total score"},
+        {"code": "73831-0", "code_system": "loinc", "description": "Adolescent depression screening assessment"}
+    ]
+}

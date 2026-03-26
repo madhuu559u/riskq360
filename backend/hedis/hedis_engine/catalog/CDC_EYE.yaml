@@ -1,0 +1,47 @@
+id: "CDC-EYE"
+name: "Diabetes Care - Eye Exam"
+version: "2025"
+domain: "diabetes"
+description: >
+  Assesses whether adults aged 18-75 with diabetes (type 1 or type 2)
+  had a retinal or dilated eye exam performed by an eye care professional
+  during the measurement year or the year prior. Diabetic retinopathy is
+  a leading cause of blindness, and annual eye exams enable early detection
+  and treatment of retinal changes.
+
+eligibility:
+  age: {min: 18, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_EYE_EXAM_CPT"
+      window_months: 24
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_EYE_EXAM_CPT
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "encounters"

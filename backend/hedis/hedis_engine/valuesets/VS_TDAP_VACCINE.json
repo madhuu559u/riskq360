@@ -1,0 +1,18 @@
+{
+    "id": "VS_TDAP_VACCINE",
+    "name": "Tdap (Tetanus, Diphtheria, Acellular Pertussis) Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for Tdap (tetanus, reduced diphtheria, acellular pertussis) and Td (tetanus-diphtheria) vaccines for adolescents and adults (age 7+). Used in immunizations for adolescents (IMA) measure. One dose of Tdap is recommended at age 11-12.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "09", "code_system": "cvx", "description": "Tetanus and diphtheria toxoids (Td), adsorbed, preservative free, for use in individuals 7 years or older"},
+        {"code": "113", "code_system": "cvx", "description": "Tetanus, diphtheria toxoids and acellular pertussis vaccine (Tdap), for use in individuals 7 years or older (Boostrix, Adacel)"},
+        {"code": "115", "code_system": "cvx", "description": "Tetanus, diphtheria toxoids and acellular pertussis vaccine (Tdap), for use in individuals 10 years or older"},
+        {"code": "138", "code_system": "cvx", "description": "Tetanus and diphtheria toxoids, not adsorbed, for use in individuals 7 years or older"},
+        {"code": "139", "code_system": "cvx", "description": "Td(adult) unspecified formulation"},
+        {"code": "35", "code_system": "cvx", "description": "Tetanus toxoid, adsorbed"},
+        {"code": "90714", "code_system": "cpt", "description": "Tetanus and diphtheria toxoids (Td), adsorbed, preservative free, for use in individuals 7 years or older, for intramuscular use"},
+        {"code": "90715", "code_system": "cpt", "description": "Tetanus, diphtheria toxoids and acellular pertussis vaccine (Tdap), for use in individuals 7 years or older, for intramuscular use"}
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "id": "VS_ASTHMA_MEDICATIONS",
+    "name": "Asthma Controller Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication names and codes for asthma controller medications including inhaled corticosteroids (ICS), long-acting beta-agonist combinations (ICS-LABA), leukotriene modifiers, and other controller therapies. Used in asthma medication ratio (AMR) and medication management measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "fluticasone", "code_system": "medication_name", "description": "Fluticasone propionate inhaler (Flovent) — inhaled corticosteroid"},
+        {"code": "budesonide", "code_system": "medication_name", "description": "Budesonide inhaler/nebulization (Pulmicort) — inhaled corticosteroid"},
+        {"code": "beclomethasone", "code_system": "medication_name", "description": "Beclomethasone dipropionate inhaler (QVAR) — inhaled corticosteroid"},
+        {"code": "mometasone", "code_system": "medication_name", "description": "Mometasone furoate inhaler (Asmanex) — inhaled corticosteroid"},
+        {"code": "ciclesonide", "code_system": "medication_name", "description": "Ciclesonide inhaler (Alvesco) — inhaled corticosteroid"},
+        {"code": "fluticasone-salmeterol", "code_system": "medication_name", "description": "Fluticasone/Salmeterol (Advair) — ICS-LABA combination"},
+        {"code": "budesonide-formoterol", "code_system": "medication_name", "description": "Budesonide/Formoterol (Symbicort) — ICS-LABA combination"},
+        {"code": "mometasone-formoterol", "code_system": "medication_name", "description": "Mometasone/Formoterol (Dulera) — ICS-LABA combination"},
+        {"code": "fluticasone-vilanterol", "code_system": "medication_name", "description": "Fluticasone/Vilanterol (Breo Ellipta) — ICS-LABA combination"},
+        {"code": "montelukast", "code_system": "medication_name", "description": "Montelukast (Singulair) — leukotriene receptor antagonist"},
+        {"code": "zafirlukast", "code_system": "medication_name", "description": "Zafirlukast (Accolate) — leukotriene receptor antagonist"},
+        {"code": "zileuton", "code_system": "medication_name", "description": "Zileuton (Zyflo) — 5-lipoxygenase inhibitor"},
+        {"code": "theophylline", "code_system": "medication_name", "description": "Theophylline (Theo-24) — methylxanthine bronchodilator"},
+        {"code": "omalizumab", "code_system": "medication_name", "description": "Omalizumab (Xolair) — anti-IgE monoclonal antibody"},
+        {"code": "cromolyn", "code_system": "medication_name", "description": "Cromolyn sodium (Intal) — mast cell stabilizer"}
+    ]
+}

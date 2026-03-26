@@ -1,0 +1,41 @@
+id: "W30-30"
+name: "Well-Child Visits in First 30 Months of Life"
+version: "2025"
+domain: "pediatric"
+description: >
+  Assesses whether children aged approximately 15 to 30 months received
+  well-child visits with a primary care provider. The American Academy of
+  Pediatrics recommends at least two well-child visits during this period.
+  These visits are essential for monitoring developmental milestones,
+  providing immunizations, and screening for developmental delays. This
+  measure checks for at least one documented well-child encounter (2
+  required per spec, simplified to encounter check).
+
+eligibility:
+  age: {min: 2, max: 2, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "encounter"
+      encounter_types: ["outpatient"]
+      window_months: 15
+      description: "At least one well-child visit documented (2 required per spec, simplified to encounter check)"
+
+valuesets_needed:
+  - VS_WELL_CHILD_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

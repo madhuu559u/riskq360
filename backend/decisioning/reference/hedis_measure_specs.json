@@ -1,0 +1,107 @@
+{
+  "CBP": {
+    "code": "CBP",
+    "name": "Controlling Blood Pressure",
+    "description": "Adults 18-85 with hypertension whose BP was adequately controlled (<140/90)",
+    "age_min": 18,
+    "age_max": 85,
+    "gender": "All",
+    "target": "Systolic <140 AND Diastolic <90",
+    "lookback_months": 12,
+    "requires_condition": "hypertension"
+  },
+  "GSD": {
+    "code": "GSD",
+    "name": "Glycemic Status Assessment (HbA1c)",
+    "description": "Adults 18-75 with diabetes whose HbA1c was <9.0%",
+    "age_min": 18,
+    "age_max": 75,
+    "gender": "All",
+    "target": "HbA1c <9.0%",
+    "lookback_months": 12,
+    "requires_condition": "diabetes"
+  },
+  "BCS": {
+    "code": "BCS",
+    "name": "Breast Cancer Screening",
+    "description": "Women 50-74 who had a mammogram within the measurement year or prior year",
+    "age_min": 50,
+    "age_max": 74,
+    "gender": "F",
+    "target": "Mammogram completed",
+    "lookback_months": 27
+  },
+  "COL": {
+    "code": "COL",
+    "name": "Colorectal Cancer Screening",
+    "description": "Adults 45-75 with appropriate colorectal cancer screening",
+    "age_min": 45,
+    "age_max": 75,
+    "gender": "All",
+    "target": "Colonoscopy (10yr) or FIT/FOBT (1yr) or FIT-DNA (3yr)",
+    "lookback_months": 120
+  },
+  "CCS": {
+    "code": "CCS",
+    "name": "Cervical Cancer Screening",
+    "description": "Women 21-64 with appropriate cervical cancer screening",
+    "age_min": 21,
+    "age_max": 64,
+    "gender": "F",
+    "target": "Pap test (3yr) or HPV test (5yr) or co-testing (5yr)",
+    "lookback_months": 36
+  },
+  "OMW": {
+    "code": "OMW",
+    "name": "Osteoporosis Management in Women Who Had a Fracture",
+    "description": "Women 67-85 who had a fracture and received bone mineral density testing or osteoporosis medication",
+    "age_min": 67,
+    "age_max": 85,
+    "gender": "F",
+    "target": "DEXA scan or osteoporosis medication",
+    "lookback_months": 6
+  },
+  "DSF": {
+    "code": "DSF",
+    "name": "Depression Screening and Follow-Up",
+    "description": "Patients 12+ screened for depression with a standardized tool and follow-up plan if positive",
+    "age_min": 12,
+    "age_max": 999,
+    "gender": "All",
+    "target": "PHQ-2/PHQ-9 screening; follow-up plan if positive",
+    "lookback_months": 12
+  },
+  "CDC-HbA1c": {
+    "code": "CDC-HbA1c",
+    "name": "Comprehensive Diabetes Care - HbA1c Testing",
+    "description": "Adults 18-75 with diabetes who had HbA1c testing",
+    "age_min": 18,
+    "age_max": 75,
+    "gender": "All",
+    "target": "HbA1c test performed",
+    "lookback_months": 12,
+    "requires_condition": "diabetes"
+  },
+  "CDC-Eye": {
+    "code": "CDC-Eye",
+    "name": "Comprehensive Diabetes Care - Eye Exam",
+    "description": "Adults 18-75 with diabetes who had a retinal eye exam",
+    "age_min": 18,
+    "age_max": 75,
+    "gender": "All",
+    "target": "Retinal eye exam performed",
+    "lookback_months": 24,
+    "requires_condition": "diabetes"
+  },
+  "KED": {
+    "code": "KED",
+    "name": "Kidney Health Evaluation for Patients with Diabetes",
+    "description": "Adults 18-85 with diabetes who had kidney health evaluation (eGFR + UACR)",
+    "age_min": 18,
+    "age_max": 85,
+    "gender": "All",
+    "target": "eGFR AND UACR performed",
+    "lookback_months": 12,
+    "requires_condition": "diabetes"
+  }
+}

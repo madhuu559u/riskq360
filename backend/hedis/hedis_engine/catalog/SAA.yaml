@@ -1,0 +1,46 @@
+id: "SAA"
+name: "Adherence to Antipsychotic Medications for Individuals with Schizophrenia"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether adults aged 18 and older with schizophrenia remained on
+  an antipsychotic medication during the measurement year. Antipsychotic
+  medication adherence is critical for managing schizophrenia symptoms,
+  preventing psychotic relapse, reducing hospitalizations, and supporting
+  functional recovery. Discontinuation of antipsychotic therapy is
+  associated with a high risk of relapse and rehospitalization. This
+  measure evaluates whether evidence of antipsychotic medication use is
+  present during the measurement year as a proxy for adherence.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_SCHIZOPHRENIA_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "antipsychotic"
+      window_months: 12
+
+valuesets_needed:
+  - VS_SCHIZOPHRENIA_ICD10
+  - VS_ANTIPSYCHOTIC_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"
+  - "encounters"

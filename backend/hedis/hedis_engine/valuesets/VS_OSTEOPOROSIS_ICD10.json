@@ -1,0 +1,21 @@
+{
+    "id": "VS_OSTEOPOROSIS_ICD10",
+    "name": "Osteoporosis Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for osteoporosis and osteoporotic fractures. Used in the osteoporosis management in women who had a fracture (OMW) measure and bone density screening measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "M80.00XA", "description": "Age-related osteoporosis with current pathological fracture, unspecified site, initial encounter"},
+        {"code": "M80.08XA", "description": "Age-related osteoporosis with current pathological fracture, vertebra(e), initial encounter"},
+        {"code": "M81.0", "description": "Age-related osteoporosis without current pathological fracture"},
+        {"code": "M81.6", "description": "Localized osteoporosis [Lequesne]"},
+        {"code": "M81.8", "description": "Other osteoporosis without current pathological fracture"},
+        {"code": "M80.80XA", "description": "Other osteoporosis with current pathological fracture, unspecified site, initial encounter"},
+        {"code": "M85.80", "description": "Other specified disorders of bone density and structure, unspecified site"},
+        {"code": "Z87.310", "description": "Personal history of (healed) osteoporosis fracture"},
+        {"code": "M80.011A", "description": "Age-related osteoporosis with current pathological fracture, right shoulder, initial encounter"},
+        {"code": "M80.051A", "description": "Age-related osteoporosis with current pathological fracture, right femur, initial encounter"},
+        {"code": "M80.061A", "description": "Age-related osteoporosis with current pathological fracture, right lower leg, initial encounter"}
+    ]
+}

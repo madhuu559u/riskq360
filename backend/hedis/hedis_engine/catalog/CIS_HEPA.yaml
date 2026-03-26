@@ -1,0 +1,44 @@
+id: "CIS-HEPA"
+name: "Childhood Immunization Status - Hepatitis A"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether children who turned 2 years old during the measurement
+  year received at least one dose of the hepatitis A (HepA) vaccine by
+  their second birthday. Hepatitis A vaccination prevents acute liver
+  infection caused by the hepatitis A virus, which is transmitted through
+  the fecal-oral route and can cause prolonged illness in young children.
+
+eligibility:
+  age: {min: 2, max: 2, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_IMMUNIZATION_CONTRAINDICATION"
+    lookback_months: 24
+    description: "Contraindication to vaccine"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "hepatitis_a"
+      min_count: 1
+      window_months: 24
+
+valuesets_needed:
+  - VS_HEPATITIS_A_VACCINE
+  - VS_HOSPICE
+  - VS_IMMUNIZATION_CONTRAINDICATION
+
+data_sources:
+  - "claims"
+  - "immunization_registry"

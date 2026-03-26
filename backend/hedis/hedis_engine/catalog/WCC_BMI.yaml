@@ -1,0 +1,47 @@
+id: "WCC-BMI"
+name: "Weight Assessment - BMI Percentile"
+version: "2025"
+domain: "pediatric"
+description: >
+  Assesses whether children and adolescents aged 3-17 had their BMI percentile
+  documented during an outpatient visit in the measurement year. For pediatric
+  patients, BMI must be interpreted using age- and sex-specific percentile
+  charts rather than absolute values. Documentation of BMI percentile is
+  essential for identifying children who are underweight, overweight, or obese,
+  enabling timely nutritional and lifestyle interventions.
+
+eligibility:
+  age: {min: 3, max: 17, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  all_of:
+    - type: "vital"
+      vital_type: "bmi"
+      window_months: 12
+
+valuesets_needed:
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "vitals"
+  - "encounters"

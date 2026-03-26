@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedInsight 360 &mdash; Functional Documentation</title>
+<style>
+:root{--bg:#0a0e1a;--surface:#111827;--surface2:#1e2538;--surface3:#283044;--border:#2a3352;--text:#e8ecf4;--text2:#9ca3c0;--text3:#5e6584;--primary:#6366f1;--primary-l:#818cf8;--cyan:#22d3ee;--green:#22c55e;--yellow:#fbbf24;--orange:#f97316;--red:#ef4444;--purple:#a855f7;--pink:#ec4899;--mono:'JetBrains Mono','Fira Code',monospace;--sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;--grad:linear-gradient(135deg,#6366f1,#22d3ee)}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;font-size:14px;-webkit-font-smoothing:antialiased}::selection{background:rgba(99,102,241,.3)}a{color:var(--cyan);text-decoration:none}
+.hero{background:linear-gradient(180deg,#0d0a20 0%,var(--bg) 100%);padding:60px 0 36px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 700px 350px at 50% -20%,rgba(99,102,241,.18),transparent);pointer-events:none}
+.hero h1{font-size:44px;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.03em}
+.hero .tag{margin-top:8px;color:var(--text2);font-size:16px}.hero .ver{display:inline-block;margin-top:14px;padding:4px 16px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(99,102,241,.12);color:var(--primary-l);border:1px solid rgba(99,102,241,.2);letter-spacing:.06em}
+.wrap{max-width:1340px;margin:0 auto;padding:0 28px}
+/* Tabs */
+.tabs{position:sticky;top:0;z-index:100;background:rgba(17,24,39,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{padding:13px 22px;font-size:11.5px;font-weight:700;color:var(--text3);cursor:pointer;border:none;background:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.06em;text-transform:uppercase}
+.tab:hover{color:var(--text2);background:rgba(255,255,255,.02)}.tab.on{color:var(--primary-l);border-bottom-color:var(--primary);background:rgba(99,102,241,.05)}
+.pane{display:none;padding:36px 0;animation:fadeUp .2s ease}.pane.on{display:block}@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* Typography */
+h2{font-size:26px;font-weight:800;color:var(--text);margin-bottom:14px;letter-spacing:-.02em}
+h3{font-size:18px;font-weight:700;color:var(--primary-l);margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+h4{font-size:14px;font-weight:700;color:var(--cyan);margin:18px 0 8px}
+p{color:var(--text2);margin-bottom:12px}
+ul,ol{margin:8px 0 16px 22px;color:var(--text2)}li{margin-bottom:5px}
+code{font-family:var(--mono);font-size:12px;background:rgba(99,102,241,.1);color:var(--primary-l);padding:2px 6px;border-radius:4px}
+pre{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;overflow-x:auto;margin:12px 0;font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--text2)}
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:16px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:14px 0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:800px){.cols,.card-grid{grid-template-columns:1fr}}
+/* Badges */
+.b{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.b-p{background:rgba(99,102,241,.12);color:var(--primary-l)}.b-c{background:rgba(34,211,238,.1);color:var(--cyan)}.b-g{background:rgba(34,197,94,.1);color:var(--green)}.b-y{background:rgba(251,191,36,.1);color:var(--yellow)}.b-r{background:rgba(239,68,68,.1);color:var(--red)}.b-o{background:rgba(249,115,22,.1);color:var(--orange)}.b-pu{background:rgba(168,85,247,.1);color:var(--purple)}.b-pk{background:rgba(236,72,153,.1);color:var(--pink)}.b-gr{background:rgba(94,101,132,.15);color:var(--text3)}
+/* Info boxes */
+.info{border-left:3px solid var(--primary);background:rgba(99,102,241,.05);padding:14px 18px;border-radius:0 8px 8px 0;margin:14px 0;font-size:13px}
+.info.cyan{border-left-color:var(--cyan);background:rgba(34,211,238,.05)}
+.info.green{border-left-color:var(--green);background:rgba(34,197,94,.05)}
+.info.yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.05)}
+.info.red{border-left-color:var(--red);background:rgba(239,68,68,.05)}
+/* Stat */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:14px 0}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.stat .n{font-size:30px;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat .l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+/* Table */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{text-align:left;padding:10px 12px;background:var(--surface2);color:var(--text2);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--border)}
+td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}tr:hover td{background:rgba(255,255,255,.015)}
+/* Screen mockup */
+.screen{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:16px 0}
+.screen-bar{background:var(--surface2);padding:8px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.screen-bar .dot{width:10px;height:10px;border-radius:50%;background:var(--border)}
+.screen-bar .dot.r{background:#ef4444}.screen-bar .dot.y{background:#fbbf24}.screen-bar .dot.g{background:#22c55e}
+.screen-bar .url{flex:1;text-align:center;font-size:11px;color:var(--text3);font-family:var(--mono)}
+.screen-body{padding:20px 24px;font-size:13px;color:var(--text2)}
+/* Workflow arrow */
+.wf{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+.wf-step{flex:1;min-width:140px;background:var(--surface2);border:1px solid var(--border);padding:12px 14px;text-align:center;position:relative}
+.wf-step:first-child{border-radius:8px 0 0 8px}.wf-step:last-child{border-radius:0 8px 8px 0}
+.wf-step .wf-num{font-size:10px;color:var(--text3);font-weight:700;letter-spacing:.08em}
+.wf-step .wf-title{font-size:12px;font-weight:700;color:var(--text);margin-top:3px}
+.wf-step .wf-desc{font-size:11px;color:var(--text3);margin-top:2px}
+.wf-step::after{content:'';position:absolute;right:-8px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:8px solid var(--border);border-top:8px solid transparent;border-bottom:8px solid transparent;z-index:1}
+.wf-step:last-child::after{display:none}
+/* Diagram */
+.diagram{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin:16px 0;font-family:var(--mono);font-size:12px;line-height:1.9;white-space:pre;overflow-x:auto;color:var(--text2)}
+.diagram .h{color:var(--primary-l);font-weight:700}.diagram .c{color:var(--cyan)}.diagram .g{color:var(--green)}.diagram .y{color:var(--yellow)}.diagram .r{color:var(--red)}.diagram .d{color:var(--text3)}
+/* Footer */
+footer{text-align:center;padding:40px 0;border-top:1px solid var(--border);color:var(--text3);font-size:12px;margin-top:40px}
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<div class="hero"><div class="wrap">
+<h1>MedInsight 360</h1>
+<p class="tag">Functional Documentation &mdash; Platform Capabilities, Screens &amp; Workflows</p>
+<span class="ver">v1.0 &middot; March 2026 &middot; Production</span>
+</div></div>
+
+<!-- ====== TABS ====== -->
+<div class="tabs" id="T">
+<button class="tab on" data-t="objective">Objective &amp; Vision</button>
+<button class="tab" data-t="capabilities">Platform Capabilities</button>
+<button class="tab" data-t="screens">Screens &amp; UI</button>
+<button class="tab" data-t="chart-viewer">Chart Viewer</button>
+<button class="tab" data-t="hcc">HCC &amp; Risk Adjustment</button>
+<button class="tab" data-t="hedis">HEDIS &amp; Care Gaps</button>
+<button class="tab" data-t="clinical">Clinical Intelligence</button>
+<button class="tab" data-t="review">Review Workflow</button>
+<button class="tab" data-t="config">Settings &amp; Config</button>
+<button class="tab" data-t="workflows">End-to-End Workflows</button>
+</div>
+
+<div class="wrap">
+
+<!-- ================================================================ -->
+<!-- OBJECTIVE & VISION                                                 -->
+<!-- ================================================================ -->
+<div class="pane on" id="P-objective">
+
+<h2>Platform Objective</h2>
+<div class="info">
+<strong>MedInsight 360</strong> is a unified AI-powered platform that automates the analysis of medical chart PDFs to produce <strong>Payable HCC Packs</strong> (Risk Adjustment) and <strong>HEDIS Quality Gap Reports</strong> (Quality Intelligence) &mdash; reducing manual coder effort by 80% while maintaining audit-grade accuracy.
+</div>
+
+<h3>The Problem It Solves</h3>
+<div class="card-grid">
+<div class="card">
+<h4>Manual Chart Coding is Slow</h4>
+<p>A human coder takes 30-60 minutes per chart to identify HCC codes, validate ICD accuracy, check MEAT evidence, and evaluate HEDIS measures. With thousands of charts per year, this is unsustainable.</p>
+</div>
+<div class="card">
+<h4>Missed Revenue &amp; Quality Gaps</h4>
+<p>Human coders miss diagnoses buried in long documents. Missed HCCs = lost revenue. Missed HEDIS gaps = lower quality scores, failed audits, and member harm.</p>
+</div>
+<div class="card">
+<h4>No Unified Platform</h4>
+<p>Risk Adjustment and HEDIS Quality are typically handled by separate teams with separate tools. MedInsight 360 unifies both into one workflow on one chart.</p>
+</div>
+</div>
+
+<h3>What MedInsight 360 Delivers</h3>
+<div class="stat-grid">
+<div class="stat"><div class="n">~45s</div><div class="l">Per Chart Processing</div></div>
+<div class="stat"><div class="n">500+</div><div class="l">Clinical Facts Extracted</div></div>
+<div class="stat"><div class="n">100+</div><div class="l">HEDIS Measures Evaluated</div></div>
+<div class="stat"><div class="n">90%</div><div class="l">Extraction Success Rate</div></div>
+<div class="stat"><div class="n">3-Source</div><div class="l">HCC Ensemble (LLM+ML+TFIDF)</div></div>
+<div class="stat"><div class="n">6-Status</div><div class="l">Clinical Negation Model</div></div>
+</div>
+
+<h3>Target Users</h3>
+<table>
+<tr><th>User Role</th><th>What They Use</th><th>Value</th></tr>
+<tr><td><strong>Risk Adjustment Coders</strong></td><td>HCC Pack tab, Diagnoses tab, Review workflow</td><td>AI pre-codes charts; coder validates, accepts/rejects with evidence</td></tr>
+<tr><td><strong>Quality Analysts</strong></td><td>HEDIS/Care Gaps tab, Clinical Intel tab</td><td>Automated gap detection with evidence &mdash; no manual chart review needed</td></tr>
+<tr><td><strong>Clinical Reviewers</strong></td><td>Full Chart Viewer with PDF evidence</td><td>Click any finding to jump to supporting text in the PDF</td></tr>
+<tr><td><strong>Operations Managers</strong></td><td>Dashboard, Pipeline Monitor</td><td>Track processing volume, success rates, coder productivity</td></tr>
+<tr><td><strong>IT / Configuration</strong></td><td>Settings panel</td><td>Switch LLM providers, adjust thresholds, manage HEDIS measures &mdash; no code changes</td></tr>
+</table>
+
+<h3>Core Value Propositions</h3>
+<ol>
+<li><strong>Chart-to-Code in 45 seconds</strong> &mdash; Upload a PDF, get a complete Payable HCC Pack with RAF score, MEAT evidence, and audit trail</li>
+<li><strong>Evidence-Linked Everything</strong> &mdash; Every diagnosis, every HCC, every HEDIS finding links back to the exact text and page in the PDF</li>
+<li><strong>3-Source HCC Ensemble</strong> &mdash; Catches diagnoses that LLMs miss by combining ML predictions + ICD retrieval + LLM extraction</li>
+<li><strong>Full Audit Trail</strong> &mdash; Every AI decision is traceable; every human review is logged; every change is audited</li>
+<li><strong>Configurable Without Code</strong> &mdash; Swap LLM providers, adjust confidence thresholds, toggle features, edit prompts &mdash; all from the UI</li>
+</ol>
+</div>
+
+<!-- ================================================================ -->
+<!-- PLATFORM CAPABILITIES                                              -->
+<!-- ================================================================ -->
+<div class="pane" id="P-capabilities">
+
+<h2>Complete Platform Capabilities</h2>
+
+<h3>A. PDF Intelligence</h3>
+<div class="card">
+<table>
+<tr><th>Capability</th><th>How It Works</th><th>What Users Get</th></tr>
+<tr><td>PDF Text Extraction</td><td>PyMuPDF extracts text per page with character offsets</td><td>Full text content preserved with page boundaries</td></tr>
+<tr><td>Page Quality Scoring</td><td>Each page scored 0-100 based on text density, char ratios, word structure</td><td>Know which pages have poor quality text</td></tr>
+<tr><td>OCR Fallback</td><td>Low-quality pages sent to GPT-4o Vision for OCR</td><td>Even scanned/handwritten pages get extracted</td></tr>
+<tr><td>Text Search in PDF</td><td>Client-side full-text search across all pages</td><td>Search any term, see matches highlighted with yellow glow</td></tr>
+<tr><td>Evidence Highlighting</td><td>Click any diagnosis/HCC to highlight supporting text in PDF</td><td>Instant visual proof of where the AI found each clinical fact</td></tr>
+<tr><td>Text Selection &rarr; Add Diagnosis</td><td>Select text in PDF, click stethoscope button to create diagnosis</td><td>Coders can manually add diagnoses the AI missed</td></tr>
+</table>
+</div>
+
+<h3>B. Clinical Data Extraction</h3>
+<div class="card">
+<p>The MiniMax Single-Pass engine extracts <strong>all</strong> clinical fact types in one LLM call per text chunk:</p>
+<table>
+<tr><th>Category</th><th>What's Extracted</th><th>Fields</th></tr>
+<tr><td><span class="b b-p">Diagnoses</span></td><td>All mentioned diagnoses with ICD-10 codes</td><td>ICD code, description, negation status, supporting text, date, provider, page, confidence</td></tr>
+<tr><td><span class="b b-c">Medications</span></td><td>All prescribed/mentioned drugs</td><td>Drug name, dose, frequency, route, instructions, indication, prescriber</td></tr>
+<tr><td><span class="b b-g">Vitals</span></td><td>Blood pressure, weight, height, BMI, pulse, temperature, O2</td><td>Value, date, exact quote, page number</td></tr>
+<tr><td><span class="b b-y">Lab Results</span></td><td>A1C, LDL, creatinine, eGFR, etc.</td><td>Test name, value, date, reference range, HEDIS linkage</td></tr>
+<tr><td><span class="b b-o">Procedures</span></td><td>CPT/HCPCS coded procedures</td><td>Code, description, date, provider</td></tr>
+<tr><td><span class="b b-pu">Screenings</span></td><td>Colonoscopy, mammogram, eye exam, PHQ-9, etc.</td><td>Type, date, result, HEDIS measure linkage</td></tr>
+<tr><td><span class="b b-pk">Encounters</span></td><td>Visit dates, providers, facilities</td><td>Date, provider, facility, visit type, chief complaint</td></tr>
+<tr><td><span class="b b-gr">Social/Mental</span></td><td>Smoking, alcohol, depression screens</td><td>Status, screening results, interventions</td></tr>
+</table>
+<p><strong>Per extraction:</strong> exact quote preserved, page number recorded, character offsets tracked, negation status assigned.</p>
+</div>
+
+<h3>C. HCC Risk Adjustment</h3>
+<div class="card">
+<table>
+<tr><th>Capability</th><th>Details</th></tr>
+<tr><td><strong>3-Source HCC Ensemble</strong></td><td>LLM extraction + BioClinicalBERT ML prediction + TF-IDF ICD retrieval</td></tr>
+<tr><td><strong>ICD-10 Coding</strong></td><td>7,903 ICD-10-CM codes in catalog; V28 mapping to 115 payable HCC categories</td></tr>
+<tr><td><strong>Hierarchy Suppression</strong></td><td>Automatic V28 hierarchy rules (e.g., HCC 18 suppresses HCC 19)</td></tr>
+<tr><td><strong>RAF Score Calculation</strong></td><td>Total RAF = demographic + HCC component; per-HCC weight breakdown</td></tr>
+<tr><td><strong>MEAT Validation</strong></td><td>Every payable ICD checked for Monitored, Evaluated, Assessed, Treated evidence</td></tr>
+<tr><td><strong>6-Status Negation</strong></td><td>active, negated, resolved, historical, family_history, uncertain</td></tr>
+<tr><td><strong>Audit Risk Scoring</strong></td><td>Per-diagnosis audit risk level (low/medium/high)</td></tr>
+<tr><td><strong>Unsupported Candidates</strong></td><td>Shows rejected ICDs with rejection reason (negated, insufficient evidence, etc.)</td></tr>
+</table>
+</div>
+
+<h3>D. HEDIS Quality Measures</h3>
+<div class="card">
+<table>
+<tr><th>Capability</th><th>Details</th></tr>
+<tr><td><strong>100+ Measures</strong></td><td>Full HEDIS measure catalog with configurable active set</td></tr>
+<tr><td><strong>Automated Evaluation</strong></td><td>Each measure checked against extracted evidence: met / gap / not applicable / excluded</td></tr>
+<tr><td><strong>Gap Detection</strong></td><td>Identifies missing evidence with specific action recommendations</td></tr>
+<tr><td><strong>Evidence Linking</strong></td><td>Each met measure links to supporting evidence (lab value, screening date, BP reading)</td></tr>
+<tr><td><strong>Measure Profiles</strong></td><td>Configurable active measure sets per organization</td></tr>
+<tr><td><strong>Decision Reasoning</strong></td><td>Each measure shows why it was marked as met/gap with step-by-step logic</td></tr>
+</table>
+</div>
+
+<h3>E. Coder Review Workflow</h3>
+<div class="card">
+<table>
+<tr><th>Action</th><th>Available On</th><th>What Happens</th></tr>
+<tr><td><span class="b b-g">Accept</span></td><td>Diagnoses, HCCs, HEDIS measures</td><td>Mark as confirmed correct, log reviewer + timestamp</td></tr>
+<tr><td><span class="b b-r">Reject</span></td><td>Diagnoses, HCCs, HEDIS measures</td><td>Mark as incorrect with rejection reason, log action</td></tr>
+<tr><td><span class="b b-y">Edit</span></td><td>Diagnoses</td><td>Modify ICD code, description, or evidence, log before/after</td></tr>
+<tr><td><span class="b b-p">Add New</span></td><td>Diagnoses, HCCs</td><td>Manually add a finding the AI missed, with ICD lookup assistance</td></tr>
+<tr><td><span class="b b-c">Bulk Save</span></td><td>Entire document</td><td>Save all review decisions at once</td></tr>
+</table>
+<p>Every action creates an <strong>audit log entry</strong> and <strong>review action record</strong> for full traceability.</p>
+</div>
+
+<h3>F. Configuration &amp; Customization</h3>
+<div class="card">
+<table>
+<tr><th>What</th><th>How</th></tr>
+<tr><td>LLM Provider</td><td>Switch between OpenAI, Azure OpenAI, Google Gemini from the UI</td></tr>
+<tr><td>Model Selection</td><td>Choose which model (gpt-4o, gpt-4o-mini, etc.) from dropdown</td></tr>
+<tr><td>Feature Flags</td><td>Toggle Risk Adjustment, HEDIS, ML, OCR, parallelism on/off</td></tr>
+<tr><td>Confidence Thresholds</td><td>Adjust ML and TF-IDF thresholds via sliders</td></tr>
+<tr><td>Prompt Templates</td><td>Edit LLM extraction prompts with syntax-highlighted editor</td></tr>
+<tr><td>HEDIS Catalog</td><td>Browse/activate/deactivate individual HEDIS measures</td></tr>
+<tr><td>Themes</td><td>6 color themes + 3 font families + dark/light mode</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SCREENS & UI                                                       -->
+<!-- ================================================================ -->
+<div class="pane" id="P-screens">
+
+<h2>Application Screens</h2>
+
+<h3>Screen 1: Login</h3>
+<div class="screen">
+<div class="screen-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">localhost:3008/login</span></div>
+<div class="screen-body">
+<p><strong>Layout:</strong> Two-panel design with dark gradient background</p>
+<p><strong>Left Panel (Branding):</strong></p>
+<ul>
+<li>Animated pulse icon with RiskQ360 logo</li>
+<li>Gradient text: "RiskQ360" with tagline "RISK &bull; QUALITY &bull; INTELLIGENCE"</li>
+<li>Headline: "Risk. Quality. Everything in between."</li>
+<li>3 feature pills: "HCC Risk Coding", "Care Gap Analytics", "Clinical Intel"</li>
+</ul>
+<p><strong>Right Panel (Login Form):</strong></p>
+<ul>
+<li>Username field (placeholder: "riskq360")</li>
+<li>Password field with show/hide toggle (placeholder: "Enter your password")</li>
+<li>Remember me checkbox (checked by default)</li>
+<li>"Sign in" button with gradient background</li>
+<li>Demo credentials: <code>riskq360</code> / <code>demo2026</code></li>
+</ul>
+<p><strong>Auth:</strong> SessionStorage-based demo auth. On success, redirects to Chart List.</p>
+</div>
+</div>
+
+<h3>Screen 2: Chart List (Home)</h3>
+<div class="screen">
+<div class="screen-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">localhost:3008/</span></div>
+<div class="screen-body">
+<p><strong>Header Section:</strong></p>
+<ul>
+<li>"Charts" title with total count subtitle</li>
+<li>Refresh button (re-fetches from API)</li>
+<li>Upload button (gradient, opens upload modal)</li>
+</ul>
+<p><strong>Search &amp; Filter Bar:</strong></p>
+<ul>
+<li><strong>Search input</strong> &mdash; searches across chart filename, patient name, chart ID, status</li>
+<li><strong>Status dropdown</strong> &mdash; filter by: uploaded, processing, completed, failed</li>
+<li><strong>Advanced Filters button</strong> &mdash; expands:</li>
+<ul>
+<li>HCC Code filter (e.g., "HCC 18")</li>
+<li>Diagnosis text filter (e.g., "Diabetes")</li>
+<li>High Risk Only checkbox (RAF &ge; 2.0)</li>
+<li>Has HEDIS Gaps checkbox</li>
+</ul>
+<li><strong>Active filter count badge</strong> with "Clear all" button</li>
+<li><strong>Grid/List view toggle</strong> with result count</li>
+</ul>
+<p><strong>Chart Cards (Grid View):</strong> Each card shows:</p>
+<ul>
+<li><strong>Row 1:</strong> Status dot (animated pulse if processing) + filename + patient name + status badge + relative time</li>
+<li><strong>Row 2:</strong> RAF score (gradient badge) + HCC count + HEDIS MET count (green) + HEDIS GAP count (red) + page count</li>
+</ul>
+<p><strong>Empty State:</strong> Cloud upload icon + "No charts yet" + Upload button</p>
+<p><strong>FAB:</strong> Floating "+" button (bottom-right) for quick upload</p>
+<p><strong>Upload Modal:</strong> Drag-drop zone accepting PDF files, sends to <code>POST /api/charts/upload</code></p>
+</div>
+</div>
+
+<h3>Screen 3: Chart Viewer</h3>
+<div class="screen">
+<div class="screen-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">localhost:3008/charts/21</span></div>
+<div class="screen-body">
+<p><strong>Top Toolbar (ViewerToolbar):</strong></p>
+<ul>
+<li>Back button &rarr; returns to Chart List</li>
+<li>Chart ID badge + Status badge</li>
+<li>Center: Pages processed, Processing time, RAF score highlight</li>
+<li>Right: Fullscreen toggle, Download PDF, Re-process, More actions</li>
+</ul>
+<p><strong>Split Pane Layout:</strong></p>
+<ul>
+<li><strong>Left Panel (60%):</strong> PDF Viewer with controls bar</li>
+<li><strong>Draggable divider</strong> &mdash; resize by dragging</li>
+<li><strong>Right Panel (40%):</strong> 4 tabbed analysis panels</li>
+</ul>
+<p><strong>Right Panel Tabs:</strong></p>
+<table>
+<tr><th>Tab</th><th>Contents</th></tr>
+<tr><td><span class="b b-p">HCC Pack</span></td><td>RAF summary, payable HCCs, supporting ICDs, MEAT evidence, review actions</td></tr>
+<tr><td><span class="b b-c">Diagnoses</span></td><td>All extracted diagnoses with ICD codes, negation badges, evidence quotes, review buttons</td></tr>
+<tr><td><span class="b b-g">Care Gaps</span></td><td>HEDIS measure results (met/gap/excluded), evidence items, gap recommendations</td></tr>
+<tr><td><span class="b b-y">Clinical Intel</span></td><td>Sub-tabs: Vitals, Labs, Medications, Encounters, Sentences (all assertions)</td></tr>
+</table>
+<p>See dedicated tabs below for detailed content of each panel.</p>
+</div>
+</div>
+
+<h3>Screen 4: Dashboard</h3>
+<div class="screen">
+<div class="screen-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">localhost:3008/dashboard</span></div>
+<div class="screen-body">
+<p><strong>6 Intelligence Tiles:</strong></p>
+<ul>
+<li>Total Charts (count)</li>
+<li>Completed (count, green)</li>
+<li>Failed (count, red)</li>
+<li>Success Rate (%)</li>
+<li>Avg Processing Time (seconds)</li>
+<li>Avg Quality Score (0-100)</li>
+</ul>
+<p><strong>Charts:</strong></p>
+<ul>
+<li>Processing Time Trend (line chart)</li>
+<li>Completion Status (pie chart: completed/failed/processing)</li>
+</ul>
+<p><strong>Tables:</strong></p>
+<ul>
+<li>Database Statistics &mdash; row counts for all major tables</li>
+<li>Recent Activity &mdash; latest chart processing events with status</li>
+<li>Pipeline History &mdash; all pipeline runs with duration, mode, status</li>
+<li>Top RAF Scores &mdash; charts with highest risk scores</li>
+</ul>
+<p><strong>Auto-refresh:</strong> Stats every 30s, Activity every 15s</p>
+</div>
+</div>
+
+<h3>Screen 5: Settings</h3>
+<div class="screen">
+<div class="screen-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">localhost:3008/settings</span></div>
+<div class="screen-body">
+<p><strong>6 Configuration Tabs:</strong></p>
+<table>
+<tr><th>Tab</th><th>Settings</th></tr>
+<tr><td>AI Engine</td><td>LLM provider dropdown (OpenAI/Azure/Gemini), model name, temperature slider (0-1), max tokens</td></tr>
+<tr><td>Pipeline</td><td>Chunk size (chars), chunk overlap, quality threshold (0-100), measurement year</td></tr>
+<tr><td>ML &amp; Risk</td><td>ML confidence threshold (0-1), TF-IDF similarity threshold (0-1)</td></tr>
+<tr><td>Feature Flags</td><td>Toggle switches: Risk Adjustment, HEDIS, ML Predictions, LLM Verification, OCR Fallback, Parallel Pipelines, Audit Logging</td></tr>
+<tr><td>HEDIS Measures</td><td>Catalog browser with search, activate/deactivate toggle per measure, edit measure definition</td></tr>
+<tr><td>Prompt Templates</td><td>Code editor for each LLM prompt template, syntax highlighting, save/reset</td></tr>
+</table>
+<p>Changes take effect immediately (feature flags) or on next chart processing (LLM/pipeline settings).</p>
+</div>
+</div>
+
+<h3>Global Navigation</h3>
+<div class="card">
+<p><strong>Top Navigation Bar (always visible):</strong></p>
+<ul>
+<li><strong>Left:</strong> RiskQ360 logo (click &rarr; home), breadcrumbs showing current location</li>
+<li><strong>Center:</strong> Spotlight search trigger (or use Ctrl+K)</li>
+<li><strong>Right:</strong> Theme palette picker (6 themes), Font family picker (3 fonts), Dark/Light mode toggle, Profile menu with logout</li>
+</ul>
+<p><strong>Spotlight Search (Ctrl+K or /):</strong></p>
+<ul>
+<li>Command palette modal with search input</li>
+<li>Searches across: Charts (by filename, patient), Routes (/charts, /dashboard, /settings), Actions</li>
+<li>Arrow keys to navigate, Enter to select, Escape to close</li>
+</ul>
+<p><strong>Keyboard Shortcuts:</strong></p>
+<table>
+<tr><th>Shortcut</th><th>Action</th></tr>
+<tr><td><code>Ctrl+K</code> or <code>/</code></td><td>Open spotlight search</td></tr>
+<tr><td><code>Ctrl+U</code></td><td>Open chart upload</td></tr>
+<tr><td><code>Ctrl+D</code></td><td>Toggle dark mode</td></tr>
+<tr><td><code>1-4</code> (in viewer)</td><td>Switch viewer tabs</td></tr>
+<tr><td><code>&larr; / &rarr;</code> (in viewer)</td><td>Previous/next PDF page</td></tr>
+<tr><td><code>+ / -</code> (in viewer)</td><td>Zoom in/out</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- CHART VIEWER DETAILS                                               -->
+<!-- ================================================================ -->
+<div class="pane" id="P-chart-viewer">
+
+<h2>Chart Viewer &mdash; Detailed Walkthrough</h2>
+
+<h3>PDF Viewer (Left Panel)</h3>
+<div class="card">
+<h4>Controls Bar</h4>
+<table>
+<tr><th>Control</th><th>Function</th></tr>
+<tr><td>Search input</td><td>Type to search text across all PDF pages. Debounced 300ms. Shows match count (e.g., "3/15"). Results dropdown lists matches grouped by page. Click a result to jump to it.</td></tr>
+<tr><td>&uarr; &darr; arrows</td><td>Navigate between search matches (appear when matches found)</td></tr>
+<tr><td>Thumbnails toggle</td><td>Show/hide page thumbnail sidebar on the left of the PDF</td></tr>
+<tr><td>Page navigation</td><td>&larr; &rarr; buttons + page number input (type page number, press Enter)</td></tr>
+<tr><td>Zoom controls</td><td>- / + buttons. Click zoom % to see preset menu (50%-300%)</td></tr>
+<tr><td>Fit modes</td><td>"Fit to width" and "Fit to page" toggle buttons</td></tr>
+<tr><td>Download</td><td>Download original PDF file</td></tr>
+</table>
+
+<h4>PDF Page Rendering</h4>
+<ul>
+<li><strong>Continuous scroll:</strong> All pages rendered in a scrollable column</li>
+<li><strong>Page labels:</strong> Small page number badge at bottom-right of each page</li>
+<li><strong>Text layer:</strong> Invisible text overlay for selection and search</li>
+<li><strong>IntersectionObserver:</strong> Tracks which page is currently visible</li>
+</ul>
+
+<h4>Evidence Highlights</h4>
+<p>When you click "View Evidence" on any finding, the PDF highlights the supporting text:</p>
+<table>
+<tr><th>Highlight Type</th><th>Color</th><th>Trigger</th></tr>
+<tr><td><span class="b b-p">Diagnosis</span></td><td>Blue glow</td><td>Click diagnosis ICD code or "View Evidence"</td></tr>
+<tr><td><span class="b b-g">HEDIS</span></td><td>Green glow</td><td>Click HEDIS evidence item</td></tr>
+<tr><td><span class="b b-r">Negated</span></td><td>Red glow</td><td>Click negated finding</td></tr>
+<tr><td><span class="b b-y">MEAT</span></td><td>Amber glow</td><td>Click MEAT evidence link</td></tr>
+<tr><td><span class="b b-pu">ML</span></td><td>Purple glow</td><td>Click ML prediction</td></tr>
+<tr><td><span class="b b-o">Search</span></td><td>Yellow glow</td><td>Type in search box</td></tr>
+</table>
+<p>Highlights use DOM-based positioning for pixel-perfect accuracy. Active highlights pulse with animation and show a label badge above them.</p>
+
+<h4>Text Selection &rarr; Add Diagnosis</h4>
+<ol>
+<li>Select text in the PDF</li>
+<li>A purple stethoscope button appears near the selection</li>
+<li>Click it to open the "Quick Add Diagnosis" modal</li>
+<li>The selected text is pre-filled; enter ICD code and details</li>
+<li>Use the built-in ICD-10 lookup (BM25 search over 7,903 codes)</li>
+</ol>
+
+<h4>Evidence Popover</h4>
+<p>Hover over any highlight to see a popover with:</p>
+<ul>
+<li>Evidence type badge (Diagnosis, HEDIS, MEAT, etc.)</li>
+<li>ICD/CPT code and description</li>
+<li>Confidence score with visual bar</li>
+<li>Source section (e.g., "Assessment/Plan")</li>
+<li>Provider name and date of service</li>
+<li>Close button (X)</li>
+</ul>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- HCC & RISK ADJUSTMENT                                              -->
+<!-- ================================================================ -->
+<div class="pane" id="P-hcc">
+
+<h2>HCC Pack Tab &mdash; Risk Adjustment Analysis</h2>
+
+<h3>RAF Summary Card</h3>
+<div class="card">
+<p>Top section of the HCC tab showing:</p>
+<ul>
+<li><strong>Total RAF Score</strong> &mdash; large number with gradient styling (e.g., 1.847)</li>
+<li><strong>Demographic RAF</strong> &mdash; age/gender component</li>
+<li><strong>HCC RAF</strong> &mdash; diagnosis component (sum of HCC weights)</li>
+<li><strong>Payable HCC Count</strong> &mdash; number of payable codes</li>
+<li><strong>Suppressed HCC Count</strong> &mdash; codes removed by hierarchy</li>
+<li><strong>Per-HCC Breakdown Table</strong> &mdash; each HCC code with its RAF weight</li>
+</ul>
+</div>
+
+<h3>Payable HCC Cards</h3>
+<div class="card">
+<p>Expandable accordion &mdash; one card per payable HCC. Each card shows:</p>
+
+<h4>Card Header (always visible)</h4>
+<ul>
+<li>HCC code (e.g., "HCC 18") with description ("Diabetes with Chronic Complications")</li>
+<li>RAF weight badge (e.g., "0.302")</li>
+<li>Audit risk level: <span class="b b-g">LOW</span> <span class="b b-y">MEDIUM</span> <span class="b b-r">HIGH</span></li>
+<li>Review status: <span class="b b-gr">PENDING</span> <span class="b b-g">ACCEPTED</span> <span class="b b-r">REJECTED</span></li>
+</ul>
+
+<h4>Expanded Content (click to expand)</h4>
+<p><strong>Supporting ICDs</strong> &mdash; for each ICD code supporting this HCC:</p>
+<ul>
+<li>ICD-10 code + description (e.g., E11.65 "Type 2 diabetes mellitus with hyperglycemia")</li>
+<li><strong>Confidence bar:</strong> visual progress bar showing overall confidence (0-100%)</li>
+<li>ML confidence vs LLM confidence breakdown</li>
+<li>Polarity badge: <span class="b b-g">ACTIVE</span> <span class="b b-r">NEGATED</span> <span class="b b-y">HISTORICAL</span></li>
+<li>Date of service + Provider</li>
+<li><strong>Evidence quote</strong> with page number &mdash; clickable to highlight in PDF</li>
+</ul>
+
+<p><strong>MEAT Evidence Display:</strong></p>
+<ul>
+<li>4 indicator circles: <strong>M</strong> (Monitored), <strong>E</strong> (Evaluated), <strong>A</strong> (Assessed), <strong>T</strong> (Treated)</li>
+<li>Each filled green if evidence found, gray if missing</li>
+<li>Supporting text shown for each met element:</li>
+<ul>
+<li>Monitoring: "A1C checked quarterly, last value 8.2%"</li>
+<li>Treatment: "Continue metformin 1000mg BID, added glipizide 5mg"</li>
+<li>Assessment: "Diabetes with chronic complications, poorly controlled"</li>
+<li>Evaluation: "Retinopathy screening completed, mild NPDR noted"</li>
+</ul>
+</ul>
+
+<p><strong>Review Actions:</strong></p>
+<ul>
+<li><strong>Accept HCC</strong> button (green) &mdash; opens ReviewModal</li>
+<li><strong>Reject HCC</strong> button (red) &mdash; opens ReviewModal with reason field</li>
+</ul>
+</div>
+
+<h3>Suppressed HCCs Section</h3>
+<div class="card">
+<p>Shows HCCs that were identified but suppressed by V28 hierarchy rules:</p>
+<ul>
+<li>Suppressed HCC code + description</li>
+<li>"Suppressed by" &mdash; which higher-priority HCC caused suppression</li>
+<li>Explanation of the hierarchy rule</li>
+</ul>
+<p>Example: <em>"HCC 19 (Diabetes without Complications) suppressed by HCC 18 (Diabetes with Chronic Complications)"</em></p>
+</div>
+
+<h3>Unsupported Candidates</h3>
+<div class="card">
+<p>ICDs that were identified but didn't make the payable cut:</p>
+<ul>
+<li>ICD code + description</li>
+<li>Rejection reason: "Negated", "Insufficient MEAT evidence", "Below confidence threshold", "Family history only"</li>
+<li>Original polarity status</li>
+<li>Source text excerpt</li>
+</ul>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- HEDIS & CARE GAPS                                                  -->
+<!-- ================================================================ -->
+<div class="pane" id="P-hedis">
+
+<h2>Care Gaps Tab &mdash; HEDIS Quality Measures</h2>
+
+<h3>Summary Section</h3>
+<div class="card">
+<p>Top-level counts displayed as colored cards:</p>
+<div class="stat-grid">
+<div class="stat"><div class="n" style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent">122</div><div class="l">Total Measures</div></div>
+<div class="stat"><div class="n" style="color:var(--green)">45</div><div class="l">Met</div></div>
+<div class="stat"><div class="n" style="color:var(--red)">8</div><div class="l">Gaps</div></div>
+<div class="stat"><div class="n" style="color:var(--text3)">69</div><div class="l">Not Applicable</div></div>
+</div>
+</div>
+
+<h3>Measure Cards</h3>
+<div class="card">
+<p>Each measure displayed as an expandable card:</p>
+
+<h4>Card Header</h4>
+<ul>
+<li>Measure code (e.g., "CBP" or "CDC-HBA1C")</li>
+<li>Measure name (e.g., "Controlling High Blood Pressure")</li>
+<li>Status badge: <span class="b b-g">MET</span> <span class="b b-r">GAP</span> <span class="b b-gr">NOT APPLICABLE</span> <span class="b b-y">EXCLUDED</span></li>
+</ul>
+
+<h4>Expanded Content</h4>
+<p><strong>For MET measures:</strong></p>
+<ul>
+<li>Evidence items with dates, values, and source</li>
+<li>Example: "Blood pressure 128/78 mmHg on 2025-08-15 (page 3)" &mdash; clickable to highlight in PDF</li>
+<li>Compliance reasoning</li>
+</ul>
+
+<p><strong>For GAP measures:</strong></p>
+<ul>
+<li>What evidence is missing</li>
+<li>Recommended actions</li>
+<li>Last known relevant data point (if any)</li>
+</ul>
+
+<p><strong>Review Actions:</strong> Accept/Reject buttons for each measure result</p>
+</div>
+
+<h3>Measure Types Covered</h3>
+<div class="card">
+<table>
+<tr><th>Category</th><th>Example Measures</th><th>Evidence Types</th></tr>
+<tr><td>Blood Pressure</td><td>CBP (Controlling Blood Pressure)</td><td>BP readings with systolic/diastolic values</td></tr>
+<tr><td>Diabetes</td><td>CDC-HBA1C, CDC-EYE, CDC-REN</td><td>A1C values, eye exam dates, kidney function tests</td></tr>
+<tr><td>Cancer Screening</td><td>BCS (Breast), CCS (Cervical), COL (Colorectal)</td><td>Mammogram, Pap smear, colonoscopy dates</td></tr>
+<tr><td>Behavioral Health</td><td>PHQ-9 Screening, Alcohol Screening</td><td>Screening dates, results, follow-up actions</td></tr>
+<tr><td>Preventive Care</td><td>Immunizations, BMI Screening, Falls Risk</td><td>Vaccination dates, BMI values, screening results</td></tr>
+<tr><td>Medication</td><td>Statin Therapy, ACE/ARB adherence</td><td>Prescription dates, fill dates</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- CLINICAL INTELLIGENCE                                              -->
+<!-- ================================================================ -->
+<div class="pane" id="P-clinical">
+
+<h2>Clinical Intelligence Tab</h2>
+<p>The Clinical Intel tab provides raw clinical data extracted from the chart, organized into sub-tabs:</p>
+
+<h3>Vitals Sub-Tab</h3>
+<div class="card">
+<p>Displays all vital sign readings:</p>
+<ul>
+<li><strong>Blood Pressure:</strong> Systolic/diastolic with date, provider, page reference</li>
+<li><strong>Weight/Height/BMI:</strong> Values with dates</li>
+<li><strong>Pulse, Temperature, O2 Saturation:</strong> Values with dates</li>
+<li>Each vital links to exact quote in PDF (clickable)</li>
+<li>BP readings show within-target indicator for HEDIS linkage</li>
+</ul>
+</div>
+
+<h3>Labs Sub-Tab</h3>
+<div class="card">
+<p>Displays all lab results:</p>
+<ul>
+<li><strong>Test name:</strong> A1C, LDL, Creatinine, eGFR, Microalbumin, etc.</li>
+<li><strong>Result value</strong> with reference range</li>
+<li><strong>Date</strong> of test</li>
+<li><strong>HEDIS measure link:</strong> Shows which HEDIS measure this lab supports</li>
+<li><strong>Within target:</strong> Green/red indicator if value meets target</li>
+<li>Each lab links to PDF page (clickable)</li>
+</ul>
+</div>
+
+<h3>Medications Sub-Tab</h3>
+<div class="card">
+<ul>
+<li><strong>Drug name</strong> with dose form (e.g., "Metformin 1000mg tablet")</li>
+<li><strong>Instructions:</strong> Frequency, route (e.g., "BID, oral")</li>
+<li><strong>Indication:</strong> Why prescribed (e.g., "Type 2 Diabetes")</li>
+<li><strong>Action:</strong> Continue, start, adjust, discontinue</li>
+<li>Each medication links to PDF evidence</li>
+</ul>
+</div>
+
+<h3>Encounters Sub-Tab</h3>
+<div class="card">
+<ul>
+<li><strong>Date</strong> of encounter</li>
+<li><strong>Provider</strong> name and specialty</li>
+<li><strong>Facility</strong> name</li>
+<li><strong>Visit type:</strong> Office visit, telehealth, inpatient, etc.</li>
+<li><strong>Chief complaint</strong></li>
+<li>Linked diagnoses, procedures, and medications from that encounter</li>
+</ul>
+</div>
+
+<h3>All Assertions Sub-Tab</h3>
+<div class="card">
+<p>Complete list of every extracted clinical fact (500+ per chart):</p>
+<ul>
+<li>Category badge (diagnosis, medication, vital_sign, lab_result, etc.)</li>
+<li>Assertion text with exact quote</li>
+<li>Negation status badge</li>
+<li>Page number + character offsets</li>
+<li>ICD/CPT/LOINC codes if applicable</li>
+<li>Filterable by category, searchable by text</li>
+</ul>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- REVIEW WORKFLOW                                                     -->
+<!-- ================================================================ -->
+<div class="pane" id="P-review">
+
+<h2>Coder Review Workflow</h2>
+
+<h3>Workflow Overview</h3>
+<div class="wf">
+<div class="wf-step"><div class="wf-num">STEP 1</div><div class="wf-title">AI Extracts</div><div class="wf-desc">Chart processed, findings generated</div></div>
+<div class="wf-step"><div class="wf-num">STEP 2</div><div class="wf-title">Coder Reviews</div><div class="wf-desc">Opens chart, examines each finding</div></div>
+<div class="wf-step"><div class="wf-num">STEP 3</div><div class="wf-title">Accept/Reject</div><div class="wf-desc">Validates or corrects AI decisions</div></div>
+<div class="wf-step"><div class="wf-num">STEP 4</div><div class="wf-title">Add Missing</div><div class="wf-desc">Adds diagnoses AI missed</div></div>
+<div class="wf-step"><div class="wf-num">STEP 5</div><div class="wf-title">Save &amp; Submit</div><div class="wf-desc">Bulk save all decisions</div></div>
+</div>
+
+<h3>Review Actions in Detail</h3>
+
+<h4>Accepting a Finding</h4>
+<div class="card">
+<ol>
+<li>Coder opens chart in Chart Viewer</li>
+<li>Navigates to HCC Pack tab or Diagnoses tab</li>
+<li>Reviews the AI-generated finding (reads evidence, checks PDF)</li>
+<li>Clicks <strong>"Accept"</strong> button (green checkmark)</li>
+<li>Review Modal opens with optional notes field</li>
+<li>Coder adds notes (optional) and clicks "Confirm"</li>
+<li>Status changes to <span class="b b-g">ACCEPTED</span></li>
+<li>Audit log entry created: who, when, what</li>
+</ol>
+</div>
+
+<h4>Rejecting a Finding</h4>
+<div class="card">
+<ol>
+<li>Coder reviews finding and determines it's incorrect</li>
+<li>Clicks <strong>"Reject"</strong> button (red X)</li>
+<li>Review Modal opens with <strong>required</strong> reason field</li>
+<li>Coder enters reason (e.g., "Diagnosis is negated in context", "ICD specificity incorrect")</li>
+<li>Clicks "Confirm"</li>
+<li>Status changes to <span class="b b-r">REJECTED</span></li>
+<li>Audit log entry created with rejection reason</li>
+</ol>
+</div>
+
+<h4>Adding a Missing Diagnosis</h4>
+<div class="card">
+<ol>
+<li>Coder notices a diagnosis the AI missed</li>
+<li><strong>Option A:</strong> Click "Add Diagnosis" button in Diagnoses tab</li>
+<li><strong>Option B:</strong> Select text in PDF &rarr; click stethoscope button</li>
+<li>Add Diagnosis Modal opens with fields:
+<ul>
+<li>ICD-10 code input with <strong>live BM25 search</strong> (type "diabet" &rarr; see matching codes)</li>
+<li>Description (auto-filled from ICD lookup)</li>
+<li>Supporting text (pre-filled if from PDF selection)</li>
+<li>Page number</li>
+<li>Negation status dropdown</li>
+<li>Optional: date of service, provider</li>
+</ul></li>
+<li>Click "Save" &rarr; diagnosis added to chart</li>
+<li>Marked as <span class="b b-p">CODER-ADDED</span> in the system</li>
+</ol>
+</div>
+
+<h4>ICD-10 Coding Helper</h4>
+<div class="card">
+<p>When adding or editing a diagnosis, the <strong>Coding Helper</strong> provides real-time ICD-10 suggestions:</p>
+<ul>
+<li>Type 2+ characters in the ICD search field</li>
+<li>BM25 ranking searches across 7,903 ICD-10-CM codes</li>
+<li>Results show: code, description, HCC mapping (if any), RAF weight</li>
+<li>Click a result to auto-fill the code and description</li>
+<li>"Payment-only" filter toggle to show only HCC-mapped codes</li>
+</ul>
+</div>
+
+<h4>Bulk Document Save</h4>
+<div class="card">
+<p>After reviewing all findings in a chart:</p>
+<ol>
+<li>Click "Save Document" button</li>
+<li>All pending review decisions are saved in one API call</li>
+<li>Audit trail records the bulk save action</li>
+<li>Chart review status updated</li>
+</ol>
+</div>
+
+<h3>Audit Trail</h3>
+<div class="card">
+<p>Every review action is permanently logged:</p>
+<table>
+<tr><th>Field</th><th>Description</th></tr>
+<tr><td>Action</td><td>accept, reject, edit, add, delete, bulk_save</td></tr>
+<tr><td>Entity</td><td>diagnosis, hcc, hedis_measure</td></tr>
+<tr><td>Entity ID</td><td>The specific record ID</td></tr>
+<tr><td>Reviewer</td><td>Who performed the action</td></tr>
+<tr><td>Timestamp</td><td>When the action occurred</td></tr>
+<tr><td>Notes/Reason</td><td>Reviewer's comments</td></tr>
+<tr><td>Before/After</td><td>Previous and new values (for edits)</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SETTINGS & CONFIG                                                  -->
+<!-- ================================================================ -->
+<div class="pane" id="P-config">
+
+<h2>Settings &amp; Configuration</h2>
+
+<h3>Tab 1: AI Engine</h3>
+<div class="card">
+<table>
+<tr><th>Setting</th><th>Input Type</th><th>Options/Range</th></tr>
+<tr><td>LLM Provider</td><td>Dropdown</td><td>OpenAI, Azure OpenAI, Google Gemini</td></tr>
+<tr><td>Model Name</td><td>Text input</td><td>e.g., gpt-4o, gpt-4o-mini</td></tr>
+<tr><td>Temperature</td><td>Slider</td><td>0.0 - 1.0 (default: 0.1)</td></tr>
+<tr><td>Max Tokens</td><td>Number input</td><td>Default: 4096</td></tr>
+<tr><td>LLM Timeout</td><td>Number input</td><td>Default: 120 seconds</td></tr>
+</table>
+</div>
+
+<h3>Tab 2: Pipeline</h3>
+<div class="card">
+<table>
+<tr><th>Setting</th><th>Input Type</th><th>Default</th><th>Effect</th></tr>
+<tr><td>Chunk Size</td><td>Number</td><td>10,000 chars</td><td>How much text per LLM call</td></tr>
+<tr><td>Chunk Overlap</td><td>Number</td><td>500 chars</td><td>Overlap between chunks to avoid splitting sentences</td></tr>
+<tr><td>Quality Threshold</td><td>Slider (0-100)</td><td>60</td><td>Pages below this trigger OCR fallback</td></tr>
+<tr><td>Measurement Year</td><td>Number</td><td>2026</td><td>HEDIS measurement year for date calculations</td></tr>
+</table>
+</div>
+
+<h3>Tab 3: ML &amp; Risk</h3>
+<div class="card">
+<table>
+<tr><th>Setting</th><th>Default</th><th>Effect</th></tr>
+<tr><td>ML Confidence Threshold</td><td>0.3</td><td>BioClinicalBERT predictions below this are filtered out</td></tr>
+<tr><td>TF-IDF Similarity Threshold</td><td>0.35</td><td>ICD-10 code matches below this similarity are filtered out</td></tr>
+</table>
+</div>
+
+<h3>Tab 4: Feature Flags</h3>
+<div class="card">
+<p>Toggle switches with immediate effect:</p>
+<ul>
+<li><strong>Risk Adjustment</strong> &mdash; Enable/disable HCC mapping + RAF scoring</li>
+<li><strong>HEDIS</strong> &mdash; Enable/disable HEDIS measure evaluation</li>
+<li><strong>ML Predictions</strong> &mdash; Enable/disable BioClinicalBERT</li>
+<li><strong>LLM Verification</strong> &mdash; Enable/disable GPT-4o ICD verification</li>
+<li><strong>OCR Fallback</strong> &mdash; Enable/disable GPT-4o Vision OCR for low-quality pages</li>
+<li><strong>Parallel Pipelines</strong> &mdash; Enable/disable parallel chunk processing</li>
+<li><strong>Audit Logging</strong> &mdash; Enable/disable audit trail</li>
+</ul>
+</div>
+
+<h3>Tab 5: HEDIS Measures</h3>
+<div class="card">
+<ul>
+<li><strong>Catalog Browser:</strong> Searchable list of all available HEDIS measures</li>
+<li><strong>Per-measure:</strong> Toggle active/inactive, view definition</li>
+<li><strong>Edit Definition:</strong> Modify measure specs (age range, gender, lookback period)</li>
+<li><strong>Import/Export:</strong> Bulk manage measure profiles</li>
+</ul>
+</div>
+
+<h3>Tab 6: Prompt Templates</h3>
+<div class="card">
+<ul>
+<li>Code editor (textarea with monospace font) for each LLM prompt</li>
+<li>Available prompts: Demographics extraction, Clinical sentence categorization, Risk diagnosis extraction, HEDIS evidence extraction, Encounter extraction, ICD verification, Clinical summary</li>
+<li>Save and Reset buttons per template</li>
+<li>Changes stored in database &mdash; take effect on next chart processing</li>
+</ul>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- END-TO-END WORKFLOWS                                               -->
+<!-- ================================================================ -->
+<div class="pane" id="P-workflows">
+
+<h2>End-to-End User Workflows</h2>
+
+<h3>Workflow 1: Process a New Chart</h3>
+<div class="card">
+<div class="wf">
+<div class="wf-step"><div class="wf-num">1</div><div class="wf-title">Upload PDF</div><div class="wf-desc">Drag-drop or click "Upload" on Chart List</div></div>
+<div class="wf-step"><div class="wf-num">2</div><div class="wf-title">Auto-Process</div><div class="wf-desc">Pipeline runs in background (~45s)</div></div>
+<div class="wf-step"><div class="wf-num">3</div><div class="wf-title">View Results</div><div class="wf-desc">Click chart card to open Chart Viewer</div></div>
+<div class="wf-step"><div class="wf-num">4</div><div class="wf-title">Review HCCs</div><div class="wf-desc">Check payable codes, MEAT, RAF</div></div>
+<div class="wf-step"><div class="wf-num">5</div><div class="wf-title">Check Gaps</div><div class="wf-desc">Review HEDIS measures &amp; gaps</div></div>
+</div>
+<p><strong>What happens behind the scenes:</strong></p>
+<ol>
+<li>PDF saved to server, chart record created</li>
+<li>Orchestrator: PDF text extraction &rarr; quality scoring &rarr; OCR if needed</li>
+<li>Text chunked and sent to LLM (MiniMax single-pass)</li>
+<li>500+ assertions extracted with codes, dates, quotes, negation</li>
+<li>HCC ensemble: LLM + ML + TF-IDF candidates merged</li>
+<li>NegEx filters, GPT-4o verifies, V28 maps, hierarchy applies</li>
+<li>HEDIS engine evaluates 100+ measures against assertions</li>
+<li>All results persisted to database</li>
+<li>Frontend fetches and displays results</li>
+</ol>
+</div>
+
+<h3>Workflow 2: Review &amp; Code a Chart</h3>
+<div class="card">
+<ol>
+<li><strong>Open chart</strong> from Chart List (click card)</li>
+<li><strong>Start with HCC Pack tab:</strong>
+<ul>
+<li>Review RAF score &mdash; is it reasonable?</li>
+<li>For each payable HCC: click to expand, review supporting ICDs</li>
+<li>Check MEAT evidence &mdash; is M/E/A/T documented?</li>
+<li>Click "View Evidence" to see supporting text highlighted in PDF</li>
+<li>Accept or Reject each HCC</li>
+</ul></li>
+<li><strong>Switch to Diagnoses tab:</strong>
+<ul>
+<li>Review all extracted diagnoses</li>
+<li>Check negation status &mdash; is "active" correct?</li>
+<li>Verify ICD code specificity (E11.65 vs E11.9?)</li>
+<li>Accept, Reject, or Edit each diagnosis</li>
+<li>Add any missed diagnoses using ICD lookup</li>
+</ul></li>
+<li><strong>Switch to Care Gaps tab:</strong>
+<ul>
+<li>Review HEDIS measures marked as MET &mdash; verify evidence</li>
+<li>Review measures marked as GAP &mdash; are they true gaps?</li>
+<li>Accept or Reject each measure status</li>
+</ul></li>
+<li><strong>Save Document:</strong> Click "Save" to persist all review decisions</li>
+</ol>
+</div>
+
+<h3>Workflow 3: Find a Specific Diagnosis</h3>
+<div class="card">
+<ol>
+<li>Open chart in Chart Viewer</li>
+<li>Use PDF search (Ctrl+F) to search for clinical term (e.g., "diabetes")</li>
+<li>See all matches highlighted in yellow across all pages</li>
+<li>Click a match in the dropdown to jump to that page</li>
+<li>Or: use Diagnoses tab search/filter to find specific ICD codes</li>
+<li>Click "View Evidence" on any diagnosis to highlight its source in the PDF</li>
+</ol>
+</div>
+
+<h3>Workflow 4: Batch Processing</h3>
+<div class="card">
+<ol>
+<li>Upload multiple charts via the Upload modal (one at a time, or use CLI for batch)</li>
+<li>Charts process in background (configurable parallelism: 3 concurrent charts)</li>
+<li>Chart List auto-refreshes every 10 seconds showing processing status</li>
+<li>Use Dashboard to monitor overall progress and success rates</li>
+<li>Filter Chart List by status "completed" to review finished charts</li>
+</ol>
+<p><strong>CLI batch mode:</strong></p>
+<pre><code>python scripts/run_batch.py --input-dir ./charts/ --mode FULL --max-concurrent 3</code></pre>
+</div>
+
+<h3>Workflow 5: Configure the System</h3>
+<div class="card">
+<ol>
+<li>Navigate to Settings (gear icon or /settings)</li>
+<li><strong>Switch LLM provider:</strong> AI Engine tab &rarr; change provider dropdown &rarr; Save</li>
+<li><strong>Disable HEDIS:</strong> Feature Flags tab &rarr; toggle HEDIS off &rarr; Save</li>
+<li><strong>Adjust sensitivity:</strong> ML &amp; Risk tab &rarr; lower ML threshold for more candidates &rarr; Save</li>
+<li><strong>Edit prompts:</strong> Prompt Templates tab &rarr; modify extraction prompt &rarr; Save</li>
+<li>Changes take effect on next chart processing (no restart needed)</li>
+</ol>
+</div>
+
+<h3>Workflow 6: Investigate a Specific HCC</h3>
+<div class="card">
+<ol>
+<li>Open chart in Chart Viewer</li>
+<li>Go to HCC Pack tab</li>
+<li>Find the HCC (e.g., HCC 18 &mdash; Diabetes with Chronic Complications)</li>
+<li>Click to expand &rarr; see supporting ICD codes</li>
+<li>For each ICD: read confidence score, check ML vs LLM agreement</li>
+<li>Check MEAT evidence &mdash; all 4 elements present?</li>
+<li>Click "View Evidence" on the ICD to jump to PDF location</li>
+<li>Read the highlighted text in context</li>
+<li>If correct: Accept HCC. If wrong: Reject with reason.</li>
+<li>Check Suppressed section to see if any related HCCs were hierarchy-suppressed</li>
+</ol>
+</div>
+</div>
+
+</div> <!-- /wrap -->
+
+<!-- ====== FOOTER ====== -->
+<footer>
+<div class="wrap">
+<p><strong>MedInsight 360</strong> &mdash; Unified Risk Adjustment + Quality Intelligence Platform</p>
+<p>Functional Documentation &middot; Generated March 9, 2026</p>
+</div>
+</footer>
+
+<!-- ====== TAB SCRIPT ====== -->
+<script>
+(function(){
+var bs=document.querySelectorAll('.tab'),ps=document.querySelectorAll('.pane');
+bs.forEach(function(b){b.addEventListener('click',function(){
+bs.forEach(function(x){x.classList.remove('on')});ps.forEach(function(x){x.classList.remove('on')});
+b.classList.add('on');var p=document.getElementById('P-'+b.getAttribute('data-t'));if(p)p.classList.add('on');
+window.scrollTo({top:0,behavior:'smooth'});
+})});
+})();
+</script>
+</body>
+</html>

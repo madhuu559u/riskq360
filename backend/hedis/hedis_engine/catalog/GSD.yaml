@@ -1,0 +1,52 @@
+id: "GSD"
+name: "Glycemic Status Assessment for Patients with Diabetes"
+version: "2025"
+domain: "diabetes"
+description: >
+  Assesses whether adults aged 18-75 with diabetes (type 1 or type 2) had
+  their glycemic status evaluated during the measurement year through either
+  a hemoglobin A1c (HbA1c) test or a blood glucose test. While the CDC-A1C
+  measure focuses specifically on A1c testing, this broader measure recognizes
+  that glycemic status can also be assessed through fasting glucose, random
+  glucose, or oral glucose tolerance testing. Regular glycemic monitoring is
+  fundamental to diabetes management, enabling clinicians to assess treatment
+  efficacy, adjust medications, and prevent both acute and chronic complications
+  of uncontrolled diabetes.
+
+eligibility:
+  age: {min: 18, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "lab_exists"
+      lab: "A1C"
+      window_months: 12
+      description: "HbA1c test during measurement year"
+    - type: "lab_exists"
+      lab: "GLUCOSE"
+      window_months: 12
+      description: "Blood glucose test during measurement year"
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_A1C_TEST_CPT
+  - VS_GLUCOSE_TEST_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"

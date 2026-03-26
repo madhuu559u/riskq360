@@ -1,0 +1,45 @@
+id: "SNS-TRANSPORT"
+name: "Social Need Screening - Transportation"
+version: "2025"
+domain: "social_determinants"
+description: >
+  Assesses whether adults aged 18 and older who had an outpatient encounter
+  during the measurement year were screened for transportation needs using a
+  standardized social needs screening tool (e.g., PRAPARE, Accountable Health
+  Communities, HRSN). Lack of reliable transportation is a significant barrier
+  to accessing healthcare services, resulting in missed appointments, delayed
+  care, and poorer health outcomes, particularly for individuals with chronic
+  conditions requiring regular follow-up. Clinical screening for transportation
+  barriers enables identification and referral to community transportation
+  resources, ride-share programs, and public transit assistance.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_SOCIAL_NEEDS_SCREENING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_SOCIAL_NEEDS_SCREENING_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

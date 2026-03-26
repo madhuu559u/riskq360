@@ -1,0 +1,18 @@
+{
+    "id": "VS_DENTAL_EVALUATION_CDT",
+    "name": "Dental Evaluation Codes",
+    "code_system": "cdt",
+    "placeholder": true,
+    "description": "CDT codes for dental evaluation and examination procedures. Used in annual dental visit (ADV) and preventive dental services measures to identify members who received oral health evaluations.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "D0120", "description": "Periodic oral evaluation — established patient"},
+        {"code": "D0145", "description": "Oral evaluation for a patient under three years of age and counseling with primary caregiver"},
+        {"code": "D0150", "description": "Comprehensive oral evaluation — new or established patient"},
+        {"code": "D0160", "description": "Detailed and extensive oral evaluation — problem focused"},
+        {"code": "D0170", "description": "Re-evaluation — limited, problem focused (established patient)"},
+        {"code": "D0180", "description": "Comprehensive periodontal evaluation — new or established patient"},
+        {"code": "D0190", "description": "Screening of a patient"},
+        {"code": "D0191", "description": "Assessment of a patient"}
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "id": "VS_BIRADS_SNOMED",
+    "name": "BI-RADS Assessment Category Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "SNOMED CT and LOINC codes for BI-RADS (Breast Imaging-Reporting and Data System) assessment categories 0 through 6. Used in breast cancer screening (BCS) follow-up and supplemental data evaluation for mammography results.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "397138000", "code_system": "snomed", "description": "BI-RADS Category 0 — Incomplete: need additional imaging evaluation"},
+        {"code": "397139008", "code_system": "snomed", "description": "BI-RADS Category 1 — Negative"},
+        {"code": "397140005", "code_system": "snomed", "description": "BI-RADS Category 2 — Benign finding(s)"},
+        {"code": "397141009", "code_system": "snomed", "description": "BI-RADS Category 3 — Probably benign finding"},
+        {"code": "397143007", "code_system": "snomed", "description": "BI-RADS Category 4 — Suspicious abnormality"},
+        {"code": "397144001", "code_system": "snomed", "description": "BI-RADS Category 5 — Highly suggestive of malignancy"},
+        {"code": "397145000", "code_system": "snomed", "description": "BI-RADS Category 6 — Known biopsy-proven malignancy"},
+        {"code": "36625-2", "code_system": "loinc", "description": "Breast Imaging Reporting and Data System assessment (BI-RADS)"},
+        {"code": "LL4754-4", "code_system": "loinc", "description": "BI-RADS Assessment Category answer list"},
+        {"code": "24606-6", "code_system": "loinc", "description": "MG Breast Screening"},
+        {"code": "24604-1", "code_system": "loinc", "description": "MG Breast Diagnostic"}
+    ]
+}

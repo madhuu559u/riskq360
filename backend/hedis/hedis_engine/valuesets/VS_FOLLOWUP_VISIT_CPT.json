@@ -1,0 +1,24 @@
+{
+    "id": "VS_FOLLOWUP_VISIT_CPT",
+    "name": "Follow-Up Visit Codes (7-Day and 30-Day)",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for outpatient follow-up visits after hospitalization or emergency department visits. Used in follow-up after hospitalization for mental illness (FUH), follow-up after ED visit (FUM), and transitional care management measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99211", "code_system": "cpt", "description": "Office or other outpatient visit, established patient, level 1"},
+        {"code": "99212", "code_system": "cpt", "description": "Office or other outpatient visit, established patient, level 2"},
+        {"code": "99213", "code_system": "cpt", "description": "Office or other outpatient visit, established patient, level 3"},
+        {"code": "99214", "code_system": "cpt", "description": "Office or other outpatient visit, established patient, level 4"},
+        {"code": "99215", "code_system": "cpt", "description": "Office or other outpatient visit, established patient, level 5"},
+        {"code": "99495", "code_system": "cpt", "description": "Transitional care management services, moderate complexity, face-to-face visit within 14 days of discharge"},
+        {"code": "99496", "code_system": "cpt", "description": "Transitional care management services, high complexity, face-to-face visit within 7 days of discharge"},
+        {"code": "90791", "code_system": "cpt", "description": "Psychiatric diagnostic evaluation"},
+        {"code": "90792", "code_system": "cpt", "description": "Psychiatric diagnostic evaluation with medical services"},
+        {"code": "90832", "code_system": "cpt", "description": "Psychotherapy, 30 minutes with patient"},
+        {"code": "90834", "code_system": "cpt", "description": "Psychotherapy, 45 minutes with patient"},
+        {"code": "90837", "code_system": "cpt", "description": "Psychotherapy, 60 minutes with patient"},
+        {"code": "G0463", "code_system": "hcpcs", "description": "Hospital outpatient clinic visit for assessment and management of a patient"},
+        {"code": "T1015", "code_system": "hcpcs", "description": "Clinic visit/encounter, all-inclusive"}
+    ]
+}

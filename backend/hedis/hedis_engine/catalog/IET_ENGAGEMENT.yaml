@@ -1,0 +1,48 @@
+id: "IET-ENGAGEMENT"
+name: "Engagement of Substance Use Disorder Treatment"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 13 and older with a new episode of
+  substance use disorder (SUD) who initiated treatment continued to
+  engage in ongoing treatment. Engagement is defined as receiving two
+  or more SUD treatment services (including outpatient visits, intensive
+  outpatient, partial hospitalization, medication-assisted treatment, or
+  telehealth) within 34 days of the initiation visit. Sustained engagement
+  in SUD treatment is strongly associated with improved recovery outcomes,
+  reduced substance use, lower rates of overdose and emergency utilization,
+  and better long-term functioning. This measure evaluates whether at least
+  two treatment services occurred within the measurement year.
+
+eligibility:
+  age: {min: 13, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_SUBSTANCE_USE_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_SUD_TREATMENT_CPT"
+      window_months: 12
+      description: "Two or more SUD treatment services within measurement year (engagement)"
+
+valuesets_needed:
+  - VS_SUBSTANCE_USE_ICD10
+  - VS_SUD_TREATMENT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

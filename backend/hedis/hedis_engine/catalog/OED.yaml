@@ -1,0 +1,42 @@
+id: "OED"
+name: "Oral Evaluation, Dental Services"
+version: "2025"
+domain: "preventive_screening"
+description: >
+  Assesses whether children and adolescents aged 0-20 received at least one
+  oral evaluation by a dental provider during the measurement year. Regular
+  dental visits are essential for early detection of caries, assessment of
+  oral development, application of preventive treatments, and establishment
+  of dental home. The American Academy of Pediatric Dentistry recommends
+  that all children have an initial dental visit within six months of the
+  eruption of the first tooth or by age one, with periodic evaluations
+  thereafter.
+
+eligibility:
+  age: {min: 0, max: 20, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_DENTAL_EVALUATION_CDT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DENTAL_EVALUATION_CDT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "dental_claims"
+  - "encounters"

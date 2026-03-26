@@ -1,0 +1,50 @@
+id: "PCE-BRONCHODILATOR"
+name: "Pharmacotherapy Management of COPD Exacerbation - Bronchodilator"
+version: "2025"
+domain: "respiratory"
+description: >
+  Assesses whether members aged 40 and older who had a COPD exacerbation
+  requiring an inpatient or emergency department encounter were dispensed
+  a bronchodilator within a defined period. Bronchodilators are a primary
+  treatment for COPD exacerbations, providing rapid relief of airflow
+  obstruction, reducing dyspnea, and improving gas exchange. Short-acting
+  bronchodilators (beta2-agonists and anticholinergics) are recommended as
+  initial pharmacotherapy for acute COPD exacerbations by major clinical
+  guidelines including GOLD.
+
+eligibility:
+  age: {min: 40, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_COPD_EXACERBATION_ICD10"
+    lookback_months: 12
+    status: ["active"]
+  requires_encounter:
+    encounter_types: ["inpatient", "emergency"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "bronchodilator"
+      window_months: 12
+      description: "Bronchodilator dispensed during measurement year for COPD exacerbation"
+
+valuesets_needed:
+  - VS_COPD_EXACERBATION_ICD10
+  - VS_BRONCHODILATOR_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"
+  - "pharmacy"

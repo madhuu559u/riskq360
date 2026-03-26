@@ -1,0 +1,22 @@
+{
+    "id": "VS_STATIN_MEDICATIONS",
+    "name": "Statin Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication codes for statin therapy including HMG-CoA reductase inhibitors and combination products. Used in diabetes statin therapy (SPD) and cardiovascular statin measures. In a production system, these would reference RxNorm/NDC codes.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "atorvastatin", "code_system": "medication_name", "description": "Atorvastatin (Lipitor) — HMG-CoA reductase inhibitor"},
+        {"code": "rosuvastatin", "code_system": "medication_name", "description": "Rosuvastatin (Crestor) — HMG-CoA reductase inhibitor"},
+        {"code": "simvastatin", "code_system": "medication_name", "description": "Simvastatin (Zocor) — HMG-CoA reductase inhibitor"},
+        {"code": "pravastatin", "code_system": "medication_name", "description": "Pravastatin (Pravachol) — HMG-CoA reductase inhibitor"},
+        {"code": "lovastatin", "code_system": "medication_name", "description": "Lovastatin (Mevacor) — HMG-CoA reductase inhibitor"},
+        {"code": "fluvastatin", "code_system": "medication_name", "description": "Fluvastatin (Lescol) — HMG-CoA reductase inhibitor"},
+        {"code": "pitavastatin", "code_system": "medication_name", "description": "Pitavastatin (Livalo) — HMG-CoA reductase inhibitor"},
+        {"code": "ezetimibe-simvastatin", "code_system": "medication_name", "description": "Ezetimibe/Simvastatin (Vytorin) — combination statin"},
+        {"code": "amlodipine-atorvastatin", "code_system": "medication_name", "description": "Amlodipine/Atorvastatin (Caduet) — combination statin"},
+        {"code": "36567", "code_system": "rxnorm", "description": "Simvastatin 20 MG Oral Tablet"},
+        {"code": "83367", "code_system": "rxnorm", "description": "Atorvastatin 40 MG Oral Tablet"},
+        {"code": "301542", "code_system": "rxnorm", "description": "Rosuvastatin 10 MG Oral Tablet"}
+    ]
+}

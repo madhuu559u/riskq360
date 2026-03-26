@@ -1,0 +1,47 @@
+id: "WCC-ACTIVITY"
+name: "Weight Assessment - Physical Activity Counseling"
+version: "2025"
+domain: "pediatric"
+description: >
+  Assesses whether children and adolescents aged 3-17 received physical
+  activity counseling during an outpatient visit in the measurement year.
+  Physical activity counseling encourages children to meet recommended activity
+  levels, which are critical for healthy growth, weight management, bone
+  development, and mental health. Sedentary behavior in childhood is
+  associated with increased risk of obesity and chronic disease in adulthood.
+
+eligibility:
+  age: {min: 3, max: 17, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_PHYSICAL_ACTIVITY_COUNSELING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_PHYSICAL_ACTIVITY_COUNSELING_CPT
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "encounters"

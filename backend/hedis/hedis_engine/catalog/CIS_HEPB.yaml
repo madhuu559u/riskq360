@@ -1,0 +1,44 @@
+id: "CIS-HEPB"
+name: "Childhood Immunization Status - Hepatitis B"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether children who turned 2 years old during the measurement
+  year received at least three doses of the hepatitis B (HepB) vaccine by
+  their second birthday. Hepatitis B vaccination prevents chronic liver
+  infection, cirrhosis, and hepatocellular carcinoma. The birth dose and
+  subsequent series are critical for lifetime protection.
+
+eligibility:
+  age: {min: 2, max: 2, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_IMMUNIZATION_CONTRAINDICATION"
+    lookback_months: 24
+    description: "Contraindication to vaccine"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "hepatitis_b"
+      min_count: 3
+      window_months: 24
+
+valuesets_needed:
+  - VS_HEPATITIS_B_VACCINE
+  - VS_HOSPICE
+  - VS_IMMUNIZATION_CONTRAINDICATION
+
+data_sources:
+  - "claims"
+  - "immunization_registry"

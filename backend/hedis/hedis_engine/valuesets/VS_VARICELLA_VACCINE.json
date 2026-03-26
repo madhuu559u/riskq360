@@ -1,0 +1,15 @@
+{
+    "id": "VS_VARICELLA_VACCINE",
+    "name": "Varicella (Chickenpox) Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for varicella (chickenpox) vaccines including monovalent varicella vaccine (Varivax) and combination MMRV (ProQuad). Used in childhood immunization status (CIS) measure. Requires 1 dose by age 2 (at 12-15 months) and 2 doses for adolescents.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "21", "code_system": "cvx", "description": "Varicella virus vaccine (Varivax)"},
+        {"code": "94", "code_system": "cvx", "description": "Measles, mumps, rubella, and varicella virus vaccine (MMRV, ProQuad)"},
+        {"code": "36", "code_system": "cvx", "description": "Varicella zoster immune globulin (VZIG)"},
+        {"code": "90716", "code_system": "cpt", "description": "Varicella virus vaccine (VAR), live, for subcutaneous use"},
+        {"code": "90710", "code_system": "cpt", "description": "Measles, mumps, rubella, and varicella vaccine (MMRV), live, for subcutaneous use"}
+    ]
+}

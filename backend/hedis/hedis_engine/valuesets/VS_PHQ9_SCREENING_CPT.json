@@ -1,0 +1,18 @@
+{
+    "id": "VS_PHQ9_SCREENING_CPT",
+    "name": "PHQ-9 Depression Screening Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for PHQ-9 (Patient Health Questionnaire-9) depression screening including brief emotional/behavioral assessment, annual depression screening, PHQ-9 specific quality codes, and health risk assessment instruments. Used in depression screening and follow-up quality measures (DSF).",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "96127", "code_system": "cpt", "description": "Brief emotional/behavioral assessment (e.g., depression inventory, attention-deficit/hyperactivity disorder scale), with scoring and documentation, per standardized instrument"},
+        {"code": "G0444", "code_system": "hcpcs", "description": "Annual depression screening, 15 minutes"},
+        {"code": "G8431", "code_system": "hcpcs", "description": "Screening for clinical depression is documented as being performed using an age-appropriate standardized depression screening tool AND if positive, a follow-up plan is documented on the date of the positive screen"},
+        {"code": "G8510", "code_system": "hcpcs", "description": "Screening for clinical depression using an age-appropriate standardized tool is documented as positive AND a follow-up plan is documented"},
+        {"code": "G8511", "code_system": "hcpcs", "description": "Screening for clinical depression using an age-appropriate standardized tool is documented as negative, a follow-up plan is not required"},
+        {"code": "96160", "code_system": "cpt", "description": "Administration of patient-focused health risk assessment instrument (e.g., health hazard appraisal) with scoring and documentation, per standardized instrument"},
+        {"code": "96161", "code_system": "cpt", "description": "Administration of caregiver-focused health risk assessment instrument for the benefit of the patient, with scoring and documentation, per standardized instrument"},
+        {"code": "99420", "code_system": "cpt", "description": "Administration and interpretation of health risk assessment instrument (e.g., health hazard appraisal)"}
+    ]
+}

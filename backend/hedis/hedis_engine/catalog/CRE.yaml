@@ -1,0 +1,48 @@
+id: "CRE"
+name: "Cardiac Rehabilitation"
+version: "2025"
+domain: "cardiovascular"
+description: >
+  Assesses whether adults aged 18 and older who experienced a qualifying cardiac
+  event (acute myocardial infarction, coronary artery bypass graft surgery, or
+  percutaneous coronary intervention) received cardiac rehabilitation services
+  during the measurement year. Cardiac rehabilitation is a comprehensive,
+  medically supervised program that includes exercise training, education on
+  heart-healthy living, and counseling to reduce stress. Strong evidence
+  demonstrates that cardiac rehabilitation reduces mortality, decreases
+  hospital readmissions, and improves quality of life and functional capacity
+  following major cardiac events. Despite these benefits, cardiac rehabilitation
+  remains significantly underutilized.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_CARDIAC_EVENT_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_CARDIAC_REHAB_CPT"
+      window_months: 12
+      description: "Cardiac rehabilitation services during measurement year"
+
+valuesets_needed:
+  - VS_CARDIAC_EVENT_ICD10
+  - VS_CARDIAC_REHAB_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

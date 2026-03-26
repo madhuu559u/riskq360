@@ -1,0 +1,23 @@
+{
+    "id": "VS_SYSTEMIC_CORTICOSTEROID_MEDICATIONS",
+    "name": "Systemic Corticosteroid Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication codes for systemic corticosteroids (oral and injectable). Used in COPD exacerbation pharmacotherapy (PCE) and asthma-related measures. Excludes inhaled and topical corticosteroids.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "prednisone", "code_system": "medication_name", "description": "Prednisone — systemic glucocorticoid"},
+        {"code": "prednisolone", "code_system": "medication_name", "description": "Prednisolone — systemic glucocorticoid"},
+        {"code": "methylprednisolone", "code_system": "medication_name", "description": "Methylprednisolone (Medrol, Solu-Medrol) — systemic glucocorticoid"},
+        {"code": "dexamethasone", "code_system": "medication_name", "description": "Dexamethasone (Decadron) — systemic glucocorticoid"},
+        {"code": "hydrocortisone", "code_system": "medication_name", "description": "Hydrocortisone (Cortef, Solu-Cortef) — systemic glucocorticoid"},
+        {"code": "budesonide oral", "code_system": "medication_name", "description": "Budesonide oral (Entocort) — oral corticosteroid"},
+        {"code": "triamcinolone injection", "code_system": "medication_name", "description": "Triamcinolone injection (Kenalog) — injectable corticosteroid"},
+        {"code": "betamethasone", "code_system": "medication_name", "description": "Betamethasone — systemic glucocorticoid"},
+        {"code": "8640", "code_system": "rxnorm", "description": "Prednisone"},
+        {"code": "8638", "code_system": "rxnorm", "description": "Prednisolone"},
+        {"code": "6902", "code_system": "rxnorm", "description": "Methylprednisolone"},
+        {"code": "3264", "code_system": "rxnorm", "description": "Dexamethasone"},
+        {"code": "5492", "code_system": "rxnorm", "description": "Hydrocortisone"}
+    ]
+}

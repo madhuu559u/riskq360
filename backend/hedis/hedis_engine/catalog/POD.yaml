@@ -1,0 +1,47 @@
+id: "POD"
+name: "Pharmacotherapy for Opioid Use Disorder"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 16 and older with a diagnosis of opioid
+  use disorder (OUD) received pharmacotherapy for OUD during the
+  measurement year. FDA-approved pharmacotherapies for OUD include
+  buprenorphine (with or without naloxone), methadone (administered
+  through opioid treatment programs), and extended-release injectable
+  naltrexone. Medication-assisted treatment (MAT) for OUD is the
+  evidence-based standard of care and is associated with reduced opioid
+  use, lower rates of overdose mortality, decreased criminal activity,
+  improved retention in treatment, and better social functioning.
+
+eligibility:
+  age: {min: 16, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_OPIOID_USE_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "oud_pharmacotherapy"
+      window_months: 12
+      description: "OUD pharmacotherapy (buprenorphine, methadone, or naltrexone)"
+
+valuesets_needed:
+  - VS_OPIOID_USE_ICD10
+  - VS_OUD_PHARMACOTHERAPY
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "medications"

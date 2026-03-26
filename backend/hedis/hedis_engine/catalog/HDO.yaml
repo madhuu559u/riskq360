@@ -1,0 +1,57 @@
+id: "HDO"
+name: "Use of Opioids at High Dosage"
+version: "2025"
+domain: "medication_safety"
+description: >
+  Assesses whether adults aged 18 and older who were prescribed opioid
+  medications received opioids at high dosage (>= 90 morphine milligram
+  equivalents per day) during the measurement year. High-dose opioid
+  therapy significantly increases the risk of overdose, respiratory
+  depression, opioid use disorder, and death. The CDC Guideline for
+  Prescribing Opioids recommends that clinicians carefully reassess
+  evidence of individual benefits and risks when increasing dosage to
+  >= 90 MME/day. This is an INVERSE measure where the numerator event
+  (receiving high-dosage opioids) represents an UNDESIRABLE outcome.
+  A lower rate indicates better performance. Note: a precise implementation
+  would require morphine milligram equivalent (MME) calculation, which
+  depends on drug-specific conversion factors and daily dose computation.
+  This definition uses opioid medication presence as a proxy, intended
+  to be refined when pharmacy dispensing data with quantity and days supply
+  becomes available.
+
+inverse: true
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_medication:
+    medication_class: "opioid"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_CANCER_ICD10"
+    lookback_months: 12
+    description: "Active cancer diagnosis (opioid use may be appropriate)"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "opioid"
+      window_months: 12
+
+valuesets_needed:
+  - VS_OPIOID_MEDICATIONS
+  - VS_CANCER_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

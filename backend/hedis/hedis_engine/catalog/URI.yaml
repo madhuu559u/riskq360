@@ -1,0 +1,48 @@
+id: "URI"
+name: "Appropriate Treatment for Upper Respiratory Infection"
+version: "2025"
+domain: "overuse"
+inverse: true
+description: >
+  Assesses whether children and adolescents aged 3 months to 17 years
+  diagnosed with an upper respiratory infection (URI) were NOT prescribed
+  an antibiotic. This is an INVERSE measure where a LOWER rate indicates
+  better performance. Upper respiratory infections are predominantly viral
+  and do not benefit from antibiotic treatment. Prescribing antibiotics for
+  URI contributes to antimicrobial resistance, exposes patients to
+  unnecessary side effects, and increases healthcare costs without clinical
+  benefit. The numerator captures the undesirable event (antibiotic
+  prescribed); members without an antibiotic are considered compliant.
+
+eligibility:
+  age: {min: 0, max: 17, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_URI_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "antibiotic"
+      window_months: 12
+      description: "Antibiotic prescribed (undesirable for URI)"
+
+valuesets_needed:
+  - VS_URI_ICD10
+  - VS_ANTIBIOTIC_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedInsights Platform - Complete Technical Documentation</title>
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --accent: #34a853;
+    --danger: #ea4335;
+    --warning: #fbbc04;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #202124;
+    --text-secondary: #5f6368;
+    --border: #dadce0;
+    --code-bg: #f1f3f4;
+    --sidebar-bg: #202124;
+    --sidebar-text: #e8eaed;
+    --sidebar-active: #1a73e8;
+    --tag-blue: #e8f0fe;
+    --tag-green: #e6f4ea;
+    --tag-red: #fce8e6;
+    --tag-yellow: #fef7e0;
+    --tag-purple: #f3e8fd;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* Top Header */
+  .top-header {
+    background: linear-gradient(135deg, #1a237e 0%, #1a73e8 50%, #34a853 100%);
+    color: white; padding: 30px 40px; position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .top-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+  .top-header .subtitle { font-size: 14px; opacity: 0.9; margin-top: 4px; }
+  .header-badges { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  .header-badge {
+    background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  /* Layout */
+  .layout { display: flex; min-height: calc(100vh - 120px); }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px; background: var(--sidebar-bg); color: var(--sidebar-text);
+    position: sticky; top: 100px; height: calc(100vh - 100px); overflow-y: auto;
+    padding: 16px 0; flex-shrink: 0;
+  }
+  .sidebar-section { padding: 8px 20px; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #9aa0a6; margin-top: 12px; }
+  .sidebar a {
+    display: flex; align-items: center; gap: 10px; padding: 8px 20px;
+    color: var(--sidebar-text); text-decoration: none; font-size: 13px;
+    transition: all 0.15s; border-left: 3px solid transparent; cursor: pointer;
+  }
+  .sidebar a:hover { background: rgba(255,255,255,0.08); }
+  .sidebar a.active { background: rgba(26,115,232,0.15); border-left-color: var(--sidebar-active);
+    color: #8ab4f8; font-weight: 600; }
+  .sidebar .icon { width: 18px; text-align: center; font-size: 14px; }
+
+  /* Main Content */
+  .main { flex: 1; padding: 30px 40px; max-width: calc(100% - 260px); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg); border-radius: 12px; padding: 28px;
+    margin-bottom: 24px; border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+  .card h3 { font-size: 17px; font-weight: 600; margin: 20px 0 10px; color: var(--text);
+    padding-bottom: 6px; border-bottom: 2px solid var(--primary); display: inline-block; }
+  .card h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: var(--text-secondary); }
+  .card p { margin-bottom: 12px; color: var(--text-secondary); font-size: 14px; }
+  .card-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+
+  /* Tags */
+  .tag {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+  }
+  .tag-blue { background: var(--tag-blue); color: #1a73e8; }
+  .tag-green { background: var(--tag-green); color: #137333; }
+  .tag-red { background: var(--tag-red); color: #c5221f; }
+  .tag-yellow { background: var(--tag-yellow); color: #b06000; }
+  .tag-purple { background: var(--tag-purple); color: #7627bb; }
+  .tag-gray { background: #f1f3f4; color: #5f6368; }
+
+  /* Tables */
+  table {
+    width: 100%; border-collapse: collapse; margin: 12px 0 20px;
+    font-size: 13px; background: white;
+  }
+  th {
+    background: #f8f9fa; padding: 10px 14px; text-align: left; font-weight: 600;
+    color: var(--text); border-bottom: 2px solid var(--border); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.5px; position: sticky; top: 0;
+  }
+  td {
+    padding: 9px 14px; border-bottom: 1px solid #f1f3f4; vertical-align: top;
+  }
+  tr:hover td { background: #f8f9fa; }
+  .col-narrow { width: 120px; }
+  .col-medium { width: 180px; }
+
+  /* Code */
+  pre {
+    background: #1e1e1e; color: #d4d4d4; padding: 18px 22px; border-radius: 8px;
+    overflow-x: auto; font-size: 12.5px; line-height: 1.6; margin: 12px 0;
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  }
+  code {
+    background: var(--code-bg); padding: 1px 6px; border-radius: 4px;
+    font-size: 12.5px; font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    color: #d93025;
+  }
+  pre code { background: none; padding: 0; color: inherit; }
+  .kw { color: #569cd6; }
+  .str { color: #ce9178; }
+  .num { color: #b5cea8; }
+  .cmt { color: #6a9955; }
+  .fn { color: #dcdcaa; }
+  .type { color: #4ec9b0; }
+
+  /* Flow Diagram */
+  .flow-diagram {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    padding: 20px; background: #fafbfc; border-radius: 10px;
+    border: 1px dashed var(--border); margin: 16px 0;
+  }
+  .flow-box {
+    padding: 10px 18px; border-radius: 8px; font-size: 12px; font-weight: 600;
+    text-align: center; min-width: 100px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .flow-arrow { font-size: 20px; color: #9aa0a6; }
+
+  /* Stats Grid */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 16px 0; }
+  .stat-card {
+    background: white; border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px; text-align: center;
+  }
+  .stat-value { font-size: 32px; font-weight: 800; color: var(--primary); }
+  .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Accordion */
+  .accordion { border: 1px solid var(--border); border-radius: 8px; margin: 10px 0; overflow: hidden; }
+  .accordion-header {
+    padding: 12px 18px; background: #fafbfc; cursor: pointer; font-weight: 600;
+    font-size: 14px; display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.15s; user-select: none;
+  }
+  .accordion-header:hover { background: #f1f3f4; }
+  .accordion-body { padding: 18px; display: none; border-top: 1px solid var(--border); }
+  .accordion.open .accordion-body { display: block; }
+  .accordion-header::after { content: '+'; font-size: 18px; color: var(--text-secondary); }
+  .accordion.open .accordion-header::after { content: '-'; }
+
+  /* ER Diagram */
+  .er-group {
+    border: 2px solid var(--primary); border-radius: 12px; padding: 20px;
+    margin: 16px 0; background: rgba(26,115,232,0.02);
+  }
+  .er-group-title {
+    background: var(--primary); color: white; padding: 4px 14px;
+    border-radius: 6px; font-size: 13px; font-weight: 600;
+    display: inline-block; margin: -32px 0 12px 10px;
+  }
+  .er-tables { display: flex; flex-wrap: wrap; gap: 12px; }
+  .er-table {
+    background: white; border: 1px solid var(--border); border-radius: 8px;
+    min-width: 200px; overflow: hidden; flex: 1;
+  }
+  .er-table-name {
+    background: #f8f9fa; padding: 8px 14px; font-weight: 700; font-size: 13px;
+    border-bottom: 2px solid var(--primary);
+  }
+  .er-table-cols { padding: 6px 0; }
+  .er-col {
+    padding: 3px 14px; font-size: 11.5px; display: flex; justify-content: space-between;
+    gap: 8px;
+  }
+  .er-col-name { font-family: monospace; }
+  .er-col-type { color: var(--text-secondary); font-family: monospace; font-size: 10.5px; }
+  .er-col.pk { background: #fef7e0; }
+  .er-col.fk { background: #e8f0fe; }
+
+  /* Pipeline Steps */
+  .pipeline-step {
+    display: flex; gap: 20px; padding: 20px; margin: 12px 0;
+    border-left: 4px solid var(--primary); background: #fafbfc; border-radius: 0 10px 10px 0;
+  }
+  .step-num {
+    width: 40px; height: 40px; background: var(--primary); color: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px; flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+  .step-content h4 { margin: 0 0 6px; font-size: 15px; color: var(--text); }
+  .step-content p { font-size: 13px; margin: 0; }
+
+  /* Alert boxes */
+  .alert {
+    padding: 14px 18px; border-radius: 8px; margin: 12px 0;
+    font-size: 13px; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .alert-info { background: #e8f0fe; border-left: 4px solid #1a73e8; }
+  .alert-warning { background: #fef7e0; border-left: 4px solid #f9ab00; }
+  .alert-danger { background: #fce8e6; border-left: 4px solid #ea4335; }
+  .alert-success { background: #e6f4ea; border-left: 4px solid #34a853; }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* JSON tree */
+  .json-block {
+    background: #1e1e1e; color: #d4d4d4; padding: 18px 22px; border-radius: 8px;
+    overflow-x: auto; font-size: 12px; line-height: 1.7; margin: 12px 0;
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    max-height: 500px; overflow-y: auto;
+  }
+  .json-key { color: #9cdcfe; }
+  .json-str { color: #ce9178; }
+  .json-num { color: #b5cea8; }
+  .json-bool { color: #569cd6; }
+  .json-null { color: #569cd6; }
+  .json-cmt { color: #6a9955; font-style: italic; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { max-width: 100%; padding: 20px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Tooltip */
+  .tip { position: relative; cursor: help; border-bottom: 1px dotted var(--text-secondary); }
+  .tip:hover::after {
+    content: attr(data-tip); position: absolute; bottom: 100%; left: 50%;
+    transform: translateX(-50%); background: #333; color: white; padding: 6px 10px;
+    border-radius: 6px; font-size: 11px; white-space: nowrap; z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TOP HEADER ===== -->
+<div class="top-header">
+  <h1>MedInsights Platform</h1>
+  <div class="subtitle">Medical Chart Extraction & Analysis Platform &mdash; Complete Technical Documentation</div>
+  <div class="header-badges">
+    <span class="header-badge">Python 3.10+</span>
+    <span class="header-badge">FastAPI</span>
+    <span class="header-badge">PostgreSQL</span>
+    <span class="header-badge">GPT-4o / GPT-4o-mini</span>
+    <span class="header-badge">Gemini 2.0 Flash</span>
+    <span class="header-badge">38 Tables</span>
+    <span class="header-badge">22 API Endpoints</span>
+    <span class="header-badge">5 Extraction Pipelines</span>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- ===== SIDEBAR ===== -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-section">Overview</div>
+  <a class="active" data-tab="overview"><span class="icon">&#x1F3E5;</span> Platform Overview</a>
+  <a data-tab="architecture"><span class="icon">&#x1F3D7;</span> Architecture</a>
+
+  <div class="sidebar-section">Extraction Engine</div>
+  <a data-tab="pipeline"><span class="icon">&#x2699;</span> Pipeline Flow</a>
+  <a data-tab="prompts"><span class="icon">&#x1F4DD;</span> LLM Prompts</a>
+  <a data-tab="llm"><span class="icon">&#x1F916;</span> LLM Config & Tokens</a>
+
+  <div class="sidebar-section">Data</div>
+  <a data-tab="json"><span class="icon">&#x1F4C4;</span> JSON Output Files</a>
+  <a data-tab="database"><span class="icon">&#x1F5C3;</span> Database Schema</a>
+  <a data-tab="persistence"><span class="icon">&#x1F4BE;</span> Persistence Logic</a>
+
+  <div class="sidebar-section">Clinical</div>
+  <a data-tab="hcc"><span class="icon">&#x1F4B0;</span> HCC / RAF Scoring</a>
+  <a data-tab="hedis"><span class="icon">&#x2714;</span> HEDIS Measures</a>
+  <a data-tab="negation"><span class="icon">&#x26D4;</span> Negation Detection</a>
+
+  <div class="sidebar-section">API</div>
+  <a data-tab="api"><span class="icon">&#x1F310;</span> REST API Endpoints</a>
+  <a data-tab="schemas"><span class="icon">&#x1F4CB;</span> Pydantic Schemas</a>
+
+  <div class="sidebar-section">Infrastructure</div>
+  <a data-tab="files"><span class="icon">&#x1F4C2;</span> File Inventory</a>
+  <a data-tab="deps"><span class="icon">&#x1F4E6;</span> Dependencies</a>
+  <a data-tab="commands"><span class="icon">&#x1F4BB;</span> CLI Commands</a>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main">
+
+<!-- ======================= TAB: OVERVIEW ======================= -->
+<div class="tab-content active" id="tab-overview">
+  <div class="card">
+    <h2>Platform Overview</h2>
+    <p class="card-desc">MedInsights is a medical chart extraction and analysis platform that processes PDF medical charts using LLM-based extraction and stores structured clinical data in PostgreSQL. It is designed for <strong>Risk Adjustment (HCC/RAF scoring)</strong> and <strong>HEDIS quality measure</strong> analysis.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-value">38</div><div class="stat-label">Database Tables</div></div>
+      <div class="stat-card"><div class="stat-value">22</div><div class="stat-label">API Endpoints</div></div>
+      <div class="stat-card"><div class="stat-value">5</div><div class="stat-label">Extraction Pipelines</div></div>
+      <div class="stat-card"><div class="stat-value">8</div><div class="stat-label">JSON Output Files</div></div>
+      <div class="stat-card"><div class="stat-value">7</div><div class="stat-label">HEDIS Measures</div></div>
+      <div class="stat-card"><div class="stat-value">20</div><div class="stat-label">HCC Code Mappings</div></div>
+      <div class="stat-card"><div class="stat-value">24</div><div class="stat-label">Pydantic Schemas</div></div>
+      <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">LLM Models</div></div>
+    </div>
+
+    <h3>What Problem Does This Solve?</h3>
+    <p>Healthcare organizations need to extract structured clinical data from unstructured PDF medical charts for:</p>
+    <table>
+      <tr><th>Problem</th><th>MedInsights Solution</th></tr>
+      <tr><td><strong>Risk Adjustment</strong> &mdash; Payers need accurate HCC/RAF scores to predict member costs. Missing or incorrect codes = lost revenue (thousands per member).</td>
+        <td>LLM extracts every ICD-10 code with negation awareness, maps to HCC categories, calculates RAF scores. Only "active" diagnoses count.</td></tr>
+      <tr><td><strong>HEDIS Compliance</strong> &mdash; Health plans are rated on quality measures (BP control, cancer screenings, depression screening). Manual chart review is slow and expensive.</td>
+        <td>Dedicated HEDIS pipeline extracts BP readings, lab results, screenings, eligibility conditions, and depression assessments with measure-specific targets.</td></tr>
+      <tr><td><strong>Chart Abstraction</strong> &mdash; Clinical teams need structured encounter data, sentences, medications, procedures from narrative chart text.</td>
+        <td>5 parallel LLM pipelines extract demographics, sentences (22 categories), encounters with medications/procedures/labs/referrals.</td></tr>
+      <tr><td><strong>Low-Quality PDFs</strong> &mdash; Scanned/handwritten charts have poor OCR quality.</td>
+        <td>Quality scoring (0-100) per page with automatic GPT-4o vision fallback for pages below threshold (50).</td></tr>
+    </table>
+
+    <h3>High-Level Data Flow</h3>
+    <div class="flow-diagram">
+      <div class="flow-box" style="background:#e8f0fe;color:#1a73e8;">PDF Chart</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box" style="background:#fef7e0;color:#b06000;">Smart PDF<br>(Quality Scoring)</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box" style="background:#f3e8fd;color:#7627bb;">5 LLM Pipelines<br>(Parallel)</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box" style="background:#e6f4ea;color:#137333;">HCC Post-<br>Processing</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box" style="background:#fce8e6;color:#c5221f;">8 JSON Files<br>(results/)</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box" style="background:#e8f0fe;color:#1a73e8;">PostgreSQL<br>(38 tables)</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box" style="background:#e6f4ea;color:#137333;">REST API<br>(22 endpoints)</div>
+    </div>
+
+    <h3>Tech Stack</h3>
+    <table>
+      <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+      <tr><td>Language</td><td>Python 3.10+</td><td>Core runtime</td></tr>
+      <tr><td>LLM (Text)</td><td>OpenAI GPT-4o-mini</td><td>Primary extraction model &mdash; fast, cheap, good for structured text</td></tr>
+      <tr><td>LLM (Vision)</td><td>OpenAI GPT-4o</td><td>Vision fallback for low-quality/scanned pages</td></tr>
+      <tr><td>LLM (Alt)</td><td>Gemini 2.0 Flash</td><td>Alternative provider via LangExtract</td></tr>
+      <tr><td>PDF Processing</td><td>PyMuPDF (fitz)</td><td>Text extraction + page rendering for vision</td></tr>
+      <tr><td>Backend API</td><td>FastAPI + Uvicorn</td><td>REST API with auto-generated Swagger docs</td></tr>
+      <tr><td>Database</td><td>PostgreSQL + SQLAlchemy 2.0</td><td>Structured storage, ORM with relationships</td></tr>
+      <tr><td>Migrations</td><td>Alembic</td><td>Database schema versioning</td></tr>
+      <tr><td>Validation</td><td>Pydantic v2</td><td>Request/response schema validation</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: ARCHITECTURE ======================= -->
+<div class="tab-content" id="tab-architecture">
+  <div class="card">
+    <h2>System Architecture</h2>
+    <p class="card-desc">MedInsights is a 3-layer system: Extraction Pipeline (CLI) &rarr; PostgreSQL Database (38 tables) &rarr; REST API (FastAPI).</p>
+
+    <h3>Architecture Diagram</h3>
+    <pre><code>
+                              MEDINSIGHTS PLATFORM ARCHITECTURE
+    +---------------------------------------------------------------------------+
+    |                           INPUT LAYER                                      |
+    |  +------------------+    +--------------------+    +-------------------+   |
+    |  | CLI (orchestrator)|    | API Upload         |    | Batch Loader      |   |
+    |  | --pdf / --input-dir|   | POST /charts/upload|   | load_results.py   |   |
+    |  +--------+---------+    +--------+-----------+    +--------+----------+   |
+    |           |                       |                          |              |
+    +-----------+-----------------------+--------------------------+-------------+
+                |                       |                          |
+    +-----------v-----------------------v--------------------------v-------------+
+    |                        EXTRACTION PIPELINE                                 |
+    |  +-------------------------------------------------------------------+    |
+    |  |  Step 1: smart_pdf.py                                             |    |
+    |  |  - PyMuPDF text extraction per page                               |    |
+    |  |  - Quality scoring (0-100) with 12 heuristic factors              |    |
+    |  |  - If score &lt; 50: render page as PNG &rarr; GPT-4o Vision API       |    |
+    |  +-------------------------------------------------------------------+    |
+    |                              |                                             |
+    |  +-------------------------------------------------------------------+    |
+    |  |  Step 2: openai_extractor.py  (5 PARALLEL PIPELINES)              |    |
+    |  |  +----------+ +----------+ +----------+ +----------+ +----------+ |    |
+    |  |  |Demographics| |Sentences | |Risk Adj  | |HEDIS     | |Encounters| |    |
+    |  |  |Prompt 1   | |Prompt 2  | |Prompt 3  | |Prompt 4  | |Prompt 5  | |    |
+    |  |  +----------+ +----------+ +----------+ +----------+ +----------+ |    |
+    |  |  Each pipeline: chunk text &rarr; parallel API calls &rarr; deep merge   |    |
+    |  +-------------------------------------------------------------------+    |
+    |                              |                                             |
+    |  +-------------------------------------------------------------------+    |
+    |  |  Step 3-5: Post-Processing                                        |    |
+    |  |  - HCC mapping (ICD-10 &rarr; HCC category + RAF weight)            |    |
+    |  |  - RAF score calculation (only active diagnoses)                   |    |
+    |  |  - Summary generation                                             |    |
+    |  +-------------------------------------------------------------------+    |
+    +---------------------------------------------------------------------------+
+                              |
+    +---------------------------------------------------------------------------+
+    |                         STORAGE LAYER                                      |
+    |  +---------------------------+  +---------------------------------------+ |
+    |  |  JSON Files (results/)    |  |  PostgreSQL Database (38 tables)      | |
+    |  |  0_vision_extractions     |  |  Chart &rarr; ProcessingRun &rarr; Pages    | |
+    |  |  1_patient_demographics   |  |  Chart &rarr; Patient &rarr; Phones/Vitals  | |
+    |  |  2_clean_sentences        |  |  Chart &rarr; Diagnosis &rarr; HCC Mapping  | |
+    |  |  3_risk_adjustment        |  |  Chart &rarr; Encounter &rarr; Meds/Procs   | |
+    |  |  4_hedis_evidence         |  |  Chart &rarr; HEDIS tables (7 types)       | |
+    |  |  5_encounters             |  |  Config + Logging + Review tables       | |
+    |  |  6_risk_adjustment_hcc    |  |                                         | |
+    |  |  7_extraction_summary     |  |  Connection: postgres:postgres@5432    | |
+    |  +---------------------------+  +---------------------------------------+ |
+    +---------------------------------------------------------------------------+
+                              |
+    +---------------------------------------------------------------------------+
+    |                          API LAYER (FastAPI)                               |
+    |  +------+ +--------+ +----------+ +---------+ +-----------+ +---------+  |
+    |  |Health | |Charts  | |Patients  | |Clinical | |Encounters | |HEDIS    |  |
+    |  |2 EP   | |6 EP    | |3 EP      | |5 EP     | |3 EP       | |7 EP     |  |
+    |  +------+ +--------+ +----------+ +---------+ +-----------+ +---------+  |
+    |  Total: 22 endpoints  |  Swagger: http://localhost:8000/docs              |
+    +---------------------------------------------------------------------------+
+    </code></pre>
+
+    <h3>Parallelism Model</h3>
+    <table>
+      <tr><th>Level</th><th>Max Concurrent</th><th>Config Constant</th><th>Purpose</th></tr>
+      <tr><td>Batch PDFs</td><td>3</td><td><code>MAX_PARALLEL_PDFS</code></td><td>Process multiple charts simultaneously</td></tr>
+      <tr><td>Pipelines per PDF</td><td>5</td><td><code>MAX_PIPELINE_WORKERS</code></td><td>Run all 5 extraction prompts in parallel</td></tr>
+      <tr><td>Chunks per Pipeline</td><td>4</td><td><code>MAX_CHUNK_WORKERS</code></td><td>Process text chunks concurrently within a pipeline</td></tr>
+      <tr><td><strong>Maximum Total</strong></td><td><strong>60</strong></td><td>3 &times; 5 &times; 4</td><td>Maximum concurrent OpenAI API calls</td></tr>
+    </table>
+
+    <div class="alert alert-warning">
+      <span class="alert-icon">&#x26A0;</span>
+      <div><strong>Gemini Exception:</strong> When using Gemini provider, pipelines run <em>sequentially</em> with 5-second pauses between each to avoid rate limits. Retries use 15-second incremental backoff (15, 30, 45, 60, 75 seconds).</div>
+    </div>
+
+    <h3>Key Design Decisions</h3>
+    <table>
+      <tr><th>Decision</th><th>Rationale</th></tr>
+      <tr><td><strong>Dual Persistence</strong> (JSON + DB)</td><td>JSON files are the primary source of truth. Database persistence is non-fatal &mdash; pipeline never crashes due to DB errors. JSON can be re-loaded later.</td></tr>
+      <tr><td><strong>Quality-Based Vision</strong></td><td>GPT-4o vision is expensive ($0.01-0.03/page). Only triggered when page quality score &lt; 50, saving costs on well-digitized charts.</td></tr>
+      <tr><td><strong>Negation-Aware Extraction</strong></td><td>Only "active" diagnoses count for RAF scoring. Incorrect negation = incorrect RAF = financial impact (thousands per member).</td></tr>
+      <tr><td><strong>Chunked + Deep Merge</strong></td><td>Long charts are split into ~10K char chunks processed in parallel. Results are merged: lists concatenate, dicts merge recursively.</td></tr>
+      <tr><td><strong>ProcessingRun per Re-run</strong></td><td>Each chart can be processed multiple times (different models, settings). Each run creates a new ProcessingRun with full audit trail.</td></tr>
+      <tr><td><strong>Review Workflow</strong></td><td>Clinical entities have <code>review_status</code> (pending/approved/rejected) for human-in-the-loop validation.</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: PIPELINE ======================= -->
+<div class="tab-content" id="tab-pipeline">
+  <div class="card">
+    <h2>Extraction Pipeline</h2>
+    <p class="card-desc">The pipeline processes a single PDF through 6 sequential steps, generating 8 JSON output files and persisting to the database.</p>
+
+    <h3>Pipeline Steps</h3>
+
+    <div class="pipeline-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>PDF Text Extraction &mdash; <code>smart_pdf.py</code></h4>
+        <p>Opens the PDF with PyMuPDF. For each page: extracts text, computes image area ratio, and scores text quality (0-100) using 12 heuristic factors. If <code>score &lt; quality_threshold</code> (default 50), renders the page as a 200 DPI PNG and sends it to GPT-4o Vision for OCR extraction. Outputs full text with <code>--- PAGE N ---</code> markers.</p>
+        <table>
+          <tr><th>Quality Factor</th><th>Deduction</th><th>What It Detects</th></tr>
+          <tr><td>Text length &lt; 20 chars</td><td>Score = length &times; 1.5</td><td>Nearly empty pages</td></tr>
+          <tr><td>Text length &lt; 50 chars</td><td>-30</td><td>Very sparse content</td></tr>
+          <tr><td>Character quality ratio &lt; 0.70</td><td>-40</td><td>Garbled OCR output</td></tr>
+          <tr><td>Avg word length &gt; 15</td><td>-30</td><td>Merged/garbled words</td></tr>
+          <tr><td>Consonant cluster ratio &gt; 0.1</td><td>-25</td><td>Non-word gibberish (5+ consonants)</td></tr>
+          <tr><td>Avg line length &lt; 5</td><td>-20</td><td>Fragmented extraction</td></tr>
+          <tr><td>Image area ratio &gt; 0.7</td><td>-25</td><td>Image-heavy pages (scans)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="pipeline-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>LLM Extraction &mdash; <code>openai_extractor.py</code></h4>
+        <p>The full text is sent through <strong>5 parallel pipelines</strong>, each with its own system prompt. Each pipeline:</p>
+        <ol style="font-size:13px;margin:8px 0 0 20px;">
+          <li>Chunks text at paragraph boundaries (~10,000 characters per chunk)</li>
+          <li>Processes chunks in parallel (up to 4 concurrent API calls)</li>
+          <li>Parses JSON response with robust 5-strategy fallback parser</li>
+          <li>Deep merges results across chunks (lists concatenate, dicts merge)</li>
+        </ol>
+        <table>
+          <tr><th>Pipeline</th><th>Prompt</th><th>Output File</th><th>What It Extracts</th></tr>
+          <tr><td><span class="tag tag-blue">Demographics</span></td><td>Prompt 1</td><td><code>1_patient_demographics.json</code></td><td>Name, DOB, address, providers, vitals, social/family history</td></tr>
+          <tr><td><span class="tag tag-green">Sentences</span></td><td>Prompt 2</td><td><code>2_clean_sentences.json</code></td><td>Clinical sentences with 22 categories + negation detection</td></tr>
+          <tr><td><span class="tag tag-red">Risk Adjustment</span></td><td>Prompt 3</td><td><code>3_risk_adjustment.json</code></td><td>ICD-10/ICD-9/SNOMED codes with 6 negation statuses</td></tr>
+          <tr><td><span class="tag tag-purple">HEDIS</span></td><td>Prompt 4</td><td><code>4_hedis_evidence.json</code></td><td>BP readings, labs, screenings, eligibility, depression</td></tr>
+          <tr><td><span class="tag tag-yellow">Encounters</span></td><td>Prompt 5</td><td><code>5_encounters.json</code></td><td>Per-visit data with meds, procedures, labs, referrals</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="pipeline-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Save Extraction JSONs</h4>
+        <p>Each pipeline's results are saved as pretty-printed JSON files (indent=2) in <code>results/&lt;pdf_name&gt;/</code>. Files are numbered 1-5 corresponding to their pipeline.</p>
+      </div>
+    </div>
+
+    <div class="pipeline-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>HCC Post-Processing &mdash; <code>orchestrator.process_hcc()</code></h4>
+        <p>Maps ICD-10 codes to HCC V28 categories and calculates the total RAF score. Only "active" diagnoses count. Same HCC category from multiple codes is deduplicated (only first contributes to RAF). Saved as <code>6_risk_adjustment_hcc.json</code>.</p>
+      </div>
+    </div>
+
+    <div class="pipeline-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Summary Generation</h4>
+        <p>Compiles metadata including PDF stats (pages, characters), extraction counts (sentences, diagnoses, encounters), HCC summary (RAF score, categories), processing time, and model info. Saved as <code>7_extraction_summary.json</code>.</p>
+      </div>
+    </div>
+
+    <div class="pipeline-step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>Database Persistence &mdash; <code>PersistenceService</code></h4>
+        <p>Non-fatal auto-persist to PostgreSQL. Creates Chart + ProcessingRun records, then reads all 7 JSON files and maps them to the 38 database tables. Commits in a single transaction. Failures log warnings but never crash the pipeline.</p>
+      </div>
+    </div>
+
+    <h3>Robust JSON Parser</h3>
+    <p><code>openai_extractor.safe_parse_json()</code> uses 5 fallback strategies to handle messy LLM output:</p>
+    <table>
+      <tr><th>#</th><th>Strategy</th><th>What It Handles</th></tr>
+      <tr><td>1</td><td>Strip markdown fences</td><td>LLM wraps JSON in <code>```json ... ```</code></td></tr>
+      <tr><td>2</td><td>Direct <code>json.loads()</code></td><td>Clean JSON output</td></tr>
+      <tr><td>3</td><td>Remove trailing commas</td><td>LLM adds commas before <code>}</code> or <code>]</code></td></tr>
+      <tr><td>4</td><td>Walk backwards + add closers</td><td>Truncated JSON (hit max_tokens limit)</td></tr>
+      <tr><td>5</td><td>Regex extract <code>{...}</code> or <code>[...]</code></td><td>JSON embedded in prose text</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: PROMPTS ======================= -->
+<div class="tab-content" id="tab-prompts">
+  <div class="card">
+    <h2>LLM Extraction Prompts</h2>
+    <p class="card-desc">5 specialized system prompts instruct the LLM to extract different data domains from medical chart text. Each prompt defines an expert role, a JSON schema, critical rules, and edge case examples.</p>
+
+    <div class="accordion">
+      <div class="accordion-header">Prompt 1: Patient Demographics <span class="tag tag-blue">prompt_1_patient_demographics.py</span></div>
+      <div class="accordion-body">
+        <p><strong>Role:</strong> "medical chart data extraction specialist"</p>
+        <p><strong>Extracts:</strong></p>
+        <table>
+          <tr><th>Field</th><th>Details</th></tr>
+          <tr><td><code>patient_name</code>, <code>alternate_names</code></td><td>Primary name + all name variations found</td></tr>
+          <tr><td><code>date_of_birth</code>, <code>gender</code>, <code>age</code></td><td>Basic demographics</td></tr>
+          <tr><td><code>member_ids</code></td><td>Array of {id, source_system} for insurance/plan IDs</td></tr>
+          <tr><td><code>address</code></td><td>Structured: street, city, state, zip, full</td></tr>
+          <tr><td><code>phones</code></td><td>Array of {number, type}</td></tr>
+          <tr><td><code>providers</code></td><td>Array of {name, specialty, facility, address, phone, role}</td></tr>
+          <tr><td><code>social_history</code></td><td>smoking, alcohol, drugs, marital, employment, living</td></tr>
+          <tr><td><code>family_history</code></td><td>Array of {condition, relation}</td></tr>
+          <tr><td><code>vitals</code></td><td>Array by date: BP, weight, height, BMI, pulse, temp, O2 sat</td></tr>
+          <tr><td><code>mental_health</code></td><td>PHQ-9, PHQ-2, MMSE, depression/anxiety status</td></tr>
+          <tr><td><code>allergies</code>, <code>advance_directives</code>, <code>insurance</code></td><td>Additional demographics</td></tr>
+        </table>
+        <p><strong>Key Rules:</strong> No inference/fabrication, only include fields with data, group vitals by date, capture all providers, note member ID source systems.</p>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Prompt 2: Clinical Sentences <span class="tag tag-green">prompt_2_clean_sentences.py</span></div>
+      <div class="accordion-body">
+        <p><strong>Role:</strong> "clinical NLP specialist"</p>
+        <p><strong>Output Schema per Sentence:</strong></p>
+        <pre><code>{
+  <span class="json-key">"text"</span>: <span class="json-str">"exact text from chart"</span>,
+  <span class="json-key">"category"</span>: <span class="json-str">"one of 22 codes"</span>,
+  <span class="json-key">"is_negated"</span>: <span class="json-bool">false</span>,
+  <span class="json-key">"negation_trigger"</span>: <span class="json-null">null</span>,
+  <span class="json-key">"negated_item"</span>: <span class="json-null">null</span>
+}</code></pre>
+        <p><strong>22 Category Codes:</strong></p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;">
+          <span class="tag tag-gray">chief_complaint</span>
+          <span class="tag tag-gray">history_present_illness</span>
+          <span class="tag tag-gray">review_of_systems</span>
+          <span class="tag tag-gray">physical_exam</span>
+          <span class="tag tag-gray">assessment</span>
+          <span class="tag tag-gray">diagnosis</span>
+          <span class="tag tag-gray">plan</span>
+          <span class="tag tag-gray">medication</span>
+          <span class="tag tag-gray">lab_result</span>
+          <span class="tag tag-gray">lab_order</span>
+          <span class="tag tag-gray">referral</span>
+          <span class="tag tag-gray">procedure</span>
+          <span class="tag tag-gray">screening</span>
+          <span class="tag tag-gray">counseling</span>
+          <span class="tag tag-gray">social_history</span>
+          <span class="tag tag-gray">family_history</span>
+          <span class="tag tag-gray">preventive_care</span>
+          <span class="tag tag-gray">mental_health</span>
+          <span class="tag tag-gray">symptom</span>
+          <span class="tag tag-gray">vital_sign</span>
+        </div>
+        <p><strong>Negation Detection Patterns:</strong></p>
+        <table>
+          <tr><th>Pattern</th><th>Triggers</th><th>Example</th></tr>
+          <tr><td>Direct negation</td><td>no, not, none, never, without, absent, deny</td><td>"No chest pain"</td></tr>
+          <tr><td>Patient denial</td><td>denies, denied, does not report</td><td>"Patient denies shortness of breath"</td></tr>
+          <tr><td>Test negative</td><td>negative, non-reactive, WNL, unremarkable</td><td>"Chest X-ray unremarkable"</td></tr>
+          <tr><td>Exclusion</td><td>ruled out, r/o, no evidence of</td><td>"No evidence of malignancy"</td></tr>
+          <tr><td>Resolution</td><td>resolved, improved, cleared, remission</td><td>"UTI resolved"</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Prompt 3: Risk Adjustment (Diagnoses) <span class="tag tag-red">prompt_3_risk_adjustment.py</span></div>
+      <div class="accordion-body">
+        <p><strong>Role:</strong> "certified medical coder specializing in risk adjustment and HCC coding"</p>
+        <p><strong>Output Schema per Diagnosis:</strong></p>
+        <pre><code>{
+  <span class="json-key">"icd10_code"</span>: <span class="json-str">"E11.9"</span>,
+  <span class="json-key">"icd9_code"</span>: <span class="json-str">"250.00"</span>,
+  <span class="json-key">"snomed_code"</span>: <span class="json-null">null</span>,
+  <span class="json-key">"description"</span>: <span class="json-str">"Type 2 diabetes mellitus without complications"</span>,
+  <span class="json-key">"negation_status"</span>: <span class="json-str">"active"</span>,
+  <span class="json-key">"negation_trigger"</span>: <span class="json-null">null</span>,
+  <span class="json-key">"supporting_text"</span>: <span class="json-str">"DM well controlled on metformin"</span>,
+  <span class="json-key">"source_section"</span>: <span class="json-str">"problem_list"</span>,
+  <span class="json-key">"date_of_service"</span>: <span class="json-str">"2024-02-23"</span>,
+  <span class="json-key">"provider"</span>: <span class="json-str">"Dr. Smith"</span>
+}</code></pre>
+        <p><strong>6 Negation Statuses &amp; RAF Impact:</strong></p>
+        <table>
+          <tr><th>Status</th><th>Meaning</th><th>Counts for RAF?</th></tr>
+          <tr><td><span class="tag tag-green">active</span></td><td>Current condition, being managed</td><td><strong>YES</strong></td></tr>
+          <tr><td><span class="tag tag-red">negated</span></td><td>Explicitly denied/absent</td><td>No</td></tr>
+          <tr><td><span class="tag tag-yellow">resolved</span></td><td>Was present, no longer active</td><td>No</td></tr>
+          <tr><td><span class="tag tag-gray">historical</span></td><td>Past condition for reference</td><td>No</td></tr>
+          <tr><td><span class="tag tag-purple">family_history</span></td><td>Family member's condition</td><td>No</td></tr>
+          <tr><td><span class="tag tag-gray">uncertain</span></td><td>Possible/suspected, unconfirmed</td><td>No</td></tr>
+        </table>
+        <p><strong>6 Extraction Sources:</strong> Formal diagnosis blocks, problem lists, ICD-9 alongside ICD-10, assessment narratives, medication indications, procedure indications.</p>
+        <div class="alert alert-danger">
+          <span class="alert-icon">&#x1F4B0;</span>
+          <div><strong>Critical:</strong> Negation directly impacts RAF scoring worth thousands of dollars per member. "No anemia because she takes iron" = RESOLVED. "Depression on medication" = ACTIVE. "DM well controlled" = ACTIVE.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Prompt 4: HEDIS Evidence <span class="tag tag-purple">prompt_4_hedis_evidence.py</span></div>
+      <div class="accordion-body">
+        <p><strong>Role:</strong> "HEDIS quality measure analyst"</p>
+        <p><strong>8 Extraction Categories:</strong></p>
+        <table>
+          <tr><th>Category</th><th>Fields</th><th>HEDIS Measure</th></tr>
+          <tr><td>Blood Pressure Readings</td><td>date, systolic, diastolic, location, within_target</td><td>CBP</td></tr>
+          <tr><td>Lab Results</td><td>test_name, result_value, date, reference_range, within_target</td><td>GSD, etc.</td></tr>
+          <tr><td>Screenings</td><td>screening_type, date, result, status</td><td>BCS, COL, CCS, OMW</td></tr>
+          <tr><td>Preventive Care</td><td>measure, date, status, details</td><td>Various</td></tr>
+          <tr><td>HEDIS Mentions</td><td>Exact text mentioning HEDIS/HEDDIS/superbill</td><td>All</td></tr>
+          <tr><td>Eligibility Conditions</td><td>condition, is_present, evidence</td><td>All</td></tr>
+          <tr><td>Medications for Measures</td><td>medication, indication, hedis_relevance</td><td>CBP, GSD</td></tr>
+          <tr><td>Depression Screening</td><td>PHQ-2/PHQ-9 scores, dates, follow_up_plan</td><td>DSF</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">Prompt 5: Encounters <span class="tag tag-yellow">prompt_5_encounters.py</span></div>
+      <div class="accordion-body">
+        <p><strong>Role:</strong> "medical records analyst"</p>
+        <p><strong>Output Schema per Encounter:</strong></p>
+        <table>
+          <tr><th>Field</th><th>Details</th></tr>
+          <tr><td><code>date</code>, <code>encounter_id</code></td><td>Visit date and external ID</td></tr>
+          <tr><td><code>provider</code>, <code>facility</code></td><td>Who and where</td></tr>
+          <tr><td><code>type</code></td><td>office / telehealth / ER / inpatient / urgent_care / home_visit / phone</td></tr>
+          <tr><td><code>chief_complaint</code></td><td>Reason for visit</td></tr>
+          <tr><td><code>procedures</code></td><td>Array: name, cpt_code, status, result</td></tr>
+          <tr><td><code>medications</code></td><td>Array: name (with strength), dose_form, instructions, indication, action (continue/start/stop/increase/decrease/change)</td></tr>
+          <tr><td><code>lab_orders</code></td><td>Array: test, status, result, dates</td></tr>
+          <tr><td><code>referrals</code></td><td>Array: to_provider, reason, status, urgency</td></tr>
+          <tr><td><code>diagnoses_this_visit</code></td><td>Array: code + description for this visit</td></tr>
+          <tr><td><code>time_spent</code>, <code>signed_by</code></td><td>Documentation metadata</td></tr>
+        </table>
+        <p><strong>Key Rule:</strong> Each distinct date = one encounter. Same-date notes are merged into a single encounter record.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= TAB: LLM ======================= -->
+<div class="tab-content" id="tab-llm">
+  <div class="card">
+    <h2>LLM Configuration & Token Usage</h2>
+    <p class="card-desc">Detailed breakdown of LLM models, API call parameters, token budgets, and cost implications.</p>
+
+    <h3>Model Configuration</h3>
+    <table>
+      <tr><th>Model</th><th>Purpose</th><th>Used In</th><th>Temperature</th><th>Max Tokens</th><th>Response Format</th></tr>
+      <tr>
+        <td><strong>GPT-4o-mini</strong></td>
+        <td>Primary text extraction (all 5 pipelines)</td>
+        <td><code>openai_extractor.py</code></td>
+        <td>0.1</td>
+        <td>4,096</td>
+        <td><code>json_object</code></td>
+      </tr>
+      <tr>
+        <td><strong>GPT-4o</strong></td>
+        <td>Vision fallback for low-quality pages</td>
+        <td><code>smart_pdf.py</code></td>
+        <td>default</td>
+        <td>4,096</td>
+        <td><code>json_object</code></td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 2.0 Flash</strong></td>
+        <td>Alternative extraction provider</td>
+        <td><code>orchestrator.py</code> via LangExtract</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>Via LangExtract</td>
+      </tr>
+    </table>
+
+    <h3>Token Budget Estimation</h3>
+    <div class="alert alert-info">
+      <span class="alert-icon">&#x2139;</span>
+      <div>Token usage depends on chart length. A typical medical chart has 5,000-30,000 characters of text. GPT-4o-mini tokenization averages ~4 characters per token for medical text.</div>
+    </div>
+    <table>
+      <tr><th>Component</th><th>Input Tokens (est.)</th><th>Output Tokens (est.)</th><th>Notes</th></tr>
+      <tr>
+        <td><strong>System Prompt (per pipeline)</strong></td>
+        <td>800-1,500</td>
+        <td>&mdash;</td>
+        <td>Each of 5 prompts has detailed instructions + schema + rules</td>
+      </tr>
+      <tr>
+        <td><strong>Text Chunk (~10K chars)</strong></td>
+        <td>~2,500</td>
+        <td>&mdash;</td>
+        <td>User message with chunk content</td>
+      </tr>
+      <tr>
+        <td><strong>Extraction Response</strong></td>
+        <td>&mdash;</td>
+        <td>500-4,096</td>
+        <td>JSON output, up to max_tokens limit</td>
+      </tr>
+      <tr>
+        <td><strong>Vision API (per page)</strong></td>
+        <td>~1,000 (text) + image tokens</td>
+        <td>500-4,096</td>
+        <td>High detail mode. Image tokens depend on resolution (200 DPI)</td>
+      </tr>
+    </table>
+
+    <h3>Per-Chart Token Estimate (Typical 16-page chart)</h3>
+    <table>
+      <tr><th>Scenario</th><th>Text Chars</th><th>Chunks</th><th>API Calls</th><th>Est. Input Tokens</th><th>Est. Output Tokens</th><th>Est. Total</th></tr>
+      <tr>
+        <td>Short chart (8 pages, 10K chars)</td>
+        <td>10,000</td>
+        <td>1</td>
+        <td>5</td>
+        <td>~18,000</td>
+        <td>~10,000</td>
+        <td>~28,000</td>
+      </tr>
+      <tr>
+        <td>Medium chart (16 pages, 28K chars)</td>
+        <td>28,000</td>
+        <td>3</td>
+        <td>15</td>
+        <td>~50,000</td>
+        <td>~30,000</td>
+        <td>~80,000</td>
+      </tr>
+      <tr>
+        <td>Long chart (30+ pages, 60K chars)</td>
+        <td>60,000</td>
+        <td>6</td>
+        <td>30</td>
+        <td>~100,000</td>
+        <td>~60,000</td>
+        <td>~160,000</td>
+      </tr>
+      <tr>
+        <td>+ Vision pages (add per page)</td>
+        <td>&mdash;</td>
+        <td>&mdash;</td>
+        <td>+1 per page</td>
+        <td>+~2,000</td>
+        <td>+~2,000</td>
+        <td>+~4,000</td>
+      </tr>
+    </table>
+
+    <h3>Cost Estimates (GPT-4o-mini pricing)</h3>
+    <table>
+      <tr><th>Model</th><th>Input $/1M tokens</th><th>Output $/1M tokens</th><th>Est. Cost per Chart</th></tr>
+      <tr><td>GPT-4o-mini (text)</td><td>$0.15</td><td>$0.60</td><td><strong>$0.005 - $0.05</strong></td></tr>
+      <tr><td>GPT-4o (vision)</td><td>$2.50</td><td>$10.00</td><td><strong>$0.01 - $0.03 per page</strong></td></tr>
+    </table>
+
+    <h3>Retry & Rate Limit Handling</h3>
+    <table>
+      <tr><th>Provider</th><th>Max Retries</th><th>Backoff Strategy</th><th>Rate Limit Detection</th></tr>
+      <tr><td>OpenAI</td><td>3</td><td>Fixed: [10s, 20s, 30s]</td><td>String match on "429" or "rate"</td></tr>
+      <tr><td>Gemini</td><td>5</td><td>Incremental: 15s &times; (attempt+1)</td><td>String match on "429" or "rate"</td></tr>
+    </table>
+    <table>
+      <tr><th>Gemini Attempt</th><th>Backoff Wait</th></tr>
+      <tr><td>1st retry</td><td>15 seconds</td></tr>
+      <tr><td>2nd retry</td><td>30 seconds</td></tr>
+      <tr><td>3rd retry</td><td>45 seconds</td></tr>
+      <tr><td>4th retry</td><td>60 seconds</td></tr>
+      <tr><td>5th retry</td><td>75 seconds</td></tr>
+    </table>
+
+    <h3>API Call Structure</h3>
+    <pre><code><span class="cmt"># Text extraction call (openai_extractor.py)</span>
+response = client.chat.completions.create(
+    model=<span class="str">"gpt-4o-mini"</span>,
+    messages=[
+        {<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: SYSTEM_PROMPT},
+        {<span class="str">"role"</span>: <span class="str">"user"</span>,   <span class="str">"content"</span>: <span class="str">f"Extract data from this medical chart text (chunk {idx+1}):\n\n{chunk}"</span>}
+    ],
+    response_format={<span class="str">"type"</span>: <span class="str">"json_object"</span>},
+    max_tokens=<span class="num">4096</span>,
+    temperature=<span class="num">0.1</span>
+)
+
+<span class="cmt"># Vision extraction call (smart_pdf.py)</span>
+response = client.chat.completions.create(
+    model=<span class="str">"gpt-4o"</span>,
+    messages=[
+        {<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: VISION_SYSTEM_PROMPT},
+        {<span class="str">"role"</span>: <span class="str">"user"</span>,   <span class="str">"content"</span>: [
+            {<span class="str">"type"</span>: <span class="str">"text"</span>, <span class="str">"text"</span>: <span class="str">"Extract all medical info..."</span>},
+            {<span class="str">"type"</span>: <span class="str">"image_url"</span>, <span class="str">"image_url"</span>: {
+                <span class="str">"url"</span>: <span class="str">f"data:image/png;base64,{base64_image}"</span>,
+                <span class="str">"detail"</span>: <span class="str">"high"</span>
+            }}
+        ]}
+    ],
+    response_format={<span class="str">"type"</span>: <span class="str">"json_object"</span>},
+    max_tokens=<span class="num">4096</span>
+)</code></pre>
+  </div>
+</div>
+
+<!-- ======================= TAB: JSON ======================= -->
+<div class="tab-content" id="tab-json">
+  <div class="card">
+    <h2>JSON Output Files</h2>
+    <p class="card-desc">The pipeline generates 8 numbered JSON files per chart in <code>results/&lt;pdf_name&gt;/</code>. Here are the actual structures with real examples from processed charts.</p>
+
+    <h3>File Overview</h3>
+    <table>
+      <tr><th>#</th><th>Filename</th><th>Generated By</th><th>Content</th></tr>
+      <tr><td>0</td><td><code>0_vision_extractions.json</code></td><td>smart_pdf.py</td><td>Vision API results for low-quality pages (only if triggered)</td></tr>
+      <tr><td>1</td><td><code>1_patient_demographics.json</code></td><td>Prompt 1</td><td>Patient info, addresses, providers, vitals, social/family history</td></tr>
+      <tr><td>2</td><td><code>2_clean_sentences.json</code></td><td>Prompt 2</td><td>Clinical sentences with categories and negation</td></tr>
+      <tr><td>3</td><td><code>3_risk_adjustment.json</code></td><td>Prompt 3</td><td>ICD-10/ICD-9 diagnoses with negation status</td></tr>
+      <tr><td>4</td><td><code>4_hedis_evidence.json</code></td><td>Prompt 4</td><td>HEDIS measure evidence (BP, labs, screenings, etc.)</td></tr>
+      <tr><td>5</td><td><code>5_encounters.json</code></td><td>Prompt 5</td><td>Per-visit encounter data with meds, procedures, referrals</td></tr>
+      <tr><td>6</td><td><code>6_risk_adjustment_hcc.json</code></td><td>HCC post-processor</td><td>HCC mappings and RAF scores</td></tr>
+      <tr><td>7</td><td><code>7_extraction_summary.json</code></td><td>Orchestrator</td><td>Processing metadata and statistics</td></tr>
+    </table>
+
+    <div class="accordion">
+      <div class="accordion-header">File 1: Patient Demographics &mdash; <code>1_patient_demographics.json</code></div>
+      <div class="accordion-body">
+        <div class="json-block">{
+  <span class="json-key">"patient_name"</span>: <span class="json-str">"Jesse Dunn"</span>,
+  <span class="json-key">"alternate_names"</span>: [<span class="json-str">"GRISSOM, Viola"</span>],
+  <span class="json-key">"date_of_birth"</span>: <span class="json-str">"08/28/1950"</span>,
+  <span class="json-key">"gender"</span>: <span class="json-str">"Female"</span>,
+  <span class="json-key">"age"</span>: <span class="json-num">73</span>,
+  <span class="json-key">"member_ids"</span>: [
+    {<span class="json-key">"id"</span>: <span class="json-str">"675320"</span>, <span class="json-key">"source_system"</span>: <span class="json-str">"Midlands Family Medicine"</span>}
+  ],
+  <span class="json-key">"address"</span>: {
+    <span class="json-key">"street"</span>: <span class="json-str">"123 Main St"</span>,
+    <span class="json-key">"city"</span>: <span class="json-str">"Kearney"</span>,
+    <span class="json-key">"state"</span>: <span class="json-str">"NE"</span>,
+    <span class="json-key">"zip"</span>: <span class="json-str">"68847"</span>,
+    <span class="json-key">"full"</span>: <span class="json-str">"123 Main St, Kearney, NE 68847"</span>
+  },
+  <span class="json-key">"phones"</span>: [{<span class="json-key">"number"</span>: <span class="json-str">"(308)530-1740"</span>, <span class="json-key">"type"</span>: <span class="json-str">"home"</span>}],
+  <span class="json-key">"providers"</span>: [
+    {<span class="json-key">"name"</span>: <span class="json-str">"Stacy M Wells"</span>, <span class="json-key">"specialty"</span>: <span class="json-str">"Family Medicine"</span>,
+     <span class="json-key">"facility"</span>: <span class="json-str">"Midlands Family Medicine"</span>, <span class="json-key">"role"</span>: <span class="json-str">"PCP"</span>}
+  ],
+  <span class="json-key">"social_history"</span>: {
+    <span class="json-key">"smoking_status"</span>: <span class="json-str">"Never smoker"</span>,
+    <span class="json-key">"alcohol_use"</span>: <span class="json-str">"No"</span>,
+    <span class="json-key">"drug_use"</span>: <span class="json-str">"No"</span>,
+    <span class="json-key">"marital_status"</span>: <span class="json-str">"Married"</span>
+  },
+  <span class="json-key">"vitals"</span>: [
+    {<span class="json-key">"date"</span>: <span class="json-str">"2024-02-23"</span>, <span class="json-key">"bp_systolic"</span>: <span class="json-str">"115"</span>,
+     <span class="json-key">"bp_diastolic"</span>: <span class="json-str">"80"</span>, <span class="json-key">"weight"</span>: <span class="json-str">"213 lb"</span>,
+     <span class="json-key">"bmi"</span>: <span class="json-str">"37.73"</span>, <span class="json-key">"pulse"</span>: <span class="json-str">"95"</span>,
+     <span class="json-key">"oxygen_saturation"</span>: <span class="json-str">"95%"</span>}
+  ],
+  <span class="json-key">"mental_health"</span>: {
+    <span class="json-key">"phq9_score"</span>: <span class="json-str">"1"</span>,
+    <span class="json-key">"depression_status"</span>: <span class="json-str">"Normal"</span>
+  },
+  <span class="json-key">"allergies"</span>: [<span class="json-str">"No Known Drug Allergies"</span>]
+}</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">File 2: Clinical Sentences &mdash; <code>2_clean_sentences.json</code></div>
+      <div class="accordion-body">
+        <div class="json-block">{
+  <span class="json-key">"sentences"</span>: [
+    {
+      <span class="json-key">"text"</span>: <span class="json-str">"The patient is a 73 year old female who presents for a pre-op visit."</span>,
+      <span class="json-key">"category"</span>: <span class="json-str">"history_present_illness"</span>,
+      <span class="json-key">"is_negated"</span>: <span class="json-bool">false</span>,
+      <span class="json-key">"negation_trigger"</span>: <span class="json-null">null</span>,
+      <span class="json-key">"negated_item"</span>: <span class="json-null">null</span>
+    },
+    {
+      <span class="json-key">"text"</span>: <span class="json-str">"Respiratory Not Present- Shortness of Breath."</span>,
+      <span class="json-key">"category"</span>: <span class="json-str">"review_of_systems"</span>,
+      <span class="json-key">"is_negated"</span>: <span class="json-bool">true</span>,
+      <span class="json-key">"negation_trigger"</span>: <span class="json-str">"Not Present"</span>,
+      <span class="json-key">"negated_item"</span>: <span class="json-str">"Shortness of Breath"</span>
+    },
+    {
+      <span class="json-key">"text"</span>: <span class="json-str">"PHQ-9 Score: 1 - Normal"</span>,
+      <span class="json-key">"category"</span>: <span class="json-str">"mental_health"</span>,
+      <span class="json-key">"is_negated"</span>: <span class="json-bool">false</span>,
+      <span class="json-key">"negation_trigger"</span>: <span class="json-null">null</span>,
+      <span class="json-key">"negated_item"</span>: <span class="json-null">null</span>
+    }
+  ]
+}
+<span class="json-cmt">// Typical chart: 50-100+ sentences across 14+ categories</span></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">File 3: Risk Adjustment Diagnoses &mdash; <code>3_risk_adjustment.json</code></div>
+      <div class="accordion-body">
+        <div class="json-block">{
+  <span class="json-key">"diagnoses"</span>: [
+    {
+      <span class="json-key">"icd10_code"</span>: <span class="json-str">"E03.9"</span>,
+      <span class="json-key">"icd9_code"</span>: <span class="json-null">null</span>,
+      <span class="json-key">"snomed_code"</span>: <span class="json-null">null</span>,
+      <span class="json-key">"description"</span>: <span class="json-str">"ADULT HYPOTHYROIDISM"</span>,
+      <span class="json-key">"negation_status"</span>: <span class="json-str">"active"</span>,
+      <span class="json-key">"negation_trigger"</span>: <span class="json-null">null</span>,
+      <span class="json-key">"supporting_text"</span>: <span class="json-str">"The patient is on Synthroid 75mcg."</span>,
+      <span class="json-key">"source_section"</span>: <span class="json-str">"problem_list"</span>,
+      <span class="json-key">"date_of_service"</span>: <span class="json-str">"2024-02-23"</span>,
+      <span class="json-key">"provider"</span>: <span class="json-str">"Emily K. Epp CNA"</span>
+    },
+    {
+      <span class="json-key">"icd10_code"</span>: <span class="json-str">"Z13.31"</span>,
+      <span class="json-key">"description"</span>: <span class="json-str">"NEGATIVE DEPRESSION SCREEN"</span>,
+      <span class="json-key">"negation_status"</span>: <span class="json-str">"negated"</span>,
+      <span class="json-key">"negation_trigger"</span>: <span class="json-str">"NEGATIVE"</span>,
+      <span class="json-key">"supporting_text"</span>: <span class="json-str">"Current Plans: NEGATIVE SCREEN FOR CLINICAL DEPRESSION"</span>,
+      <span class="json-key">"source_section"</span>: <span class="json-str">"assessment"</span>,
+      <span class="json-key">"date_of_service"</span>: <span class="json-str">"2/23/2024"</span>,
+      <span class="json-key">"provider"</span>: <span class="json-str">"Jesse D. Dunn MD"</span>
+    }
+  ]
+}
+<span class="json-cmt">// Typical chart: 20-40+ diagnoses</span></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">File 4: HEDIS Evidence &mdash; <code>4_hedis_evidence.json</code></div>
+      <div class="accordion-body">
+        <div class="json-block">{
+  <span class="json-key">"blood_pressure_readings"</span>: [
+    {<span class="json-key">"date"</span>: <span class="json-str">"2024-02-23"</span>, <span class="json-key">"systolic"</span>: <span class="json-num">115</span>, <span class="json-key">"diastolic"</span>: <span class="json-num">80</span>,
+     <span class="json-key">"location"</span>: <span class="json-str">"office"</span>, <span class="json-key">"within_target"</span>: <span class="json-bool">true</span>,
+     <span class="json-key">"target_note"</span>: <span class="json-str">"&lt;140/90 for CBP"</span>}
+  ],
+  <span class="json-key">"lab_results"</span>: [
+    {<span class="json-key">"test_name"</span>: <span class="json-str">"A1C"</span>, <span class="json-key">"result_value"</span>: <span class="json-str">"5.7%"</span>,
+     <span class="json-key">"result_date"</span>: <span class="json-str">"2024-10-08"</span>, <span class="json-key">"hedis_measure"</span>: <span class="json-str">"GSD"</span>,
+     <span class="json-key">"within_target"</span>: <span class="json-bool">true</span>}
+  ],
+  <span class="json-key">"screenings"</span>: [
+    {<span class="json-key">"screening_type"</span>: <span class="json-str">"mammogram"</span>, <span class="json-key">"date"</span>: <span class="json-str">"2024-06-03"</span>,
+     <span class="json-key">"result"</span>: <span class="json-str">"completed"</span>, <span class="json-key">"hedis_measure"</span>: <span class="json-str">"BCS"</span>,
+     <span class="json-key">"status"</span>: <span class="json-str">"completed"</span>}
+  ],
+  <span class="json-key">"eligibility_conditions"</span>: [
+    {<span class="json-key">"condition"</span>: <span class="json-str">"hypertension"</span>, <span class="json-key">"is_present"</span>: <span class="json-bool">true</span>,
+     <span class="json-key">"evidence"</span>: <span class="json-str">"Essential Hypertension (I10)"</span>}
+  ],
+  <span class="json-key">"medications_for_measures"</span>: [
+    {<span class="json-key">"medication"</span>: <span class="json-str">"Losartan-HCTZ"</span>, <span class="json-key">"indication"</span>: <span class="json-str">"hypertension"</span>,
+     <span class="json-key">"hedis_relevance"</span>: <span class="json-str">"CBP"</span>}
+  ],
+  <span class="json-key">"depression_screening"</span>: {
+    <span class="json-key">"phq9_score"</span>: <span class="json-num">1</span>, <span class="json-key">"phq9_date"</span>: <span class="json-str">"2024-02-23"</span>,
+    <span class="json-key">"positive_screen"</span>: <span class="json-bool">false</span>
+  },
+  <span class="json-key">"falls_risk"</span>: {
+    <span class="json-key">"assessed"</span>: <span class="json-bool">true</span>, <span class="json-key">"risk_level"</span>: <span class="json-str">"low"</span>,
+    <span class="json-key">"interventions"</span>: [<span class="json-str">"Education about risk of fall"</span>]
+  }
+}</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">File 5: Encounters &mdash; <code>5_encounters.json</code></div>
+      <div class="accordion-body">
+        <div class="json-block">{
+  <span class="json-key">"encounters"</span>: [
+    {
+      <span class="json-key">"date"</span>: <span class="json-str">"2024-02-14"</span>,
+      <span class="json-key">"encounter_id"</span>: <span class="json-str">"10483292"</span>,
+      <span class="json-key">"provider"</span>: <span class="json-str">"Stacy M Wells"</span>,
+      <span class="json-key">"facility"</span>: <span class="json-str">"Midlands Family Medicine"</span>,
+      <span class="json-key">"type"</span>: <span class="json-str">"office"</span>,
+      <span class="json-key">"chief_complaint"</span>: <span class="json-str">"Finger pain, right"</span>,
+      <span class="json-key">"medications"</span>: [
+        {<span class="json-key">"name"</span>: <span class="json-str">"losartan-hydrochlorothiazide 100-25mg"</span>,
+         <span class="json-key">"dose_form"</span>: <span class="json-str">"tablet"</span>,
+         <span class="json-key">"instructions"</span>: <span class="json-str">"1 TABLET oral DAILY"</span>,
+         <span class="json-key">"indication"</span>: <span class="json-str">"Essential Hypertension"</span>,
+         <span class="json-key">"action"</span>: <span class="json-str">"continue"</span>}
+      ],
+      <span class="json-key">"procedures"</span>: [
+        {<span class="json-key">"name"</span>: <span class="json-str">"Z-CBC, PLATELETS &amp; AUT DIFF"</span>,
+         <span class="json-key">"cpt_code"</span>: <span class="json-str">"85025"</span>,
+         <span class="json-key">"status"</span>: <span class="json-str">"ordered"</span>}
+      ],
+      <span class="json-key">"diagnoses_this_visit"</span>: [
+        {<span class="json-key">"code"</span>: <span class="json-str">"Z01.818"</span>,
+         <span class="json-key">"description"</span>: <span class="json-str">"Encounter for preprocedural examination"</span>}
+      ],
+      <span class="json-key">"time_spent"</span>: <span class="json-str">"7 minutes"</span>,
+      <span class="json-key">"signed_by"</span>: <span class="json-str">"Stacy M Wells"</span>
+    }
+  ]
+}</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">File 6: HCC Mappings &amp; RAF Score &mdash; <code>6_risk_adjustment_hcc.json</code></div>
+      <div class="accordion-body">
+        <div class="json-block">{
+  <span class="json-key">"hcc_mappings"</span>: [
+    {
+      <span class="json-key">"icd10_code"</span>: <span class="json-str">"D50.9"</span>,
+      <span class="json-key">"description"</span>: <span class="json-str">"Iron deficiency anemia, unspecified"</span>,
+      <span class="json-key">"negation_status"</span>: <span class="json-str">"active"</span>,
+      <span class="json-key">"hcc_category"</span>: <span class="json-num">49</span>,
+      <span class="json-key">"raf_weight"</span>: <span class="json-num">0.362</span>,
+      <span class="json-key">"counts_for_raf"</span>: <span class="json-bool">true</span>,
+      <span class="json-key">"reason"</span>: <span class="json-str">"Active - counts for RAF"</span>
+    },
+    {
+      <span class="json-key">"icd10_code"</span>: <span class="json-str">"D64.9"</span>,
+      <span class="json-key">"description"</span>: <span class="json-str">"Anemia"</span>,
+      <span class="json-key">"negation_status"</span>: <span class="json-str">"resolved"</span>,
+      <span class="json-key">"hcc_category"</span>: <span class="json-null">null</span>,
+      <span class="json-key">"raf_weight"</span>: <span class="json-num">0.0</span>,
+      <span class="json-key">"counts_for_raf"</span>: <span class="json-bool">false</span>,
+      <span class="json-key">"reason"</span>: <span class="json-str">"Excluded: resolved"</span>
+    }
+  ],
+  <span class="json-key">"summary"</span>: {
+    <span class="json-key">"total_diagnoses"</span>: <span class="json-num">42</span>,
+    <span class="json-key">"active_diagnoses"</span>: <span class="json-num">41</span>,
+    <span class="json-key">"negated_diagnoses"</span>: <span class="json-num">0</span>,
+    <span class="json-key">"resolved_diagnoses"</span>: <span class="json-num">1</span>,
+    <span class="json-key">"unique_hcc_categories"</span>: <span class="json-num">5</span>,
+    <span class="json-key">"total_raf_score"</span>: <span class="json-num">1.323</span>,
+    <span class="json-key">"hcc_categories"</span>: [<span class="json-num">48</span>, <span class="json-num">49</span>, <span class="json-num">75</span>, <span class="json-num">107</span>, <span class="json-num">135</span>]
+  }
+}</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header">File 7: Extraction Summary &mdash; <code>7_extraction_summary.json</code></div>
+      <div class="accordion-body">
+        <div class="json-block">{
+  <span class="json-key">"pdf_file"</span>: <span class="json-str">"4_RET235139077.pdf"</span>,
+  <span class="json-key">"provider"</span>: <span class="json-str">"openai"</span>,
+  <span class="json-key">"model"</span>: <span class="json-str">"gpt-4o-mini"</span>,
+  <span class="json-key">"vision_enabled"</span>: <span class="json-bool">true</span>,
+  <span class="json-key">"processing_time_seconds"</span>: <span class="json-num">91.22</span>,
+  <span class="json-key">"pdf_stats"</span>: {
+    <span class="json-key">"total_pages"</span>: <span class="json-num">16</span>,
+    <span class="json-key">"text_pages"</span>: <span class="json-num">16</span>,
+    <span class="json-key">"vision_pages"</span>: <span class="json-num">0</span>,
+    <span class="json-key">"total_chars"</span>: <span class="json-num">28094</span>,
+    <span class="json-key">"quality_threshold"</span>: <span class="json-num">50</span>
+  },
+  <span class="json-key">"extraction_counts"</span>: {
+    <span class="json-key">"demographics_fields"</span>: <span class="json-num">44</span>,
+    <span class="json-key">"clinical_sentences"</span>: <span class="json-num">102</span>,
+    <span class="json-key">"diagnoses_total"</span>: <span class="json-num">42</span>,
+    <span class="json-key">"diagnoses_active"</span>: <span class="json-num">41</span>,
+    <span class="json-key">"hedis_bp_readings"</span>: <span class="json-num">1</span>,
+    <span class="json-key">"encounters"</span>: <span class="json-num">5</span>
+  },
+  <span class="json-key">"hcc_summary"</span>: {
+    <span class="json-key">"unique_hcc_categories"</span>: <span class="json-num">5</span>,
+    <span class="json-key">"total_raf_score"</span>: <span class="json-num">1.323</span>
+  }
+}</div>
+      </div>
+    </div>
+
+    <h3>Batch Processing Results</h3>
+    <table>
+      <tr><th>Chart</th><th>Pages</th><th>Chars</th><th>Sentences</th><th>Diagnoses</th><th>HCC Cats</th><th>RAF Score</th><th>Time (s)</th></tr>
+      <tr><td>1_RET235214388</td><td>12</td><td>~18K</td><td>78</td><td>36</td><td>0</td><td>0.000</td><td>~20s</td></tr>
+      <tr><td>2_RET235068306</td><td>~10</td><td>~15K</td><td>~60</td><td>~25</td><td>2</td><td>0.407</td><td>~18s</td></tr>
+      <tr><td>3_RET235121812</td><td>~8</td><td>~12K</td><td>~45</td><td>~20</td><td>1</td><td>0.192</td><td>~15s</td></tr>
+      <tr><td>4_RET235139077</td><td>16</td><td>28K</td><td>102</td><td>42</td><td>5</td><td>1.323</td><td>91s</td></tr>
+      <tr><td>5_RET235164168</td><td>~12</td><td>~20K</td><td>~70</td><td>~30</td><td>2</td><td>0.664</td><td>~22s</td></tr>
+      <tr style="font-weight:700;background:#f8f9fa;">
+        <td>TOTAL (5 charts)</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>134</td><td>10</td><td>2.586</td><td>145.65s</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: DATABASE ======================= -->
+<div class="tab-content" id="tab-database">
+  <div class="card">
+    <h2>Database Schema &mdash; 38 Tables</h2>
+    <p class="card-desc">PostgreSQL database organized into 8 domains. Connection: <code>postgresql://postgres:postgres@localhost:5432/medinsights</code></p>
+
+    <h3>Table Count by Domain</h3>
+    <table>
+      <tr><th>Domain</th><th>Count</th><th>Tables</th></tr>
+      <tr><td><span class="tag tag-blue">Chart/Processing</span></td><td>4</td><td>charts, processing_runs, chart_pages, extraction_results</td></tr>
+      <tr><td><span class="tag tag-green">Patient</span></td><td>6</td><td>patients, patient_phones, patient_member_ids, patient_providers, patient_vitals, patient_family_history</td></tr>
+      <tr><td><span class="tag tag-red">Clinical</span></td><td>4</td><td>clinical_sentences, diagnoses, diagnosis_hcc_mappings, raf_summaries</td></tr>
+      <tr><td><span class="tag tag-yellow">Encounter</span></td><td>6</td><td>encounters, encounter_medications, encounter_procedures, encounter_lab_orders, encounter_referrals, encounter_diagnoses</td></tr>
+      <tr><td><span class="tag tag-purple">HEDIS</span></td><td>7</td><td>hedis_bp_readings, hedis_lab_results, hedis_screenings, hedis_eligibility, hedis_medications, hedis_depression_screenings, hedis_falls_risk</td></tr>
+      <tr><td><span class="tag tag-gray">Review</span></td><td>1</td><td>review_actions</td></tr>
+      <tr><td><span class="tag tag-gray">Logging</span></td><td>3</td><td>processing_logs, api_call_logs, audit_log</td></tr>
+      <tr><td><span class="tag tag-gray">Configuration</span></td><td>7</td><td>system_config, llm_prompts, icd_hcc_mappings, hedis_measures_config, hedis_measure_questions, hedis_measure_keywords, processing_profiles</td></tr>
+    </table>
+
+    <h3>Entity Relationship Overview</h3>
+    <pre><code>
+    charts (ROOT)
+    ├── processing_runs ──┬── chart_pages
+    │                     └── extraction_results
+    ├── patients ──┬── patient_phones
+    │              ├── patient_member_ids
+    │              ├── patient_providers
+    │              ├── patient_vitals
+    │              └── patient_family_history
+    ├── clinical_sentences
+    ├── diagnoses ──── diagnosis_hcc_mappings
+    ├── raf_summaries
+    ├── encounters ──┬── encounter_medications
+    │                ├── encounter_procedures
+    │                ├── encounter_lab_orders
+    │                ├── encounter_referrals
+    │                └── encounter_diagnoses
+    ├── hedis_bp_readings
+    ├── hedis_lab_results
+    ├── hedis_screenings
+    ├── hedis_eligibility
+    ├── hedis_medications
+    ├── hedis_depression_screenings
+    └── hedis_falls_risk
+
+    STANDALONE:
+    ├── review_actions (audit trail)
+    ├── processing_logs, api_call_logs, audit_log
+    └── system_config, llm_prompts, icd_hcc_mappings
+        hedis_measures_config ──┬── hedis_measure_questions
+                                └── hedis_measure_keywords
+        processing_profiles
+    </code></pre>
+
+    <h3>Core Tables</h3>
+
+    <div class="accordion">
+      <div class="accordion-header"><span class="tag tag-blue">charts</span> &mdash; Root entity for uploaded medical chart PDFs</div>
+      <div class="accordion-body">
+        <table>
+          <tr><th>Column</th><th>Type</th><th>Nullable</th><th>Default</th><th>Notes</th></tr>
+          <tr><td><code>id</code></td><td>Integer</td><td>NO</td><td>auto PK</td><td>Primary key</td></tr>
+          <tr><td><code>filename</code></td><td>String(500)</td><td>NO</td><td>&mdash;</td><td>Original PDF filename</td></tr>
+          <tr><td><code>file_path</code></td><td>String(1000)</td><td>YES</td><td>&mdash;</td><td>Full path on disk</td></tr>
+          <tr><td><code>file_size_bytes</code></td><td>BigInteger</td><td>YES</td><td>&mdash;</td><td></td></tr>
+          <tr><td><code>page_count</code></td><td>Integer</td><td>YES</td><td>&mdash;</td><td>From extraction summary</td></tr>
+          <tr><td><code>total_chars</code></td><td>Integer</td><td>YES</td><td>&mdash;</td><td>Total extracted characters</td></tr>
+          <tr><td><code>upload_source</code></td><td>String(100)</td><td>YES</td><td>&mdash;</td><td>"pipeline", "api", "batch_load"</td></tr>
+          <tr><td><code>status</code></td><td>String(50)</td><td>YES</td><td>"uploaded"</td><td>uploaded / processing / completed / failed</td></tr>
+          <tr><td><code>created_at</code></td><td>DateTime(tz)</td><td>YES</td><td>now()</td><td></td></tr>
+          <tr><td><code>updated_at</code></td><td>DateTime(tz)</td><td>YES</td><td>now()</td><td>Auto-updates on change</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header"><span class="tag tag-red">diagnoses</span> &mdash; Central to RAF scoring, ICD-10 with negation</div>
+      <div class="accordion-body">
+        <table>
+          <tr><th>Column</th><th>Type</th><th>Nullable</th><th>Index</th><th>Notes</th></tr>
+          <tr><td><code>id</code></td><td>Integer</td><td>NO</td><td>PK</td><td></td></tr>
+          <tr><td><code>chart_id</code></td><td>Integer</td><td>YES</td><td>YES</td><td>FK &rarr; charts.id</td></tr>
+          <tr><td><code>run_id</code></td><td>Integer</td><td>YES</td><td></td><td>FK &rarr; processing_runs.id</td></tr>
+          <tr><td><code>icd10_code</code></td><td>String(20)</td><td>YES</td><td>YES</td><td>e.g. "E11.9"</td></tr>
+          <tr><td><code>icd9_code</code></td><td>String(20)</td><td>YES</td><td></td><td>Legacy code</td></tr>
+          <tr><td><code>snomed_code</code></td><td>String(30)</td><td>YES</td><td></td><td></td></tr>
+          <tr><td><code>description</code></td><td>Text</td><td>YES</td><td></td><td>Diagnosis text</td></tr>
+          <tr><td><code>negation_status</code></td><td>String(30)</td><td><strong>NO</strong></td><td>YES</td><td>active / negated / resolved / historical / family_history / uncertain</td></tr>
+          <tr><td><code>negation_trigger</code></td><td>String(200)</td><td>YES</td><td></td><td>What triggered the negation</td></tr>
+          <tr><td><code>supporting_text</code></td><td>Text</td><td>YES</td><td></td><td>Source text from chart</td></tr>
+          <tr><td><code>source_section</code></td><td>String(50)</td><td>YES</td><td></td><td>Where found: assessment, problem_list, etc.</td></tr>
+          <tr><td><code>date_of_service</code></td><td>String(50)</td><td>YES</td><td></td><td></td></tr>
+          <tr><td><code>provider</code></td><td>String(300)</td><td>YES</td><td></td><td></td></tr>
+          <tr><td><code>review_status</code></td><td>String(30)</td><td>YES</td><td>YES</td><td>pending / approved / rejected</td></tr>
+          <tr><td><code>reviewed_by</code></td><td>String(200)</td><td>YES</td><td></td><td></td></tr>
+          <tr><td><code>reviewed_at</code></td><td>DateTime(tz)</td><td>YES</td><td></td><td></td></tr>
+          <tr><td><code>review_notes</code></td><td>Text</td><td>YES</td><td></td><td></td></tr>
+          <tr><td><code>created_at</code></td><td>DateTime(tz)</td><td>YES</td><td></td><td>server_default="now()"</td></tr>
+        </table>
+        <div class="alert alert-danger">
+          <span class="alert-icon">&#x26A0;</span>
+          <div><code>negation_status</code> is the ONLY non-nullable column beyond <code>id</code>. Only diagnoses with <code>negation_status = "active"</code> count toward RAF scoring.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header"><span class="tag tag-red">diagnosis_hcc_mappings</span> &mdash; HCC category + RAF weight per diagnosis</div>
+      <div class="accordion-body">
+        <table>
+          <tr><th>Column</th><th>Type</th><th>Notes</th></tr>
+          <tr><td><code>id</code></td><td>Integer PK</td><td></td></tr>
+          <tr><td><code>diagnosis_id</code></td><td>Integer FK</td><td>&rarr; diagnoses.id (CASCADE)</td></tr>
+          <tr><td><code>chart_id</code></td><td>Integer FK</td><td>&rarr; charts.id (indexed)</td></tr>
+          <tr><td><code>hcc_category</code></td><td>Integer</td><td>HCC V28 category number (indexed)</td></tr>
+          <tr><td><code>hcc_description</code></td><td>String(500)</td><td></td></tr>
+          <tr><td><code>raf_weight</code></td><td>Numeric(6,3)</td><td>e.g. 0.362</td></tr>
+          <tr><td><code>counts_for_raf</code></td><td>Boolean</td><td>Only true for active + non-duplicate</td></tr>
+          <tr><td><code>exclusion_reason</code></td><td>String(200)</td><td>Why excluded from RAF</td></tr>
+          <tr><td><code>review_status</code></td><td>String(30)</td><td>pending / approved / rejected</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header"><span class="tag tag-green">clinical_sentences</span> &mdash; NLP-extracted sentences with 22 categories</div>
+      <div class="accordion-body">
+        <table>
+          <tr><th>Column</th><th>Type</th><th>Notes</th></tr>
+          <tr><td><code>id</code></td><td>Integer PK</td><td></td></tr>
+          <tr><td><code>chart_id</code></td><td>Integer FK</td><td>&rarr; charts.id (indexed)</td></tr>
+          <tr><td><code>sentence_text</code></td><td>Text NOT NULL</td><td>Exact text from chart</td></tr>
+          <tr><td><code>category</code></td><td>String(50)</td><td>Indexed. 22+ values</td></tr>
+          <tr><td><code>is_negated</code></td><td>Boolean</td><td>Indexed. Default false</td></tr>
+          <tr><td><code>negation_trigger</code></td><td>String(200)</td><td>e.g. "Not Present", "denies"</td></tr>
+          <tr><td><code>negated_item</code></td><td>String(500)</td><td>What was negated</td></tr>
+          <tr><td><code>review_status</code></td><td>String(30)</td><td>pending / approved / rejected</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header"><span class="tag tag-yellow">encounters</span> &mdash; Per-visit records with child tables</div>
+      <div class="accordion-body">
+        <table>
+          <tr><th>Column</th><th>Type</th><th>Notes</th></tr>
+          <tr><td><code>id</code></td><td>Integer PK</td><td></td></tr>
+          <tr><td><code>chart_id</code></td><td>Integer FK</td><td>&rarr; charts.id (indexed)</td></tr>
+          <tr><td><code>encounter_date</code></td><td>String(50)</td><td></td></tr>
+          <tr><td><code>provider</code></td><td>String(300)</td><td></td></tr>
+          <tr><td><code>facility</code></td><td>String(500)</td><td></td></tr>
+          <tr><td><code>encounter_type</code></td><td>String(50)</td><td>office / telehealth / ER / inpatient / urgent_care</td></tr>
+          <tr><td><code>chief_complaint</code></td><td>Text</td><td></td></tr>
+          <tr><td><code>telehealth_platform</code></td><td>String(200)</td><td></td></tr>
+          <tr><td><code>time_spent</code></td><td>String(100)</td><td></td></tr>
+          <tr><td><code>signed_by</code></td><td>String(300)</td><td></td></tr>
+        </table>
+        <p><strong>Child Tables:</strong> encounter_medications, encounter_procedures, encounter_lab_orders, encounter_referrals, encounter_diagnoses &mdash; all cascade delete on parent.</p>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header"><span class="tag tag-purple">HEDIS Tables (7)</span> &mdash; Quality measure evidence storage</div>
+      <div class="accordion-body">
+        <table>
+          <tr><th>Table</th><th>Key Columns</th><th>HEDIS Measure</th></tr>
+          <tr><td><code>hedis_bp_readings</code></td><td>reading_date, systolic, diastolic, within_target</td><td>CBP</td></tr>
+          <tr><td><code>hedis_lab_results</code></td><td>test_name, result_value, result_date, hedis_measure</td><td>GSD, etc.</td></tr>
+          <tr><td><code>hedis_screenings</code></td><td>screening_type, date, result, hedis_measure</td><td>BCS, COL, CCS, OMW</td></tr>
+          <tr><td><code>hedis_eligibility</code></td><td>condition, is_present, evidence</td><td>All</td></tr>
+          <tr><td><code>hedis_medications</code></td><td>medication, indication, hedis_relevance</td><td>CBP, GSD</td></tr>
+          <tr><td><code>hedis_depression_screenings</code></td><td>phq2_score, phq9_score, positive_screen, follow_up_plan</td><td>DSF</td></tr>
+          <tr><td><code>hedis_falls_risk</code></td><td>assessed, risk_level, interventions</td><td>&mdash;</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-header"><span class="tag tag-gray">Configuration Tables (7)</span> &mdash; System settings, prompts, mappings</div>
+      <div class="accordion-body">
+        <table>
+          <tr><th>Table</th><th>Purpose</th><th>Key Columns</th></tr>
+          <tr><td><code>system_config</code></td><td>Key-value system settings</td><td>config_key (UNIQUE), config_value (JSONB)</td></tr>
+          <tr><td><code>llm_prompts</code></td><td>Versioned LLM system prompts</td><td>pipeline_name, version, system_prompt, is_active</td></tr>
+          <tr><td><code>icd_hcc_mappings</code></td><td>ICD-10 &rarr; HCC reference data</td><td>icd10_code (indexed), hcc_category, raf_weight, model_year</td></tr>
+          <tr><td><code>hedis_measures_config</code></td><td>HEDIS measure definitions</td><td>measure_code (UNIQUE), target_value, age_range, gender</td></tr>
+          <tr><td><code>hedis_measure_questions</code></td><td>Questions per HEDIS measure</td><td>measure_id FK, question, answer_type</td></tr>
+          <tr><td><code>hedis_measure_keywords</code></td><td>Keywords for HEDIS text matching</td><td>measure_id FK, keyword, keyword_type</td></tr>
+          <tr><td><code>processing_profiles</code></td><td>Named pipeline configurations</td><td>run_demographics, run_sentences, run_risk, etc.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <h3>Index Summary</h3>
+    <table>
+      <tr><th>Table</th><th>Indexed Columns</th></tr>
+      <tr><td>processing_runs</td><td>chart_id</td></tr>
+      <tr><td>chart_pages</td><td>chart_id</td></tr>
+      <tr><td>extraction_results</td><td>run_id</td></tr>
+      <tr><td>patients</td><td>chart_id</td></tr>
+      <tr><td>clinical_sentences</td><td>chart_id, category, is_negated</td></tr>
+      <tr><td>diagnoses</td><td>chart_id, icd10_code, negation_status, review_status</td></tr>
+      <tr><td>diagnosis_hcc_mappings</td><td>chart_id, hcc_category</td></tr>
+      <tr><td>encounters</td><td>chart_id</td></tr>
+      <tr><td>icd_hcc_mappings</td><td>icd10_code</td></tr>
+      <tr><td>review_actions</td><td>chart_id</td></tr>
+      <tr><td>processing_logs</td><td>run_id</td></tr>
+      <tr><td>api_call_logs</td><td>run_id</td></tr>
+      <tr><td>audit_log</td><td>action</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: PERSISTENCE ======================= -->
+<div class="tab-content" id="tab-persistence">
+  <div class="card">
+    <h2>Persistence Logic</h2>
+    <p class="card-desc">How JSON extraction results are mapped to database tables via <code>services/persistence.py</code>.</p>
+
+    <h3>PersistenceService Flow</h3>
+    <p>The <code>persist_chart_results(results_dir, chart, run)</code> method reads all 7 JSON files and populates the database in order:</p>
+
+    <table>
+      <tr><th>#</th><th>JSON File</th><th>Method</th><th>Tables Created</th></tr>
+      <tr><td>1</td><td><code>1_patient_demographics.json</code></td><td><code>_persist_demographics()</code></td><td>Patient, PatientPhone, PatientMemberId, PatientProvider, PatientVital, PatientFamilyHistory</td></tr>
+      <tr><td>2</td><td><code>2_clean_sentences.json</code></td><td><code>_persist_sentences()</code></td><td>ClinicalSentence</td></tr>
+      <tr><td>3</td><td><code>3_risk_adjustment.json</code></td><td><code>_persist_diagnoses()</code></td><td>Diagnosis</td></tr>
+      <tr><td>4</td><td><code>4_hedis_evidence.json</code></td><td><code>_persist_hedis()</code></td><td>HedisBPReading, HedisLabResult, HedisScreening, HedisEligibility, HedisMedication, HedisDepressionScreening, HedisFallsRisk</td></tr>
+      <tr><td>5</td><td><code>5_encounters.json</code></td><td><code>_persist_encounters()</code></td><td>Encounter, EncounterMedication, EncounterProcedure, EncounterLabOrder, EncounterReferral, EncounterDiagnosis</td></tr>
+      <tr><td>6</td><td><code>6_risk_adjustment_hcc.json</code></td><td><code>_persist_hcc_mappings()</code></td><td>DiagnosisHCCMapping, RAFSummary</td></tr>
+      <tr><td>7</td><td><code>7_extraction_summary.json</code></td><td><code>_update_run_from_summary()</code></td><td>Updates ProcessingRun + Chart status</td></tr>
+    </table>
+
+    <h3>Key Persistence Details</h3>
+
+    <div class="alert alert-info">
+      <span class="alert-icon">&#x2139;</span>
+      <div><strong>Single Transaction:</strong> All 7 files are persisted in one database transaction. A single <code>commit()</code> at the end ensures atomicity.</div>
+    </div>
+
+    <div class="alert alert-warning">
+      <span class="alert-icon">&#x26A0;</span>
+      <div><strong>HCC Mapping Lookup:</strong> The most complex operation. Queries all Diagnosis rows for this chart/run, builds a lookup by <code>(icd10_code, description.upper())</code>, then matches each HCC mapping to its parent Diagnosis to set the foreign key.</div>
+    </div>
+
+    <div class="alert alert-success">
+      <span class="alert-icon">&#x2705;</span>
+      <div><strong>Non-Fatal:</strong> Database persistence failures log warnings but never crash the pipeline. JSON files are always the primary output.</div>
+    </div>
+
+    <h3>Data Transformation Examples</h3>
+    <table>
+      <tr><th>JSON Structure</th><th>Database Mapping</th></tr>
+      <tr><td><code>address.street</code> (nested object)</td><td>Flattened to <code>patients.address_street</code></td></tr>
+      <tr><td><code>social_history.smoking_status</code></td><td>Flattened to <code>patients.social_smoking</code></td></tr>
+      <tr><td><code>mental_health.phq9_score</code></td><td>Flattened to <code>patients.mental_phq9</code></td></tr>
+      <tr><td><code>telehealth_details.platform</code></td><td>Flattened to <code>encounters.telehealth_platform</code></td></tr>
+      <tr><td><code>depression_screening</code> (single object)</td><td>Single <code>HedisDepressionScreening</code> row</td></tr>
+      <tr><td><code>falls_risk</code> (single object)</td><td>Single <code>HedisFallsRisk</code> row</td></tr>
+      <tr><td>RAF weights (float)</td><td>Stored as <code>Decimal(str(raf))</code> for precision</td></tr>
+    </table>
+
+    <h3>Entry Points for Persistence</h3>
+    <table>
+      <tr><th>Entry Point</th><th>upload_source</th><th>How It Works</th></tr>
+      <tr><td><code>orchestrator.py</code> (pipeline)</td><td>"pipeline"</td><td>Auto-persists after extraction. Creates Chart + ProcessingRun. Non-fatal.</td></tr>
+      <tr><td><code>load_results.py</code> (batch)</td><td>"batch_load"</td><td>Scans results/ dir. Skips duplicates. Commits per chart.</td></tr>
+      <tr><td><code>POST /charts/{id}/persist-results</code></td><td>(existing chart)</td><td>API-triggered. Requires existing Chart + results_dir path.</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: HCC ======================= -->
+<div class="tab-content" id="tab-hcc">
+  <div class="card">
+    <h2>HCC / RAF Scoring</h2>
+    <p class="card-desc">Hierarchical Condition Category (HCC) mapping and Risk Adjustment Factor (RAF) score calculation. This is the core financial output of the platform.</p>
+
+    <h3>What is HCC/RAF?</h3>
+    <div class="alert alert-info">
+      <span class="alert-icon">&#x2139;</span>
+      <div>
+        <strong>HCC (Hierarchical Condition Categories)</strong> groups ICD-10 diagnosis codes into ~130 condition categories used by CMS (Medicare) to predict healthcare costs.<br>
+        <strong>RAF (Risk Adjustment Factor)</strong> is a numeric score derived from HCC categories. Higher RAF = higher predicted cost = higher capitation payment from CMS. Each HCC category has a fixed RAF weight (e.g., HCC 85 Heart Failure = 0.368).
+      </div>
+    </div>
+
+    <h3>How MedInsights Calculates RAF</h3>
+    <div class="pipeline-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Extract Diagnoses (Prompt 3)</h4>
+        <p>LLM extracts all ICD-10 codes from the chart with negation status (active/negated/resolved/historical/family_history/uncertain).</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Filter: Only Active Diagnoses</h4>
+        <p>Non-active diagnoses get <code>hcc_category=null</code>, <code>raf_weight=0.0</code>, <code>counts_for_raf=false</code>.</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Map ICD-10 &rarr; HCC Category</h4>
+        <p>Look up each active ICD-10 code in the <code>ICD10_TO_HCC</code> mapping table (20 codes). If not found: "No HCC mapping". If in <code>NON_HCC_CODES</code>: "Non-HCC code".</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Deduplicate HCC Categories</h4>
+        <p>If the same HCC category appears from multiple ICD-10 codes, only the <strong>first</strong> one contributes to RAF. Duplicates get <code>counts_for_raf=false</code>, reason="Duplicate HCC".</p>
+      </div>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Sum RAF Score</h4>
+        <p>Total RAF = sum of unique HCC category RAF weights, rounded to 3 decimal places.</p>
+      </div>
+    </div>
+
+    <h3>ICD-10 to HCC V28 Mapping Table</h3>
+    <table>
+      <tr><th>ICD-10</th><th>Description</th><th>HCC Cat</th><th>RAF Weight</th></tr>
+      <tr><td><code>G20</code></td><td>Parkinson's disease</td><td>73</td><td><strong>0.606</strong></td></tr>
+      <tr><td><code>I50.9</code></td><td>Heart failure, unspecified</td><td>85</td><td>0.368</td></tr>
+      <tr><td><code>I50.22</code></td><td>Chronic systolic heart failure</td><td>85</td><td>0.368</td></tr>
+      <tr><td><code>D50.9</code></td><td>Iron deficiency anemia</td><td>49</td><td>0.362</td></tr>
+      <tr><td><code>D64.9</code></td><td>Anemia, unspecified</td><td>49</td><td>0.362</td></tr>
+      <tr><td><code>J44.1</code></td><td>COPD with acute exacerbation</td><td>111</td><td>0.335</td></tr>
+      <tr><td><code>F13.20</code></td><td>Sedative/hypnotic dependence</td><td>135</td><td>0.329</td></tr>
+      <tr><td><code>F32.1</code></td><td>Major depressive disorder, moderate</td><td>155</td><td>0.309</td></tr>
+      <tr><td><code>F33.1</code></td><td>MDD, recurrent moderate</td><td>155</td><td>0.309</td></tr>
+      <tr><td><code>E11.65</code></td><td>Type 2 DM with hyperglycemia</td><td>18</td><td>0.302</td></tr>
+      <tr><td><code>E11.22</code></td><td>Type 2 DM with diabetic CKD</td><td>18</td><td>0.302</td></tr>
+      <tr><td><code>E11.40</code></td><td>Type 2 DM with neuropathy</td><td>18</td><td>0.302</td></tr>
+      <tr><td><code>E11.51</code></td><td>Type 2 DM with peripheral angiopathy</td><td>18</td><td>0.302</td></tr>
+      <tr><td><code>C50.919</code></td><td>Malignant neoplasm of breast</td><td>12</td><td>0.293</td></tr>
+      <tr><td><code>I83.93</code></td><td>Varicose veins, bilateral</td><td>107</td><td>0.288</td></tr>
+      <tr><td><code>G30.9</code></td><td>Alzheimer's disease</td><td>51</td><td>0.259</td></tr>
+      <tr><td><code>N18.4</code></td><td>CKD stage 4</td><td>137</td><td>0.237</td></tr>
+      <tr><td><code>D69.2</code></td><td>Nonthrombocytopenic purpura</td><td>48</td><td>0.192</td></tr>
+      <tr><td><code>G62.9</code></td><td>Polyneuropathy</td><td>75</td><td>0.152</td></tr>
+      <tr><td><code>E11.9</code></td><td>Type 2 DM without complications</td><td>19</td><td>0.105</td></tr>
+      <tr><td><code>N18.3</code></td><td>CKD stage 3</td><td>138</td><td>0.069</td></tr>
+    </table>
+
+    <h3>Non-HCC Codes (12 codes excluded from RAF)</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
+      <span class="tag tag-gray">I10 - Hypertension</span>
+      <span class="tag tag-gray">F41.9 - Anxiety</span>
+      <span class="tag tag-gray">K92.1</span>
+      <span class="tag tag-gray">Z80.3</span>
+      <span class="tag tag-gray">H91.13</span>
+      <span class="tag tag-gray">S62.92XS</span>
+      <span class="tag tag-gray">Z91.81</span>
+      <span class="tag tag-gray">E78.5</span>
+      <span class="tag tag-gray">M54.5</span>
+      <span class="tag tag-gray">J06.9</span>
+      <span class="tag tag-gray">R10.9</span>
+      <span class="tag tag-gray">Z23</span>
+    </div>
+
+    <h3>Exclusion Reasons in HCC Output</h3>
+    <table>
+      <tr><th>Reason</th><th>When Applied</th><th>Example</th></tr>
+      <tr><td><span class="tag tag-green">"Active - counts for RAF"</span></td><td>Active diagnosis with valid HCC mapping, first occurrence</td><td>D50.9 &rarr; HCC 49 (0.362)</td></tr>
+      <tr><td><span class="tag tag-yellow">"Duplicate HCC"</span></td><td>Same HCC category already counted from another code</td><td>D64.9 &rarr; HCC 49 (already counted from D50.9)</td></tr>
+      <tr><td><span class="tag tag-red">"Excluded: negated"</span></td><td>Diagnosis explicitly denied</td><td>"No anemia" &rarr; negated</td></tr>
+      <tr><td><span class="tag tag-red">"Excluded: resolved"</span></td><td>Condition no longer active</td><td>"Anemia resolved" &rarr; resolved</td></tr>
+      <tr><td><span class="tag tag-gray">"No HCC mapping"</span></td><td>ICD-10 code not in mapping table</td><td>E03.9 (hypothyroidism)</td></tr>
+      <tr><td><span class="tag tag-gray">"Non-HCC code"</span></td><td>ICD-10 code explicitly excluded</td><td>I10 (hypertension)</td></tr>
+    </table>
+
+    <h3>Real Example &mdash; Chart with RAF 1.323</h3>
+    <table>
+      <tr><th>ICD-10</th><th>Condition</th><th>Status</th><th>HCC</th><th>RAF</th><th>Counts?</th></tr>
+      <tr><td>D69.2</td><td>Nonthrombocytopenic purpura</td><td>active</td><td>48</td><td>0.192</td><td>YES</td></tr>
+      <tr><td>D50.9</td><td>Iron deficiency anemia</td><td>active</td><td>49</td><td>0.362</td><td>YES</td></tr>
+      <tr><td>D64.9</td><td>Anemia (duplicate)</td><td>active</td><td>49</td><td>0.362</td><td>NO (dup)</td></tr>
+      <tr><td>G62.9</td><td>Polyneuropathy</td><td>active</td><td>75</td><td>0.152</td><td>YES</td></tr>
+      <tr><td>I83.93</td><td>Varicose veins bilateral</td><td>active</td><td>107</td><td>0.288</td><td>YES</td></tr>
+      <tr><td>F13.20</td><td>Benzodiazepine dependence</td><td>active</td><td>135</td><td>0.329</td><td>YES</td></tr>
+      <tr><td>D64.9</td><td>Anemia</td><td>resolved</td><td>&mdash;</td><td>0.0</td><td>NO (resolved)</td></tr>
+      <tr><td>F41.9</td><td>Anxiety</td><td>active</td><td>&mdash;</td><td>0.0</td><td>NO (Non-HCC)</td></tr>
+      <tr style="font-weight:700;background:#e6f4ea;">
+        <td colspan="3">TOTAL</td><td>5 unique</td><td>1.323</td><td></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: HEDIS ======================= -->
+<div class="tab-content" id="tab-hedis">
+  <div class="card">
+    <h2>HEDIS Quality Measures</h2>
+    <p class="card-desc">Healthcare Effectiveness Data and Information Set (HEDIS) measures track quality of care. MedInsights extracts evidence for 7 HEDIS measures from medical charts.</p>
+
+    <h3>Supported HEDIS Measures</h3>
+    <table>
+      <tr><th>Code</th><th>Measure Name</th><th>What It Tracks</th><th>Target</th><th>Data Extracted</th></tr>
+      <tr>
+        <td><span class="tag tag-blue">CBP</span></td>
+        <td>Controlling Blood Pressure</td>
+        <td>BP control for hypertensive patients</td>
+        <td>Systolic &lt;140, Diastolic &lt;90</td>
+        <td>BP readings (date, values, location, within_target)</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-green">COL</span></td>
+        <td>Colorectal Cancer Screening</td>
+        <td>Age-appropriate cancer screening completion</td>
+        <td>Colonoscopy/10yr, FIT/annual, FIT-DNA/3yr</td>
+        <td>Screening dates, types, results</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-purple">BCS</span></td>
+        <td>Breast Cancer Screening</td>
+        <td>Mammogram completion</td>
+        <td>Mammogram within window</td>
+        <td>Mammogram dates, results</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-yellow">GSD</span></td>
+        <td>Glycemic Status Assessment</td>
+        <td>HbA1c control for diabetic patients</td>
+        <td>A1C &lt;9.0%</td>
+        <td>HbA1c results, dates, within_target</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">CCS</span></td>
+        <td>Cervical Cancer Screening</td>
+        <td>Pap smear / HPV testing</td>
+        <td>Within screening window</td>
+        <td>Pap smear, HPV test dates/results</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-gray">OMW</span></td>
+        <td>Osteoporosis Management</td>
+        <td>DEXA/bone density screening</td>
+        <td>DEXA/DXA within window</td>
+        <td>Screening dates, results</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-blue">DSF</span></td>
+        <td>Depression Screening &amp; Follow-Up</td>
+        <td>PHQ-2/PHQ-9 screening completion</td>
+        <td>Screen + follow-up if positive</td>
+        <td>PHQ scores, dates, follow-up plans</td>
+      </tr>
+    </table>
+
+    <h3>HEDIS Evidence Categories Extracted</h3>
+    <table>
+      <tr><th>Category</th><th>Description</th><th>Stored In</th></tr>
+      <tr><td>Blood Pressure Readings</td><td>All BP measurements with dates, values, location (office/home/ER), target compliance</td><td><code>hedis_bp_readings</code></td></tr>
+      <tr><td>Lab Results</td><td>Relevant lab results (A1C, lipids) with values, dates, reference ranges, target compliance</td><td><code>hedis_lab_results</code></td></tr>
+      <tr><td>Screenings</td><td>Cancer screenings, bone density scans with dates, results, status</td><td><code>hedis_screenings</code></td></tr>
+      <tr><td>Eligibility Conditions</td><td>Whether patient has conditions making them eligible for measures (e.g., diabetes &rarr; GSD applies)</td><td><code>hedis_eligibility</code></td></tr>
+      <tr><td>Medications for Measures</td><td>Medications relevant to HEDIS compliance (antihypertensives, diabetes meds)</td><td><code>hedis_medications</code></td></tr>
+      <tr><td>Depression Screening</td><td>PHQ-2/PHQ-9 scores, dates, positive screen flag, follow-up plan</td><td><code>hedis_depression_screenings</code></td></tr>
+      <tr><td>Falls Risk Assessment</td><td>Whether assessed, risk level, interventions planned</td><td><code>hedis_falls_risk</code></td></tr>
+    </table>
+
+    <div class="alert alert-warning">
+      <span class="alert-icon">&#x26A0;</span>
+      <div><strong>Negation affects HEDIS eligibility:</strong> If a patient's chart says "no DM" (diabetes negated), then GSD (Glycemic Status) measure does NOT apply to that patient. The prompt explicitly instructs the LLM to capture negated conditions for eligibility assessment.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= TAB: NEGATION ======================= -->
+<div class="tab-content" id="tab-negation">
+  <div class="card">
+    <h2>Negation Detection</h2>
+    <p class="card-desc">Negation detection is mission-critical in MedInsights. Incorrect negation classification directly impacts RAF scoring (financial) and HEDIS eligibility (quality ratings).</p>
+
+    <h3>Two-Level Negation System</h3>
+    <table>
+      <tr><th>Level</th><th>Where</th><th>Field</th><th>Values</th><th>Purpose</th></tr>
+      <tr>
+        <td><strong>Sentence Level</strong></td>
+        <td>Prompt 2 (Clean Sentences)</td>
+        <td><code>is_negated</code> (boolean)</td>
+        <td>true / false</td>
+        <td>Quick flag for clinical review</td>
+      </tr>
+      <tr>
+        <td><strong>Diagnosis Level</strong></td>
+        <td>Prompt 3 (Risk Adjustment)</td>
+        <td><code>negation_status</code> (string)</td>
+        <td>active / negated / resolved / historical / family_history / uncertain</td>
+        <td>Determines RAF eligibility</td>
+      </tr>
+    </table>
+
+    <h3>Negation Detection Patterns</h3>
+    <table>
+      <tr><th>Pattern Type</th><th>Trigger Words</th><th>Example</th><th>Result</th></tr>
+      <tr><td>Direct Negation</td><td>no, not, none, never, without, absent, deny</td><td>"No chest pain"</td><td><code>is_negated: true</code></td></tr>
+      <tr><td>Patient Denial</td><td>denies, denied, does not report/endorse</td><td>"Patient denies SOB"</td><td><code>is_negated: true</code></td></tr>
+      <tr><td>Test Negative</td><td>negative, non-reactive, unremarkable, WNL</td><td>"Chest X-ray unremarkable"</td><td><code>is_negated: true</code></td></tr>
+      <tr><td>Exclusion</td><td>ruled out, r/o, no evidence of, no signs of</td><td>"PE ruled out"</td><td><code>is_negated: true</code></td></tr>
+      <tr><td>Resolution</td><td>resolved, improved, cleared, remission</td><td>"UTI resolved"</td><td><code>is_negated: true</code></td></tr>
+    </table>
+
+    <h3>Critical Edge Cases</h3>
+    <table>
+      <tr><th>Chart Text</th><th>Correct Classification</th><th>Why</th></tr>
+      <tr><td>"Depression on remission with medication"</td><td><span class="tag tag-green">active</span></td><td>Still being managed/monitored with medication</td></tr>
+      <tr><td>"Diabetes well controlled"</td><td><span class="tag tag-green">active</span></td><td>"Well controlled" doesn't mean resolved</td></tr>
+      <tr><td>"DM well controlled on metformin"</td><td><span class="tag tag-green">active</span></td><td>Active treatment = active condition</td></tr>
+      <tr><td>"No anemia because she takes iron"</td><td><span class="tag tag-yellow">resolved</span></td><td>Condition managed to resolution</td></tr>
+      <tr><td>"Resolved UTI"</td><td><span class="tag tag-yellow">resolved</span></td><td>Explicitly stated as resolved</td></tr>
+      <tr><td>"Family history of breast cancer"</td><td><span class="tag tag-purple">family_history</span></td><td>Not patient's condition; Z-codes only</td></tr>
+      <tr><td>"Possible hypothyroidism"</td><td><span class="tag tag-gray">uncertain</span></td><td>Not confirmed diagnosis</td></tr>
+      <tr><td>"NEGATIVE DEPRESSION SCREEN"</td><td><span class="tag tag-red">negated</span></td><td>Screen was negative = no condition found</td></tr>
+    </table>
+
+    <div class="alert alert-danger">
+      <span class="alert-icon">&#x1F4B0;</span>
+      <div><strong>Financial Impact:</strong> Each missed active HCC diagnosis can cost $500-$5,000+ in lost RAF revenue per member per year. Each incorrectly-active diagnosis can lead to audit penalties. Negation accuracy is directly tied to revenue integrity.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= TAB: API ======================= -->
+<div class="tab-content" id="tab-api">
+  <div class="card">
+    <h2>REST API Endpoints</h2>
+    <p class="card-desc">22 endpoints served by FastAPI at <code>http://localhost:8000</code>. Swagger docs at <code>/docs</code>. All data endpoints are prefixed with <code>/api/</code>.</p>
+
+    <h3>Endpoint Summary</h3>
+    <table>
+      <tr><th>Method</th><th>Path</th><th>Description</th><th>Response</th></tr>
+      <tr><td colspan="4" style="background:#f1f3f4;font-weight:600;">Health (2 endpoints)</td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/health</code></td><td>Service liveness check</td><td><code>{"status":"ok"}</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/health/db</code></td><td>Database connectivity check</td><td><code>{"status":"ok","database":"connected"}</code></td></tr>
+
+      <tr><td colspan="4" style="background:#f1f3f4;font-weight:600;">Charts (6 endpoints)</td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/charts/</code></td><td>List all charts (paginated)</td><td><code>list[ChartResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/charts/{id}</code></td><td>Get chart detail with counts</td><td><code>ChartDetailResponse</code></td></tr>
+      <tr><td><span class="tag tag-blue">POST</span></td><td><code>/api/charts/upload</code></td><td>Upload PDF chart file</td><td><code>ChartResponse</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/charts/{id}/runs</code></td><td>List processing runs for chart</td><td><code>list[ProcessingRunResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/charts/{id}/runs/{run_id}/extractions</code></td><td>Get raw extraction results</td><td><code>list[ExtractionResultResponse]</code></td></tr>
+      <tr><td><span class="tag tag-blue">POST</span></td><td><code>/api/charts/{id}/persist-results</code></td><td>Persist JSON results to DB</td><td><code>{"message","counts"}</code></td></tr>
+
+      <tr><td colspan="4" style="background:#f1f3f4;font-weight:600;">Patients (3 endpoints)</td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/patients/</code></td><td>List patients (filterable by chart)</td><td><code>list[PatientResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/patients/{id}</code></td><td>Get patient with all relations</td><td><code>PatientDetailResponse</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/patients/by-chart/{chart_id}</code></td><td>Get patients for a chart</td><td><code>list[PatientDetailResponse]</code></td></tr>
+
+      <tr><td colspan="4" style="background:#f1f3f4;font-weight:600;">Clinical (5 endpoints)</td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/clinical/sentences</code></td><td>List sentences (filter: chart, category, negated)</td><td><code>list[ClinicalSentenceResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/clinical/diagnoses</code></td><td>List diagnoses with HCC mappings</td><td><code>list[DiagnosisResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/clinical/diagnoses/{id}</code></td><td>Get single diagnosis detail</td><td><code>DiagnosisResponse</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/clinical/raf-summary</code></td><td>List RAF summaries</td><td><code>list[RAFSummaryResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/clinical/raf-summary/{chart_id}</code></td><td>Get RAF summary for chart</td><td><code>RAFSummaryResponse</code></td></tr>
+
+      <tr><td colspan="4" style="background:#f1f3f4;font-weight:600;">Encounters (3 endpoints)</td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/encounters/</code></td><td>List encounters</td><td><code>list[EncounterResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/encounters/{id}</code></td><td>Get encounter with all relations</td><td><code>EncounterDetailResponse</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/encounters/by-chart/{chart_id}</code></td><td>Get encounters for a chart</td><td><code>list[EncounterDetailResponse]</code></td></tr>
+
+      <tr><td colspan="4" style="background:#f1f3f4;font-weight:600;">HEDIS (7 endpoints)</td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/hedis/bp-readings</code></td><td>List BP readings</td><td><code>list[HedisBPReadingResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/hedis/lab-results</code></td><td>List HEDIS lab results</td><td><code>list[HedisLabResultResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/hedis/screenings</code></td><td>List HEDIS screenings</td><td><code>list[HedisScreeningResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/hedis/eligibility</code></td><td>List HEDIS eligibility conditions</td><td><code>list[HedisEligibilityResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/hedis/depression-screenings</code></td><td>List depression screenings</td><td><code>list[HedisDepressionScreeningResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/hedis/falls-risk</code></td><td>List falls risk assessments</td><td><code>list[HedisFallsRiskResponse]</code></td></tr>
+      <tr><td><span class="tag tag-green">GET</span></td><td><code>/api/hedis/summary/{chart_id}</code></td><td>Full HEDIS summary for chart</td><td><code>HedisSummaryResponse</code></td></tr>
+    </table>
+
+    <h3>API Patterns</h3>
+    <table>
+      <tr><th>Pattern</th><th>Details</th></tr>
+      <tr><td><strong>Pagination</strong></td><td><code>skip</code> &amp; <code>limit</code> query params. Defaults: charts=50, clinical=200, encounters=100</td></tr>
+      <tr><td><strong>Chart-centric filtering</strong></td><td>Nearly every list endpoint accepts optional <code>chart_id</code> query param</td></tr>
+      <tr><td><strong>Two-tier responses</strong></td><td>List endpoints return flat models; detail endpoints return models with nested relations</td></tr>
+      <tr><td><strong>Eager loading</strong></td><td>Detail endpoints use <code>joinedload()</code> to prevent N+1 queries</td></tr>
+      <tr><td><strong>Read-heavy</strong></td><td>20 GET + 2 POST endpoints. No PUT, PATCH, or DELETE.</td></tr>
+      <tr><td><strong>CORS</strong></td><td>All origins allowed (<code>*</code>)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: SCHEMAS ======================= -->
+<div class="tab-content" id="tab-schemas">
+  <div class="card">
+    <h2>Pydantic Response Schemas</h2>
+    <p class="card-desc">24 Pydantic v2 models across 5 schema files. All use <code>model_config = {"from_attributes": True}</code> for ORM compatibility.</p>
+
+    <h3>Schema Hierarchy</h3>
+    <pre><code>
+schemas/
+├── chart.py (5 models)
+│   ├── ChartCreate
+│   ├── ChartResponse
+│   ├── ProcessingRunResponse
+│   ├── ExtractionResultResponse
+│   └── ChartDetailResponse (extends ChartResponse)
+│
+├── patient.py (7 models)
+│   ├── PatientPhoneResponse
+│   ├── PatientMemberIdResponse
+│   ├── PatientProviderResponse
+│   ├── PatientVitalResponse
+│   ├── PatientFamilyHistoryResponse
+│   ├── PatientResponse
+│   └── PatientDetailResponse (extends PatientResponse, includes nested lists)
+│
+├── clinical.py (4 models)
+│   ├── ClinicalSentenceResponse
+│   ├── DiagnosisHCCMappingResponse
+│   ├── DiagnosisResponse (includes hcc_mappings list)
+│   └── RAFSummaryResponse
+│
+├── encounter.py (7 models)
+│   ├── EncounterMedicationResponse
+│   ├── EncounterProcedureResponse
+│   ├── EncounterLabOrderResponse
+│   ├── EncounterReferralResponse
+│   ├── EncounterDiagnosisResponse
+│   ├── EncounterResponse
+│   └── EncounterDetailResponse (extends EncounterResponse)
+│
+└── hedis.py (7 models)
+    ├── HedisBPReadingResponse
+    ├── HedisLabResultResponse
+    ├── HedisScreeningResponse
+    ├── HedisDepressionScreeningResponse
+    ├── HedisFallsRiskResponse
+    ├── HedisEligibilityResponse
+    └── HedisSummaryResponse (aggregates all HEDIS data)
+    </code></pre>
+
+    <h3>Key Schema: DiagnosisResponse (Most Complex)</h3>
+    <pre><code><span class="kw">class</span> <span class="type">DiagnosisResponse</span>(BaseModel):
+    model_config = {<span class="str">"from_attributes"</span>: <span class="kw">True</span>}
+
+    id: <span class="type">int</span>
+    chart_id: <span class="type">int</span>
+    icd10_code: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    icd9_code: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    snomed_code: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    description: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    negation_status: <span class="type">str</span>                    <span class="cmt"># REQUIRED - only non-nullable</span>
+    negation_trigger: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    supporting_text: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    source_section: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    date_of_service: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    provider: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="kw">None</span>
+    review_status: <span class="type">Optional</span>[<span class="type">str</span>] = <span class="str">"pending"</span>
+    created_at: <span class="type">Optional</span>[<span class="type">datetime</span>] = <span class="kw">None</span>
+    hcc_mappings: <span class="type">list</span>[<span class="type">DiagnosisHCCMappingResponse</span>] = []  <span class="cmt"># Nested</span></code></pre>
+  </div>
+</div>
+
+<!-- ======================= TAB: FILES ======================= -->
+<div class="tab-content" id="tab-files">
+  <div class="card">
+    <h2>File Inventory</h2>
+    <p class="card-desc">Complete inventory of every file in the MedInsights platform with line counts and purposes.</p>
+
+    <table>
+      <tr><th>File</th><th>Lines</th><th>Purpose</th></tr>
+      <tr><td colspan="3" style="background:#e8f0fe;font-weight:600;">Root</td></tr>
+      <tr><td><code>app.py</code></td><td>~38</td><td>FastAPI entry point, CORS config, router registration</td></tr>
+      <tr><td><code>requirements.txt</code></td><td>~19</td><td>Python dependencies</td></tr>
+      <tr><td><code>load_results.py</code></td><td>~118</td><td>Batch loader: scan results/ &rarr; DB</td></tr>
+      <tr><td><code>alembic.ini</code></td><td>&mdash;</td><td>Alembic configuration</td></tr>
+      <tr><td><code>CLAUDE.md</code></td><td>&mdash;</td><td>AI assistant context document</td></tr>
+
+      <tr><td colspan="3" style="background:#e8f0fe;font-weight:600;">config/</td></tr>
+      <tr><td><code>config/settings.py</code></td><td>~117</td><td>All constants: models, HCC mappings, HEDIS defs, output files</td></tr>
+
+      <tr><td colspan="3" style="background:#e8f0fe;font-weight:600;">pipeline/</td></tr>
+      <tr><td><code>pipeline/orchestrator.py</code></td><td>~755</td><td>CLI entry point, batch mode, HCC post-processing, DB persist</td></tr>
+      <tr><td><code>pipeline/smart_pdf.py</code></td><td>~289</td><td>Quality scoring, vision fallback, PDF extraction</td></tr>
+      <tr><td><code>pipeline/openai_extractor.py</code></td><td>~263</td><td>Parallel chunked extraction, JSON parsing, deep merge</td></tr>
+
+      <tr><td colspan="3" style="background:#e8f0fe;font-weight:600;">prompts/</td></tr>
+      <tr><td><code>prompts/prompt_1_patient_demographics.py</code></td><td>~140</td><td>Demographics extraction prompt + LangExtract examples</td></tr>
+      <tr><td><code>prompts/prompt_2_clean_sentences.py</code></td><td>~164</td><td>Clinical sentence extraction + negation detection</td></tr>
+      <tr><td><code>prompts/prompt_3_risk_adjustment.py</code></td><td>~150</td><td>ICD-10 diagnosis extraction + negation status</td></tr>
+      <tr><td><code>prompts/prompt_4_hedis_evidence.py</code></td><td>~160</td><td>HEDIS measure evidence extraction</td></tr>
+      <tr><td><code>prompts/prompt_5_encounters.py</code></td><td>~145</td><td>Encounter/visit data extraction</td></tr>
+
+      <tr><td colspan="3" style="background:#e8f0fe;font-weight:600;">database/</td></tr>
+      <tr><td><code>database/engine.py</code></td><td>~21</td><td>SQLAlchemy engine, SessionLocal, get_db()</td></tr>
+      <tr><td><code>database/base.py</code></td><td>~20</td><td>Base class, TimestampMixin</td></tr>
+      <tr><td><code>database/models/chart.py</code></td><td>&mdash;</td><td>4 tables: charts, processing_runs, chart_pages, extraction_results</td></tr>
+      <tr><td><code>database/models/patient.py</code></td><td>&mdash;</td><td>6 tables: patients + 5 child tables</td></tr>
+      <tr><td><code>database/models/clinical.py</code></td><td>&mdash;</td><td>4 tables: sentences, diagnoses, hcc_mappings, raf_summaries</td></tr>
+      <tr><td><code>database/models/encounter.py</code></td><td>&mdash;</td><td>6 tables: encounters + 5 child tables</td></tr>
+      <tr><td><code>database/models/hedis.py</code></td><td>&mdash;</td><td>7 tables: HEDIS evidence tables</td></tr>
+      <tr><td><code>database/models/review.py</code></td><td>&mdash;</td><td>1 table: review_actions</td></tr>
+      <tr><td><code>database/models/log.py</code></td><td>&mdash;</td><td>3 tables: processing_logs, api_call_logs, audit_log</td></tr>
+      <tr><td><code>database/models/config.py</code></td><td>&mdash;</td><td>7 tables: system config, prompts, HCC mappings, HEDIS config, profiles</td></tr>
+
+      <tr><td colspan="3" style="background:#e8f0fe;font-weight:600;">api/routes/</td></tr>
+      <tr><td><code>api/routes/health.py</code></td><td>&mdash;</td><td>2 endpoints: /health, /health/db</td></tr>
+      <tr><td><code>api/routes/charts.py</code></td><td>&mdash;</td><td>6 endpoints: CRUD + upload + persist</td></tr>
+      <tr><td><code>api/routes/patients.py</code></td><td>&mdash;</td><td>3 endpoints: list, detail, by-chart</td></tr>
+      <tr><td><code>api/routes/clinical.py</code></td><td>&mdash;</td><td>5 endpoints: sentences, diagnoses, RAF</td></tr>
+      <tr><td><code>api/routes/encounters.py</code></td><td>&mdash;</td><td>3 endpoints: list, detail, by-chart</td></tr>
+      <tr><td><code>api/routes/hedis.py</code></td><td>&mdash;</td><td>7 endpoints: 6 list + summary</td></tr>
+
+      <tr><td colspan="3" style="background:#e8f0fe;font-weight:600;">services/</td></tr>
+      <tr><td><code>services/persistence.py</code></td><td>~541</td><td>PersistenceService: JSON &rarr; DB mapping</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: DEPS ======================= -->
+<div class="tab-content" id="tab-deps">
+  <div class="card">
+    <h2>Dependencies</h2>
+    <p class="card-desc">Python packages required by the platform.</p>
+
+    <table>
+      <tr><th>Package</th><th>Version</th><th>Purpose</th><th>Used In</th></tr>
+      <tr><td colspan="4" style="background:#e8f0fe;font-weight:600;">Extraction Pipeline</td></tr>
+      <tr><td><code>PyMuPDF</code></td><td>&ge;1.24.0</td><td>PDF text extraction + page rendering</td><td>smart_pdf.py</td></tr>
+      <tr><td><code>pandas</code></td><td>&ge;2.0</td><td>Data manipulation</td><td>Various</td></tr>
+      <tr><td><code>python-dotenv</code></td><td>&ge;1.0</td><td>Environment variable loading</td><td>Config</td></tr>
+      <tr><td><code>openai</code></td><td>&ge;1.0</td><td>OpenAI API client (GPT-4o/GPT-4o-mini)</td><td>openai_extractor.py, smart_pdf.py</td></tr>
+      <tr><td><code>langextract</code></td><td>&ge;1.1.1</td><td>Gemini extraction library</td><td>orchestrator.py (Gemini path)</td></tr>
+      <tr><td><code>google-generativeai</code></td><td>&ge;0.5</td><td>Google Gemini API</td><td>Via LangExtract</td></tr>
+
+      <tr><td colspan="4" style="background:#e8f0fe;font-weight:600;">Backend / API</td></tr>
+      <tr><td><code>fastapi</code></td><td>&ge;0.115.0</td><td>REST API framework</td><td>app.py, api/routes/</td></tr>
+      <tr><td><code>uvicorn[standard]</code></td><td>&ge;0.30.0</td><td>ASGI web server</td><td>Runtime</td></tr>
+      <tr><td><code>python-multipart</code></td><td>&ge;0.0.9</td><td>File upload support</td><td>charts.py upload</td></tr>
+
+      <tr><td colspan="4" style="background:#e8f0fe;font-weight:600;">Database</td></tr>
+      <tr><td><code>sqlalchemy</code></td><td>&ge;2.0</td><td>ORM + query builder</td><td>database/, services/</td></tr>
+      <tr><td><code>alembic</code></td><td>&ge;1.13</td><td>Database migrations</td><td>alembic/</td></tr>
+      <tr><td><code>psycopg2-binary</code></td><td>&ge;2.9</td><td>PostgreSQL driver</td><td>database/engine.py</td></tr>
+
+      <tr><td colspan="4" style="background:#e8f0fe;font-weight:600;">Validation</td></tr>
+      <tr><td><code>pydantic</code></td><td>&ge;2.0</td><td>Data validation &amp; serialization</td><td>schemas/</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ======================= TAB: COMMANDS ======================= -->
+<div class="tab-content" id="tab-commands">
+  <div class="card">
+    <h2>CLI Commands</h2>
+    <p class="card-desc">How to run and operate the MedInsights platform.</p>
+
+    <h3>Setup</h3>
+    <pre><code><span class="cmt"># Install dependencies</span>
+pip install -r requirements.txt
+
+<span class="cmt"># Create PostgreSQL database</span>
+psql -U postgres -c <span class="str">"CREATE DATABASE medinsights;"</span>
+
+<span class="cmt"># Run database migrations</span>
+alembic upgrade head
+
+<span class="cmt"># Start API server</span>
+uvicorn app:app --reload --port <span class="num">8000</span></code></pre>
+
+    <h3>Pipeline Commands</h3>
+    <pre><code><span class="cmt"># Process a single PDF chart</span>
+python pipeline/orchestrator.py --pdf charts/chart.pdf
+
+<span class="cmt"># Batch process all PDFs in charts/ directory</span>
+python pipeline/orchestrator.py
+
+<span class="cmt"># Use specific API key</span>
+python pipeline/orchestrator.py --api-key sk-...
+
+<span class="cmt"># Use Gemini instead of OpenAI</span>
+python pipeline/orchestrator.py --api-key AIza... --provider gemini
+
+<span class="cmt"># Override models</span>
+python pipeline/orchestrator.py --model gpt-4o --vision-model gpt-4o
+
+<span class="cmt"># Text-only mode (skip vision)</span>
+python pipeline/orchestrator.py --no-vision
+
+<span class="cmt"># Custom quality threshold</span>
+python pipeline/orchestrator.py --quality-threshold 30
+
+<span class="cmt"># Custom output directory</span>
+python pipeline/orchestrator.py --output /path/to/results
+
+<span class="cmt"># Parallel batch processing (3 PDFs at once)</span>
+python pipeline/orchestrator.py --parallel 3
+
+<span class="cmt"># Manual DB loader for existing results</span>
+python load_results.py</code></pre>
+
+    <h3>CLI Arguments</h3>
+    <table>
+      <tr><th>Argument</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>--pdf</code></td><td>&mdash;</td><td>Path to single PDF file</td></tr>
+      <tr><td><code>--input-dir</code></td><td><code>charts/</code></td><td>Directory of PDFs for batch processing</td></tr>
+      <tr><td><code>--api-key</code></td><td>Hardcoded default</td><td>OpenAI or Gemini API key</td></tr>
+      <tr><td><code>--provider</code></td><td>Auto-detected from key prefix</td><td>"openai" or "gemini"</td></tr>
+      <tr><td><code>--model</code></td><td>gpt-4o-mini / gemini-2.0-flash</td><td>Text extraction model</td></tr>
+      <tr><td><code>--vision-model</code></td><td>gpt-4o</td><td>Vision fallback model</td></tr>
+      <tr><td><code>--quality-threshold</code></td><td>50</td><td>Page quality score cutoff (0-100)</td></tr>
+      <tr><td><code>--no-vision</code></td><td>false</td><td>Disable vision API fallback</td></tr>
+      <tr><td><code>--output</code></td><td><code>results/</code></td><td>Output directory for JSON files</td></tr>
+      <tr><td><code>--parallel</code></td><td>3</td><td>Max concurrent PDFs in batch mode</td></tr>
+    </table>
+
+    <h3>Database Connection</h3>
+    <pre><code><span class="cmt"># Default connection</span>
+postgresql://postgres:postgres@localhost:5432/medinsights
+
+<span class="cmt"># Override via environment variable</span>
+export DATABASE_URL=postgresql://user:pass@host:5432/dbname</code></pre>
+
+    <h3>API Endpoints Quick Reference</h3>
+    <pre><code><span class="cmt"># API Swagger docs</span>
+http://localhost:8000/docs
+
+<span class="cmt"># Health check</span>
+curl http://localhost:8000/health
+
+<span class="cmt"># List charts</span>
+curl http://localhost:8000/api/charts/
+
+<span class="cmt"># Get diagnoses for a chart</span>
+curl http://localhost:8000/api/clinical/diagnoses?chart_id=1
+
+<span class="cmt"># Get RAF summary</span>
+curl http://localhost:8000/api/clinical/raf-summary/1
+
+<span class="cmt"># Get HEDIS summary</span>
+curl http://localhost:8000/api/hedis/summary/1
+
+<span class="cmt"># Upload a chart</span>
+curl -X POST -F "file=@chart.pdf" http://localhost:8000/api/charts/upload</code></pre>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// Tab navigation
+document.querySelectorAll('.sidebar a[data-tab]').forEach(link => {
+  link.addEventListener('click', () => {
+    // Remove active from all tabs and links
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+    // Activate selected
+    const tabId = 'tab-' + link.dataset.tab;
+    document.getElementById(tabId).classList.add('active');
+    link.classList.add('active');
+    // Scroll to top of main
+    document.querySelector('.main').scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// Accordion toggle
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    header.parentElement.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>

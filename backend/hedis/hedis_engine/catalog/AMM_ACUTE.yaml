@@ -1,0 +1,42 @@
+id: "AMM-ACUTE"
+name: "Antidepressant Medication Management - Acute Phase Treatment"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether adults aged 18 and older diagnosed with a new episode
+  of major depression and treated with antidepressant medication remained
+  on an antidepressant medication for at least 84 days (12 weeks) during
+  the acute treatment phase. Effective acute-phase treatment reduces the
+  risk of relapse and supports symptom remission.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DEPRESSION_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "antidepressant"
+      window_months: 3
+
+valuesets_needed:
+  - VS_DEPRESSION_ICD10
+  - VS_ANTIDEPRESSANT_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

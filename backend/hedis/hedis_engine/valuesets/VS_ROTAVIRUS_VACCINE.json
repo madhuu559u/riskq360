@@ -1,0 +1,15 @@
+{
+    "id": "VS_ROTAVIRUS_VACCINE",
+    "name": "Rotavirus Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for rotavirus vaccines including the 2-dose (RV1, Rotarix) and 3-dose (RV5, RotaTeq) series. Used in childhood immunization status (CIS) measure. Series must begin by 14 weeks 6 days of age and complete by 8 months.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "116", "code_system": "cvx", "description": "Rotavirus, live, pentavalent vaccine (RV5, RotaTeq — 3-dose series)"},
+        {"code": "119", "code_system": "cvx", "description": "Rotavirus, live, monovalent vaccine (RV1, Rotarix — 2-dose series)"},
+        {"code": "122", "code_system": "cvx", "description": "Rotavirus vaccine, unspecified formulation"},
+        {"code": "90680", "code_system": "cpt", "description": "Rotavirus vaccine, pentavalent (RV5), 3 dose schedule, live, for oral use"},
+        {"code": "90681", "code_system": "cpt", "description": "Rotavirus vaccine, human, attenuated (RV1), 2 dose schedule, live, for oral use"}
+    ]
+}

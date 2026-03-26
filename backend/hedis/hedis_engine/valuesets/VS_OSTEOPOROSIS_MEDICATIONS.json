@@ -1,0 +1,26 @@
+{
+    "id": "VS_OSTEOPOROSIS_MEDICATIONS",
+    "name": "Osteoporosis Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication names and RxNorm codes for osteoporosis treatments including bisphosphonates, RANK ligand inhibitors, parathyroid hormone analogs, selective estrogen receptor modulators, and calcitonin. Used in osteoporosis management in women who had a fracture (OMW) quality measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "alendronate", "code_system": "medication_name", "description": "Alendronate (Fosamax) — oral bisphosphonate for osteoporosis"},
+        {"code": "risedronate", "code_system": "medication_name", "description": "Risedronate (Actonel) — oral bisphosphonate for osteoporosis"},
+        {"code": "ibandronate", "code_system": "medication_name", "description": "Ibandronate (Boniva) — oral/IV bisphosphonate for osteoporosis"},
+        {"code": "zoledronic acid", "code_system": "medication_name", "description": "Zoledronic acid (Reclast) — IV bisphosphonate for osteoporosis"},
+        {"code": "denosumab", "code_system": "medication_name", "description": "Denosumab (Prolia) — RANK ligand inhibitor for osteoporosis"},
+        {"code": "teriparatide", "code_system": "medication_name", "description": "Teriparatide (Forteo) — parathyroid hormone analog for osteoporosis"},
+        {"code": "abaloparatide", "code_system": "medication_name", "description": "Abaloparatide (Tymlos) — parathyroid hormone-related protein analog for osteoporosis"},
+        {"code": "raloxifene", "code_system": "medication_name", "description": "Raloxifene (Evista) — selective estrogen receptor modulator for osteoporosis"},
+        {"code": "calcitonin", "code_system": "medication_name", "description": "Calcitonin-salmon (Miacalcin, Fortical) — calcitonin for osteoporosis"},
+        {"code": "romosozumab", "code_system": "medication_name", "description": "Romosozumab (Evenity) — sclerostin inhibitor for osteoporosis"},
+        {"code": "83090", "code_system": "rxnorm", "description": "Alendronate Sodium 70 MG Oral Tablet"},
+        {"code": "77415", "code_system": "rxnorm", "description": "Risedronate Sodium 35 MG Oral Tablet"},
+        {"code": "284488", "code_system": "rxnorm", "description": "Ibandronate Sodium 150 MG Oral Tablet"},
+        {"code": "727762", "code_system": "rxnorm", "description": "Zoledronic Acid 5 MG/100 ML Intravenous Solution"},
+        {"code": "993449", "code_system": "rxnorm", "description": "Denosumab 60 MG/ML Prefilled Syringe"},
+        {"code": "313992", "code_system": "rxnorm", "description": "Teriparatide 250 MCG/ML Injectable Solution"}
+    ]
+}

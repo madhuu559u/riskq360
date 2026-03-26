@@ -1,0 +1,49 @@
+id: "CIS-VZV"
+name: "Childhood Immunization Status - Varicella (VZV)"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether children who turned 2 years old during the measurement
+  year received at least one dose of the varicella (chickenpox) vaccine by
+  their second birthday. Varicella vaccination prevents chickenpox and its
+  complications including bacterial skin infections, pneumonia, and
+  encephalitis. Prior documented varicella disease also satisfies this measure.
+
+eligibility:
+  age: {min: 2, max: 2, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_IMMUNIZATION_CONTRAINDICATION"
+    lookback_months: 24
+    description: "Contraindication to vaccine"
+  - type: "diagnosis"
+    valueset: "VS_VARICELLA_DISEASE_HISTORY"
+    lookback_months: 24
+    description: "History of varicella disease (prior chickenpox satisfies immunity)"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "varicella"
+      min_count: 1
+      window_months: 24
+
+valuesets_needed:
+  - VS_VARICELLA_VACCINE
+  - VS_VARICELLA_DISEASE_HISTORY
+  - VS_HOSPICE
+  - VS_IMMUNIZATION_CONTRAINDICATION
+
+data_sources:
+  - "claims"
+  - "immunization_registry"

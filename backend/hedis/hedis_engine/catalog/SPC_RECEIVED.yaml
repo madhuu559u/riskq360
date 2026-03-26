@@ -1,0 +1,56 @@
+id: "SPC-RECEIVED"
+name: "Statin Therapy for Patients with Cardiovascular Disease - Received Statin Therapy"
+version: "2025"
+domain: "cardiovascular"
+description: >
+  Assesses whether adults aged 21-75 with clinical atherosclerotic
+  cardiovascular disease (ASCVD) received statin therapy during the
+  measurement year. ASCVD includes conditions such as acute myocardial
+  infarction, ischemic stroke, stable and unstable angina, peripheral
+  arterial disease, and prior coronary or other arterial revascularization.
+  High-intensity statin therapy is recommended as secondary prevention for
+  patients with established ASCVD to reduce the risk of recurrent
+  cardiovascular events. The denominator also includes members who have
+  undergone a revascularization procedure.
+
+eligibility:
+  age: {min: 21, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_ASCVD_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_ESRD_ICD10"
+    lookback_months: 12
+    description: "End-stage renal disease"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "statin"
+      window_months: 12
+
+valuesets_needed:
+  - VS_ASCVD_ICD10
+  - VS_REVASCULARIZATION_CPT
+  - VS_HOSPICE
+  - VS_ESRD_ICD10
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "medications"

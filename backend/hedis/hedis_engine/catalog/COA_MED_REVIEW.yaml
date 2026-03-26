@@ -1,0 +1,39 @@
+id: "COA-MED-REVIEW"
+name: "Care for Older Adults - Medication Review"
+version: "2025"
+domain: "geriatric"
+description: >
+  Assesses whether adults aged 66 and older had a medication review conducted
+  by a prescriber or clinical pharmacist during the measurement year. Older
+  adults frequently take multiple medications, increasing the risk of adverse
+  drug interactions, inappropriate prescribing, and medication-related
+  hospitalizations. A comprehensive medication review helps identify and
+  resolve drug therapy problems, optimize regimens, and improve patient safety.
+
+eligibility:
+  age: {min: 66, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_MEDICATION_REVIEW_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_MEDICATION_REVIEW_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

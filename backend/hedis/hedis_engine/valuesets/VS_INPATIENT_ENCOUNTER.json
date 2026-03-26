@@ -1,0 +1,29 @@
+{
+    "id": "VS_INPATIENT_ENCOUNTER",
+    "name": "Inpatient Encounter / Hospital Stay Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, HCPCS, and UB revenue codes for inpatient hospital encounters including initial hospital care, subsequent care, observation, and discharge management. Used in follow-up after hospitalization for mental illness (FUH), transitions of care (TRC), and plan all-cause readmission (PCR) measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99221", "code_system": "cpt", "description": "Initial hospital care, per day, low severity"},
+        {"code": "99222", "code_system": "cpt", "description": "Initial hospital care, per day, moderate severity"},
+        {"code": "99223", "code_system": "cpt", "description": "Initial hospital care, per day, high severity"},
+        {"code": "99231", "code_system": "cpt", "description": "Subsequent hospital care, per day, low severity"},
+        {"code": "99232", "code_system": "cpt", "description": "Subsequent hospital care, per day, moderate severity"},
+        {"code": "99233", "code_system": "cpt", "description": "Subsequent hospital care, per day, high severity"},
+        {"code": "99238", "code_system": "cpt", "description": "Hospital discharge day management, 30 minutes or less"},
+        {"code": "99239", "code_system": "cpt", "description": "Hospital discharge day management, more than 30 minutes"},
+        {"code": "99234", "code_system": "cpt", "description": "Observation or inpatient care, same date admit and discharge, low severity"},
+        {"code": "99235", "code_system": "cpt", "description": "Observation or inpatient care, same date admit and discharge, moderate severity"},
+        {"code": "99236", "code_system": "cpt", "description": "Observation or inpatient care, same date admit and discharge, high severity"},
+        {"code": "99291", "code_system": "cpt", "description": "Critical care, evaluation and management, first 30-74 minutes"},
+        {"code": "0100", "code_system": "ubrev", "description": "All-inclusive rate — inpatient room and board"},
+        {"code": "0101", "code_system": "ubrev", "description": "Room and board — private (medical or general)"},
+        {"code": "0110", "code_system": "ubrev", "description": "Room and board — semi-private two bed"},
+        {"code": "0120", "code_system": "ubrev", "description": "Room and board — semi-private three and four beds"},
+        {"code": "0200", "code_system": "ubrev", "description": "Intensive care — general classification"},
+        {"code": "0210", "code_system": "ubrev", "description": "Intensive care — surgical"},
+        {"code": "0211", "code_system": "ubrev", "description": "Intensive care — medical"}
+    ]
+}

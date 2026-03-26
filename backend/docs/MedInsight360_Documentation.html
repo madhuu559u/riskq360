@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedInsight 360 — Complete Platform Documentation</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        brand: { 50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81' },
+        surface: { 800:'#1e1b2e', 900:'#13111c', 950:'#0c0a14' }
+      }
+    }
+  }
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body { font-family: 'Inter', sans-serif; background: #0c0a14; color: #e2e0ea; }
+  code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+  .tab-btn { transition: all 0.2s ease; position: relative; }
+  .tab-btn::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: transparent; transition: all 0.2s ease; }
+  .tab-btn.active { color: #818cf8; }
+  .tab-btn.active::after { background: #6366f1; }
+  .tab-btn:hover:not(.active) { color: #a5b4fc; }
+  .tab-content { display: none; animation: fadeIn 0.3s ease; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .card { background: #1e1b2e; border: 1px solid rgba(99,102,241,0.15); border-radius: 12px; }
+  .card-glow { box-shadow: 0 0 20px rgba(99,102,241,0.08); }
+  .flow-arrow { color: #4f46e5; font-size: 1.5rem; }
+  .code-block { background: #13111c; border: 1px solid rgba(99,102,241,0.1); border-radius: 8px; overflow-x: auto; }
+  .stat-card { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(49,46,129,0.15) 100%); border: 1px solid rgba(99,102,241,0.2); }
+  .table-header { background: rgba(99,102,241,0.08); }
+  .table-row:nth-child(even) { background: rgba(99,102,241,0.03); }
+  .table-row:hover { background: rgba(99,102,241,0.08); }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+  .badge-green { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .badge-blue { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+  .badge-amber { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+  .badge-red { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .badge-purple { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
+  .badge-cyan { background: rgba(34,211,238,0.15); color: #67e8f9; border: 1px solid rgba(34,211,238,0.3); }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #13111c; }
+  ::-webkit-scrollbar-thumb { background: #4338ca; border-radius: 3px; }
+  .arch-box { border: 2px solid rgba(99,102,241,0.3); border-radius: 12px; background: rgba(99,102,241,0.05); }
+  .arch-box-green { border: 2px solid rgba(34,197,94,0.3); border-radius: 12px; background: rgba(34,197,94,0.05); }
+  .arch-box-amber { border: 2px solid rgba(245,158,11,0.3); border-radius: 12px; background: rgba(245,158,11,0.05); }
+  .arch-box-red { border: 2px solid rgba(239,68,68,0.3); border-radius: 12px; background: rgba(239,68,68,0.05); }
+  .arch-box-purple { border: 2px solid rgba(168,85,247,0.3); border-radius: 12px; background: rgba(168,85,247,0.05); }
+  .arch-box-cyan { border: 2px solid rgba(34,211,238,0.3); border-radius: 12px; background: rgba(34,211,238,0.05); }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-surface-950/80 border-b border-brand-800/30">
+  <div class="max-w-[1440px] mx-auto px-6">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white font-bold text-sm">M3</div>
+        <div>
+          <h1 class="text-lg font-bold text-white leading-none">MedInsight 360</h1>
+          <p class="text-xs text-brand-300/70">Unified Risk Adjustment &amp; Quality Intelligence</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-gray-500">
+        <span class="badge badge-green">Production</span>
+        <span>v4.0 &mdash; 4-Track Ensemble + HEDIS Engine v1</span>
+        <span>|</span>
+        <span>Generated 2026-03-05</span>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="flex gap-1 -mb-px overflow-x-auto pb-0" id="tab-nav">
+      <button class="tab-btn active px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="overview">Overview</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="architecture">Architecture</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="extraction">Extraction Pipeline</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="hcc">HCC / Risk Adjustment</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="hedis">HEDIS Engine</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="database">Database Schema</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="api">REST API</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="outputs">Output Files</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="config">Configuration</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="scripts">Scripts &amp; CLI</button>
+      <button class="tab-btn px-4 py-2.5 text-sm font-medium whitespace-nowrap" data-tab="results">Batch Results</button>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-[1440px] mx-auto px-6 py-8">
+
+<!-- ════════════════════════ TAB: OVERVIEW ════════════════════════ -->
+<section id="tab-overview" class="tab-content active">
+
+  <!-- Hero -->
+  <div class="card card-glow p-8 mb-8">
+    <h2 class="text-3xl font-bold text-white mb-3">Unified Risk Adjustment &amp; Quality Intelligence Platform</h2>
+    <p class="text-gray-400 text-lg max-w-3xl mb-6">
+      MedInsight 360 processes medical chart PDFs through <strong class="text-brand-300">5 parallel AI extraction pipelines</strong> (LangExtract), then applies a <strong class="text-green-300">4-Track Ensemble HCC Engine</strong> (LLM extraction + TF-IDF classifier + BioClinicalBERT + LLM verification gate) for maximum diagnostic capture, maps to CMS-HCC V28 risk codes, evaluates <strong class="text-amber-300">122 HEDIS quality measures</strong> via a rule-based YAML-driven engine, and generates audit-ready output packs with full evidence trails.
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <span class="badge badge-blue">5 Parallel LLM Pipelines (LangExtract)</span>
+      <span class="badge badge-green">4-Track HCC Ensemble V4</span>
+      <span class="badge badge-amber">CMS-HCC V28 Mapping</span>
+      <span class="badge badge-purple">LLM Verification Gate</span>
+      <span class="badge badge-green">BioClinicalBERT + TF-IDF ML</span>
+      <span class="badge badge-cyan">122 HEDIS Measures (YAML Engine)</span>
+      <span class="badge badge-amber">168 Value Sets</span>
+      <span class="badge badge-blue">44 Database Tables</span>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-brand-400">156</div>
+      <div class="text-xs text-gray-500 mt-1">Python Files</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-brand-400">29K</div>
+      <div class="text-xs text-gray-500 mt-1">Lines of Code</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-green-400">44</div>
+      <div class="text-xs text-gray-500 mt-1">Database Tables</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-amber-400">41</div>
+      <div class="text-xs text-gray-500 mt-1">API Endpoints</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-purple-400">7,903</div>
+      <div class="text-xs text-gray-500 mt-1">V28 ICD Mappings</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-cyan-400">122</div>
+      <div class="text-xs text-gray-500 mt-1">HEDIS Measures</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-amber-400">168</div>
+      <div class="text-xs text-gray-500 mt-1">Value Sets</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-green-400">27</div>
+      <div class="text-xs text-gray-500 mt-1">Charts Processed</div>
+    </div>
+  </div>
+
+  <!-- Objectives -->
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <div class="card p-6">
+      <h3 class="text-lg font-bold text-white mb-4">Core Objectives</h3>
+      <ul class="space-y-3 text-gray-300 text-sm">
+        <li class="flex gap-3"><span class="text-brand-400 mt-0.5">&#9679;</span><span><strong class="text-white">5-Pipeline LangExtract</strong> &mdash; Demographics, Clinical Sentences (22 categories, 6-status negation), Risk Diagnoses (ICD-10), HEDIS Evidence (BP/labs/screenings/immunizations), Encounters &mdash; all run in parallel per text chunk with structured JSON output.</span></li>
+        <li class="flex gap-3"><span class="text-brand-400 mt-0.5">&#9679;</span><span><strong class="text-white">4-Track Ensemble HCC Engine</strong> &mdash; Combine LLM-extracted ICD codes, TF-IDF multi-label classifier (115 HCCs), trained BioClinicalBERT deep learning predictions, and GPT-4o verification gate. Apply V28 hierarchy suppression (21 groups) and compute RAF scores.</span></li>
+        <li class="flex gap-3"><span class="text-brand-400 mt-0.5">&#9679;</span><span><strong class="text-white">122-Measure HEDIS Engine</strong> &mdash; Rule-based engine with YAML-defined measure specifications, 168 value set JSONs, and a normalized MemberEventStore. Evaluates eligibility, denominator, exclusions, and numerator with full audit traces.</span></li>
+        <li class="flex gap-3"><span class="text-brand-400 mt-0.5">&#9679;</span><span><strong class="text-white">Audit-Ready Output</strong> &mdash; Generate complete evidence packs with page references, character offsets, negation status, MEAT validation, and provenance trails for every clinical finding.</span></li>
+      </ul>
+    </div>
+    <div class="card p-6">
+      <h3 class="text-lg font-bold text-white mb-4">Version History</h3>
+      <div class="space-y-4 text-sm">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="badge badge-green">v4.0 (Current)</span>
+            <span class="text-gray-500">Full Integration</span>
+          </div>
+          <p class="text-gray-400 ml-1">4-Track Ensemble HCC Engine (LLM + TF-IDF + BioClinicalBERT + LLM Verification) fully integrated. HEDIS engine (122 measures) integrated into main processing pipeline. 44 DB tables with full persistence. 27 charts processed end-to-end.</p>
+        </div>
+        <div class="border-t border-gray-800 pt-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="badge badge-blue">v3.0</span>
+            <span class="text-gray-500">Ensemble HCC Engine</span>
+          </div>
+          <p class="text-gray-400 ml-1">Added TF-IDF classifier, BioClinicalBERT predictor, LLM verification gate. V28 hierarchy suppression. HEDIS engine built but not yet integrated into pipeline.</p>
+        </div>
+        <div class="border-t border-gray-800 pt-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="badge badge-amber">v2.0</span>
+            <span class="text-gray-500">MiniMax Architecture</span>
+          </div>
+          <p class="text-gray-400 ml-1">Single-pass MiniMax extraction, assertion-centric schema, HCC bridge, basic HEDIS bridge.</p>
+        </div>
+        <div class="border-t border-gray-800 pt-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="badge badge-red">v1.0</span>
+            <span class="text-gray-500">5-Pipeline Original</span>
+          </div>
+          <p class="text-gray-400 ml-1">5 separate LLM pipelines, 54 database tables, basic HCC mapping.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module Summary Table -->
+  <div class="card p-6 mb-8">
+    <h3 class="text-lg font-bold text-white mb-4">Module Breakdown</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="table-header text-left text-gray-400 text-xs uppercase tracking-wider">
+            <th class="px-4 py-3 rounded-tl-lg">Module</th>
+            <th class="px-4 py-3">Purpose</th>
+            <th class="px-4 py-3 text-right">Files</th>
+            <th class="px-4 py-3 text-right rounded-tr-lg">Lines</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">config/</td><td class="px-4 py-2.5 text-gray-300">Settings, feature flags, LLM config, 7 prompt templates</td><td class="px-4 py-2.5 text-right text-gray-400">6</td><td class="px-4 py-2.5 text-right text-gray-400">541</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">core/</td><td class="px-4 py-2.5 text-gray-300">Orchestrator, HCC Ensemble V4, HEDIS bridge, exceptions</td><td class="px-4 py-2.5 text-right text-gray-400">7</td><td class="px-4 py-2.5 text-right text-gray-400">1,795</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">extraction/</td><td class="px-4 py-2.5 text-gray-300">5 LangExtract pipelines, parallel extractor, LLM client</td><td class="px-4 py-2.5 text-right text-gray-400">18</td><td class="px-4 py-2.5 text-right text-gray-400">4,063</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">ingestion/</td><td class="px-4 py-2.5 text-gray-300">PDF processing, quality scoring, OCR fallback</td><td class="px-4 py-2.5 text-right text-gray-400">6</td><td class="px-4 py-2.5 text-right text-gray-400">447</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">ml_engine/</td><td class="px-4 py-2.5 text-gray-300">BioClinicalBERT HCC predictor, TF-IDF classifier, NegEx</td><td class="px-4 py-2.5 text-right text-gray-400">5</td><td class="px-4 py-2.5 text-right text-gray-400">912</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">decisioning/</td><td class="px-4 py-2.5 text-gray-300">HCC mapper (V28), RAF calculator, HEDIS evaluator</td><td class="px-4 py-2.5 text-right text-gray-400">6</td><td class="px-4 py-2.5 text-right text-gray-400">935</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">hedis/</td><td class="px-4 py-2.5 text-gray-300">HEDIS Engine v1: 122 YAML measures, 168 value sets, adapter, rule evaluator</td><td class="px-4 py-2.5 text-right text-gray-400">20</td><td class="px-4 py-2.5 text-right text-gray-400">7,012</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">database/</td><td class="px-4 py-2.5 text-gray-300">44 SQLAlchemy tables, persist layer, connection pool</td><td class="px-4 py-2.5 text-right text-gray-400">17</td><td class="px-4 py-2.5 text-right text-gray-400">3,451</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">api/</td><td class="px-4 py-2.5 text-gray-300">FastAPI with 41 routes across 10 routers</td><td class="px-4 py-2.5 text-right text-gray-400">21</td><td class="px-4 py-2.5 text-right text-gray-400">1,009</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">scripts/</td><td class="px-4 py-2.5 text-gray-300">CLI: process_charts (batch), run_chart, init_db, seed_reference</td><td class="px-4 py-2.5 text-right text-gray-400">10</td><td class="px-4 py-2.5 text-right text-gray-400">2,356</td></tr>
+          <tr class="table-row"><td class="px-4 py-2.5 font-mono text-brand-400">tests/</td><td class="px-4 py-2.5 text-gray-300">93 tests: API, ingestion, extraction, ML, decisioning, E2E</td><td class="px-4 py-2.5 text-right text-gray-400">10</td><td class="px-4 py-2.5 text-right text-gray-400">2,330</td></tr>
+        </tbody>
+        <tfoot>
+          <tr class="border-t border-gray-700">
+            <td class="px-4 py-2.5 font-bold text-white">Total</td>
+            <td class="px-4 py-2.5"></td>
+            <td class="px-4 py-2.5 text-right font-bold text-white">156</td>
+            <td class="px-4 py-2.5 text-right font-bold text-white">29,015</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Technology Stack -->
+  <div class="card p-6">
+    <h3 class="text-lg font-bold text-white mb-4">Technology Stack</h3>
+    <div class="grid md:grid-cols-3 gap-6 text-sm">
+      <div>
+        <h4 class="font-semibold text-brand-300 mb-2">Core Runtime</h4>
+        <ul class="space-y-1 text-gray-400">
+          <li>Python 3.11+</li>
+          <li>FastAPI + Uvicorn (async HTTP)</li>
+          <li>SQLAlchemy 2.0 ORM</li>
+          <li>PostgreSQL / SQLite (dual support)</li>
+          <li>Pydantic BaseSettings</li>
+          <li>structlog (JSON logging)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-brand-300 mb-2">AI / ML</h4>
+        <ul class="space-y-1 text-gray-400">
+          <li>OpenAI GPT-4o-mini (5 extraction pipelines)</li>
+          <li>OpenAI GPT-4o Vision (OCR fallback)</li>
+          <li>GPT-4o-mini (LLM verification gate)</li>
+          <li>BioClinicalBERT (1.3GB trained HCC predictor)</li>
+          <li>TF-IDF / scikit-learn OneVsRest (115 HCC labels)</li>
+          <li>ConText/NegEx (negation detection)</li>
+          <li>PyMuPDF / fitz (PDF extraction)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-brand-300 mb-2">Reference Data</h4>
+        <ul class="space-y-1 text-gray-400">
+          <li>CMS-HCC V28 (7,903 ICD&rarr;HCC maps)</li>
+          <li>115 payable HCC categories</li>
+          <li>21 hierarchy suppression groups</li>
+          <li>115 RAF coefficient values</li>
+          <li>122 HEDIS YAML measure definitions</li>
+          <li>168 HEDIS value set JSON files</li>
+          <li>7,903 ICD-10-CM code catalog</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: ARCHITECTURE ════════════════════════ -->
+<section id="tab-architecture" class="tab-content">
+
+  <div class="card p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">System Architecture</h2>
+    <p class="text-gray-400 mb-6">7-Step Pipeline &mdash; from PDF to Payable HCC Pack + HEDIS Quality Pack in one flow.</p>
+
+    <!-- Pipeline Flow Diagram -->
+    <div class="space-y-4">
+      <!-- Step 1 -->
+      <div class="arch-box p-5">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="w-8 h-8 rounded-full bg-brand-600/30 flex items-center justify-center text-brand-300 font-bold text-sm">1</span>
+          <h4 class="font-bold text-white">PDF Ingestion</h4>
+          <span class="badge badge-blue">ingestion/</span>
+        </div>
+        <p class="text-gray-400 text-sm ml-11">Medical chart PDF &rarr; PyMuPDF page-by-page text extraction &rarr; per-page quality scoring (0-100) &rarr; OCR fallback for low-quality pages via GPT-4o Vision &rarr; normalized text with page boundaries preserved.</p>
+        <div class="ml-11 mt-2 flex flex-wrap gap-2 text-xs">
+          <span class="font-mono text-gray-500">pdf_processor.py</span>
+          <span class="font-mono text-gray-500">quality_scorer.py</span>
+          <span class="font-mono text-gray-500">ocr_engine.py</span>
+          <span class="font-mono text-gray-500">page_extractor.py</span>
+        </div>
+      </div>
+
+      <div class="text-center flow-arrow">&darr;</div>
+
+      <!-- Step 2 -->
+      <div class="arch-box-green p-5">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="w-8 h-8 rounded-full bg-green-600/30 flex items-center justify-center text-green-300 font-bold text-sm">2</span>
+          <h4 class="font-bold text-white">LangExtract &mdash; 5 Parallel Pipelines</h4>
+          <span class="badge badge-green">extraction/</span>
+        </div>
+        <p class="text-gray-400 text-sm ml-11">Text chunked into configurable segments &rarr; 5 LLM pipelines run IN PARALLEL on each chunk &rarr; structured JSON output merged and deduplicated. Each pipeline has dedicated prompts and output schemas.</p>
+        <div class="ml-11 mt-3 grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+          <div class="bg-green-900/20 rounded px-2 py-1.5 text-green-300 text-center"><strong>P1</strong> Demographics</div>
+          <div class="bg-green-900/20 rounded px-2 py-1.5 text-green-300 text-center"><strong>P2</strong> Sentences</div>
+          <div class="bg-green-900/20 rounded px-2 py-1.5 text-green-300 text-center"><strong>P3</strong> Risk Dx</div>
+          <div class="bg-green-900/20 rounded px-2 py-1.5 text-green-300 text-center"><strong>P4</strong> HEDIS Evidence</div>
+          <div class="bg-green-900/20 rounded px-2 py-1.5 text-green-300 text-center"><strong>P5</strong> Encounters</div>
+        </div>
+        <div class="ml-11 mt-2 flex flex-wrap gap-2 text-xs">
+          <span class="font-mono text-gray-500">parallel_extractor.py</span>
+          <span class="font-mono text-gray-500">demographics_pipeline.py</span>
+          <span class="font-mono text-gray-500">sentence_pipeline.py</span>
+          <span class="font-mono text-gray-500">risk_dx_pipeline.py</span>
+          <span class="font-mono text-gray-500">hedis_pipeline.py</span>
+          <span class="font-mono text-gray-500">encounter_pipeline.py</span>
+        </div>
+      </div>
+
+      <div class="text-center flow-arrow">&darr;</div>
+
+      <!-- Step 3 -->
+      <div class="arch-box p-5">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="w-8 h-8 rounded-full bg-brand-600/30 flex items-center justify-center text-brand-300 font-bold text-sm">3</span>
+          <h4 class="font-bold text-white">Save Extraction Results</h4>
+        </div>
+        <p class="text-gray-400 text-sm ml-11">Write 5 JSON output files per chart: 0_demographics.json, 1_clinical_sentences.json, 2_risk_diagnoses.json, 3_hedis_evidence.json, 4_encounters.json</p>
+      </div>
+
+      <div class="text-center flow-arrow">&darr;</div>
+
+      <!-- Step 4: Ensemble -->
+      <div class="arch-box-amber p-5">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="w-8 h-8 rounded-full bg-amber-600/30 flex items-center justify-center text-amber-300 font-bold text-sm">4</span>
+          <h4 class="font-bold text-white">4-Track Ensemble HCC Engine</h4>
+          <span class="badge badge-amber">core/hcc_ensemble.py</span>
+        </div>
+        <p class="text-gray-400 text-sm ml-11">Four parallel HCC extraction strategies merged, verified by LLM gate, then V28 hierarchy applied:</p>
+        <div class="ml-11 mt-3 grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+          <div class="bg-brand-900/30 rounded px-2 py-1.5 text-brand-300 text-center"><strong>Track 1</strong><br>LLM (ICD&rarr;HCC)</div>
+          <div class="bg-green-900/30 rounded px-2 py-1.5 text-green-300 text-center"><strong>Track 2</strong><br>TF-IDF (115 HCC)</div>
+          <div class="bg-amber-900/30 rounded px-2 py-1.5 text-amber-300 text-center"><strong>Track 3</strong><br>BioClinicalBERT</div>
+          <div class="bg-purple-900/30 rounded px-2 py-1.5 text-purple-300 text-center"><strong>Track 4</strong><br>LLM Verification</div>
+        </div>
+        <p class="text-gray-500 text-xs ml-11 mt-2">Output: 5_hcc_pack.json (payable HCCs, suppressed HCCs, RAF summary, ensemble metadata)</p>
+      </div>
+
+      <div class="text-center flow-arrow">&darr;</div>
+
+      <!-- Step 5: Assertions -->
+      <div class="arch-box p-5">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="w-8 h-8 rounded-full bg-brand-600/30 flex items-center justify-center text-brand-300 font-bold text-sm">5</span>
+          <h4 class="font-bold text-white">Convert to Assertions</h4>
+        </div>
+        <p class="text-gray-400 text-sm ml-11">All extraction data + HCC results normalized into assertion format for HEDIS engine input and database persistence.</p>
+      </div>
+
+      <div class="text-center flow-arrow">&darr;</div>
+
+      <!-- Step 6: HEDIS -->
+      <div class="arch-box-cyan p-5">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="w-8 h-8 rounded-full bg-cyan-600/30 flex items-center justify-center text-cyan-300 font-bold text-sm">6</span>
+          <h4 class="font-bold text-white">HEDIS Engine Evaluation (122 Measures)</h4>
+          <span class="badge badge-cyan">hedis/hedis_engine/</span>
+        </div>
+        <p class="text-gray-400 text-sm ml-11">Extraction results + assertions &rarr; MemberEventStore (via assertion adapter) &rarr; HedisEngine evaluates all 122 YAML-defined measures &rarr; eligibility check &rarr; denominator inclusion &rarr; exclusions &rarr; numerator compliance &rarr; gap detection with audit traces.</p>
+        <div class="ml-11 mt-3 grid grid-cols-3 md:grid-cols-6 gap-2 text-xs">
+          <div class="bg-cyan-900/20 rounded px-2 py-1.5 text-cyan-300 text-center">Diabetes (8)</div>
+          <div class="bg-cyan-900/20 rounded px-2 py-1.5 text-cyan-300 text-center">Screening (12)</div>
+          <div class="bg-cyan-900/20 rounded px-2 py-1.5 text-cyan-300 text-center">Immunization (15)</div>
+          <div class="bg-cyan-900/20 rounded px-2 py-1.5 text-cyan-300 text-center">Medication (8)</div>
+          <div class="bg-cyan-900/20 rounded px-2 py-1.5 text-cyan-300 text-center">Behavioral (10)</div>
+          <div class="bg-cyan-900/20 rounded px-2 py-1.5 text-cyan-300 text-center">+ 69 more</div>
+        </div>
+        <p class="text-gray-500 text-xs ml-11 mt-2">Output: 6_hedis_quality.json (122 measures, met/gap/N-A/excluded with evidence and trace)</p>
+      </div>
+
+      <div class="text-center flow-arrow">&darr;</div>
+
+      <!-- Step 7: Output -->
+      <div class="arch-box-purple p-5">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="w-8 h-8 rounded-full bg-purple-600/30 flex items-center justify-center text-purple-300 font-bold text-sm">7</span>
+          <h4 class="font-bold text-white">Output &amp; Persistence</h4>
+        </div>
+        <p class="text-gray-400 text-sm ml-11">Save 7_summary.json &rarr; Persist all results to database (44 tables: charts, assertions, HCCs, RAF, 122 HEDIS measure results, HEDIS summary, patients, encounters, clinical sentences, diagnoses, vitals, labs, medications, screenings).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- File Tree -->
+  <div class="card p-6">
+    <h3 class="text-lg font-bold text-white mb-4">Project File Tree</h3>
+    <div class="code-block p-4 text-xs overflow-x-auto">
+<pre class="text-gray-300">medinsight360/
+├── config/                           <span class="text-gray-600"># Settings, feature flags, prompts</span>
+│   ├── settings.py                   <span class="text-gray-600"># Pydantic BaseSettings</span>
+│   ├── feature_flags.py              <span class="text-gray-600"># Dynamic toggles</span>
+│   ├── llm_config.py                 <span class="text-gray-600"># LLM provider settings</span>
+│   └── prompts/                      <span class="text-gray-600"># 7 LLM prompt templates</span>
+│
+├── core/                             <span class="text-gray-600"># Orchestrator + bridges</span>
+│   ├── orchestrator.py               <span class="text-gray-600"># Main pipeline controller</span>
+│   ├── <span class="text-amber-300">hcc_ensemble.py</span>              <span class="text-gray-600"># 4-Track HCC Ensemble V4</span>
+│   └── hedis_bridge.py              <span class="text-gray-600"># HEDIS engine integration</span>
+│
+├── extraction/                       <span class="text-gray-600"># LangExtract (5 pipelines)</span>
+│   ├── <span class="text-green-300">parallel_extractor.py</span>       <span class="text-gray-600"># Runs all 5 pipelines in parallel</span>
+│   ├── demographics_pipeline.py      <span class="text-gray-600"># P1: Demographics</span>
+│   ├── sentence_pipeline.py          <span class="text-gray-600"># P2: Sentences + negation</span>
+│   ├── risk_dx_pipeline.py           <span class="text-gray-600"># P3: Risk diagnoses + ICD-10</span>
+│   ├── hedis_pipeline.py             <span class="text-gray-600"># P4: HEDIS evidence</span>
+│   └── encounter_pipeline.py         <span class="text-gray-600"># P5: Encounters</span>
+│
+├── ingestion/                        <span class="text-gray-600"># PDF intake</span>
+│   ├── pdf_processor.py              <span class="text-gray-600"># PyMuPDF extraction</span>
+│   ├── quality_scorer.py             <span class="text-gray-600"># Per-page quality (0-100)</span>
+│   └── ocr_engine.py                <span class="text-gray-600"># GPT-4o Vision fallback</span>
+│
+├── ml_engine/                        <span class="text-gray-600"># ML models</span>
+│   ├── hcc_predictor.py              <span class="text-gray-600"># BioClinicalBERT loader</span>
+│   ├── icd_retriever.py              <span class="text-gray-600"># TF-IDF ICD-10 retrieval</span>
+│   ├── negation_detector.py          <span class="text-gray-600"># ConText/NegEx</span>
+│   └── models/                       <span class="text-gray-600"># Model weights</span>
+│       ├── bioclinicalbert/          <span class="text-gray-600"># 1.3GB BERT model</span>
+│       ├── tfidf_classifier.pkl      <span class="text-gray-600"># 46MB TF-IDF classifier</span>
+│       └── tfidf_thresholds.npy      <span class="text-gray-600"># Per-label thresholds</span>
+│
+├── decisioning/                      <span class="text-gray-600"># HCC/RAF/HEDIS decisioning</span>
+│   ├── hcc_mapper.py                 <span class="text-gray-600"># V28 ICD&rarr;HCC mapper</span>
+│   ├── raf_calculator.py             <span class="text-gray-600"># RAF score computation</span>
+│   └── reference/                    <span class="text-gray-600"># V28 CSVs + JSONs</span>
+│
+├── <span class="text-cyan-300">hedis/</span>                           <span class="text-gray-600"># HEDIS Engine v1</span>
+│   └── hedis_engine/
+│       ├── <span class="text-cyan-300">engine.py</span>                <span class="text-gray-600"># Rule evaluator (740 lines)</span>
+│       ├── types.py                  <span class="text-gray-600"># MemberEventStore, MeasureResult</span>
+│       ├── adapters/
+│       │   └── <span class="text-cyan-300">assertion_adapter.py</span> <span class="text-gray-600"># Extraction &rarr; EventStore</span>
+│       ├── catalog/                  <span class="text-gray-600"># 122 YAML measure definitions</span>
+│       └── valuesets/                <span class="text-gray-600"># 168 JSON value set files</span>
+│
+├── database/                         <span class="text-gray-600"># 44 tables, persistence layer</span>
+│   ├── models.py                     <span class="text-gray-600"># SQLAlchemy ORM (44 tables)</span>
+│   ├── persist.py                    <span class="text-gray-600"># Full result persistence</span>
+│   └── connection.py                 <span class="text-gray-600"># PostgreSQL/SQLite connection</span>
+│
+├── api/                              <span class="text-gray-600"># FastAPI (41 endpoints)</span>
+│   ├── main.py                       <span class="text-gray-600"># App initialization</span>
+│   └── routers/                      <span class="text-gray-600"># 10 router modules</span>
+│
+├── scripts/                          <span class="text-gray-600"># CLI tools</span>
+│   ├── <span class="text-amber-300">process_charts.py</span>           <span class="text-gray-600"># Main batch processor</span>
+│   ├── run_chart.py                  <span class="text-gray-600"># Single chart CLI</span>
+│   └── init_db.py                   <span class="text-gray-600"># Database setup</span>
+│
+├── tests/                            <span class="text-gray-600"># 93 tests</span>
+└── outputs/                          <span class="text-gray-600"># 27 processed charts</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: EXTRACTION ════════════════════════ -->
+<section id="tab-extraction" class="tab-content">
+
+  <div class="card card-glow p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">LangExtract &mdash; 5 Parallel Pipelines</h2>
+    <p class="text-gray-400">All 5 extraction pipelines run simultaneously on chunked clinical text. Each pipeline has a dedicated LLM prompt template, structured JSON output schema, and chunk-level merge/dedup logic.</p>
+  </div>
+
+  <div class="grid gap-4 mb-8">
+    <div class="card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-8 h-8 rounded-full bg-brand-600/30 flex items-center justify-center text-brand-300 font-bold text-sm">P1</span>
+        <h3 class="font-bold text-white">Demographics Pipeline</h3>
+        <span class="badge badge-blue">demographics_pipeline.py</span>
+      </div>
+      <p class="text-gray-400 text-sm">Extracts: patient name, DOB, gender, MBI/member ID, insurance, address, phone, race/ethnicity, providers. Merges across chunks with conflict resolution.</p>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-8 h-8 rounded-full bg-green-600/30 flex items-center justify-center text-green-300 font-bold text-sm">P2</span>
+        <h3 class="font-bold text-white">Clinical Sentences Pipeline</h3>
+        <span class="badge badge-green">sentence_pipeline.py</span>
+      </div>
+      <p class="text-gray-400 text-sm">Categorizes every clinical sentence into 22 categories (diagnosis, medication, vital, lab, allergy, etc.) with <strong class="text-white">6-status negation model</strong>: active, negated, resolved, historical, family_history, uncertain. Preserves source page + character offsets.</p>
+      <div class="mt-2 grid grid-cols-3 md:grid-cols-6 gap-1 text-xs">
+        <span class="bg-green-900/20 rounded px-2 py-1 text-green-300">active</span>
+        <span class="bg-red-900/20 rounded px-2 py-1 text-red-300">negated</span>
+        <span class="bg-amber-900/20 rounded px-2 py-1 text-amber-300">resolved</span>
+        <span class="bg-gray-800 rounded px-2 py-1 text-gray-300">historical</span>
+        <span class="bg-blue-900/20 rounded px-2 py-1 text-blue-300">family_hx</span>
+        <span class="bg-purple-900/20 rounded px-2 py-1 text-purple-300">uncertain</span>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-8 h-8 rounded-full bg-amber-600/30 flex items-center justify-center text-amber-300 font-bold text-sm">P3</span>
+        <h3 class="font-bold text-white">Risk Diagnosis Pipeline</h3>
+        <span class="badge badge-amber">risk_dx_pipeline.py</span>
+      </div>
+      <p class="text-gray-400 text-sm">Extracts all mentioned diagnoses with: ICD-10 code, description, negation status, supporting text, date of service, provider, source section. This feeds directly into Track 1 of the HCC Ensemble.</p>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-8 h-8 rounded-full bg-cyan-600/30 flex items-center justify-center text-cyan-300 font-bold text-sm">P4</span>
+        <h3 class="font-bold text-white">HEDIS Evidence Pipeline</h3>
+        <span class="badge badge-cyan">hedis_pipeline.py</span>
+      </div>
+      <p class="text-gray-400 text-sm">Extracts evidence for quality measures: BP readings (systolic/diastolic), A1C values, eye exams, colonoscopies, mammograms, medications, screenings, immunizations, depression screenings, falls risk assessments. Feeds into the HEDIS Engine (Step 6).</p>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-8 h-8 rounded-full bg-purple-600/30 flex items-center justify-center text-purple-300 font-bold text-sm">P5</span>
+        <h3 class="font-bold text-white">Encounter Pipeline</h3>
+        <span class="badge badge-purple">encounter_pipeline.py</span>
+      </div>
+      <p class="text-gray-400 text-sm">Extracts all encounters with: date of service, provider name, facility, visit type, CPT codes, diagnoses, medications ordered, labs ordered, referrals, procedures. Builds encounter timeline.</p>
+    </div>
+  </div>
+
+  <div class="card p-6">
+    <h3 class="text-lg font-bold text-white mb-4">Parallel Execution Architecture</h3>
+    <div class="code-block p-4 text-xs">
+<pre class="text-gray-300"><span class="text-gray-600"># extraction/parallel_extractor.py</span>
+
+Full PDF Text &rarr; chunk into N segments (default ~10K chars with overlap)
+
+For each chunk:
+  <span class="text-green-400">ThreadPoolExecutor</span>(max_workers=5):
+    &#x251C; Thread 1: demographics_pipeline(chunk) &rarr; JSON
+    &#x251C; Thread 2: sentence_pipeline(chunk)      &rarr; JSON
+    &#x251C; Thread 3: risk_dx_pipeline(chunk)        &rarr; JSON
+    &#x251C; Thread 4: hedis_pipeline(chunk)           &rarr; JSON
+    &#x2514; Thread 5: encounter_pipeline(chunk)       &rarr; JSON
+
+Merge chunk results:
+  &rarr; demographics: last-writer-wins for each field
+  &rarr; sentences: append all, dedup by (page, char_start)
+  &rarr; diagnoses: dedup by (icd10_code, supporting_text)
+  &rarr; hedis: dedup by (type, date, value)
+  &rarr; encounters: dedup by (date, provider)</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: HCC ════════════════════════ -->
+<section id="tab-hcc" class="tab-content">
+
+  <div class="card card-glow p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">4-Track Ensemble HCC Engine <span class="badge badge-green ml-2">V4</span></h2>
+    <p class="text-gray-400">Multi-strategy HCC extraction combining LLM, TF-IDF, BioClinicalBERT, and LLM verification gate. Catches 2-3x more payable HCCs than LLM alone with high precision through the verification gate.</p>
+  </div>
+
+  <!-- Ensemble Architecture Diagram -->
+  <div class="card p-6 mb-8">
+    <h3 class="text-lg font-bold text-white mb-4">Ensemble Architecture</h3>
+    <div class="grid md:grid-cols-4 gap-4 mb-6">
+      <div class="arch-box p-4 text-center">
+        <div class="text-xs text-brand-300 font-semibold uppercase mb-2">Track 1</div>
+        <div class="text-white font-bold mb-1">LLM Extraction</div>
+        <div class="text-xs text-gray-400">Pipeline 3 (Risk Dx) diagnoses &rarr; ICD-10 &rarr; HCC mapping via V28 crosswalk</div>
+        <div class="mt-2 text-xs font-mono text-brand-400">Confidence: 0.9</div>
+      </div>
+      <div class="arch-box-green p-4 text-center">
+        <div class="text-xs text-green-300 font-semibold uppercase mb-2">Track 2</div>
+        <div class="text-white font-bold mb-1">TF-IDF Classifier</div>
+        <div class="text-xs text-gray-400">Pre-trained sklearn OneVsRest multi-label classifier over 115 HCC labels from clinical text</div>
+        <div class="mt-2 text-xs font-mono text-green-400">Threshold: per-label (0.34&ndash;0.97)</div>
+      </div>
+      <div class="arch-box-amber p-4 text-center">
+        <div class="text-xs text-amber-300 font-semibold uppercase mb-2">Track 3</div>
+        <div class="text-white font-bold mb-1">BioClinicalBERT</div>
+        <div class="text-xs text-gray-400">Trained HCC classifier on Bio_ClinicalBERT encoder. 115 sigmoid outputs with optimal thresholds</div>
+        <div class="mt-2 text-xs font-mono text-amber-400">Model: 1.3GB best_model.pt</div>
+      </div>
+      <div class="arch-box-purple p-4 text-center">
+        <div class="text-xs text-purple-300 font-semibold uppercase mb-2">Track 4</div>
+        <div class="text-white font-bold mb-1">LLM Verification Gate</div>
+        <div class="text-xs text-gray-400">GPT-4o-mini structured JSON verification &mdash; confirms each HCC with evidence check + min confidence 0.3</div>
+        <div class="mt-2 text-xs font-mono text-purple-400">Rejects false positives</div>
+      </div>
+    </div>
+    <div class="code-block p-4 text-xs">
+<pre class="text-gray-300">                  Clinical Text (from PDF)
+                           |
+          &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+          &#x2502;               &#x2502;               &#x2502;               &#x2502;
+  <span class="text-brand-400">Track 1: LLM</span>    <span class="text-green-400">Track 2: TF-IDF</span>  <span class="text-amber-400">Track 3: BERT</span>          |
+   (ICD&#x2192;HCC)       (115 HCC)        (115 HCC)          |
+          &#x2502;               &#x2502;               &#x2502;               |
+          &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;               |
+                    Merge + Dedup                       |
+                         &#x2502;                              |
+                  <span class="text-purple-400">Track 4: LLM Verification</span>  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                         &#x2502;
+                  Verified HCCs Only
+                         &#x2502;
+               V28 Hierarchy Suppression (21 groups)
+                         &#x2502;
+              &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+              &#x2502;             &#x2502;             &#x2502;
+       <span class="text-green-400">Payable HCCs</span>  <span class="text-amber-400">Suppressed</span>  <span class="text-red-400">Rejected</span>
+              &#x2502;             &#x2502;             &#x2502;
+           RAF Score     (logged)    (with reasons)</pre>
+    </div>
+  </div>
+
+  <!-- Track Details -->
+  <div class="grid gap-4 mb-8">
+    <div class="card p-5">
+      <h3 class="font-bold text-white mb-3"><span class="text-brand-400">Track 1:</span> LLM Extraction (ICD &rarr; HCC)</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="text-sm text-gray-400">
+          <p class="mb-2">Pipeline 3 (Risk Dx) extracts diagnoses with ICD-10 codes from clinical text. Active diagnoses are mapped to HCC categories via the V28 crosswalk table (7,903 mappings).</p>
+          <ul class="space-y-1 mt-2">
+            <li>&bull; Handles dotted (<code class="text-gray-300">E11.65</code>) and undotted (<code class="text-gray-300">E1165</code>) ICD formats</li>
+            <li>&bull; Only <code class="text-green-300">active</code> diagnoses (negated/resolved/family_history excluded)</li>
+            <li>&bull; Groups multiple ICDs per HCC, carries supporting text</li>
+            <li>&bull; Default confidence: <code class="text-brand-300">0.9</code></li>
+          </ul>
+        </div>
+        <div class="code-block p-3 text-xs">
+<pre class="text-gray-400">Input:  risk_data["diagnoses"] from Pipeline 3
+Filter: negation_status == "active" only
+
+For each active diagnosis:
+  icd10 = "E11.65"  &rarr; V28 lookup
+  &rarr; HCC37 (Diabetes with Chronic Complications)
+  &rarr; raf_weight: 0.302
+
+Typical yield: 1-8 HCCs per chart</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <h3 class="font-bold text-white mb-3"><span class="text-green-400">Track 2:</span> TF-IDF Multi-Label Classifier</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="text-sm text-gray-400">
+          <p class="mb-2">Pre-trained sklearn <code class="text-gray-300">OneVsRestClassifier</code> with TF-IDF vectorizer. Trained on clinical text &rarr; 115 HCC labels. Catches patterns in long documents that LLM may miss.</p>
+          <ul class="space-y-1 mt-2">
+            <li>&bull; <strong class="text-white">Vectorizer:</strong> 1.8MB TF-IDF model</li>
+            <li>&bull; <strong class="text-white">Classifier:</strong> 46MB OneVsRest model</li>
+            <li>&bull; <strong class="text-white">Thresholds:</strong> Per-label optimal (0.34&ndash;0.97)</li>
+            <li>&bull; New HCCs not already found by Track 1 are added</li>
+          </ul>
+        </div>
+        <div class="code-block p-3 text-xs">
+<pre class="text-gray-400">Files:
+  ml_engine/models/tfidf_vectorizer.pkl  (1.8MB)
+  ml_engine/models/tfidf_classifier.pkl  (46MB)
+  ml_engine/models/tfidf_thresholds.npy  (115 floats)
+
+Process:
+  text &rarr; TF-IDF vectorize &rarr; predict_proba
+  &rarr; apply per-label thresholds
+  &rarr; yield HCC codes above threshold</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <h3 class="font-bold text-white mb-3"><span class="text-amber-400">Track 3:</span> BioClinicalBERT (Trained HCC Predictor)</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="text-sm text-gray-400">
+          <p class="mb-2">Fine-tuned <code class="text-gray-300">emilyalsentzer/Bio_ClinicalBERT</code> with 115 sigmoid output heads. Trained on clinical notes for HCC prediction. The biggest contributor of novel HCC candidates.</p>
+          <ul class="space-y-1 mt-2">
+            <li>&bull; <strong class="text-white">Model:</strong> 1.3GB best_model.pt</li>
+            <li>&bull; <strong class="text-white">Thresholds:</strong> Per-label optimal (0.09&ndash;0.94)</li>
+            <li>&bull; <strong class="text-white">Labels:</strong> 115 HCC categories (label_mapping.json)</li>
+            <li>&bull; Text truncated to 512 tokens (BERT max)</li>
+          </ul>
+        </div>
+        <div class="code-block p-3 text-xs">
+<pre class="text-gray-400">Files:
+  ml_engine/models/bioclinicalbert/
+    model/best_model.pt         (1.3GB)
+    model/optimal_thresholds.npy (115 floats)
+    label_mapping.json           (115 HCC labels)
+
+Process:
+  text &rarr; tokenize (512 max) &rarr; BERT forward
+  &rarr; 115 sigmoid outputs &rarr; apply thresholds
+  &rarr; yield HCC codes above threshold
+
+Typical yield: 3-6 predictions per chart
+(Often finds HCCs that LLM missed)</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <h3 class="font-bold text-white mb-3"><span class="text-purple-400">Track 4:</span> LLM Verification Gate</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="text-sm text-gray-400">
+          <p class="mb-2">Every candidate HCC from Tracks 1-3 is verified by GPT-4o-mini with clinical evidence. The LLM confirms whether the diagnosis is actually documented and actively managed.</p>
+          <ul class="space-y-1 mt-2">
+            <li>&bull; Structured JSON response: <code class="text-gray-300">{is_verified, confidence, reasoning}</code></li>
+            <li>&bull; Minimum confidence: <code class="text-brand-300">0.3</code></li>
+            <li>&bull; Evidence limited to 2K chars per candidate</li>
+            <li>&bull; Typical rejection rate: <strong class="text-red-300">40-60%</strong> (filters ML false positives)</li>
+          </ul>
+        </div>
+        <div class="code-block p-3 text-xs">
+<pre class="text-gray-400">For each candidate HCC:
+  Send to GPT-4o-mini:
+    "Diagnosis Claimed: {hcc_description}
+     Clinical Evidence: {relevant_text}
+     Is this diagnosis PRESENT + MANAGED?"
+
+  Response: {
+    "is_verified": true/false,
+    "confidence": 0.0-1.0,
+    "reasoning": "brief explanation"
+  }
+
+  if verified AND confidence >= 0.3:
+    &rarr; KEEP (payable)
+  else:
+    &rarr; REJECT (with reason logged)</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reference Data Stats -->
+  <div class="grid md:grid-cols-3 gap-4 mb-8">
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-brand-400">7,903</div>
+      <div class="text-xs text-gray-500 mt-1">V28 ICD &rarr; HCC Mappings</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-green-400">115</div>
+      <div class="text-xs text-gray-500 mt-1">Payable HCC Categories</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-amber-400">21</div>
+      <div class="text-xs text-gray-500 mt-1">Hierarchy Suppression Groups</div>
+    </div>
+  </div>
+
+  <!-- HCC Pack Output Format -->
+  <div class="card p-6">
+    <h3 class="text-lg font-bold text-white mb-4">HCC Pack Output Format (5_hcc_pack.json)</h3>
+    <div class="code-block p-4 text-xs overflow-x-auto">
+<pre class="text-gray-300">{
+  <span class="text-amber-300">"payable_hccs"</span>: [
+    {
+      <span class="text-amber-300">"hcc_code"</span>: <span class="text-green-400">"HCC37"</span>,
+      <span class="text-amber-300">"hcc_description"</span>: "Diabetes with Chronic Complications",
+      <span class="text-amber-300">"raf_weight"</span>: 0.302,
+      <span class="text-amber-300">"confidence"</span>: 0.90,
+      <span class="text-amber-300">"source"</span>: "llm",
+      <span class="text-amber-300">"llm_verified"</span>: true,
+      <span class="text-amber-300">"llm_confidence"</span>: 0.90,
+      <span class="text-amber-300">"supported_icds"</span>: [
+        { <span class="text-amber-300">"icd10_code"</span>: "E11.65", <span class="text-amber-300">"description"</span>: "Type 2 DM with hyperglycemia", <span class="text-amber-300">"supporting_text"</span>: "..." }
+      ],
+      <span class="text-amber-300">"hierarchy_applied"</span>: true
+    }
+  ],
+  <span class="text-amber-300">"suppressed_hccs"</span>: [ ... ],
+  <span class="text-amber-300">"unsupported_candidates"</span>: [
+    { <span class="text-amber-300">"hcc_code"</span>: "HCC153", <span class="text-amber-300">"source"</span>: "trained_bert", <span class="text-amber-300">"reason"</span>: "Not supported by evidence" }
+  ],
+  <span class="text-amber-300">"raf_summary"</span>: {
+    <span class="text-amber-300">"total_raf_score"</span>: 0.984,
+    <span class="text-amber-300">"payable_hcc_count"</span>: 3,
+    <span class="text-amber-300">"suppressed_hcc_count"</span>: 1
+  },
+  <span class="text-amber-300">"ensemble_metadata"</span>: {
+    <span class="text-amber-300">"ensemble_version"</span>: "v4",
+    <span class="text-amber-300">"track_predictions"</span>: { <span class="text-amber-300">"llm"</span>: 2, <span class="text-amber-300">"tfidf"</span>: 0, <span class="text-amber-300">"bert"</span>: 3 },
+    <span class="text-amber-300">"total_candidates"</span>: 5,
+    <span class="text-amber-300">"verified_count"</span>: 3,
+    <span class="text-amber-300">"processing_time_seconds"</span>: 8.4
+  }
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: HEDIS ════════════════════════ -->
+<section id="tab-hedis" class="tab-content">
+
+  <div class="card card-glow p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">HEDIS Engine v1 <span class="badge badge-cyan ml-2">122 Measures</span></h2>
+    <p class="text-gray-400">Rule-based quality measurement engine evaluating 122 HEDIS measures from clinical evidence. Each measure is defined in YAML with eligibility criteria, numerator logic, exclusions, and value set references. Fully integrated into the main processing pipeline.</p>
+  </div>
+
+  <div class="grid md:grid-cols-4 gap-4 mb-8">
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-cyan-400">122</div>
+      <div class="text-xs text-gray-500 mt-1">YAML Measure Definitions</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-green-400">168</div>
+      <div class="text-xs text-gray-500 mt-1">JSON Value Sets</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-amber-400">5</div>
+      <div class="text-xs text-gray-500 mt-1">Statuses (met/gap/N-A/excluded/indeterminate)</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-purple-400">7,012</div>
+      <div class="text-xs text-gray-500 mt-1">Lines of Engine Code</div>
+    </div>
+  </div>
+
+  <!-- Integration Flow -->
+  <div class="card p-6 mb-8">
+    <h3 class="text-lg font-bold text-white mb-4">Pipeline Integration Flow</h3>
+    <div class="code-block p-4 text-xs">
+<pre class="text-gray-300"><span class="text-gray-600"># scripts/process_charts.py &mdash; Step 6</span>
+
+<span class="text-gray-500">def</span> <span class="text-green-400">_run_hedis_engine</span>(extraction_results, assertions):
+    <span class="text-gray-600"># 1. Build adapter input from all 5 pipeline outputs</span>
+    adapter_data = {
+        "demographics": extraction_results["demographics"],  <span class="text-gray-600"># DOB, gender, age</span>
+        "assertions": assertions,                             <span class="text-gray-600"># All clinical assertions</span>
+        "diagnoses": risk_data["diagnoses"],                 <span class="text-gray-600"># ICD-10 codes from P3</span>
+        "encounters": encounters_data["encounters"],         <span class="text-gray-600"># Visit dates from P5</span>
+        "labs": hedis_ext["lab_results"],                    <span class="text-gray-600"># A1C, LDL from P4</span>
+        "vitals": hedis_ext["blood_pressure_readings"],      <span class="text-gray-600"># BP readings from P4</span>
+        "medications": hedis_ext["medications_for_measures"], <span class="text-gray-600"># Meds from P4</span>
+        "immunizations": hedis_ext["immunizations"],         <span class="text-gray-600"># Vaccines from P4</span>
+    }
+
+    <span class="text-gray-600"># 2. Convert to MemberEventStore via adapter</span>
+    store = <span class="text-cyan-300">adapt_assertions</span>(adapter_data)
+    <span class="text-gray-600">#    &rarr; DiagnosisEvent, ProcedureEvent, LabEvent, VitalEvent</span>
+    <span class="text-gray-600">#    &rarr; MedicationEvent, EncounterEvent, ImmunizationEvent</span>
+
+    <span class="text-gray-600"># 3. Run all 122 YAML measures</span>
+    engine = <span class="text-cyan-300">HedisEngine</span>(measurement_year=2026)
+    results = engine.<span class="text-cyan-300">evaluate_member</span>(store)
+    <span class="text-gray-600">#    For each measure:</span>
+    <span class="text-gray-600">#      1. Check eligibility (age, gender, required conditions)</span>
+    <span class="text-gray-600">#      2. Check denominator inclusion</span>
+    <span class="text-gray-600">#      3. Check exclusions (hospice, pregnancy, etc.)</span>
+    <span class="text-gray-600">#      4. Check numerator compliance (required labs/procedures/values)</span>
+    <span class="text-gray-600">#      5. Compute confidence score</span>
+    <span class="text-gray-600">#      6. Generate gap details if not met</span>
+
+    <span class="text-gray-600"># 4. Return: 122 measure results with traces + gap list</span></pre>
+    </div>
+  </div>
+
+  <!-- Measure Domains -->
+  <div class="card p-6 mb-8">
+    <h3 class="text-lg font-bold text-white mb-4">Measure Domains (122 Total)</h3>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="bg-surface-900 rounded-lg p-4">
+        <h4 class="text-cyan-300 font-semibold mb-2">Diabetes Care (8 measures)</h4>
+        <ul class="text-gray-400 text-xs space-y-1">
+          <li>CDC-A1C-TEST &mdash; HbA1c Testing</li>
+          <li>CDC-A1C-CONTROL-8 &mdash; A1c &lt; 8% Control</li>
+          <li>CDC-A1C-POOR-9 &mdash; Poor Control (&gt;9%)</li>
+          <li>CDC-EYE &mdash; Eye Exam</li>
+          <li>CDC-NEPHROPATHY &mdash; Kidney Disease Monitoring</li>
+          <li>CDC-BP &mdash; Blood Pressure Control</li>
+          <li>GSD &mdash; Glycemic Status Assessment</li>
+          <li>KED &mdash; Kidney Health Evaluation</li>
+        </ul>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-4">
+        <h4 class="text-cyan-300 font-semibold mb-2">Cancer Screening (5 measures)</h4>
+        <ul class="text-gray-400 text-xs space-y-1">
+          <li>BCS &mdash; Breast Cancer Screening</li>
+          <li>CCS &mdash; Cervical Cancer Screening</li>
+          <li>COL &mdash; Colorectal Cancer Screening</li>
+          <li>PSA &mdash; Non-Recommended PSA Screening</li>
+          <li>LCS &mdash; Lung Cancer Screening</li>
+        </ul>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-4">
+        <h4 class="text-cyan-300 font-semibold mb-2">Immunizations (15 measures)</h4>
+        <ul class="text-gray-400 text-xs space-y-1">
+          <li>AIS-FLU/TDAP/ZOSTER/COVID &mdash; Adult Immunization</li>
+          <li>FLU &mdash; Influenza Immunization</li>
+          <li>PNU &mdash; Pneumococcal</li>
+          <li>IMA &mdash; Adolescent Immunizations</li>
+          <li>CIS-* &mdash; Childhood Immunization Series (8)</li>
+        </ul>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-4">
+        <h4 class="text-cyan-300 font-semibold mb-2">Medication Management (8 measures)</h4>
+        <ul class="text-gray-400 text-xs space-y-1">
+          <li>DAE &mdash; High-Risk Medications in Older Adults</li>
+          <li>MAC &mdash; Medication Adherence (Cholesterol)</li>
+          <li>MAD &mdash; Medication Adherence (Diabetes)</li>
+          <li>MAH &mdash; Medication Adherence (Hypertension)</li>
+          <li>SPD/SPC/SPR &mdash; Statin Therapy</li>
+          <li>DDE-* &mdash; Drug-Disease Interactions</li>
+        </ul>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-4">
+        <h4 class="text-cyan-300 font-semibold mb-2">Behavioral Health (10 measures)</h4>
+        <ul class="text-gray-400 text-xs space-y-1">
+          <li>DSF &mdash; Depression Screening &amp; Follow-Up</li>
+          <li>TSC &mdash; Tobacco Screening &amp; Cessation</li>
+          <li>ASF-* &mdash; Alcohol Screening &amp; Intervention</li>
+          <li>SNS-* &mdash; Social Need Screening (Food/Housing/Transport)</li>
+          <li>ADD-* &mdash; ADHD Follow-Up</li>
+        </ul>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-4">
+        <h4 class="text-cyan-300 font-semibold mb-2">Other Domains (76 measures)</h4>
+        <ul class="text-gray-400 text-xs space-y-1">
+          <li>CBP &mdash; Blood Pressure Control</li>
+          <li>COA-* &mdash; Care for Older Adults</li>
+          <li>AAP &mdash; Access to Preventive Services</li>
+          <li>WCV/W15/W34 &mdash; Well-Child/Adolescent Visits</li>
+          <li>FUH/FUM &mdash; Follow-Up After Hospitalization</li>
+          <li>PCE &mdash; Pharmacotherapy for OUD</li>
+          <li>OMW &mdash; Osteoporosis Management</li>
+          <li>+ many more...</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- YAML Example -->
+  <div class="card p-6 mb-8">
+    <h3 class="text-lg font-bold text-white mb-4">Example YAML Measure Definition</h3>
+    <div class="code-block p-4 text-xs overflow-x-auto">
+<pre class="text-gray-300"><span class="text-gray-600"># hedis/hedis_engine/catalog/cdc_a1c_test.yaml</span>
+<span class="text-cyan-300">id</span>: CDC-A1C-TEST
+<span class="text-cyan-300">name</span>: "Diabetes Care - HbA1c Testing"
+<span class="text-cyan-300">description</span>: "Adults 18-75 with diabetes who had HbA1c testing"
+<span class="text-cyan-300">domain</span>: effectiveness_of_care
+<span class="text-cyan-300">measurement_year_offset</span>: 0
+
+<span class="text-cyan-300">eligibility</span>:
+  <span class="text-cyan-300">age</span>: { <span class="text-cyan-300">min</span>: 18, <span class="text-cyan-300">max</span>: 75 }
+  <span class="text-cyan-300">gender</span>: [male, female]
+  <span class="text-cyan-300">required_conditions</span>:
+    - <span class="text-cyan-300">type</span>: diagnosis
+      <span class="text-cyan-300">value_set</span>: diabetes_dx
+      <span class="text-cyan-300">lookback_years</span>: 2
+
+<span class="text-cyan-300">numerator</span>:
+  <span class="text-cyan-300">criteria</span>:
+    - <span class="text-cyan-300">type</span>: lab_exists
+      <span class="text-cyan-300">lab_type</span>: a1c
+      <span class="text-cyan-300">within_months</span>: 12
+
+<span class="text-cyan-300">exclusions</span>:
+  - <span class="text-cyan-300">type</span>: diagnosis
+    <span class="text-cyan-300">value_set</span>: hospice
+  - <span class="text-cyan-300">type</span>: diagnosis
+    <span class="text-cyan-300">value_set</span>: advanced_illness</pre>
+    </div>
+  </div>
+
+  <!-- Engine Evaluation Steps -->
+  <div class="grid md:grid-cols-5 gap-3 mb-8">
+    <div class="card p-4 text-center">
+      <div class="text-xs text-gray-500 uppercase font-semibold mb-2">Step 1</div>
+      <div class="text-white font-bold text-sm">Eligibility</div>
+      <div class="text-xs text-gray-400 mt-1">Age + gender + required conditions check</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="text-xs text-gray-500 uppercase font-semibold mb-2">Step 2</div>
+      <div class="text-white font-bold text-sm">Denominator</div>
+      <div class="text-xs text-gray-400 mt-1">Population inclusion criteria</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="text-xs text-gray-500 uppercase font-semibold mb-2">Step 3</div>
+      <div class="text-white font-bold text-sm">Exclusions</div>
+      <div class="text-xs text-gray-400 mt-1">Hospice, pregnancy, advanced illness</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="text-xs text-gray-500 uppercase font-semibold mb-2">Step 4</div>
+      <div class="text-white font-bold text-sm">Numerator</div>
+      <div class="text-xs text-gray-400 mt-1">Required labs/procedures/values within window</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="text-xs text-gray-500 uppercase font-semibold mb-2">Step 5</div>
+      <div class="text-white font-bold text-sm">Gap Detection</div>
+      <div class="text-xs text-gray-400 mt-1">Identify missing evidence + audit trace</div>
+    </div>
+  </div>
+
+  <!-- HEDIS Output Format -->
+  <div class="card p-6">
+    <h3 class="text-lg font-bold text-white mb-4">HEDIS Output Format (6_hedis_quality.json)</h3>
+    <div class="code-block p-4 text-xs overflow-x-auto">
+<pre class="text-gray-300">{
+  <span class="text-amber-300">"engine"</span>: <span class="text-green-400">"hedis_engine_v1"</span>,
+  <span class="text-amber-300">"measurement_year"</span>: 2026,
+  <span class="text-amber-300">"measures"</span>: [
+    {
+      <span class="text-amber-300">"id"</span>: "CDC-A1C-TEST",
+      <span class="text-amber-300">"name"</span>: "Diabetes Care - HbA1c Testing",
+      <span class="text-amber-300">"applicable"</span>: true,
+      <span class="text-amber-300">"compliant"</span>: true,
+      <span class="text-amber-300">"status"</span>: <span class="text-green-400">"met"</span>,
+      <span class="text-amber-300">"eligibility_reason"</span>: ["Age 65 in range [18, 75]", "Gender male matches"],
+      <span class="text-amber-300">"evidence_used"</span>: [
+        { <span class="text-amber-300">"type"</span>: "lab", <span class="text-amber-300">"code"</span>: "a1c", <span class="text-amber-300">"value"</span>: "8.2", <span class="text-amber-300">"date"</span>: "2025-08-15" }
+      ],
+      <span class="text-amber-300">"trace"</span>: [
+        { <span class="text-amber-300">"rule"</span>: "age_check", <span class="text-amber-300">"result"</span>: "pass" },
+        { <span class="text-amber-300">"rule"</span>: "lab_exists:a1c", <span class="text-amber-300">"result"</span>: "pass" }
+      ],
+      <span class="text-amber-300">"confidence"</span>: 0.95
+    },
+    {
+      <span class="text-amber-300">"id"</span>: "BCS",
+      <span class="text-amber-300">"name"</span>: "Breast Cancer Screening",
+      <span class="text-amber-300">"applicable"</span>: true,
+      <span class="text-amber-300">"compliant"</span>: false,
+      <span class="text-amber-300">"status"</span>: <span class="text-red-400">"gap"</span>,
+      <span class="text-amber-300">"gaps"</span>: [
+        { <span class="text-amber-300">"type"</span>: "missing_procedure", <span class="text-amber-300">"description"</span>: "No mammography found", <span class="text-amber-300">"window"</span>: "2024-01-01..2025-12-31" }
+      ]
+    }
+  ],
+  <span class="text-amber-300">"gaps"</span>: [ <span class="text-gray-600">/* aggregated gap list across all measures */</span> ],
+  <span class="text-amber-300">"summary"</span>: {
+    <span class="text-amber-300">"total_measures"</span>: 122,
+    <span class="text-amber-300">"applicable"</span>: 28,
+    <span class="text-amber-300">"met"</span>: 5,
+    <span class="text-amber-300">"gap"</span>: 22,
+    <span class="text-amber-300">"excluded"</span>: 1,
+    <span class="text-amber-300">"not_applicable"</span>: 94
+  },
+  <span class="text-amber-300">"member_events"</span>: {
+    <span class="text-amber-300">"diagnoses"</span>: 35, <span class="text-amber-300">"encounters"</span>: 4, <span class="text-amber-300">"labs"</span>: 8, <span class="text-amber-300">"vitals"</span>: 3, <span class="text-amber-300">"medications"</span>: 12, <span class="text-amber-300">"immunizations"</span>: 0
+  }
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: DATABASE ════════════════════════ -->
+<section id="tab-database" class="tab-content">
+
+  <div class="card p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">Database Schema &mdash; 44 Tables</h2>
+    <p class="text-gray-400">Multi-table schema supporting both PostgreSQL and SQLite. Covers assertions, clinical extraction, risk adjustment, HEDIS measures, patients, encounters, and audit trails.</p>
+  </div>
+
+  <div class="grid gap-4 mb-8">
+
+    <!-- Core Tables -->
+    <div class="card p-5">
+      <h3 class="font-bold text-brand-300 mb-3 text-sm uppercase tracking-wider">Core Tables (4)</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">charts</div>
+          <p class="text-gray-500 text-xs mt-1">Chart metadata, file path, status, page count, quality score</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">27 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">chart_pages</div>
+          <p class="text-gray-500 text-xs mt-1">Per-page text, quality score, OCR flag</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">126 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">pipeline_runs</div>
+          <p class="text-gray-500 text-xs mt-1">Pipeline execution records with timing</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">26 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">processing_stats</div>
+          <p class="text-gray-500 text-xs mt-1">Per-chart metrics: time, tokens, pages</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">26 rows</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Central: Assertions -->
+    <div class="card p-5 border-brand-500/30">
+      <h3 class="font-bold text-green-300 mb-3 text-sm uppercase tracking-wider">Central Table &mdash; Assertions</h3>
+      <div class="bg-surface-900 rounded-lg p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="font-mono text-lg text-white font-bold">assertions</div>
+          <span class="badge badge-green">2,620 rows</span>
+        </div>
+        <p class="text-gray-400 text-sm mb-3">Every clinical fact from a chart. Fields: category, concept, canonical_concept, text, status (6-level negation), page_number, exact_quote, char_start/end, ICD codes (JSONB), effective_date, is_hcc_candidate, is_hedis_evidence, review_status.</p>
+      </div>
+    </div>
+
+    <!-- Clinical Tables -->
+    <div class="card p-5">
+      <h3 class="font-bold text-green-300 mb-3 text-sm uppercase tracking-wider">Clinical Extraction Tables (8)</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">patients</div>
+          <p class="text-gray-500 text-xs mt-1">Demographics: name, DOB, gender, MBI</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">16 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">clinical_sentences</div>
+          <p class="text-gray-500 text-xs mt-1">22-category sentences with negation</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">2,460 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">diagnoses</div>
+          <p class="text-gray-500 text-xs mt-1">All extracted diagnoses with ICD-10</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">483 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">encounters</div>
+          <p class="text-gray-500 text-xs mt-1">Visit dates, providers, CPT codes</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">157 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">encounter_diagnoses</div>
+          <p class="text-gray-500 text-xs">402 rows</p>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">encounter_medications</div>
+          <p class="text-gray-500 text-xs">405 rows</p>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">encounter_lab_orders</div>
+          <p class="text-gray-500 text-xs">179 rows</p>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">encounter_procedures</div>
+          <p class="text-gray-500 text-xs">104 rows</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk Adjustment Tables -->
+    <div class="card p-5">
+      <h3 class="font-bold text-purple-300 mb-3 text-sm uppercase tracking-wider">Risk Adjustment Tables (4)</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">payable_hccs</div>
+          <p class="text-gray-500 text-xs mt-1">Final payable HCC list with RAF weights</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">65 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">suppressed_hccs</div>
+          <p class="text-gray-500 text-xs mt-1">HCCs removed by hierarchy suppression</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">16 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">raf_summaries</div>
+          <p class="text-gray-500 text-xs mt-1">RAF score breakdown per chart</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">26 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">diagnosis_hcc_mappings</div>
+          <p class="text-gray-500 text-xs mt-1">ICD &rarr; HCC V28 mapping results</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">236 rows</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEDIS Tables -->
+    <div class="card p-5">
+      <h3 class="font-bold text-cyan-300 mb-3 text-sm uppercase tracking-wider">HEDIS Tables (8)</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">hedis_results</div>
+          <p class="text-gray-500 text-xs mt-1">Per-measure results: status, evidence, gaps, trace</p>
+          <div class="mt-1 text-xs text-cyan-400 font-mono font-bold">1,316 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">hedis_summaries</div>
+          <p class="text-gray-500 text-xs mt-1">Aggregate: total/applicable/met/gap/excluded + engine version</p>
+          <div class="mt-1 text-xs text-gray-600 font-mono">26 rows</div>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">hedis_bp_readings</div>
+          <p class="text-gray-500 text-xs">33 rows</p>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">hedis_lab_results</div>
+          <p class="text-gray-500 text-xs">60 rows</p>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">hedis_screenings</div>
+          <p class="text-gray-500 text-xs">45 rows</p>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">hedis_medications</div>
+          <p class="text-gray-500 text-xs">113 rows</p>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">hedis_eligibility</div>
+          <p class="text-gray-500 text-xs">118 rows</p>
+        </div>
+        <div class="bg-surface-900 rounded-lg p-3">
+          <div class="font-mono text-sm text-white font-semibold">hedis_depression_screenings</div>
+          <p class="text-gray-500 text-xs">14 rows</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other Tables -->
+    <div class="card p-5">
+      <h3 class="font-bold text-gray-400 mb-3 text-sm uppercase tracking-wider">Patient, Config &amp; Audit Tables</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">patient_member_ids</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">patient_phones</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">patient_providers</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">patient_vitals</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">patient_family_history</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">extraction_results</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">condition_groups</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">audit_logs</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">review_actions</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">system_config</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">llm_configs</div></div>
+        <div class="bg-surface-900 rounded-lg p-3"><div class="font-mono text-xs text-gray-300">prompt_templates</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: API ════════════════════════ -->
+<section id="tab-api" class="tab-content">
+
+  <div class="card p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">REST API &mdash; 41 Endpoints</h2>
+    <p class="text-gray-400">FastAPI application with 10 router modules. All endpoints return JSON. Authentication via middleware.</p>
+  </div>
+
+  <div class="space-y-6">
+
+    <div class="card p-5">
+      <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+        <span class="badge badge-blue">charts.py</span> Chart Management (6 routes)
+      </h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead><tr class="text-left text-gray-500 text-xs uppercase"><th class="px-3 py-2">Method</th><th class="px-3 py-2">Path</th><th class="px-3 py-2">Description</th></tr></thead>
+          <tbody class="font-mono text-xs">
+            <tr class="table-row"><td class="px-3 py-2"><span class="text-green-400">POST</span></td><td class="px-3 py-2 text-gray-300">/api/charts/upload</td><td class="px-3 py-2 text-gray-400 font-sans">Upload and process a chart PDF</td></tr>
+            <tr class="table-row"><td class="px-3 py-2"><span class="text-green-400">POST</span></td><td class="px-3 py-2 text-gray-300">/api/charts/process/{chart_id}</td><td class="px-3 py-2 text-gray-400 font-sans">Re-process an existing chart</td></tr>
+            <tr class="table-row"><td class="px-3 py-2"><span class="text-blue-400">GET</span></td><td class="px-3 py-2 text-gray-300">/api/charts/{chart_id}</td><td class="px-3 py-2 text-gray-400 font-sans">Get chart status and metadata</td></tr>
+            <tr class="table-row"><td class="px-3 py-2"><span class="text-blue-400">GET</span></td><td class="px-3 py-2 text-gray-300">/api/charts/{chart_id}/pages</td><td class="px-3 py-2 text-gray-400 font-sans">Get page-level text and quality</td></tr>
+            <tr class="table-row"><td class="px-3 py-2"><span class="text-blue-400">GET</span></td><td class="px-3 py-2 text-gray-300">/api/charts</td><td class="px-3 py-2 text-gray-400 font-sans">List all charts with filters</td></tr>
+            <tr class="table-row"><td class="px-3 py-2"><span class="text-red-400">DELETE</span></td><td class="px-3 py-2 text-gray-300">/api/charts/{chart_id}</td><td class="px-3 py-2 text-gray-400 font-sans">Delete chart and all related data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+        <span class="badge badge-green">clinical.py</span> Clinical Data (6 routes)
+      </h3>
+      <div class="text-xs font-mono space-y-1 text-gray-400">
+        <div><span class="text-blue-400">GET</span> /api/clinical/{chart_id}/diagnoses &mdash; All diagnoses with ICD codes</div>
+        <div><span class="text-blue-400">GET</span> /api/clinical/{chart_id}/sentences &mdash; Clinical sentences (22 categories)</div>
+        <div><span class="text-blue-400">GET</span> /api/clinical/{chart_id}/vitals &mdash; Vital signs (BP, BMI)</div>
+        <div><span class="text-blue-400">GET</span> /api/clinical/{chart_id}/labs &mdash; Lab results (A1C, LDL)</div>
+        <div><span class="text-blue-400">GET</span> /api/clinical/{chart_id}/medications &mdash; Active medications</div>
+        <div><span class="text-blue-400">GET</span> /api/clinical/{chart_id}/encounters &mdash; Encounter timeline</div>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+        <span class="badge badge-amber">risk_adjustment.py</span> Risk Adjustment (6 routes)
+      </h3>
+      <div class="text-xs font-mono space-y-1 text-gray-400">
+        <div><span class="text-blue-400">GET</span> /api/risk/{chart_id}/hcc-pack &mdash; Complete Payable HCC Pack (ensemble)</div>
+        <div><span class="text-blue-400">GET</span> /api/risk/{chart_id}/raf-summary &mdash; RAF score breakdown</div>
+        <div><span class="text-blue-400">GET</span> /api/risk/{chart_id}/ml-predictions &mdash; Raw BioClinicalBERT predictions</div>
+        <div><span class="text-blue-400">GET</span> /api/risk/{chart_id}/icd-retrievals &mdash; TF-IDF retrieved ICDs</div>
+        <div><span class="text-blue-400">GET</span> /api/risk/{chart_id}/verified-icds &mdash; Post-verification ICDs</div>
+        <div><span class="text-blue-400">GET</span> /api/risk/{chart_id}/hierarchy &mdash; HCC hierarchy details</div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+          <span class="badge badge-cyan">hedis.py</span> HEDIS Quality (3 routes)
+        </h3>
+        <div class="text-xs font-mono space-y-1 text-gray-400">
+          <div><span class="text-blue-400">GET</span> /api/hedis/{chart_id}/measures &mdash; All 122 measure results</div>
+          <div><span class="text-blue-400">GET</span> /api/hedis/{chart_id}/gaps &mdash; Identified care gaps</div>
+          <div><span class="text-blue-400">GET</span> /api/hedis/{chart_id}/evidence &mdash; All HEDIS evidence items</div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+          <span class="badge badge-blue">pipeline.py</span> Pipeline (3 routes)
+        </h3>
+        <div class="text-xs font-mono space-y-1 text-gray-400">
+          <div><span class="text-blue-400">GET</span> /api/pipeline/runs</div>
+          <div><span class="text-blue-400">GET</span> /api/pipeline/runs/{run_id}/logs</div>
+          <div><span class="text-green-400">POST</span> /api/pipeline/runs/{run_id}/rerun</div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+          <span class="badge badge-red">audit.py</span> Audit (3 routes)
+        </h3>
+        <div class="text-xs font-mono space-y-1 text-gray-400">
+          <div><span class="text-blue-400">GET</span> /api/audit/{chart_id}/pack</div>
+          <div><span class="text-blue-400">GET</span> /api/audit/{chart_id}/risk-scores</div>
+          <div><span class="text-blue-400">GET</span> /api/audit/logs</div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+          <span class="badge badge-amber">config.py</span> Configuration (7 routes)
+        </h3>
+        <div class="text-xs font-mono space-y-1 text-gray-400">
+          <div><span class="text-blue-400">GET</span>/<span class="text-amber-400">PUT</span> /api/config</div>
+          <div><span class="text-blue-400">GET</span>/<span class="text-amber-400">PUT</span> /api/config/feature-flags</div>
+          <div><span class="text-blue-400">GET</span>/<span class="text-amber-400">PUT</span> /api/config/prompts/{name}</div>
+          <div><span class="text-blue-400">GET</span> /api/config/model-versions</div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+          <span class="badge badge-green">dashboard.py</span> Dashboard (5 routes)
+        </h3>
+        <div class="text-xs font-mono space-y-1 text-gray-400">
+          <div><span class="text-blue-400">GET</span> /api/dashboard/stats</div>
+          <div><span class="text-blue-400">GET</span> /api/dashboard/db-stats</div>
+          <div><span class="text-blue-400">GET</span> /api/dashboard/processing-metrics</div>
+          <div><span class="text-blue-400">GET</span> /api/dashboard/model-performance</div>
+          <div><span class="text-blue-400">GET</span> /api/dashboard/recent-activity</div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+          <span class="badge badge-blue">patients.py + encounters.py</span> (2 routes)
+        </h3>
+        <div class="text-xs font-mono space-y-1 text-gray-400">
+          <div><span class="text-blue-400">GET</span> /api/patients/{chart_id}</div>
+          <div><span class="text-blue-400">GET</span> /api/encounters/{chart_id}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: OUTPUTS ════════════════════════ -->
+<section id="tab-outputs" class="tab-content">
+
+  <div class="card p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">Output File Generation</h2>
+    <p class="text-gray-400">Each chart run produces 8 JSON files in <code class="text-brand-300">outputs/{chart_name}/</code>.</p>
+  </div>
+
+  <div class="grid gap-4">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="font-mono text-xs font-bold text-brand-300">0</span>
+          <h4 class="font-bold text-white font-mono text-sm">0_demographics.json</h4>
+        </div>
+        <p class="text-gray-500 text-xs">Patient name, DOB, gender, MBI, insurance, providers, address, phone</p>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="font-mono text-xs font-bold text-brand-300">1</span>
+          <h4 class="font-bold text-white font-mono text-sm">1_clinical_sentences.json</h4>
+        </div>
+        <p class="text-gray-500 text-xs">All sentences categorized (22 types) with 6-status negation</p>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="font-mono text-xs font-bold text-brand-300">2</span>
+          <h4 class="font-bold text-white font-mono text-sm">2_risk_diagnoses.json</h4>
+        </div>
+        <p class="text-gray-500 text-xs">Diagnoses with ICD-10 codes, negation status, supporting text, dates</p>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="font-mono text-xs font-bold text-brand-300">3</span>
+          <h4 class="font-bold text-white font-mono text-sm">3_hedis_evidence.json</h4>
+        </div>
+        <p class="text-gray-500 text-xs">BP readings, lab results, screenings, immunizations, medications</p>
+      </div>
+      <div class="card p-4">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="font-mono text-xs font-bold text-brand-300">4</span>
+          <h4 class="font-bold text-white font-mono text-sm">4_encounters.json</h4>
+        </div>
+        <p class="text-gray-500 text-xs">Encounter timeline with dates, providers, CPT codes, diagnoses</p>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-8 h-8 rounded bg-amber-600/30 flex items-center justify-center text-amber-300 font-mono text-xs font-bold">5</span>
+        <h4 class="font-bold text-white font-mono">5_hcc_pack.json</h4>
+        <span class="badge badge-amber">4-Track Ensemble</span>
+      </div>
+      <p class="text-gray-400 text-sm ml-11">Payable HCCs (with source track, LLM verification, RAF weight), suppressed HCCs, rejected candidates with reasons, RAF summary, ensemble metadata (per-track counts, timing).</p>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-8 h-8 rounded bg-cyan-600/30 flex items-center justify-center text-cyan-300 font-mono text-xs font-bold">6</span>
+        <h4 class="font-bold text-white font-mono">6_hedis_quality.json</h4>
+        <span class="badge badge-cyan">HEDIS Engine v1</span>
+      </div>
+      <p class="text-gray-400 text-sm ml-11">122 HEDIS measure results with status (met/gap/N-A/excluded), evidence used, audit traces, gap details, confidence scores. Summary with applicable/met/gap/excluded counts. Member event store stats.</p>
+    </div>
+
+    <div class="card p-5">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="w-8 h-8 rounded bg-purple-600/30 flex items-center justify-center text-purple-300 font-mono text-xs font-bold">7</span>
+        <h4 class="font-bold text-white font-mono">7_summary.json</h4>
+        <span class="badge badge-purple">Summary</span>
+      </div>
+      <p class="text-gray-400 text-sm ml-11">Human-readable summary: PDF stats, extraction counts, HCC/RAF breakdown, HEDIS summary, processing time, model version.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: CONFIGURATION ════════════════════════ -->
+<section id="tab-config" class="tab-content">
+
+  <div class="card p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">Configuration System</h2>
+    <p class="text-gray-400">Three-layer configuration: environment variables (.env) &rarr; Pydantic BaseSettings &rarr; runtime feature flags. All settings configurable without code changes.</p>
+  </div>
+
+  <div class="card p-6 mb-6">
+    <h3 class="text-lg font-bold text-white mb-4">Environment Variables (.env)</h3>
+    <div class="code-block p-4 text-xs overflow-x-auto">
+<pre class="text-gray-300"><span class="text-gray-600"># Database</span>
+<span class="text-amber-300">POSTGRES_HOST</span>=localhost
+<span class="text-amber-300">POSTGRES_DB</span>=medinsight360
+
+<span class="text-gray-600"># LLM Providers</span>
+<span class="text-amber-300">OPENAI_API_KEY</span>=sk-...
+<span class="text-amber-300">ACTIVE_LLM_MODEL</span>=gpt-4o-mini
+
+<span class="text-gray-600"># Feature Flags</span>
+<span class="text-amber-300">ENABLE_RISK_ADJUSTMENT</span>=true
+<span class="text-amber-300">ENABLE_HEDIS</span>=true
+<span class="text-amber-300">ENABLE_ML_PREDICTIONS</span>=true    <span class="text-gray-600"># BioClinicalBERT + TF-IDF</span>
+<span class="text-amber-300">ENABLE_LLM_VERIFICATION</span>=true <span class="text-gray-600"># Track 4 verification gate</span>
+<span class="text-amber-300">ENABLE_OCR_FALLBACK</span>=true
+
+<span class="text-gray-600"># Pipeline Settings</span>
+<span class="text-amber-300">CHUNK_SIZE</span>=10000
+<span class="text-amber-300">QUALITY_THRESHOLD</span>=50
+<span class="text-amber-300">MAX_PARALLEL_PDFS</span>=3</pre>
+    </div>
+  </div>
+
+  <div class="card p-6 mb-6">
+    <h3 class="text-lg font-bold text-white mb-4">Feature Flags</h3>
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="bg-surface-900 rounded-lg p-3 flex items-center justify-between">
+        <div><div class="font-mono text-sm text-white">risk_adjustment</div><div class="text-xs text-gray-500">HCC ensemble + RAF scoring</div></div>
+        <span class="badge badge-green">ON</span>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-3 flex items-center justify-between">
+        <div><div class="font-mono text-sm text-white">hedis_engine</div><div class="text-xs text-gray-500">122-measure HEDIS engine evaluation</div></div>
+        <span class="badge badge-green">ON</span>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-3 flex items-center justify-between">
+        <div><div class="font-mono text-sm text-white">ml_predictions</div><div class="text-xs text-gray-500">BioClinicalBERT + TF-IDF (Tracks 2&amp;3)</div></div>
+        <span class="badge badge-green">ON</span>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-3 flex items-center justify-between">
+        <div><div class="font-mono text-sm text-white">llm_verification</div><div class="text-xs text-gray-500">GPT-4o-mini verification gate (Track 4)</div></div>
+        <span class="badge badge-green">ON</span>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-3 flex items-center justify-between">
+        <div><div class="font-mono text-sm text-white">ocr_fallback</div><div class="text-xs text-gray-500">GPT-4o Vision for low-quality pages</div></div>
+        <span class="badge badge-green">ON</span>
+      </div>
+      <div class="bg-surface-900 rounded-lg p-3 flex items-center justify-between">
+        <div><div class="font-mono text-sm text-white">db_persistence</div><div class="text-xs text-gray-500">Store results to SQLite/PostgreSQL</div></div>
+        <span class="badge badge-green">ON</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-6">
+    <h3 class="text-lg font-bold text-white mb-4">Prompt Templates <span class="font-mono text-sm text-gray-500">config/prompts/</span></h3>
+    <div class="grid md:grid-cols-2 gap-2 text-xs font-mono">
+      <div class="bg-surface-900 rounded px-3 py-2 text-gray-300">demographics_extraction.txt</div>
+      <div class="bg-surface-900 rounded px-3 py-2 text-gray-300">sentence_categorization.txt</div>
+      <div class="bg-surface-900 rounded px-3 py-2 text-gray-300">risk_dx_extraction.txt</div>
+      <div class="bg-surface-900 rounded px-3 py-2 text-gray-300">hedis_evidence.txt</div>
+      <div class="bg-surface-900 rounded px-3 py-2 text-gray-300">encounter_extraction.txt</div>
+      <div class="bg-surface-900 rounded px-3 py-2 text-gray-300">icd_meat_verification.txt</div>
+      <div class="bg-surface-900 rounded px-3 py-2 text-gray-300">clinical_summary.txt</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: SCRIPTS ════════════════════════ -->
+<section id="tab-scripts" class="tab-content">
+
+  <div class="card p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">Scripts &amp; CLI Tools</h2>
+    <p class="text-gray-400">Command-line tools for processing charts, batch operations, and system setup.</p>
+  </div>
+
+  <div class="card p-6 mb-6">
+    <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+      <span class="font-mono text-brand-300">scripts/process_charts.py</span>
+      <span class="badge badge-green">Primary CLI</span>
+    </h3>
+    <p class="text-gray-400 text-sm mb-3">End-to-end chart processing: PDF &rarr; LangExtract (5 pipelines) &rarr; HCC Ensemble V4 &rarr; HEDIS Engine (122 measures) &rarr; DB persistence.</p>
+    <div class="code-block p-4 text-xs overflow-x-auto">
+<pre class="text-gray-300"><span class="text-gray-600"># Process all PDFs in default uploads/ directory</span>
+python scripts/process_charts.py
+
+<span class="text-gray-600"># Single PDF</span>
+python scripts/process_charts.py --pdf uploads/chart.pdf
+
+<span class="text-gray-600"># Batch process from custom directory</span>
+python scripts/process_charts.py --input-dir /path/to/pdfs --max-files 10
+
+<span class="text-gray-600"># Skip database persistence</span>
+python scripts/process_charts.py --no-db
+
+<span class="text-gray-600"># Custom API key and model</span>
+python scripts/process_charts.py --api-key sk-proj-... --model gpt-4o</pre>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="card p-5">
+      <h4 class="font-mono text-brand-300 font-bold text-sm">scripts/run_chart.py</h4>
+      <p class="text-gray-400 text-sm mt-1">Process a single chart with mode selection (full/risk_only/hedis_only/hcc_pack).</p>
+    </div>
+    <div class="card p-5">
+      <h4 class="font-mono text-brand-300 font-bold text-sm">scripts/init_db.py</h4>
+      <p class="text-gray-400 text-sm mt-1">Create all 44 database tables using SQLAlchemy.</p>
+    </div>
+    <div class="card p-5">
+      <h4 class="font-mono text-brand-300 font-bold text-sm">scripts/seed_reference_data.py</h4>
+      <p class="text-gray-400 text-sm mt-1">Load V28 mappings, hierarchy rules, RAF coefficients into DB.</p>
+    </div>
+    <div class="card p-5">
+      <h4 class="font-mono text-brand-300 font-bold text-sm">scripts/export_results.py</h4>
+      <p class="text-gray-400 text-sm mt-1">Export results to CSV/JSON for external analysis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════ TAB: BATCH RESULTS ════════════════════════ -->
+<section id="tab-results" class="tab-content">
+
+  <div class="card card-glow p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-2">Batch Processing Results</h2>
+    <p class="text-gray-400">10 medical chart PDFs processed end-to-end through the full pipeline: LangExtract (5 pipelines) + 4-Track HCC Ensemble + 122-measure HEDIS Engine + DB persistence.</p>
+  </div>
+
+  <!-- Batch Summary Stats -->
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-green-400">10/10</div>
+      <div class="text-xs text-gray-500 mt-1">Charts Success</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-brand-400">245.7s</div>
+      <div class="text-xs text-gray-500 mt-1">Total Time</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-amber-400">3.183</div>
+      <div class="text-xs text-gray-500 mt-1">Cumulative RAF</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-purple-400">228</div>
+      <div class="text-xs text-gray-500 mt-1">Total Diagnoses</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-green-400">27</div>
+      <div class="text-xs text-gray-500 mt-1">Payable HCCs</div>
+    </div>
+    <div class="stat-card rounded-xl p-4 text-center">
+      <div class="text-2xl font-bold text-cyan-400">1,220</div>
+      <div class="text-xs text-gray-500 mt-1">HEDIS Results</div>
+    </div>
+  </div>
+
+  <!-- Per-Chart Table -->
+  <div class="card p-6 mb-8">
+    <h3 class="text-lg font-bold text-white mb-4">Per-Chart Results</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="table-header text-left text-gray-400 text-xs uppercase tracking-wider">
+            <th class="px-3 py-2 rounded-tl-lg">Chart</th>
+            <th class="px-3 py-2 text-right">Time(s)</th>
+            <th class="px-3 py-2 text-right">RAF</th>
+            <th class="px-3 py-2 text-right">Dx</th>
+            <th class="px-3 py-2 text-right">HCCs</th>
+            <th class="px-3 py-2 text-right">Assertions</th>
+            <th class="px-3 py-2 text-right">HEDIS Met</th>
+            <th class="px-3 py-2 text-right rounded-tr-lg">HEDIS Gaps</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">1_RET235214388</td><td class="px-3 py-2 text-right text-gray-400">32.9</td><td class="px-3 py-2 text-right text-amber-400">0.127</td><td class="px-3 py-2 text-right text-gray-300">37</td><td class="px-3 py-2 text-right text-green-400">1</td><td class="px-3 py-2 text-right text-gray-400">176</td><td class="px-3 py-2 text-right text-green-400">5</td><td class="px-3 py-2 text-right text-red-400">22</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">BPD_Highlighted</td><td class="px-3 py-2 text-right text-gray-400">18.8</td><td class="px-3 py-2 text-right text-amber-400">0.984</td><td class="px-3 py-2 text-right text-gray-300">28</td><td class="px-3 py-2 text-right text-green-400">3</td><td class="px-3 py-2 text-right text-gray-400">231</td><td class="px-3 py-2 text-right text-green-400">1</td><td class="px-3 py-2 text-right text-red-400">17</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">2R_YANG</td><td class="px-3 py-2 text-right text-gray-400">18.1</td><td class="px-3 py-2 text-right text-amber-400">0.166</td><td class="px-3 py-2 text-right text-gray-300">5</td><td class="px-3 py-2 text-right text-green-400">2</td><td class="px-3 py-2 text-right text-gray-400">52</td><td class="px-3 py-2 text-right text-green-400">2</td><td class="px-3 py-2 text-right text-red-400">19</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">2_RET235068306</td><td class="px-3 py-2 text-right text-gray-400">26.1</td><td class="px-3 py-2 text-right text-amber-400">0.166</td><td class="px-3 py-2 text-right text-gray-300">29</td><td class="px-3 py-2 text-right text-green-400">1</td><td class="px-3 py-2 text-right text-gray-400">195</td><td class="px-3 py-2 text-right text-green-400">10</td><td class="px-3 py-2 text-right text-red-400">26</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">3_RET235121812</td><td class="px-3 py-2 text-right text-gray-400">25.6</td><td class="px-3 py-2 text-right text-amber-400">0.000</td><td class="px-3 py-2 text-right text-gray-300">16</td><td class="px-3 py-2 text-right text-green-400">0</td><td class="px-3 py-2 text-right text-gray-400">138</td><td class="px-3 py-2 text-right text-green-400">1</td><td class="px-3 py-2 text-right text-red-400">18</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">4R_NUNEZ</td><td class="px-3 py-2 text-right text-gray-400">20.8</td><td class="px-3 py-2 text-right text-amber-400 font-bold">1.408</td><td class="px-3 py-2 text-right text-gray-300">11</td><td class="px-3 py-2 text-right text-green-400 font-bold">5</td><td class="px-3 py-2 text-right text-gray-400">122</td><td class="px-3 py-2 text-right text-green-400 font-bold">10</td><td class="px-3 py-2 text-right text-red-400">23</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">4_RET235139077</td><td class="px-3 py-2 text-right text-gray-400">31.1</td><td class="px-3 py-2 text-right text-amber-400">0.000</td><td class="px-3 py-2 text-right text-gray-300">42</td><td class="px-3 py-2 text-right text-green-400">4</td><td class="px-3 py-2 text-right text-gray-400">194</td><td class="px-3 py-2 text-right text-green-400">1</td><td class="px-3 py-2 text-right text-red-400">20</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">4_RET_highlighted</td><td class="px-3 py-2 text-right text-gray-400">32.1</td><td class="px-3 py-2 text-right text-amber-400">0.000</td><td class="px-3 py-2 text-right text-gray-300">41</td><td class="px-3 py-2 text-right text-green-400">3</td><td class="px-3 py-2 text-right text-gray-400">181</td><td class="px-3 py-2 text-right text-green-400">1</td><td class="px-3 py-2 text-right text-red-400">20</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">5R_NUNEZ</td><td class="px-3 py-2 text-right text-gray-400">22.0</td><td class="px-3 py-2 text-right text-amber-400">0.166</td><td class="px-3 py-2 text-right text-gray-300">8</td><td class="px-3 py-2 text-right text-green-400">6</td><td class="px-3 py-2 text-right text-gray-400">91</td><td class="px-3 py-2 text-right text-green-400">6</td><td class="px-3 py-2 text-right text-red-400">27</td></tr>
+          <tr class="table-row"><td class="px-3 py-2 font-mono text-xs text-brand-300">5_RET235164168</td><td class="px-3 py-2 text-right text-gray-400">18.3</td><td class="px-3 py-2 text-right text-amber-400">0.166</td><td class="px-3 py-2 text-right text-gray-300">11</td><td class="px-3 py-2 text-right text-green-400">2</td><td class="px-3 py-2 text-right text-gray-400">59</td><td class="px-3 py-2 text-right text-green-400">2</td><td class="px-3 py-2 text-right text-red-400">17</td></tr>
+        </tbody>
+        <tfoot>
+          <tr class="border-t border-gray-700 font-bold">
+            <td class="px-3 py-2 text-white">TOTALS (10 charts)</td>
+            <td class="px-3 py-2 text-right text-white">245.7</td>
+            <td class="px-3 py-2 text-right text-amber-400">3.183</td>
+            <td class="px-3 py-2 text-right text-white">228</td>
+            <td class="px-3 py-2 text-right text-green-400">27</td>
+            <td class="px-3 py-2 text-right text-white">1,439</td>
+            <td class="px-3 py-2 text-right text-green-400">39</td>
+            <td class="px-3 py-2 text-right text-red-400">209</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- HEDIS Insights -->
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="card p-6">
+      <h3 class="text-lg font-bold text-white mb-4">Top Met Measures (across 10 charts)</h3>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">DAE (High-Risk Meds in Older Adults)</span>
+          <span class="text-green-400 font-bold">9/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">MAD (Med Adherence - Diabetes)</span>
+          <span class="text-green-400 font-bold">3/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">GSD (Glycemic Status Assessment)</span>
+          <span class="text-green-400 font-bold">3/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">CDC-A1C-POOR-9 (A1c Poor Control)</span>
+          <span class="text-green-400 font-bold">3/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">PSA (Non-Recommended PSA Screening)</span>
+          <span class="text-green-400 font-bold">2/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">CDC-A1C-TEST (HbA1c Testing)</span>
+          <span class="text-green-400 font-bold">2/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">CDC-A1C-CONTROL-8 (A1c &lt; 8%)</span>
+          <span class="text-green-400 font-bold">2/10</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-6">
+      <h3 class="text-lg font-bold text-white mb-4">Most Common Care Gaps (across 10 charts)</h3>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">TSC (Tobacco Screening &amp; Cessation)</span>
+          <span class="text-red-400 font-bold">10/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">SNS-Food/Housing/Transport (Social Needs)</span>
+          <span class="text-red-400 font-bold">10/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">FLU (Influenza Immunization)</span>
+          <span class="text-red-400 font-bold">10/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">AIS-Zoster/Tdap/Flu (Adult Immunization)</span>
+          <span class="text-red-400 font-bold">10/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">DSF (Depression Screening)</span>
+          <span class="text-red-400 font-bold">9/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">COA (Care for Older Adults)</span>
+          <span class="text-red-400 font-bold">9/10</span>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-300">ASF (Alcohol Screening)</span>
+          <span class="text-red-400 font-bold">9/10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-gray-800 mt-12">
+  <div class="max-w-[1440px] mx-auto px-6 py-6 flex items-center justify-between text-xs text-gray-600">
+    <div>MedInsight 360 v4.0 &mdash; 4-Track Ensemble + HEDIS Engine v1 &mdash; Next-Era Healthcare Intelligence</div>
+    <div>Generated 2026-03-05 | 156 files | 29,015 lines | 44 tables | 41 endpoints | 122 HEDIS measures</div>
+  </div>
+</footer>
+
+<!-- TAB SWITCHING -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+});
+</script>
+
+</body>
+</html>

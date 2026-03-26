@@ -1,0 +1,29 @@
+{
+    "id": "VS_PRENATAL_VISIT_CPT",
+    "name": "Prenatal Care Visit Codes",
+    "code_system": "cpt",
+    "placeholder": true,
+    "description": "CPT codes for prenatal care visits including evaluation and management visits with pregnancy diagnosis context, routine obstetric care bundles, standalone antepartum care codes, and quality reporting codes for initial prenatal visits. Used in prenatal and postpartum care (PPC) measures for timeliness of prenatal care.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99201", "description": "Office or other outpatient visit, new patient, level 1 (with pregnancy diagnosis context)"},
+        {"code": "99202", "description": "Office or other outpatient visit, new patient, level 2 (with pregnancy diagnosis context)"},
+        {"code": "99203", "description": "Office or other outpatient visit, new patient, level 3 (with pregnancy diagnosis context)"},
+        {"code": "99204", "description": "Office or other outpatient visit, new patient, level 4 (with pregnancy diagnosis context)"},
+        {"code": "99205", "description": "Office or other outpatient visit, new patient, level 5 (with pregnancy diagnosis context)"},
+        {"code": "99211", "description": "Office or other outpatient visit, established patient, level 1 (with pregnancy diagnosis context)"},
+        {"code": "99212", "description": "Office or other outpatient visit, established patient, level 2 (with pregnancy diagnosis context)"},
+        {"code": "99213", "description": "Office or other outpatient visit, established patient, level 3 (with pregnancy diagnosis context)"},
+        {"code": "99214", "description": "Office or other outpatient visit, established patient, level 4 (with pregnancy diagnosis context)"},
+        {"code": "99215", "description": "Office or other outpatient visit, established patient, level 5 (with pregnancy diagnosis context)"},
+        {"code": "59400", "description": "Routine obstetric care including antepartum care, vaginal delivery and postpartum care"},
+        {"code": "59425", "description": "Antepartum care only; 4-6 visits"},
+        {"code": "59426", "description": "Antepartum care only; 7 or more visits"},
+        {"code": "59510", "description": "Routine obstetric care including antepartum care, cesarean delivery, and postpartum care"},
+        {"code": "59610", "description": "Routine obstetric care including antepartum care, VBAC delivery, and postpartum care"},
+        {"code": "59618", "description": "Routine obstetric care including antepartum care, cesarean delivery after attempted VBAC, and postpartum care"},
+        {"code": "0500F", "description": "Initial prenatal care visit (report at the first prenatal encounter)"},
+        {"code": "0501F", "description": "Prenatal flow sheet documented by first prenatal visit"},
+        {"code": "0502F", "description": "Subsequent prenatal care visit, documented and target prenatal care visit in first trimester"}
+    ]
+}

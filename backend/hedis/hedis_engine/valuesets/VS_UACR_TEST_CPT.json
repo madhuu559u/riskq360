@@ -1,0 +1,24 @@
+{
+    "id": "VS_UACR_TEST_CPT",
+    "name": "Urine Albumin-Creatinine Ratio (UACR) Test Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and LOINC codes for urine albumin-creatinine ratio (UACR), urine microalbumin, and related kidney function screening tests. Used in kidney health evaluation for patients with diabetes (KED) and nephropathy screening measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "82043", "code_system": "cpt", "description": "Urine albumin; quantitative"},
+        {"code": "82044", "code_system": "cpt", "description": "Urine albumin; semiquantitative (e.g., reagent strip assay)"},
+        {"code": "82570", "code_system": "cpt", "description": "Creatinine; other source (urine)"},
+        {"code": "81000", "code_system": "cpt", "description": "Urinalysis, by dip stick or tablet reagent; non-automated, with microscopy"},
+        {"code": "81001", "code_system": "cpt", "description": "Urinalysis, by dip stick or tablet reagent; automated, with microscopy"},
+        {"code": "81003", "code_system": "cpt", "description": "Urinalysis, by dip stick or tablet reagent; automated, without microscopy"},
+        {"code": "14959-1", "code_system": "loinc", "description": "Microalbumin/Creatinine [Mass Ratio] in Urine"},
+        {"code": "9318-7", "code_system": "loinc", "description": "Albumin/Creatinine [Mass Ratio] in Urine"},
+        {"code": "14957-5", "code_system": "loinc", "description": "Microalbumin [Mass/volume] in Urine"},
+        {"code": "1754-1", "code_system": "loinc", "description": "Albumin [Mass/volume] in Urine"},
+        {"code": "13705-9", "code_system": "loinc", "description": "Albumin/Creatinine [Mass Ratio] in 24 hour Urine"},
+        {"code": "30000-4", "code_system": "loinc", "description": "Microalbumin [Mass/volume] in Urine by Detection limit <= 3.0 mg/L"},
+        {"code": "32294-1", "code_system": "loinc", "description": "Albumin/Creatinine [Ratio] in Urine"},
+        {"code": "2161-8", "code_system": "loinc", "description": "Creatinine [Mass/volume] in Urine"}
+    ]
+}

@@ -1,0 +1,48 @@
+id: "CWP"
+name: "Appropriate Testing for Pharyngitis"
+version: "2025"
+domain: "overuse"
+description: >
+  Assesses whether children and adolescents aged 3-17 diagnosed with
+  pharyngitis and prescribed an antibiotic received a group A streptococcus
+  (strep) test for the episode. Testing for group A streptococcus before
+  prescribing antibiotics for pharyngitis is a key quality measure because
+  most pharyngitis in children is viral and does not benefit from antibiotic
+  treatment. Appropriate testing helps avoid unnecessary antibiotic use,
+  reduces antimicrobial resistance, and ensures that children with true
+  streptococcal infections receive timely treatment to prevent complications
+  such as rheumatic fever and peritonsillar abscess.
+
+eligibility:
+  age: {min: 3, max: 17, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_PHARYNGITIS_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_GROUP_A_STREP_CPT"
+      window_months: 12
+      description: "Group A streptococcus test performed"
+
+valuesets_needed:
+  - VS_PHARYNGITIS_ICD10
+  - VS_GROUP_A_STREP_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"
+  - "pharmacy"

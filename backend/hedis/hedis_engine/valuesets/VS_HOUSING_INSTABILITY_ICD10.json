@@ -1,0 +1,24 @@
+{
+    "id": "VS_HOUSING_INSTABILITY_ICD10",
+    "name": "Housing Instability Z Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM Z codes for housing instability, homelessness, and inadequate housing. Used in social needs screening and intervention (SNS-E) measure and SDOH-related quality measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "Z59.0", "description": "Homelessness"},
+        {"code": "Z59.00", "description": "Homelessness, unspecified"},
+        {"code": "Z59.01", "description": "Sheltered homelessness"},
+        {"code": "Z59.02", "description": "Unsheltered homelessness"},
+        {"code": "Z59.1", "description": "Inadequate housing"},
+        {"code": "Z59.10", "description": "Inadequate housing, unspecified"},
+        {"code": "Z59.11", "description": "Inadequate housing environmental temperature"},
+        {"code": "Z59.12", "description": "Housing instability, housed, with risk of homelessness"},
+        {"code": "Z59.19", "description": "Other inadequate housing"},
+        {"code": "Z59.8", "description": "Other problems related to housing and economic circumstances"},
+        {"code": "Z59.811", "description": "Housing instability, housed, in a shelter"},
+        {"code": "Z59.812", "description": "Housing instability, housed, homelessness in past 12 months"},
+        {"code": "Z59.819", "description": "Housing instability, housed, unspecified"},
+        {"code": "Z59.9", "description": "Problem related to housing and economic circumstances, unspecified"}
+    ]
+}

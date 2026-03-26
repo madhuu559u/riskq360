@@ -1,0 +1,15 @@
+{
+    "id": "VS_ZOSTER_VACCINE_CVX",
+    "name": "Zoster (Shingles) Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for zoster (shingles) vaccines including the recombinant adjuvanted vaccine (Shingrix) and live zoster vaccine (Zostavax). Used in adult immunization quality measures for herpes zoster vaccination in adults aged 50 and older.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "121", "code_system": "cvx", "description": "Zoster vaccine, recombinant"},
+        {"code": "187", "code_system": "cvx", "description": "Zoster vaccine, recombinant, adjuvanted (Shingrix)"},
+        {"code": "36", "code_system": "cvx", "description": "Varicella-zoster (shingles) vaccine, live (Zostavax)"},
+        {"code": "90736", "code_system": "cpt", "description": "Zoster (shingles) vaccine (HZV), live, for subcutaneous injection"},
+        {"code": "90750", "code_system": "cpt", "description": "Zoster (shingles) vaccine (HZV), adjuvanted, for intramuscular injection"}
+    ]
+}

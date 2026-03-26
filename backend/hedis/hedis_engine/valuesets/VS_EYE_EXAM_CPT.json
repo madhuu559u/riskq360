@@ -1,0 +1,25 @@
+{
+    "id": "VS_EYE_EXAM_CPT",
+    "name": "Diabetic Retinal Eye Exam Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for diabetic retinal eye examinations, including dilated fundus exams, retinal photography, and ophthalmologic evaluations. Used in the CDC eye exam measure for members with diabetes.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "92002", "code_system": "cpt", "description": "Ophthalmological services: medical exam and evaluation, intermediate, new patient"},
+        {"code": "92004", "code_system": "cpt", "description": "Ophthalmological services: medical exam and evaluation, comprehensive, new patient"},
+        {"code": "92012", "code_system": "cpt", "description": "Ophthalmological services: medical exam and evaluation, intermediate, established patient"},
+        {"code": "92014", "code_system": "cpt", "description": "Ophthalmological services: medical exam and evaluation, comprehensive, established patient"},
+        {"code": "92225", "code_system": "cpt", "description": "Ophthalmoscopy, extended, with retinal drawing, initial"},
+        {"code": "92226", "code_system": "cpt", "description": "Ophthalmoscopy, extended, with retinal drawing, subsequent"},
+        {"code": "92227", "code_system": "cpt", "description": "Imaging of retina for detection or monitoring of disease; remote, unilateral or bilateral"},
+        {"code": "92228", "code_system": "cpt", "description": "Imaging of retina for detection or monitoring of disease; with physician review, interpretation and report, unilateral or bilateral"},
+        {"code": "92230", "code_system": "cpt", "description": "Fluorescein angioscopy with interpretation and report"},
+        {"code": "92235", "code_system": "cpt", "description": "Fluorescein angiography with interpretation and report"},
+        {"code": "92240", "code_system": "cpt", "description": "Indocyanine-green angiography with interpretation and report"},
+        {"code": "92250", "code_system": "cpt", "description": "Fundus photography with interpretation and report"},
+        {"code": "2022F", "code_system": "cpt", "description": "Dilated retinal eye exam with interpretation by ophthalmologist or optometrist documented and reviewed"},
+        {"code": "2024F", "code_system": "cpt", "description": "7 standard field stereoscopic retinal photos with interpretation documented and reviewed"},
+        {"code": "2026F", "code_system": "cpt", "description": "Eye imaging validated to match dilated eye exam documented and reviewed"}
+    ]
+}

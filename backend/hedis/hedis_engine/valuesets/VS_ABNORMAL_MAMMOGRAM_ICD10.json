@@ -1,0 +1,31 @@
+{
+    "id": "VS_ABNORMAL_MAMMOGRAM_ICD10",
+    "name": "Abnormal Mammogram Finding Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for abnormal and inconclusive mammographic findings and breast lumps. Used in breast cancer screening follow-up measures to identify members requiring diagnostic mammography or further evaluation after an abnormal screening result.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "R92.0", "description": "Mammographic microcalcification found on diagnostic imaging of breast"},
+        {"code": "R92.1", "description": "Mammographic calcification found on diagnostic imaging of breast"},
+        {"code": "R92.2", "description": "Inconclusive mammogram"},
+        {"code": "R92.8", "description": "Other abnormal and inconclusive findings on diagnostic imaging of breast"},
+        {"code": "N63.0", "description": "Unspecified lump in unspecified breast"},
+        {"code": "N63.10", "description": "Unspecified lump in the right breast, unspecified quadrant"},
+        {"code": "N63.11", "description": "Unspecified lump in the right breast, upper outer quadrant"},
+        {"code": "N63.12", "description": "Unspecified lump in the right breast, upper inner quadrant"},
+        {"code": "N63.13", "description": "Unspecified lump in the right breast, lower outer quadrant"},
+        {"code": "N63.14", "description": "Unspecified lump in the right breast, lower inner quadrant"},
+        {"code": "N63.15", "description": "Unspecified lump in the right breast, overlapping quadrants"},
+        {"code": "N63.20", "description": "Unspecified lump in the left breast, unspecified quadrant"},
+        {"code": "N63.21", "description": "Unspecified lump in the left breast, upper outer quadrant"},
+        {"code": "N63.22", "description": "Unspecified lump in the left breast, upper inner quadrant"},
+        {"code": "N63.23", "description": "Unspecified lump in the left breast, lower outer quadrant"},
+        {"code": "N63.24", "description": "Unspecified lump in the left breast, lower inner quadrant"},
+        {"code": "N63.25", "description": "Unspecified lump in the left breast, overlapping quadrants"},
+        {"code": "N63.31", "description": "Unspecified lump in axillary tail of the right breast"},
+        {"code": "N63.32", "description": "Unspecified lump in axillary tail of the left breast"},
+        {"code": "N63.41", "description": "Unspecified lump in right breast, subareolar"},
+        {"code": "N63.42", "description": "Unspecified lump in left breast, subareolar"}
+    ]
+}

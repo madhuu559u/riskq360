@@ -1,0 +1,26 @@
+{
+    "id": "VS_ANTIDEPRESSANT_MEDICATIONS",
+    "name": "Antidepressant Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication names and codes for antidepressant medications across drug classes (SSRIs, SNRIs, TCAs, MAOIs, atypicals). Used in the antidepressant medication management (AMM) measure to evaluate acute phase (84 days) and continuation phase (180 days) treatment adherence.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "sertraline", "code_system": "medication_name", "description": "Sertraline (Zoloft) — SSRI"},
+        {"code": "fluoxetine", "code_system": "medication_name", "description": "Fluoxetine (Prozac) — SSRI"},
+        {"code": "citalopram", "code_system": "medication_name", "description": "Citalopram (Celexa) — SSRI"},
+        {"code": "escitalopram", "code_system": "medication_name", "description": "Escitalopram (Lexapro) — SSRI"},
+        {"code": "paroxetine", "code_system": "medication_name", "description": "Paroxetine (Paxil) — SSRI"},
+        {"code": "fluvoxamine", "code_system": "medication_name", "description": "Fluvoxamine (Luvox) — SSRI"},
+        {"code": "venlafaxine", "code_system": "medication_name", "description": "Venlafaxine (Effexor) — SNRI"},
+        {"code": "duloxetine", "code_system": "medication_name", "description": "Duloxetine (Cymbalta) — SNRI"},
+        {"code": "desvenlafaxine", "code_system": "medication_name", "description": "Desvenlafaxine (Pristiq) — SNRI"},
+        {"code": "bupropion", "code_system": "medication_name", "description": "Bupropion (Wellbutrin) — NDRI"},
+        {"code": "mirtazapine", "code_system": "medication_name", "description": "Mirtazapine (Remeron) — tetracyclic antidepressant"},
+        {"code": "trazodone", "code_system": "medication_name", "description": "Trazodone (Desyrel) — SARI"},
+        {"code": "amitriptyline", "code_system": "medication_name", "description": "Amitriptyline (Elavil) — TCA"},
+        {"code": "nortriptyline", "code_system": "medication_name", "description": "Nortriptyline (Pamelor) — TCA"},
+        {"code": "vilazodone", "code_system": "medication_name", "description": "Vilazodone (Viibryd) — SSRI/5-HT1A partial agonist"},
+        {"code": "vortioxetine", "code_system": "medication_name", "description": "Vortioxetine (Trintellix) — multimodal antidepressant"}
+    ]
+}

@@ -1,0 +1,44 @@
+id: "FUH-30"
+name: "Follow-Up After Hospitalization for Mental Illness - 30 Day"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 6 and older who were hospitalized for
+  treatment of selected mental illness or intentional self-harm diagnoses
+  had a follow-up visit with a mental health practitioner within 30 days
+  of discharge. The 30-day follow-up window provides a broader timeframe
+  than the 7-day measure while still emphasizing the importance of timely
+  outpatient engagement after psychiatric hospitalization to prevent
+  relapse and readmission.
+
+eligibility:
+  age: {min: 6, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_MENTAL_HEALTH_ICD10"
+    lookback_months: 12
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "encounter"
+      encounter_types: ["outpatient"]
+      window_months: 1
+
+valuesets_needed:
+  - VS_MENTAL_HEALTH_ICD10
+  - VS_MENTAL_HEALTH_OUTPATIENT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

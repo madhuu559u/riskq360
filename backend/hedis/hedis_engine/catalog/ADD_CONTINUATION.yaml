@@ -1,0 +1,51 @@
+id: "ADD-CONTINUATION"
+name: "Follow-Up Care for Children Prescribed ADHD Medication - Continuation"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether children aged 6-12 who were prescribed ADHD
+  medication had at least two follow-up visits with a practitioner
+  during the continuation and maintenance phase (months 2-10 after the
+  initiation phase). Ongoing follow-up ensures sustained treatment
+  effectiveness, monitors for long-term side effects, and supports
+  medication adherence. The actual HEDIS specification requires a new
+  ADHD prescription as the qualifying event; this implementation is
+  simplified to use an outpatient encounter as a denominator proxy.
+
+eligibility:
+  age: {min: 6, max: 12, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_encounter:
+    encounter_types: ["outpatient"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_NARCOLEPSY_ICD10"
+    lookback_months: 12
+    description: "Narcolepsy diagnosis"
+
+numerator:
+  all_of:
+    - type: "encounter"
+      encounter_types: ["outpatient"]
+      window_months: 12
+      description: "At least 2 follow-up visits within continuation phase"
+
+valuesets_needed:
+  - VS_ADHD_MEDICATIONS
+  - VS_ADHD_ICD10
+  - VS_NARCOLEPSY_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"
+  - "pharmacy"

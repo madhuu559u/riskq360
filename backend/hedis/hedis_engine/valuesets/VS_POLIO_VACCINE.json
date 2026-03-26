@@ -1,0 +1,21 @@
+{
+    "id": "VS_POLIO_VACCINE",
+    "name": "Polio / Inactivated Poliovirus (IPV) Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for inactivated poliovirus (IPV) vaccines including monovalent and combination formulations. Used in childhood immunization status (CIS) measure. Requires 3 doses by age 2 (at 2, 4, and 6-18 months).",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "10", "code_system": "cvx", "description": "Poliovirus vaccine, inactivated (IPV)"},
+        {"code": "89", "code_system": "cvx", "description": "Poliovirus vaccine, unspecified formulation"},
+        {"code": "110", "code_system": "cvx", "description": "DTaP-hepatitis B-IPV vaccine (Pediarix)"},
+        {"code": "120", "code_system": "cvx", "description": "DTaP-IPV vaccine (Kinrix, Quadracel)"},
+        {"code": "130", "code_system": "cvx", "description": "DTaP-IPV-Hib-HepB vaccine (Vaxelis)"},
+        {"code": "146", "code_system": "cvx", "description": "DTaP-IPV/Hib vaccine (Pentacel)"},
+        {"code": "02", "code_system": "cvx", "description": "Trivalent poliovirus vaccine, live, oral (OPV — historical)"},
+        {"code": "90713", "code_system": "cpt", "description": "Poliovirus vaccine, inactivated (IPV), for subcutaneous or intramuscular use"},
+        {"code": "90723", "code_system": "cpt", "description": "DTaP-HepB-IPV vaccine (Pediarix), for intramuscular use"},
+        {"code": "90696", "code_system": "cpt", "description": "DTaP-IPV vaccine (Kinrix, Quadracel), for intramuscular use"},
+        {"code": "90698", "code_system": "cpt", "description": "DTaP-IPV/Hib vaccine (Pentacel), for intramuscular use"}
+    ]
+}

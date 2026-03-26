@@ -1,0 +1,44 @@
+id: "CIS-RV"
+name: "Childhood Immunization Status - Rotavirus"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether children who turned 2 years old during the measurement
+  year received at least two doses of the rotavirus vaccine by their second
+  birthday. Rotavirus is the most common cause of severe gastroenteritis
+  in infants and young children worldwide. Vaccination significantly reduces
+  hospitalizations and emergency visits for rotavirus diarrhea.
+
+eligibility:
+  age: {min: 2, max: 2, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_IMMUNIZATION_CONTRAINDICATION"
+    lookback_months: 24
+    description: "Contraindication to vaccine"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "rotavirus"
+      min_count: 2
+      window_months: 24
+
+valuesets_needed:
+  - VS_ROTAVIRUS_VACCINE
+  - VS_HOSPICE
+  - VS_IMMUNIZATION_CONTRAINDICATION
+
+data_sources:
+  - "claims"
+  - "immunization_registry"

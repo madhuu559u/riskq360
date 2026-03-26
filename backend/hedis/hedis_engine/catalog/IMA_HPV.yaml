@@ -1,0 +1,45 @@
+id: "IMA-HPV"
+name: "Immunizations for Adolescents - Human Papillomavirus (HPV)"
+version: "2025"
+domain: "immunization"
+description: >
+  Assesses whether adolescents who turned 13 years old during the measurement
+  year received at least two doses of the human papillomavirus (HPV) vaccine
+  by their 13th birthday. HPV vaccination prevents infections that cause
+  cervical, oropharyngeal, anal, and other cancers. The two-dose series
+  (initiated before age 15) provides durable protection against oncogenic
+  HPV types.
+
+eligibility:
+  age: {min: 13, max: 13, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_IMMUNIZATION_CONTRAINDICATION"
+    lookback_months: 24
+    description: "Contraindication to vaccine"
+
+numerator:
+  all_of:
+    - type: "immunization"
+      vaccine_type: "hpv"
+      min_count: 2
+      window_months: 156
+
+valuesets_needed:
+  - VS_HPV_VACCINE
+  - VS_HOSPICE
+  - VS_IMMUNIZATION_CONTRAINDICATION
+
+data_sources:
+  - "claims"
+  - "immunization_registry"

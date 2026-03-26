@@ -1,0 +1,55 @@
+id: "SPD-RECEIVED"
+name: "Statin Therapy for Patients with Diabetes - Received Statin Therapy"
+version: "2025"
+domain: "diabetes"
+description: >
+  Assesses whether adults aged 40-75 with diabetes (type 1 or type 2)
+  received statin therapy during the measurement year. Diabetes is a major
+  independent risk factor for cardiovascular disease. Clinical guidelines,
+  including ACC/AHA recommendations, advise moderate- to high-intensity
+  statin therapy for adults aged 40-75 with diabetes to reduce
+  cardiovascular event risk, regardless of baseline LDL cholesterol levels.
+  This measure is distinct from CDC-STATIN (which covers the same clinical
+  intent under the Diabetes Care domain) and focuses specifically on the
+  SPD reporting pathway.
+
+eligibility:
+  age: {min: 40, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_ESRD_ICD10"
+    lookback_months: 12
+    description: "End-stage renal disease"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "statin"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DIABETES_ICD10
+  - VS_HOSPICE
+  - VS_ESRD_ICD10
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "medications"

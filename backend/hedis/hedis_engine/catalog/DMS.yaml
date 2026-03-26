@@ -1,0 +1,50 @@
+id: "DMS"
+name: "PHQ-9 Monitoring for Depression"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether members aged 12 and older with a diagnosis of depression
+  received PHQ-9 monitoring during the measurement year. The PHQ-9 is a
+  validated, standardized tool used to assess depression severity and monitor
+  treatment response over time. Regular PHQ-9 administration enables clinicians
+  to track symptom trajectory, adjust treatment plans, and identify patients
+  who are not responding to current interventions. This measure focuses on
+  ongoing monitoring rather than initial screening, targeting members with an
+  established depression diagnosis.
+
+eligibility:
+  age: {min: 12, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DEPRESSION_ICD10"
+    lookback_months: 12
+    status: ["active"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_BIPOLAR_ICD10"
+    lookback_months: 24
+    description: "Bipolar disorder diagnosis (different treatment paradigm)"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_PHQ9_SCREENING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DEPRESSION_ICD10
+  - VS_PHQ9_SCREENING_CPT
+  - VS_HOSPICE
+  - VS_BIPOLAR_ICD10
+
+data_sources:
+  - "claims"
+  - "encounters"

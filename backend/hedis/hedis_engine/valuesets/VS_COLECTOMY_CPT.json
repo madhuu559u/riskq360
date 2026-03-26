@@ -1,0 +1,24 @@
+{
+    "id": "VS_COLECTOMY_CPT",
+    "name": "Total Colectomy Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and ICD-10-PCS codes for total colectomy procedures including open and laparoscopic approaches. Used as a denominator exclusion in colorectal cancer screening (COL) measures, as members with total colectomy are excluded from screening requirements.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "44150", "code_system": "cpt", "description": "Colectomy, total, abdominal, without proctectomy; with ileostomy or ileoproctostomy"},
+        {"code": "44151", "code_system": "cpt", "description": "Colectomy, total, abdominal, without proctectomy; with continent ileostomy"},
+        {"code": "44155", "code_system": "cpt", "description": "Colectomy, total, abdominal, with proctectomy; with ileostomy"},
+        {"code": "44156", "code_system": "cpt", "description": "Colectomy, total, abdominal, with proctectomy; with continent ileostomy"},
+        {"code": "44157", "code_system": "cpt", "description": "Colectomy, total, abdominal, with proctectomy; with ileoanal anastomosis, includes loop ileostomy, and rectal mucosectomy, when performed"},
+        {"code": "44158", "code_system": "cpt", "description": "Colectomy, total, abdominal, with proctectomy; with ileoanal anastomosis, creation of ileal reservoir (S or J), includes loop ileostomy, and rectal mucosectomy, when performed"},
+        {"code": "44160", "code_system": "cpt", "description": "Colectomy, partial, with removal of terminal ileum with ileocolostomy"},
+        {"code": "44210", "code_system": "cpt", "description": "Laparoscopic, surgical; colectomy, total, abdominal, without proctectomy, with ileostomy or ileoproctostomy"},
+        {"code": "44211", "code_system": "cpt", "description": "Laparoscopic, surgical; colectomy, total, abdominal, with proctectomy, with ileoanal anastomosis, creation of ileal reservoir (S or J), with loop ileostomy, includes rectal mucosectomy, when performed"},
+        {"code": "44212", "code_system": "cpt", "description": "Laparoscopic, surgical; colectomy, total, abdominal, with proctectomy, with ileostomy"},
+        {"code": "0DTE0ZZ", "code_system": "icd10pcs", "description": "Resection of large intestine, open approach"},
+        {"code": "0DTE4ZZ", "code_system": "icd10pcs", "description": "Resection of large intestine, percutaneous endoscopic approach"},
+        {"code": "0DTE7ZZ", "code_system": "icd10pcs", "description": "Resection of large intestine, via natural or artificial opening"},
+        {"code": "0DTE8ZZ", "code_system": "icd10pcs", "description": "Resection of large intestine, via natural or artificial opening endoscopic"}
+    ]
+}

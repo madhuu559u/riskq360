@@ -1,0 +1,24 @@
+{
+    "id": "VS_ADHD_MEDICATIONS",
+    "name": "ADHD Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication names and RxNorm codes for attention-deficit/hyperactivity disorder (ADHD) treatments including stimulants (amphetamine, methylphenidate derivatives) and non-stimulants (atomoxetine, guanfacine, clonidine, viloxazine). Used in ADHD medication follow-up and initiation/continuation quality measures (ADD).",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "amphetamine", "code_system": "medication_name", "description": "Amphetamine — mixed amphetamine salts (Adderall) — CNS stimulant for ADHD"},
+        {"code": "dextroamphetamine", "code_system": "medication_name", "description": "Dextroamphetamine (Dexedrine) — CNS stimulant for ADHD"},
+        {"code": "lisdexamfetamine", "code_system": "medication_name", "description": "Lisdexamfetamine (Vyvanse) — prodrug CNS stimulant for ADHD"},
+        {"code": "methylphenidate", "code_system": "medication_name", "description": "Methylphenidate (Ritalin, Concerta) — CNS stimulant for ADHD"},
+        {"code": "dexmethylphenidate", "code_system": "medication_name", "description": "Dexmethylphenidate (Focalin) — CNS stimulant for ADHD"},
+        {"code": "atomoxetine", "code_system": "medication_name", "description": "Atomoxetine (Strattera) — selective norepinephrine reuptake inhibitor for ADHD"},
+        {"code": "guanfacine", "code_system": "medication_name", "description": "Guanfacine (Intuniv) — alpha-2 adrenergic agonist for ADHD"},
+        {"code": "clonidine", "code_system": "medication_name", "description": "Clonidine (Kapvay) — alpha-2 adrenergic agonist for ADHD"},
+        {"code": "viloxazine", "code_system": "medication_name", "description": "Viloxazine (Qelbree) — selective norepinephrine reuptake inhibitor for ADHD"},
+        {"code": "884520", "code_system": "rxnorm", "description": "Lisdexamfetamine dimesylate 30 MG Oral Capsule"},
+        {"code": "312938", "code_system": "rxnorm", "description": "Methylphenidate Hydrochloride 18 MG Extended Release Oral Tablet"},
+        {"code": "259255", "code_system": "rxnorm", "description": "Dextroamphetamine-Amphetamine 20 MG Oral Tablet"},
+        {"code": "36437", "code_system": "rxnorm", "description": "Atomoxetine 25 MG Oral Capsule"},
+        {"code": "998671", "code_system": "rxnorm", "description": "Guanfacine 1 MG Extended Release Oral Tablet"}
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "id": "VS_LEAD_SCREENING_CPT",
+    "name": "Lead Screening Test Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and LOINC codes for blood lead level screening tests. Used in lead screening in children (LSC) measure for children ages 1-2 years. Most states require screening at 12 and 24 months.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "83655", "code_system": "cpt", "description": "Lead, blood"},
+        {"code": "5671-3", "code_system": "loinc", "description": "Lead [Mass/volume] in Blood"},
+        {"code": "5674-7", "code_system": "loinc", "description": "Lead [Mass/volume] in Venous blood"},
+        {"code": "10368-9", "code_system": "loinc", "description": "Lead [Mass/volume] in Capillary blood"},
+        {"code": "27129-9", "code_system": "loinc", "description": "Lead [Mass/volume] in Arterial blood"},
+        {"code": "77307-7", "code_system": "loinc", "description": "Lead [Mass/volume] in Blood by Anodic stripping voltammetry"},
+        {"code": "17052-2", "code_system": "loinc", "description": "Lead [Mass/volume] in Serum or Plasma"},
+        {"code": "32325-3", "code_system": "loinc", "description": "Lead [Mass] per 24 hour in Urine"},
+        {"code": "14807-2", "code_system": "loinc", "description": "Lead [Moles/volume] in Blood"}
+    ]
+}

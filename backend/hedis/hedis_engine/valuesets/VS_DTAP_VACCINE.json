@@ -1,0 +1,24 @@
+{
+    "id": "VS_DTAP_VACCINE",
+    "name": "DTaP Vaccine Codes (All Formulations)",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for diphtheria, tetanus toxoids, and acellular pertussis (DTaP) vaccines for children under 7 years, including combination vaccines. Used in childhood immunization status (CIS) measure. Requires 4 doses by age 2. This value set includes all DTaP-containing formulations.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "20", "code_system": "cvx", "description": "Diphtheria, tetanus toxoids and acellular pertussis vaccine (DTaP)"},
+        {"code": "50", "code_system": "cvx", "description": "DTaP-Haemophilus influenzae type b conjugate vaccine"},
+        {"code": "106", "code_system": "cvx", "description": "DTaP, 5 pertussis antigens"},
+        {"code": "107", "code_system": "cvx", "description": "DTaP, unspecified formulation"},
+        {"code": "110", "code_system": "cvx", "description": "DTaP-hepatitis B-IPV vaccine (Pediarix)"},
+        {"code": "120", "code_system": "cvx", "description": "DTaP-IPV vaccine (Kinrix, Quadracel)"},
+        {"code": "130", "code_system": "cvx", "description": "DTaP-IPV-Hib-HepB vaccine (Vaxelis)"},
+        {"code": "146", "code_system": "cvx", "description": "DTaP-IPV/Hib vaccine (Pentacel)"},
+        {"code": "01", "code_system": "cvx", "description": "DTP — diphtheria, tetanus toxoids and pertussis vaccine (historical)"},
+        {"code": "22", "code_system": "cvx", "description": "DTP-Hib conjugate vaccine (historical)"},
+        {"code": "90700", "code_system": "cpt", "description": "DTaP vaccine, for intramuscular use, younger than 7 years"},
+        {"code": "90723", "code_system": "cpt", "description": "DTaP-HepB-IPV vaccine (Pediarix), for intramuscular use"},
+        {"code": "90696", "code_system": "cpt", "description": "DTaP-IPV vaccine (Kinrix, Quadracel), for intramuscular use"},
+        {"code": "90698", "code_system": "cpt", "description": "DTaP-IPV/Hib vaccine (Pentacel), for intramuscular use"}
+    ]
+}

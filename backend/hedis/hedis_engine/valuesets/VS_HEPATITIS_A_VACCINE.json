@@ -1,0 +1,19 @@
+{
+    "id": "VS_HEPATITIS_A_VACCINE",
+    "name": "Hepatitis A Vaccine Codes (All Formulations)",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for hepatitis A vaccines including pediatric, adult, and combination formulations. Used in childhood immunization status (CIS) and immunizations for adolescents (IMA) measures. Requires 2 doses with first dose at 12-23 months.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "31", "code_system": "cvx", "description": "Hepatitis A vaccine, pediatric dosage, unspecified formulation"},
+        {"code": "52", "code_system": "cvx", "description": "Hepatitis A vaccine, adult dosage"},
+        {"code": "83", "code_system": "cvx", "description": "Hepatitis A vaccine, pediatric/adolescent dosage, 2 dose schedule"},
+        {"code": "84", "code_system": "cvx", "description": "Hepatitis A vaccine, pediatric/adolescent dosage, 3 dose schedule"},
+        {"code": "85", "code_system": "cvx", "description": "Hepatitis A vaccine, unspecified formulation"},
+        {"code": "104", "code_system": "cvx", "description": "Hepatitis A-Hepatitis B vaccine (Twinrix)"},
+        {"code": "90632", "code_system": "cpt", "description": "Hepatitis A vaccine (HepA), adult dosage, for intramuscular use"},
+        {"code": "90633", "code_system": "cpt", "description": "Hepatitis A vaccine (HepA), pediatric/adolescent dosage, 2 dose schedule, for intramuscular use"},
+        {"code": "90636", "code_system": "cpt", "description": "Hepatitis A and hepatitis B vaccine (HepA-HepB), adult dosage, for intramuscular use"}
+    ]
+}

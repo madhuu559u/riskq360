@@ -1,0 +1,51 @@
+id: "APC"
+name: "Use of Multiple Concurrent Antipsychotics in Children and Adolescents"
+version: "2025"
+domain: "medication_safety"
+description: >
+  Assesses whether children and adolescents aged 1-17 who were on
+  antipsychotic medications received multiple concurrent antipsychotic
+  medications during the measurement year. Use of two or more
+  antipsychotic medications simultaneously (antipsychotic polypharmacy) in
+  children lacks strong evidence of benefit over monotherapy and is
+  associated with increased risk of metabolic side effects including weight
+  gain, dyslipidemia, insulin resistance, and extrapyramidal symptoms.
+  This is an INVERSE measure where the numerator event (receiving
+  antipsychotic medications concurrently) represents an UNDESIRABLE
+  outcome. A lower rate indicates better performance. Note: a precise
+  implementation would require overlapping days-supply analysis to detect
+  true concurrent use. This definition uses antipsychotic medication
+  presence as a proxy, intended to be refined when pharmacy dispensing data
+  with fill dates and days supply becomes available.
+
+inverse: true
+
+eligibility:
+  age: {min: 1, max: 17, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_medication:
+    medication_class: "antipsychotic"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "antipsychotic"
+      window_months: 12
+
+valuesets_needed:
+  - VS_ANTIPSYCHOTIC_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

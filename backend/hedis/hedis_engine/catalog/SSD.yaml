@@ -1,0 +1,66 @@
+id: "SSD"
+name: "Diabetes Screening for Schizophrenia or Bipolar Disorder on Antipsychotics"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether adults aged 18-64 with schizophrenia, schizoaffective
+  disorder, or bipolar disorder who are dispensed an antipsychotic medication
+  received diabetes screening during the measurement year via a blood glucose
+  or HbA1c test. Antipsychotic medications, particularly second-generation
+  agents, are associated with significant metabolic side effects including
+  weight gain, insulin resistance, hyperglycemia, and new-onset diabetes
+  mellitus. Regular diabetes screening enables early detection and management
+  of metabolic complications, reducing the risk of cardiovascular morbidity
+  and mortality in this vulnerable population. Members with a pre-existing
+  diabetes diagnosis are excluded as they should already receive diabetes
+  monitoring through standard diabetes care measures.
+
+eligibility:
+  age: {min: 18, max: 64, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_SCHIZOPHRENIA_BIPOLAR_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+  requires_medication:
+    medication_class: "antipsychotic"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_DIABETES_ICD10"
+    lookback_months: 24
+    description: "Pre-existing diabetes diagnosis (monitored under diabetes care measures)"
+
+numerator:
+  any_of:
+    - type: "lab_exists"
+      lab: "GLUCOSE"
+      window_months: 12
+      description: "Blood glucose test during measurement year"
+    - type: "lab_exists"
+      lab: "A1C"
+      window_months: 12
+      description: "HbA1c test during measurement year"
+
+valuesets_needed:
+  - VS_SCHIZOPHRENIA_BIPOLAR_ICD10
+  - VS_SCHIZOPHRENIA_ICD10
+  - VS_BIPOLAR_ICD10
+  - VS_ANTIPSYCHOTIC_MEDICATIONS
+  - VS_GLUCOSE_TEST_CPT
+  - VS_A1C_TEST_CPT
+  - VS_DIABETES_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"
+  - "pharmacy"

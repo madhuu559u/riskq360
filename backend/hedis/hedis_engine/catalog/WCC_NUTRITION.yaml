@@ -1,0 +1,47 @@
+id: "WCC-NUTRITION"
+name: "Weight Assessment - Nutrition Counseling"
+version: "2025"
+domain: "pediatric"
+description: >
+  Assesses whether children and adolescents aged 3-17 received nutrition
+  counseling during an outpatient visit in the measurement year. Nutrition
+  counseling is a key component of pediatric weight management and overall
+  health promotion. Addressing dietary habits early in life helps prevent
+  obesity, eating disorders, and nutrition-related chronic diseases such as
+  type 2 diabetes and cardiovascular disease.
+
+eligibility:
+  age: {min: 3, max: 17, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+  requires_encounter:
+    type: "outpatient"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_NUTRITION_COUNSELING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_NUTRITION_COUNSELING_CPT
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "encounters"

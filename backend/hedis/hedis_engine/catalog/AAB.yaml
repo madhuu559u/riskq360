@@ -1,0 +1,54 @@
+id: AAB
+name: Avoidance of Antibiotic Treatment for Acute Bronchitis
+version: '2025'
+domain: overuse
+inverse: true
+description: 'Assesses whether members aged 3 months to 120 years diagnosed with acute
+  bronchitis were NOT prescribed an antibiotic. This is an INVERSE measure where a
+  LOWER rate indicates better performance. Acute bronchitis is overwhelmingly viral
+  in etiology, and multiple clinical guidelines recommend against routine antibiotic
+  prescribing for uncomplicated acute bronchitis. Unnecessary antibiotic use for acute
+  bronchitis contributes to antimicrobial resistance, increases adverse drug events,
+  and raises healthcare costs without improving clinical outcomes. The numerator captures
+  the undesirable event (antibiotic prescribed); members without an antibiotic are
+  considered compliant.
+
+  '
+eligibility:
+  age:
+    min: 0
+    max: 120
+    as_of: 12-31
+  gender:
+  - male
+  - female
+  continuous_enrollment: false
+denominator:
+  requires_diagnosis:
+    valueset: VS_ACUTE_BRONCHITIS_ICD10
+    lookback_months: 12
+    status:
+    - active
+exclusions:
+- type: diagnosis
+  valueset: VS_HOSPICE
+  lookback_months: 12
+  description: Hospice care
+- type: diagnosis
+  valueset: VS_COPD_EXACERBATION_ICD10
+  lookback_months: 12
+  description: COPD diagnosis
+numerator:
+  any_of:
+  - type: medication
+    medication_class: antibiotic
+    window_months: 12
+    description: Antibiotic prescribed (undesirable for acute bronchitis)
+valuesets_needed:
+- VS_ACUTE_BRONCHITIS_ICD10
+- VS_COPD_EXACERBATION_ICD10
+- VS_ANTIBIOTIC_MEDICATIONS
+- VS_HOSPICE
+data_sources:
+- claims
+- pharmacy

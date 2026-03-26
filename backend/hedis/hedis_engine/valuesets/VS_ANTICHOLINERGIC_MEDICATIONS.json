@@ -1,0 +1,33 @@
+{
+    "id": "VS_ANTICHOLINERGIC_MEDICATIONS",
+    "name": "Anticholinergic Medication Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "Medication codes for drugs with significant anticholinergic properties. Includes first-generation antihistamines, antispasmodics, tricyclic antidepressants, and bladder antimuscarinics. Used in drug-drug interaction measures and high-risk medication avoidance measures for elderly patients.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "diphenhydramine", "code_system": "medication_name", "description": "Diphenhydramine (Benadryl) — first-generation antihistamine, strong anticholinergic"},
+        {"code": "hydroxyzine", "code_system": "medication_name", "description": "Hydroxyzine (Vistaril, Atarax) — first-generation antihistamine"},
+        {"code": "chlorpheniramine", "code_system": "medication_name", "description": "Chlorpheniramine (Chlor-Trimeton) — first-generation antihistamine"},
+        {"code": "promethazine", "code_system": "medication_name", "description": "Promethazine (Phenergan) — phenothiazine with strong anticholinergic effects"},
+        {"code": "meclizine", "code_system": "medication_name", "description": "Meclizine (Antivert) — antihistamine/antiemetic with anticholinergic effects"},
+        {"code": "oxybutynin", "code_system": "medication_name", "description": "Oxybutynin (Ditropan) — bladder antimuscarinic"},
+        {"code": "tolterodine", "code_system": "medication_name", "description": "Tolterodine (Detrol) — bladder antimuscarinic"},
+        {"code": "solifenacin", "code_system": "medication_name", "description": "Solifenacin (Vesicare) — bladder antimuscarinic"},
+        {"code": "darifenacin", "code_system": "medication_name", "description": "Darifenacin (Enablex) — bladder antimuscarinic"},
+        {"code": "fesoterodine", "code_system": "medication_name", "description": "Fesoterodine (Toviaz) — bladder antimuscarinic"},
+        {"code": "amitriptyline", "code_system": "medication_name", "description": "Amitriptyline (Elavil) — tertiary TCA, strong anticholinergic"},
+        {"code": "imipramine", "code_system": "medication_name", "description": "Imipramine (Tofranil) — tertiary TCA, strong anticholinergic"},
+        {"code": "doxepin", "code_system": "medication_name", "description": "Doxepin (Sinequan) — tertiary TCA, strong anticholinergic"},
+        {"code": "clomipramine", "code_system": "medication_name", "description": "Clomipramine (Anafranil) — tertiary TCA, strong anticholinergic"},
+        {"code": "benztropine", "code_system": "medication_name", "description": "Benztropine (Cogentin) — anticholinergic antiparkinsonian"},
+        {"code": "trihexyphenidyl", "code_system": "medication_name", "description": "Trihexyphenidyl (Artane) — anticholinergic antiparkinsonian"},
+        {"code": "dicyclomine", "code_system": "medication_name", "description": "Dicyclomine (Bentyl) — antispasmodic"},
+        {"code": "hyoscyamine", "code_system": "medication_name", "description": "Hyoscyamine (Levsin) — antispasmodic"},
+        {"code": "scopolamine", "code_system": "medication_name", "description": "Scopolamine (Transderm-Scop) — antimuscarinic"},
+        {"code": "3498", "code_system": "rxnorm", "description": "Diphenhydramine"},
+        {"code": "5032", "code_system": "rxnorm", "description": "Hydroxyzine"},
+        {"code": "7769", "code_system": "rxnorm", "description": "Oxybutynin"},
+        {"code": "10502", "code_system": "rxnorm", "description": "Tolterodine"}
+    ]
+}

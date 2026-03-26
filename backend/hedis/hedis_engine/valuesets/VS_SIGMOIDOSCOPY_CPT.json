@@ -1,0 +1,22 @@
+{
+    "id": "VS_SIGMOIDOSCOPY_CPT",
+    "name": "Sigmoidoscopy Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for flexible sigmoidoscopy procedures. Used in the colorectal cancer screening measure (COL) as a screening modality with 5-year lookback window.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "45330", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; diagnostic"},
+        {"code": "45331", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with biopsy, single or multiple"},
+        {"code": "45332", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with removal of foreign body"},
+        {"code": "45333", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with removal of tumor(s), polyp(s) by hot biopsy forceps"},
+        {"code": "45334", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with control of bleeding"},
+        {"code": "45335", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with directed submucosal injection(s)"},
+        {"code": "45337", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with decompression of volvulus"},
+        {"code": "45338", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with removal of tumor(s), polyp(s) by snare technique"},
+        {"code": "45340", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with transendoscopic balloon dilation"},
+        {"code": "45341", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with endoscopic ultrasound examination"},
+        {"code": "45342", "code_system": "cpt", "description": "Sigmoidoscopy, flexible; with transendoscopic ultrasound guided intramural or transmural fine needle aspiration/biopsy"},
+        {"code": "G0104", "code_system": "hcpcs", "description": "Colorectal cancer screening; flexible sigmoidoscopy"}
+    ]
+}

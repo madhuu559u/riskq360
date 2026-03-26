@@ -1,0 +1,32 @@
+{
+    "id": "VS_ASTHMA_CONTROLLER_MEDICATIONS",
+    "name": "Asthma Controller Medication Names",
+    "code_system": "medication_class",
+    "placeholder": true,
+    "description": "Medication names for asthma controller therapies including inhaled corticosteroids (ICS), leukotriene modifiers, long-acting beta-agonists (LABA), ICS/LABA combinations, and biologic agents. Used in asthma medication management and medication ratio (AMR) quality measures to identify appropriate controller therapy. Note: VS_ASTHMA_MEDICATIONS also exists with overlapping controller medications in a mixed code_system format.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "fluticasone", "description": "Fluticasone propionate (Flovent, ArmonAir) — inhaled corticosteroid"},
+        {"code": "budesonide", "description": "Budesonide (Pulmicort) — inhaled corticosteroid"},
+        {"code": "beclomethasone", "description": "Beclomethasone dipropionate (QVAR) — inhaled corticosteroid"},
+        {"code": "mometasone", "description": "Mometasone furoate (Asmanex) — inhaled corticosteroid"},
+        {"code": "ciclesonide", "description": "Ciclesonide (Alvesco) — inhaled corticosteroid"},
+        {"code": "montelukast", "description": "Montelukast (Singulair) — leukotriene receptor antagonist"},
+        {"code": "zafirlukast", "description": "Zafirlukast (Accolate) — leukotriene receptor antagonist"},
+        {"code": "zileuton", "description": "Zileuton (Zyflo) — 5-lipoxygenase inhibitor"},
+        {"code": "salmeterol", "description": "Salmeterol (Serevent) — long-acting beta-agonist (LABA)"},
+        {"code": "formoterol", "description": "Formoterol (Foradil, Perforomist) — long-acting beta-agonist (LABA)"},
+        {"code": "fluticasone-salmeterol", "description": "Fluticasone/Salmeterol (Advair, AirDuo) — ICS/LABA combination"},
+        {"code": "budesonide-formoterol", "description": "Budesonide/Formoterol (Symbicort) — ICS/LABA combination"},
+        {"code": "mometasone-formoterol", "description": "Mometasone/Formoterol (Dulera) — ICS/LABA combination"},
+        {"code": "fluticasone-vilanterol", "description": "Fluticasone/Vilanterol (Breo Ellipta) — ICS/LABA combination"},
+        {"code": "omalizumab", "description": "Omalizumab (Xolair) — anti-IgE monoclonal antibody biologic"},
+        {"code": "mepolizumab", "description": "Mepolizumab (Nucala) — anti-IL-5 monoclonal antibody biologic"},
+        {"code": "benralizumab", "description": "Benralizumab (Fasenra) — anti-IL-5 receptor alpha monoclonal antibody biologic"},
+        {"code": "dupilumab", "description": "Dupilumab (Dupixent) — anti-IL-4/IL-13 monoclonal antibody biologic"},
+        {"code": "tezepelumab", "description": "Tezepelumab (Tezspire) — anti-TSLP monoclonal antibody biologic"},
+        {"code": "reslizumab", "description": "Reslizumab (Cinqair) — anti-IL-5 monoclonal antibody biologic"},
+        {"code": "theophylline", "description": "Theophylline (Theo-24, Elixophyllin) — methylxanthine bronchodilator (controller use)"},
+        {"code": "cromolyn", "description": "Cromolyn sodium (Intal) — mast cell stabilizer"}
+    ]
+}

@@ -1,0 +1,51 @@
+id: "FAM"
+name: "Follow-Up After Abnormal Mammogram"
+version: "2025"
+domain: "preventive_screening"
+description: >
+  Assesses whether women aged 40-74 who had a mammogram with an abnormal
+  or suspicious result during the measurement year received appropriate
+  diagnostic follow-up within 60 days of the abnormal finding. Appropriate
+  follow-up includes diagnostic mammography, breast ultrasound, breast
+  MRI, or breast biopsy. Timely follow-up after an abnormal mammogram
+  is essential for early breast cancer detection and reduces the time
+  to diagnosis, which is associated with improved treatment outcomes and
+  reduced patient anxiety. This measure uses a 3-month window approximation
+  for the follow-up period.
+
+eligibility:
+  age: {min: 40, max: 74, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_procedure:
+    valueset: "VS_MAMMOGRAPHY_CPT"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "procedure"
+    valueset: "VS_BILATERAL_MASTECTOMY_CPT"
+    lookback_months: 0
+    description: "Bilateral mastectomy (any time)"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_DIAGNOSTIC_MAMMOGRAPHY_CPT"
+      window_months: 3
+      description: "Diagnostic follow-up procedure within 60 days of abnormal mammogram"
+
+valuesets_needed:
+  - VS_MAMMOGRAPHY_CPT
+  - VS_DIAGNOSTIC_MAMMOGRAPHY_CPT
+  - VS_BILATERAL_MASTECTOMY_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

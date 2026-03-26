@@ -1,0 +1,43 @@
+id: "CAP"
+name: "Children and Adolescents' Access to Primary Care Practitioners"
+version: "2025"
+domain: "access"
+description: >
+  Assesses whether children and adolescents aged 1-19 had a visit with a
+  primary care practitioner (PCP) during the measurement year. Regular
+  access to primary care is essential for children and adolescents to
+  receive well-child visits, immunizations, developmental screenings,
+  anticipatory guidance, and management of acute and chronic conditions.
+  This measure evaluates whether the member had at least one qualifying
+  PCP visit or outpatient encounter during the measurement year.
+
+eligibility:
+  age: {min: 1, max: 19, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_PCP_VISIT_CPT"
+      window_months: 12
+    - type: "encounter"
+      encounter_types: ["outpatient"]
+      window_months: 12
+
+valuesets_needed:
+  - VS_PCP_VISIT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

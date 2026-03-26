@@ -1,0 +1,25 @@
+{
+    "id": "VS_POSTPARTUM_VISIT_CPT",
+    "name": "Postpartum Care Visit Codes",
+    "code_system": "cpt",
+    "placeholder": true,
+    "description": "CPT codes for postpartum care visits including standalone postpartum care, preventive medicine visits in postpartum context, and quality reporting codes for postpartum care documentation. Used in prenatal and postpartum care (PPC) measures for timeliness of postpartum visits.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "59430", "description": "Postpartum care only (separate procedure)"},
+        {"code": "99381", "description": "Initial comprehensive preventive medicine E/M, infant (under 1 year) — postpartum context"},
+        {"code": "99382", "description": "Initial comprehensive preventive medicine E/M, age 1-4 years — postpartum context"},
+        {"code": "99383", "description": "Initial comprehensive preventive medicine E/M, age 5-11 years — postpartum context"},
+        {"code": "99384", "description": "Initial comprehensive preventive medicine E/M, age 12-17 years — postpartum context"},
+        {"code": "99385", "description": "Initial comprehensive preventive medicine E/M, age 18-39 years — postpartum context"},
+        {"code": "99386", "description": "Initial comprehensive preventive medicine E/M, age 40-64 years — postpartum context"},
+        {"code": "99391", "description": "Periodic comprehensive preventive medicine E/M, infant (under 1 year) — postpartum context"},
+        {"code": "99392", "description": "Periodic comprehensive preventive medicine E/M, age 1-4 years — postpartum context"},
+        {"code": "99393", "description": "Periodic comprehensive preventive medicine E/M, age 5-11 years — postpartum context"},
+        {"code": "99394", "description": "Periodic comprehensive preventive medicine E/M, age 12-17 years — postpartum context"},
+        {"code": "99395", "description": "Periodic comprehensive preventive medicine E/M, age 18-39 years — postpartum context"},
+        {"code": "99396", "description": "Periodic comprehensive preventive medicine E/M, age 40-64 years — postpartum context"},
+        {"code": "99397", "description": "Periodic comprehensive preventive medicine E/M, age 65 years and older — postpartum context"},
+        {"code": "0503F", "description": "Postpartum care visit documented (quality reporting code)"}
+    ]
+}

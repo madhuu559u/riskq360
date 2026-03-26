@@ -1,0 +1,22 @@
+{
+    "id": "VS_SUD_INPATIENT_ENCOUNTER",
+    "name": "Substance Use Disorder Inpatient Encounter Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "HCPCS and UB revenue codes for substance use disorder (SUD) inpatient and residential treatment encounters. Used in initiation and engagement of substance use disorder treatment (IET) and follow-up after emergency department visit for substance use (FUA) measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "H0018", "code_system": "hcpcs", "description": "Behavioral health; short-term residential (non-hospital residential treatment program), without room and board, per diem"},
+        {"code": "H0019", "code_system": "hcpcs", "description": "Behavioral health; long-term residential (non-medical, non-acute care in a residential treatment program where stay is typically longer than 30 days), without room and board, per diem"},
+        {"code": "H2034", "code_system": "hcpcs", "description": "Alcohol and/or drug abuse halfway house services, per diem"},
+        {"code": "H2036", "code_system": "hcpcs", "description": "Alcohol and/or other drug treatment program, per diem"},
+        {"code": "H0010", "code_system": "hcpcs", "description": "Alcohol and/or drug services; sub-acute detoxification (hospital inpatient)"},
+        {"code": "H0011", "code_system": "hcpcs", "description": "Alcohol and/or drug services; acute detoxification (hospital inpatient)"},
+        {"code": "H0012", "code_system": "hcpcs", "description": "Alcohol and/or drug services; sub-acute detoxification (residential addiction program inpatient)"},
+        {"code": "H0013", "code_system": "hcpcs", "description": "Alcohol and/or drug services; acute detoxification (residential addiction program inpatient)"},
+        {"code": "H0014", "code_system": "hcpcs", "description": "Alcohol and/or drug services; ambulatory detoxification"},
+        {"code": "0116", "code_system": "ubrev", "description": "Room and board — detoxification"},
+        {"code": "0126", "code_system": "ubrev", "description": "Room and board — detoxification (semi-private)"},
+        {"code": "1002", "code_system": "ubrev", "description": "Behavioral health/substance abuse services — residential treatment"}
+    ]
+}

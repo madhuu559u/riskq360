@@ -1,0 +1,22 @@
+{
+    "id": "VS_SUD_TREATMENT_CPT",
+    "name": "Substance Use Disorder Treatment Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for substance use disorder treatment services including assessment, counseling, group therapy, intensive outpatient, and residential treatment. Used in the initiation and engagement of SUD treatment (IET) measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "H0001", "code_system": "hcpcs", "description": "Alcohol and/or drug assessment"},
+        {"code": "H0004", "code_system": "hcpcs", "description": "Behavioral health counseling and therapy, per 15 minutes"},
+        {"code": "H0005", "code_system": "hcpcs", "description": "Alcohol and/or drug services; group counseling by a clinician"},
+        {"code": "H0006", "code_system": "hcpcs", "description": "Alcohol and/or drug services; case management"},
+        {"code": "H0007", "code_system": "hcpcs", "description": "Alcohol and/or drug services; crisis intervention (outpatient)"},
+        {"code": "H0015", "code_system": "hcpcs", "description": "Alcohol and/or drug services; intensive outpatient (treatment program)"},
+        {"code": "H0020", "code_system": "hcpcs", "description": "Alcohol and/or drug services; methadone administration and/or service"},
+        {"code": "H0022", "code_system": "hcpcs", "description": "Alcohol and/or drug intervention service (planned clinical services)"},
+        {"code": "H2035", "code_system": "hcpcs", "description": "Alcohol and/or other drug treatment program, per hour"},
+        {"code": "H2036", "code_system": "hcpcs", "description": "Alcohol and/or other drug treatment program, per diem"},
+        {"code": "99408", "code_system": "cpt", "description": "Alcohol and/or substance abuse structured screening and brief intervention; 15-30 minutes"},
+        {"code": "99409", "code_system": "cpt", "description": "Alcohol and/or substance abuse structured screening and brief intervention; greater than 30 minutes"}
+    ]
+}

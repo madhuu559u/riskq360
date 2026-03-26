@@ -1,0 +1,20 @@
+{
+    "id": "VS_PNEUMOCOCCAL_VACCINE_CVX",
+    "name": "Pneumococcal Vaccine Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CVX and CPT codes for pneumococcal vaccines including PCV13, PCV15, PCV20, and PPSV23. Used in adult and pediatric immunization measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "33", "code_system": "cvx", "description": "Pneumococcal polysaccharide vaccine, 23 valent (PPSV23)"},
+        {"code": "100", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 7 valent (PCV7)"},
+        {"code": "133", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 13 valent (PCV13)"},
+        {"code": "152", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 7 valent (PCV7) (historical)"},
+        {"code": "215", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 15 valent (PCV15)"},
+        {"code": "216", "code_system": "cvx", "description": "Pneumococcal conjugate vaccine, 20 valent (PCV20)"},
+        {"code": "90670", "code_system": "cpt", "description": "Pneumococcal conjugate vaccine, 13 valent (PCV13), for intramuscular use"},
+        {"code": "90671", "code_system": "cpt", "description": "Pneumococcal conjugate vaccine, 15 valent (PCV15), for intramuscular use"},
+        {"code": "90677", "code_system": "cpt", "description": "Pneumococcal conjugate vaccine, 20 valent (PCV20), for intramuscular use"},
+        {"code": "90732", "code_system": "cpt", "description": "Pneumococcal polysaccharide vaccine, 23 valent (PPSV23), adult or immunosuppressed patient, for subcutaneous or intramuscular use"}
+    ]
+}

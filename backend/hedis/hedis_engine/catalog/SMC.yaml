@@ -1,0 +1,54 @@
+id: "SMC"
+name: "Cardiovascular Monitoring for People with Schizophrenia or Bipolar Disorder and Cardiovascular Disease"
+version: "2025"
+domain: "behavioral_health"
+description: >
+  Assesses whether adults aged 18-64 with schizophrenia, schizoaffective
+  disorder, or bipolar disorder who also have a cardiovascular disease diagnosis
+  received appropriate cardiovascular monitoring through an LDL cholesterol test
+  during the measurement year. Individuals with serious mental illness (SMI)
+  have significantly higher cardiovascular morbidity and mortality compared to
+  the general population, driven by both metabolic side effects of psychotropic
+  medications and disparities in preventive care. When SMI and cardiovascular
+  disease co-occur, regular lipid monitoring is essential for guiding statin
+  therapy and reducing cardiovascular risk. This measure promotes equitable
+  metabolic monitoring for a population that frequently experiences gaps in
+  preventive care coordination.
+
+eligibility:
+  age: {min: 18, max: 64, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_SCHIZOPHRENIA_BIPOLAR_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+  requires_diagnosis_secondary:
+    valueset: "VS_CARDIOVASCULAR_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "lab_exists"
+      lab: "LDL"
+      window_months: 12
+      description: "LDL cholesterol test during measurement year"
+
+valuesets_needed:
+  - VS_SCHIZOPHRENIA_BIPOLAR_ICD10
+  - VS_CARDIOVASCULAR_ICD10
+  - VS_LDL_TEST_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "labs"

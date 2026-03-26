@@ -1,0 +1,19 @@
+{
+    "id": "VS_FUNCTIONAL_ASSESSMENT_CPT",
+    "name": "Functional Status Assessment Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for functional status assessment including functional status screening, Annual Wellness Visits (AWV), cognitive function assessment, and caregiver-focused health risk assessment. Used in functional status assessment measures for older adults and care planning.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "1170F", "code_system": "cpt", "description": "Functional status assessed using a standardized tool"},
+        {"code": "G0438", "code_system": "hcpcs", "description": "Annual Wellness Visit; includes a first visit, including personalized prevention plan of service (PPPS), initial visit"},
+        {"code": "G0439", "code_system": "hcpcs", "description": "Annual Wellness Visit; includes a subsequent visit, including personalized prevention plan of service (PPPS)"},
+        {"code": "99483", "code_system": "cpt", "description": "Assessment of and care planning for a patient with cognitive impairment, requiring an independent historian, with creation of care plan"},
+        {"code": "96161", "code_system": "cpt", "description": "Administration of caregiver-focused health risk assessment instrument for the benefit of the patient"},
+        {"code": "96127", "code_system": "cpt", "description": "Brief emotional/behavioral assessment with scoring and documentation, per standardized instrument"},
+        {"code": "96160", "code_system": "cpt", "description": "Administration of patient-focused health risk assessment instrument with scoring and documentation"},
+        {"code": "99497", "code_system": "cpt", "description": "Advance care planning including the explanation and discussion of advance directives, first 30 minutes"},
+        {"code": "99498", "code_system": "cpt", "description": "Advance care planning including the explanation and discussion of advance directives, each additional 30 minutes"}
+    ]
+}

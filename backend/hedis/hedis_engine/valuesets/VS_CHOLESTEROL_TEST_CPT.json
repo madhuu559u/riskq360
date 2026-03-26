@@ -1,0 +1,23 @@
+{
+    "id": "VS_CHOLESTEROL_TEST_CPT",
+    "name": "Cholesterol / Lipid Panel Test Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and LOINC codes for cholesterol and lipid panel laboratory tests including total cholesterol, LDL, HDL, and triglycerides. Used in statin therapy for cardiovascular disease (SPC) and other cardiovascular risk management measures.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "80061", "code_system": "cpt", "description": "Lipid panel (total cholesterol, HDL cholesterol, LDL cholesterol, triglycerides)"},
+        {"code": "82465", "code_system": "cpt", "description": "Cholesterol, serum or whole blood, total"},
+        {"code": "83718", "code_system": "cpt", "description": "Lipoprotein, direct measurement; high-density cholesterol (HDL cholesterol)"},
+        {"code": "83721", "code_system": "cpt", "description": "Lipoprotein, direct measurement; LDL cholesterol"},
+        {"code": "84478", "code_system": "cpt", "description": "Triglycerides"},
+        {"code": "83700", "code_system": "cpt", "description": "Lipoprotein, blood; electrophoretic separation and quantitation"},
+        {"code": "83701", "code_system": "cpt", "description": "Lipoprotein, blood; high resolution fractionation and quantitation"},
+        {"code": "2093-3", "code_system": "loinc", "description": "Cholesterol [Mass/volume] in Serum or Plasma"},
+        {"code": "2085-9", "code_system": "loinc", "description": "HDL Cholesterol [Mass/volume] in Serum or Plasma"},
+        {"code": "2089-1", "code_system": "loinc", "description": "LDL Cholesterol [Mass/volume] in Serum or Plasma"},
+        {"code": "2571-8", "code_system": "loinc", "description": "Triglyceride [Mass/volume] in Serum or Plasma"},
+        {"code": "13457-7", "code_system": "loinc", "description": "LDL Cholesterol [Mass/volume] in Serum or Plasma by calculation"},
+        {"code": "18262-6", "code_system": "loinc", "description": "LDL Cholesterol [Mass/volume] in Serum or Plasma by Direct assay"}
+    ]
+}

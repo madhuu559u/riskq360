@@ -1,0 +1,21 @@
+{
+    "id": "VS_ALCOHOL_SCREENING_CPT",
+    "name": "Alcohol Screening Tool Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, HCPCS, and LOINC codes for alcohol misuse screening using validated tools (AUDIT, AUDIT-C, CAGE, single-question screening). Used in the unhealthy alcohol use screening and brief counseling (ASC) measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99408", "code_system": "cpt", "description": "Alcohol and/or substance abuse structured screening and brief intervention; 15-30 minutes"},
+        {"code": "99409", "code_system": "cpt", "description": "Alcohol and/or substance abuse structured screening and brief intervention; greater than 30 minutes"},
+        {"code": "G0396", "code_system": "hcpcs", "description": "Alcohol and/or substance abuse structured screening and brief intervention; 15-30 minutes"},
+        {"code": "G0397", "code_system": "hcpcs", "description": "Alcohol and/or substance abuse structured screening and brief intervention; greater than 30 minutes"},
+        {"code": "G2011", "code_system": "hcpcs", "description": "Alcohol screening, 5–14 minutes"},
+        {"code": "G2012", "code_system": "hcpcs", "description": "Brief counseling for alcohol misuse, 5–14 minutes"},
+        {"code": "H0049", "code_system": "hcpcs", "description": "Alcohol and/or drug screening"},
+        {"code": "H0050", "code_system": "hcpcs", "description": "Alcohol and/or drug screening; brief intervention, per 15 minutes"},
+        {"code": "72109-8", "code_system": "loinc", "description": "AUDIT-C total score"},
+        {"code": "75624-7", "code_system": "loinc", "description": "AUDIT total score"},
+        {"code": "LP36568-4", "code_system": "loinc", "description": "CAGE questionnaire"}
+    ]
+}

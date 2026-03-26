@@ -1,0 +1,27 @@
+{
+    "id": "VS_CERVICAL_SCREENING_CPT",
+    "name": "Cervical Cancer Screening Codes (Pap Test and HPV Test)",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, HCPCS, and LOINC codes for cervical cancer screening including Pap smears (cytology) and HPV DNA/RNA testing. Used in the cervical cancer screening measure (CCS). Pap test has 3-year lookback; HPV test has 5-year lookback (age 30-64); co-testing (Pap + HPV) has 5-year lookback.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "88141", "code_system": "cpt", "description": "Cytopathology, cervical or vaginal; interpretation by physician"},
+        {"code": "88142", "code_system": "cpt", "description": "Cytopathology, cervical or vaginal, collected in preservative fluid, automated thin layer preparation; manual screening under physician supervision"},
+        {"code": "88143", "code_system": "cpt", "description": "Cytopathology, cervical or vaginal, collected in preservative fluid, automated thin layer preparation; with manual screening and rescreening under physician supervision"},
+        {"code": "88147", "code_system": "cpt", "description": "Cytopathology smears, cervical or vaginal; screening by automated system under physician supervision"},
+        {"code": "88148", "code_system": "cpt", "description": "Cytopathology smears, cervical or vaginal; screening by automated system with manual rescreening under physician supervision"},
+        {"code": "88150", "code_system": "cpt", "description": "Cytopathology, slides, cervical or vaginal; manual screening under physician supervision"},
+        {"code": "88152", "code_system": "cpt", "description": "Cytopathology, slides, cervical or vaginal; with manual screening and computer-assisted rescreening under physician supervision"},
+        {"code": "88164", "code_system": "cpt", "description": "Cytopathology, slides, cervical or vaginal; manual screening under physician supervision (TBS)"},
+        {"code": "88174", "code_system": "cpt", "description": "Cytopathology, cervical or vaginal; automated thin layer preparation, screening by automated system, under physician supervision"},
+        {"code": "88175", "code_system": "cpt", "description": "Cytopathology, cervical or vaginal; automated thin layer preparation, screening by automated system and target automated rescreening under physician supervision"},
+        {"code": "87620", "code_system": "cpt", "description": "Infectious agent detection by nucleic acid, HPV, direct probe technique"},
+        {"code": "87621", "code_system": "cpt", "description": "Infectious agent detection by nucleic acid, HPV, amplified probe technique"},
+        {"code": "87624", "code_system": "cpt", "description": "Infectious agent detection by nucleic acid, HPV, high-risk types"},
+        {"code": "87625", "code_system": "cpt", "description": "Infectious agent detection by nucleic acid, HPV, types 16 and 18 only"},
+        {"code": "G0101", "code_system": "hcpcs", "description": "Cervical or vaginal cancer screening; pelvic and clinical breast examination"},
+        {"code": "G0123", "code_system": "hcpcs", "description": "Screening cytopathology, cervical or vaginal, thin layer, physician supervision"},
+        {"code": "G0124", "code_system": "hcpcs", "description": "Screening cytopathology, cervical or vaginal, thin layer, by automated system"}
+    ]
+}

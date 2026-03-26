@@ -1,0 +1,24 @@
+{
+    "id": "VS_NEPHROPATHY_SCREENING",
+    "name": "Nephropathy/Kidney Screening Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, LOINC, and ICD-10-CM codes for nephropathy screening in diabetic patients, including urine albumin-creatinine ratio (UACR), microalbumin tests, eGFR, and evidence of nephropathy treatment with ACE/ARB. Used in the kidney health evaluation (KED) measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "82043", "code_system": "cpt", "description": "Urine albumin; quantitative, microalbumin"},
+        {"code": "82044", "code_system": "cpt", "description": "Urine albumin; semiquantitative"},
+        {"code": "82570", "code_system": "cpt", "description": "Creatinine; other source"},
+        {"code": "81001", "code_system": "cpt", "description": "Urinalysis, by dip stick or tablet reagent; automated, with microscopy"},
+        {"code": "36206-2", "code_system": "loinc", "description": "Albumin/Creatinine [Ratio] in Urine"},
+        {"code": "14959-1", "code_system": "loinc", "description": "Microalbumin [Mass/volume] in Urine"},
+        {"code": "13705-9", "code_system": "loinc", "description": "Albumin [Mass/volume] in 24 hour Urine"},
+        {"code": "48642-3", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted among non-blacks"},
+        {"code": "48643-1", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted among blacks"},
+        {"code": "33914-3", "code_system": "loinc", "description": "Glomerular filtration rate/1.73 sq M.predicted by Creatinine-based formula"},
+        {"code": "N18.1", "code_system": "icd10cm", "description": "Chronic kidney disease, stage 1"},
+        {"code": "N18.2", "code_system": "icd10cm", "description": "Chronic kidney disease, stage 2 (mild)"},
+        {"code": "N18.3", "code_system": "icd10cm", "description": "Chronic kidney disease, stage 3 (moderate)"},
+        {"code": "E11.22", "code_system": "icd10cm", "description": "Type 2 diabetes mellitus with diabetic chronic kidney disease"}
+    ]
+}

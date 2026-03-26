@@ -1,0 +1,25 @@
+{
+    "id": "VS_COPD_ICD10",
+    "name": "Chronic Obstructive Pulmonary Disease Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "Broad ICD-10-CM code set for chronic obstructive pulmonary disease (COPD) including COPD with acute infection, COPD with acute exacerbation, emphysema subtypes, and unspecified COPD. Used in COPD management, pharmacotherapy, and spirometry quality measures. Note: VS_COPD_EXACERBATION_ICD10 also exists with a narrower set focused only on acute exacerbation events (J44.0, J44.1).",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "J44.0", "description": "Chronic obstructive pulmonary disease with (acute) lower respiratory infection"},
+        {"code": "J44.1", "description": "Chronic obstructive pulmonary disease with (acute) exacerbation"},
+        {"code": "J44.9", "description": "Chronic obstructive pulmonary disease, unspecified"},
+        {"code": "J43.0", "description": "Unilateral pulmonary emphysema (MacLeod syndrome)"},
+        {"code": "J43.1", "description": "Panlobular emphysema"},
+        {"code": "J43.2", "description": "Centrilobular emphysema"},
+        {"code": "J43.8", "description": "Other emphysema"},
+        {"code": "J43.9", "description": "Emphysema, unspecified"},
+        {"code": "J41.0", "description": "Simple chronic bronchitis"},
+        {"code": "J41.1", "description": "Mucopurulent chronic bronchitis"},
+        {"code": "J41.8", "description": "Mixed simple and mucopurulent chronic bronchitis"},
+        {"code": "J42", "description": "Unspecified chronic bronchitis"},
+        {"code": "J47.0", "description": "Bronchiectasis with acute lower respiratory infection"},
+        {"code": "J47.1", "description": "Bronchiectasis with (acute) exacerbation"},
+        {"code": "J47.9", "description": "Bronchiectasis, uncomplicated"}
+    ]
+}

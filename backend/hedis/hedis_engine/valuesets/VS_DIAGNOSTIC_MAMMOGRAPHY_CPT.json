@@ -1,0 +1,21 @@
+{
+    "id": "VS_DIAGNOSTIC_MAMMOGRAPHY_CPT",
+    "name": "Diagnostic Mammography Procedure Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes specifically for diagnostic mammography (as distinct from screening mammography). Includes unilateral and bilateral diagnostic mammography and digital breast tomosynthesis. Used in breast cancer screening (BCS) measure where diagnostic mammography may also satisfy the numerator.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "77065", "code_system": "cpt", "description": "Diagnostic mammography, including computer-aided detection (CAD) when performed; unilateral"},
+        {"code": "77066", "code_system": "cpt", "description": "Diagnostic mammography, including computer-aided detection (CAD) when performed; bilateral"},
+        {"code": "77067", "code_system": "cpt", "description": "Screening mammography, bilateral, including computer-aided detection (CAD) when performed"},
+        {"code": "77061", "code_system": "cpt", "description": "Digital breast tomosynthesis; unilateral"},
+        {"code": "77062", "code_system": "cpt", "description": "Digital breast tomosynthesis; bilateral"},
+        {"code": "G0202", "code_system": "hcpcs", "description": "Screening mammography, bilateral, producing direct digital image"},
+        {"code": "G0204", "code_system": "hcpcs", "description": "Diagnostic mammography, producing direct digital image, bilateral, all views"},
+        {"code": "G0206", "code_system": "hcpcs", "description": "Diagnostic mammography, producing direct digital image, unilateral, all views"},
+        {"code": "G0279", "code_system": "hcpcs", "description": "Diagnostic digital breast tomosynthesis, unilateral or bilateral"},
+        {"code": "77056", "code_system": "cpt", "description": "Mammography, bilateral (historical code — may appear in legacy claims)"},
+        {"code": "77055", "code_system": "cpt", "description": "Mammography, unilateral (historical code — may appear in legacy claims)"}
+    ]
+}

@@ -1,0 +1,43 @@
+id: "PPC-PRENATAL"
+name: "Prenatal and Postpartum Care - Timeliness of Prenatal Care"
+version: "2025"
+domain: "maternity"
+description: >
+  Assesses whether pregnant women aged 15-44 received a prenatal care visit
+  during the measurement year. Timely initiation of prenatal care is essential
+  for identifying and managing pregnancy-related risks, monitoring fetal
+  development, and providing anticipatory guidance. Early and regular prenatal
+  care is associated with reduced rates of preterm birth, low birth weight,
+  and maternal and neonatal complications. The denominator is identified by
+  evidence of a delivery event during the measurement year.
+
+eligibility:
+  age: {min: 15, max: 44, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DELIVERY_CPT"
+    lookback_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_PRENATAL_VISIT_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DELIVERY_CPT
+  - VS_PRENATAL_VISIT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

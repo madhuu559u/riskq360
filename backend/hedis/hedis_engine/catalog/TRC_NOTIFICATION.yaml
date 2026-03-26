@@ -1,0 +1,48 @@
+id: "TRC-NOTIFICATION"
+name: "Transitions of Care - Notification of Inpatient Admission"
+version: "2025"
+domain: "care_transitions"
+description: >
+  Assesses whether adult members discharged from an acute inpatient setting
+  had notification of the inpatient admission sent to the outpatient provider
+  or care coordinator. Timely notification of hospital admission to the
+  primary care provider or designated care coordinator is a foundational
+  element of effective care transitions. Without notification, outpatient
+  providers cannot prepare for post-discharge needs, coordinate follow-up
+  appointments, or anticipate medication changes. Notification enables
+  proactive care coordination and reduces the risk of adverse events during
+  the vulnerable post-discharge period. This measure complements the TRC
+  Engagement and Medication Reconciliation measures by focusing on the
+  communication infrastructure that supports safe care transitions.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_encounter:
+    encounter_types: ["inpatient"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_CARE_TRANSITION_NOTIFICATION_CPT"
+      window_months: 12
+      description: "Notification of inpatient admission to outpatient provider"
+
+valuesets_needed:
+  - VS_INPATIENT_ENCOUNTER
+  - VS_CARE_TRANSITION_NOTIFICATION_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

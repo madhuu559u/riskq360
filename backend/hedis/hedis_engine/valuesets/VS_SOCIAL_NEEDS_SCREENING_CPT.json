@@ -1,0 +1,18 @@
+{
+    "id": "VS_SOCIAL_NEEDS_SCREENING_CPT",
+    "name": "Social Needs Screening and Intervention Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT and HCPCS codes for social determinants of health (SDOH) screening tools and interventions. Used in social needs screening and intervention (SNS-E) measure to identify members who received SDOH assessments.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "96160", "code_system": "cpt", "description": "Administration of patient-focused health risk assessment instrument with scoring and documentation, per standardized instrument"},
+        {"code": "96161", "code_system": "cpt", "description": "Administration of caregiver-focused health risk assessment instrument with scoring and documentation, per standardized instrument"},
+        {"code": "G0136", "code_system": "hcpcs", "description": "Administration of a standardized, evidence-based social determinants of health risk assessment tool"},
+        {"code": "G9919", "code_system": "hcpcs", "description": "Screening, brief intervention and referral to treatment (SBIRT) for substance abuse (includes screening for SDOH)"},
+        {"code": "T1023", "code_system": "hcpcs", "description": "Screening to determine the appropriateness of consideration of an individual for participation in a specified program"},
+        {"code": "T2022", "code_system": "hcpcs", "description": "Case management, per month"},
+        {"code": "93025-5", "code_system": "loinc", "description": "Protocol for Responding to and Assessing Patients Assets Risks and Experiences (PRAPARE) total score"},
+        {"code": "76513-1", "code_system": "loinc", "description": "Accountable Health Communities (AHC) HRSN screening tool"}
+    ]
+}

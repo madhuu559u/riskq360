@@ -1,0 +1,48 @@
+id: "DDE-DEMENTIA"
+name: "Drug-Disease Interaction - Dementia and Anticholinergics"
+version: "2025"
+domain: "medication_safety"
+description: >
+  Assesses whether older adults aged 65 and older with dementia received
+  a potentially harmful anticholinergic medication during the measurement
+  year. Anticholinergic drugs can worsen cognitive impairment and increase
+  the risk of delirium, falls, and functional decline in patients with
+  dementia. This is an INVERSE measure where the numerator event
+  (receiving an anticholinergic medication) represents an UNDESIRABLE
+  outcome. A lower rate indicates better performance, meaning fewer
+  patients with dementia are exposed to these harmful medications.
+
+inverse: true
+
+eligibility:
+  age: {min: 65, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_DEMENTIA_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "anticholinergic"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DEMENTIA_ICD10
+  - VS_ANTICHOLINERGIC_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"
+  - "encounters"

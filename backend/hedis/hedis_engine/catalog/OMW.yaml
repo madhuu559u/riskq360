@@ -1,0 +1,44 @@
+id: "OMW"
+name: "Osteoporosis Management in Women Who Had a Fracture"
+version: "2025"
+domain: "musculoskeletal"
+description: >
+  Assesses whether women aged 67-85 who suffered a fracture received
+  either a bone mineral density (BMD) test via DEXA scan or appropriate
+  pharmacotherapy for osteoporosis within a defined period. Osteoporosis
+  management after fracture is critical because women with an initial
+  fragility fracture are at significantly elevated risk for subsequent
+  fractures, and treatment can reduce that risk substantially.
+
+eligibility:
+  age: {min: 67, max: 85, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_DEXA_SCAN_CPT"
+      window_months: 24
+    - type: "medication"
+      medication_class: "osteoporosis"
+      window_months: 12
+
+valuesets_needed:
+  - VS_DEXA_SCAN_CPT
+  - VS_OSTEOPOROSIS_MEDICATIONS
+  - VS_FRACTURE_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

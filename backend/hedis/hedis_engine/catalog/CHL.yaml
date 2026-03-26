@@ -1,0 +1,43 @@
+id: "CHL"
+name: "Chlamydia Screening in Women"
+version: "2025"
+domain: "womens_health"
+description: >
+  Assesses whether women aged 16-24 who are sexually active had at least
+  one chlamydia screening test during the measurement year. Chlamydia is
+  the most commonly reported sexually transmitted infection and can lead
+  to pelvic inflammatory disease, ectopic pregnancy, and infertility if
+  untreated. Routine screening enables early detection and treatment.
+
+eligibility:
+  age: {min: 16, max: 24, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_PREGNANCY_ICD10"
+    lookback_months: 12
+    description: "Pregnancy (exclusion for certain sub-populations)"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_CHLAMYDIA_SCREENING_CPT"
+      window_months: 12
+
+valuesets_needed:
+  - VS_CHLAMYDIA_SCREENING_CPT
+  - VS_HOSPICE
+  - VS_PREGNANCY_ICD10
+
+data_sources:
+  - "claims"
+  - "labs"

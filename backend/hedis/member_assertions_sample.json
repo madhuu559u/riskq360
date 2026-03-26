@@ -1,0 +1,210 @@
+{
+  "member_id": "M12345",
+  "demographics": {
+    "dob": "1965-03-15",
+    "gender": "female",
+    "race": "white",
+    "ethnicity": "non-hispanic"
+  },
+  "diagnoses": [
+    {
+      "code": "E11.9",
+      "code_system": "icd10cm",
+      "description": "Type 2 diabetes mellitus without complications",
+      "date": "2025-03-10",
+      "status": "active",
+      "pdf": "chart_001.pdf",
+      "page_number": 3,
+      "exact_quote": "Assessment: Type 2 diabetes mellitus, uncontrolled"
+    },
+    {
+      "code": "I10",
+      "code_system": "icd10cm",
+      "description": "Essential (primary) hypertension",
+      "date": "2025-06-15",
+      "status": "active",
+      "pdf": "chart_001.pdf",
+      "page_number": 5,
+      "exact_quote": "HTN — continue current regimen"
+    },
+    {
+      "code": "E78.5",
+      "code_system": "icd10cm",
+      "description": "Hyperlipidemia, unspecified",
+      "date": "2025-04-20",
+      "status": "active",
+      "pdf": "chart_001.pdf",
+      "page_number": 4,
+      "exact_quote": "Hyperlipidemia on statin therapy"
+    },
+    {
+      "code": "F33.0",
+      "code_system": "icd10cm",
+      "description": "Major depressive disorder, recurrent, mild",
+      "date": "2025-02-10",
+      "status": "active",
+      "pdf": "chart_001.pdf",
+      "page_number": 6,
+      "exact_quote": "Recurrent major depression, currently mild on sertraline"
+    }
+  ],
+  "procedures": [
+    {
+      "code": "92014",
+      "code_system": "cpt",
+      "description": "Ophthalmological exam, comprehensive",
+      "date": "2025-05-20",
+      "pdf": "chart_001.pdf",
+      "page_number": 8,
+      "exact_quote": "Diabetic retinal exam — no retinopathy detected"
+    },
+    {
+      "code": "77067",
+      "code_system": "cpt",
+      "description": "Screening mammography, bilateral",
+      "date": "2025-01-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 10,
+      "exact_quote": "Bilateral screening mammogram — BIRADS 1, negative"
+    },
+    {
+      "code": "45378",
+      "code_system": "cpt",
+      "description": "Colonoscopy, diagnostic",
+      "date": "2022-09-10",
+      "pdf": "chart_001.pdf",
+      "page_number": 12,
+      "exact_quote": "Colonoscopy 9/2022 — normal, repeat in 10 years"
+    }
+  ],
+  "labs": [
+    {
+      "test_type": "A1C",
+      "value": 7.8,
+      "unit": "%",
+      "date": "2025-09-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 7,
+      "exact_quote": "HbA1c 7.8%"
+    },
+    {
+      "test_type": "LDL",
+      "value": 95,
+      "unit": "mg/dL",
+      "date": "2025-09-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 7,
+      "exact_quote": "LDL 95 mg/dL"
+    },
+    {
+      "test_type": "Creatinine",
+      "value": 0.9,
+      "unit": "mg/dL",
+      "date": "2025-09-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 7,
+      "exact_quote": "Creatinine 0.9 mg/dL"
+    },
+    {
+      "test_type": "UACR",
+      "value": 28,
+      "unit": "mg/g",
+      "date": "2025-09-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 7,
+      "exact_quote": "Urine albumin-to-creatinine ratio 28 mg/g"
+    }
+  ],
+  "vitals": [
+    {
+      "type": "blood_pressure",
+      "systolic": 132,
+      "diastolic": 78,
+      "date": "2025-06-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 5,
+      "exact_quote": "BP 132/78 mmHg"
+    },
+    {
+      "type": "blood_pressure",
+      "systolic": 128,
+      "diastolic": 82,
+      "date": "2025-09-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 7,
+      "exact_quote": "BP 128/82 mmHg"
+    },
+    {
+      "type": "bmi",
+      "value": 28.5,
+      "date": "2025-09-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 7,
+      "exact_quote": "BMI 28.5 kg/m2"
+    }
+  ],
+  "medications": [
+    {
+      "name": "Metformin 1000mg BID",
+      "date": "2025-03-10",
+      "pdf": "chart_001.pdf",
+      "page_number": 3,
+      "exact_quote": "Continue metformin 1000mg twice daily"
+    },
+    {
+      "name": "Atorvastatin 40mg daily",
+      "date": "2025-04-20",
+      "pdf": "chart_001.pdf",
+      "page_number": 4,
+      "exact_quote": "Continue atorvastatin 40mg daily"
+    },
+    {
+      "name": "Lisinopril 20mg daily",
+      "date": "2025-06-15",
+      "pdf": "chart_001.pdf",
+      "page_number": 5,
+      "exact_quote": "Continue lisinopril 20mg daily for HTN"
+    },
+    {
+      "name": "Sertraline 100mg daily",
+      "date": "2025-02-10",
+      "pdf": "chart_001.pdf",
+      "page_number": 6,
+      "exact_quote": "Continue sertraline 100mg daily for depression"
+    }
+  ],
+  "encounters": [
+    {
+      "type": "outpatient",
+      "date": "2025-03-10",
+      "provider": "Dr. Smith",
+      "facility": "Primary Care Clinic"
+    },
+    {
+      "type": "outpatient",
+      "date": "2025-06-15",
+      "provider": "Dr. Smith",
+      "facility": "Primary Care Clinic"
+    },
+    {
+      "type": "outpatient",
+      "date": "2025-09-15",
+      "provider": "Dr. Smith",
+      "facility": "Primary Care Clinic"
+    }
+  ],
+  "immunizations": [
+    {
+      "vaccine_type": "influenza",
+      "code": "158",
+      "code_system": "cvx",
+      "date": "2025-10-01"
+    },
+    {
+      "vaccine_type": "pneumococcal",
+      "code": "133",
+      "code_system": "cvx",
+      "date": "2023-11-15"
+    }
+  ]
+}

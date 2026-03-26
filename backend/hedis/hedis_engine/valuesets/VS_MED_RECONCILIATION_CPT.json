@@ -1,0 +1,16 @@
+{
+    "id": "VS_MED_RECONCILIATION_CPT",
+    "name": "Medication Reconciliation Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT codes for medication reconciliation services including transitional care management, discharge medication reconciliation, pharmacologic management, and medication therapy management. Used in care transitions and medication reconciliation quality measures (MRP).",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99495", "code_system": "cpt", "description": "Transitional care management services with moderate medical decision complexity; communication within 2 business days of discharge, face-to-face visit within 14 days of discharge"},
+        {"code": "99496", "code_system": "cpt", "description": "Transitional care management services with high medical decision complexity; communication within 2 business days of discharge, face-to-face visit within 7 days of discharge"},
+        {"code": "1111F", "code_system": "cpt", "description": "Discharge medications reconciled with the current medication list in outpatient medical record"},
+        {"code": "90863", "code_system": "cpt", "description": "Pharmacologic management, including prescription and review of medication, when performed with psychotherapy services"},
+        {"code": "99605", "code_system": "cpt", "description": "Medication therapy management service(s) provided by a pharmacist, individual, face-to-face, initial 15 minutes, new patient"},
+        {"code": "99606", "code_system": "cpt", "description": "Medication therapy management service(s) provided by a pharmacist, individual, face-to-face, initial 15 minutes, established patient"}
+    ]
+}

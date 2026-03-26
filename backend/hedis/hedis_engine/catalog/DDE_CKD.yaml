@@ -1,0 +1,49 @@
+id: "DDE-CKD"
+name: "Drug-Disease Interaction - Chronic Kidney Disease and NSAIDs"
+version: "2025"
+domain: "medication_safety"
+description: >
+  Assesses whether older adults aged 65 and older with chronic kidney
+  disease (CKD) received a potentially harmful nonsteroidal
+  anti-inflammatory drug (NSAID) during the measurement year. NSAIDs can
+  cause further nephrotoxic injury, accelerate progression of kidney
+  disease, impair renal hemodynamics, and increase the risk of acute
+  kidney injury and hyperkalemia in patients with pre-existing CKD. This
+  is an INVERSE measure where the numerator event (receiving an NSAID)
+  represents an UNDESIRABLE outcome. A lower rate indicates better
+  performance.
+
+inverse: true
+
+eligibility:
+  age: {min: 65, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_CKD_ICD10"
+    lookback_months: 24
+    status: ["active", "historical"]
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "medication"
+      medication_class: "nsaid"
+      window_months: 12
+
+valuesets_needed:
+  - VS_CKD_ICD10
+  - VS_NSAID_MEDICATIONS
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"
+  - "encounters"

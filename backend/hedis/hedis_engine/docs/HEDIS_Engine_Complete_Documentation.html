@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEDIS Measure Engine — Complete Documentation</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  body { font-family: 'Inter', sans-serif; }
+  code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+  .tab-btn.active { border-bottom: 3px solid #6366f1; color: #6366f1; font-weight: 600; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .gradient-header { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4338ca 60%, #6366f1 100%); }
+  .stat-card { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-left: 4px solid #6366f1; }
+  .flow-step { position: relative; }
+  .flow-step::after { content: '→'; position: absolute; right: -20px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1.5rem; font-weight: bold; }
+  .flow-step:last-child::after { display: none; }
+  table { border-collapse: collapse; }
+  th { position: sticky; top: 0; z-index: 10; }
+  .domain-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .d-diabetes { background: #dbeafe; color: #1e40af; }
+  .d-cardiovascular { background: #fce7f3; color: #9d174d; }
+  .d-behavioral_health { background: #ede9fe; color: #5b21b6; }
+  .d-immunization { background: #d1fae5; color: #065f46; }
+  .d-preventive_screening { background: #fef3c7; color: #92400e; }
+  .d-respiratory { background: #cffafe; color: #155e75; }
+  .d-overuse { background: #fee2e2; color: #991b1b; }
+  .d-medication_safety { background: #fecaca; color: #7f1d1d; }
+  .d-medication_adherence { background: #e0e7ff; color: #3730a3; }
+  .d-pediatric, .d-pediatric_preventive { background: #ccfbf1; color: #134e4a; }
+  .d-maternity { background: #fbcfe8; color: #831843; }
+  .d-geriatric { background: #e2e8f0; color: #334155; }
+  .d-care_transitions, .d-care_coordination { background: #ddd6fe; color: #4c1d95; }
+  .d-access { background: #bae6fd; color: #0c4a6e; }
+  .d-social_determinants { background: #fed7aa; color: #9a3412; }
+  .d-womens_health { background: #fce7f3; color: #be185d; }
+  .d-musculoskeletal { background: #e5e7eb; color: #374151; }
+  .d-utilization { background: #fde68a; color: #78350f; }
+  .d-prevention { background: #a7f3d0; color: #047857; }
+  pre { max-height: 500px; overflow: auto; }
+  .search-highlight { background: #fef08a; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- HEADER -->
+<header class="gradient-header text-white shadow-xl">
+  <div class="max-w-7xl mx-auto px-6 py-8">
+    <div class="flex items-center gap-4 mb-2">
+      <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight">HEDIS Measure Engine</h1>
+        <p class="text-indigo-200 text-sm font-medium">MedInsight 360 — Quality Intelligence Platform</p>
+      </div>
+      <div class="ml-auto text-right text-sm text-indigo-200">
+        <div>Version 1.0.0</div>
+        <div>Measurement Year 2024–2025</div>
+        <div class="mt-1 text-xs">Generated March 2026</div>
+      </div>
+    </div>
+    <div class="flex gap-6 mt-6 text-sm">
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2"><span class="text-2xl font-bold">122</span><br><span class="text-indigo-200">Measures</span></div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2"><span class="text-2xl font-bold">168</span><br><span class="text-indigo-200">Value Sets</span></div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2"><span class="text-2xl font-bold">248</span><br><span class="text-indigo-200">Tests</span></div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2"><span class="text-2xl font-bold">21</span><br><span class="text-indigo-200">Domains</span></div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2"><span class="text-2xl font-bold">13</span><br><span class="text-indigo-200">Inverse Measures</span></div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2"><span class="text-2xl font-bold">25+</span><br><span class="text-indigo-200">Rule Primitives</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- TAB NAVIGATION -->
+<nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
+  <div class="max-w-7xl mx-auto px-6 flex gap-0 overflow-x-auto">
+    <button class="tab-btn active px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="overview">Overview</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="architecture">Architecture</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="measures">Measures (122)</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="valuesets">Value Sets (168)</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="datamodel">Data Model</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="primitives">Primitives</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="code">Code Reference</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="tests">Tests (248)</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="pipeline">PDF Pipeline</button>
+    <button class="tab-btn px-4 py-3 text-sm font-medium text-gray-600 hover:text-indigo-600 border-b-3 border-transparent whitespace-nowrap transition-all" data-tab="cli">CLI &amp; API</button>
+  </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-8">
+
+<!-- ============================================================ -->
+<!-- TAB: OVERVIEW -->
+<!-- ============================================================ -->
+<div id="tab-overview" class="tab-panel active">
+  <h2 class="text-2xl font-bold mb-6">System Overview</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white rounded-xl p-6 shadow-sm border">
+      <h3 class="text-lg font-semibold text-indigo-700 mb-3">What It Does</h3>
+      <p class="text-gray-600 leading-relaxed">The HEDIS Engine is a <strong>production-grade, rule-based</strong> measure evaluation system that answers four questions for each member:</p>
+      <ol class="mt-3 space-y-2 text-sm text-gray-600">
+        <li class="flex gap-2"><span class="bg-indigo-100 text-indigo-700 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">1</span>Is this measure <strong>applicable</strong> (eligible) for the member?</li>
+        <li class="flex gap-2"><span class="bg-indigo-100 text-indigo-700 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">2</span>Is the member <strong>compliant</strong>? If not, what <strong>gap</strong> remains?</li>
+        <li class="flex gap-2"><span class="bg-indigo-100 text-indigo-700 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">3</span>What <strong>evidence</strong> supports compliance (dates + references)?</li>
+        <li class="flex gap-2"><span class="bg-indigo-100 text-indigo-700 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">4</span>What <strong>data is missing</strong> that prevents determination?</li>
+      </ol>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow-sm border">
+      <h3 class="text-lg font-semibold text-indigo-700 mb-3">Key Design Principles</h3>
+      <ul class="space-y-2 text-sm text-gray-600">
+        <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span><strong>Deterministic</strong> — No ML for eligibility/compliance. Pure rule-based evaluation</li>
+        <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span><strong>Auditable</strong> — Every decision returns a structured trace with evidence</li>
+        <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span><strong>Extensible</strong> — YAML-driven definitions; add measures without code changes</li>
+        <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span><strong>Lenient</strong> — Handles partial data gracefully; never crashes on missing fields</li>
+        <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span><strong>Separated</strong> — Measure logic decoupled from code sets (value set abstraction)</li>
+        <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span><strong>6-Status Polarity</strong> — Active, Negated, Resolved, Historical, Family History, Uncertain</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-4">Domain Distribution</h3>
+  <div class="bg-white rounded-xl p-6 shadow-sm border mb-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+      <div class="text-center p-3 rounded-lg bg-purple-50"><div class="text-2xl font-bold text-purple-700">29</div><div class="text-xs text-purple-600 font-medium">Behavioral Health</div></div>
+      <div class="text-center p-3 rounded-lg bg-green-50"><div class="text-2xl font-bold text-green-700">20</div><div class="text-xs text-green-600 font-medium">Immunization</div></div>
+      <div class="text-center p-3 rounded-lg bg-yellow-50"><div class="text-2xl font-bold text-yellow-700">9</div><div class="text-xs text-yellow-600 font-medium">Preventive</div></div>
+      <div class="text-center p-3 rounded-lg bg-blue-50"><div class="text-2xl font-bold text-blue-700">9</div><div class="text-xs text-blue-600 font-medium">Diabetes</div></div>
+      <div class="text-center p-3 rounded-lg bg-pink-50"><div class="text-2xl font-bold text-pink-700">6</div><div class="text-xs text-pink-600 font-medium">Cardiovascular</div></div>
+      <div class="text-center p-3 rounded-lg bg-red-50"><div class="text-2xl font-bold text-red-700">6</div><div class="text-xs text-red-600 font-medium">Med Safety</div></div>
+      <div class="text-center p-3 rounded-lg bg-rose-50"><div class="text-2xl font-bold text-rose-700">6</div><div class="text-xs text-rose-600 font-medium">Maternity</div></div>
+      <div class="text-center p-3 rounded-lg bg-teal-50"><div class="text-2xl font-bold text-teal-700">6</div><div class="text-xs text-teal-600 font-medium">Pediatric</div></div>
+      <div class="text-center p-3 rounded-lg bg-cyan-50"><div class="text-2xl font-bold text-cyan-700">5</div><div class="text-xs text-cyan-600 font-medium">Overuse</div></div>
+      <div class="text-center p-3 rounded-lg bg-violet-50"><div class="text-2xl font-bold text-violet-700">4</div><div class="text-xs text-violet-600 font-medium">Care Transitions</div></div>
+      <div class="text-center p-3 rounded-lg bg-orange-50"><div class="text-2xl font-bold text-orange-700">4</div><div class="text-xs text-orange-600 font-medium">Respiratory</div></div>
+      <div class="text-center p-3 rounded-lg bg-indigo-50"><div class="text-2xl font-bold text-indigo-700">3</div><div class="text-xs text-indigo-600 font-medium">Med Adherence</div></div>
+      <div class="text-center p-3 rounded-lg bg-amber-50"><div class="text-2xl font-bold text-amber-700">3</div><div class="text-xs text-amber-600 font-medium">Social Needs</div></div>
+      <div class="text-center p-3 rounded-lg bg-gray-100"><div class="text-2xl font-bold text-gray-700">7</div><div class="text-xs text-gray-600 font-medium">Other Domains</div></div>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-4">Measure Status Outcomes</h3>
+  <div class="grid grid-cols-5 gap-4 mb-8">
+    <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center"><div class="text-lg font-bold text-green-700">MET</div><div class="text-xs text-green-600 mt-1">Eligible + Compliant</div></div>
+    <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center"><div class="text-lg font-bold text-red-700">GAP</div><div class="text-xs text-red-600 mt-1">Eligible + Non-Compliant</div></div>
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center"><div class="text-lg font-bold text-gray-500">N/A</div><div class="text-xs text-gray-500 mt-1">Not Applicable</div></div>
+    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-center"><div class="text-lg font-bold text-amber-700">EXCLUDED</div><div class="text-xs text-amber-600 mt-1">Eligible but Excluded</div></div>
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center"><div class="text-lg font-bold text-yellow-600">INDETERMINATE</div><div class="text-xs text-yellow-500 mt-1">Missing Data</div></div>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-4">PDF Evaluation Results (4 Test Charts)</h3>
+  <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-gray-50"><tr>
+        <th class="px-4 py-3 text-left font-semibold">Patient</th>
+        <th class="px-4 py-3 text-left font-semibold">PDF</th>
+        <th class="px-4 py-3 text-center font-semibold text-green-700">Met</th>
+        <th class="px-4 py-3 text-center font-semibold text-red-700">Gap</th>
+        <th class="px-4 py-3 text-center font-semibold text-gray-500">N/A</th>
+        <th class="px-4 py-3 text-center font-semibold text-amber-700">Excl</th>
+        <th class="px-4 py-3 text-center font-semibold">Total</th>
+      </tr></thead>
+      <tbody>
+        <tr class="border-t"><td class="px-4 py-3 font-medium">Hudgins, Brittney</td><td class="px-4 py-3 mono text-xs">GSD4.pdf</td><td class="px-4 py-3 text-center text-green-700 font-bold">5</td><td class="px-4 py-3 text-center text-red-700 font-bold">17</td><td class="px-4 py-3 text-center text-gray-500">100</td><td class="px-4 py-3 text-center">0</td><td class="px-4 py-3 text-center font-bold">122</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-3 font-medium">Moore, David</td><td class="px-4 py-3 mono text-xs">GSD5.pdf</td><td class="px-4 py-3 text-center text-green-700 font-bold">5</td><td class="px-4 py-3 text-center text-red-700 font-bold">20</td><td class="px-4 py-3 text-center text-gray-500">97</td><td class="px-4 py-3 text-center">0</td><td class="px-4 py-3 text-center font-bold">122</td></tr>
+        <tr class="border-t"><td class="px-4 py-3 font-medium">Adame, Bonnie</td><td class="px-4 py-3 mono text-xs">BPD_1.pdf</td><td class="px-4 py-3 text-center text-green-700 font-bold">13</td><td class="px-4 py-3 text-center text-red-700 font-bold">19</td><td class="px-4 py-3 text-center text-gray-500">89</td><td class="px-4 py-3 text-center text-amber-700">1</td><td class="px-4 py-3 text-center font-bold">122</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-3 font-medium">Ripperger, Paul</td><td class="px-4 py-3 mono text-xs">BPD_2.pdf</td><td class="px-4 py-3 text-center text-green-700 font-bold">1</td><td class="px-4 py-3 text-center text-red-700 font-bold">14</td><td class="px-4 py-3 text-center text-gray-500">107</td><td class="px-4 py-3 text-center">0</td><td class="px-4 py-3 text-center font-bold">122</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: ARCHITECTURE -->
+<!-- ============================================================ -->
+<div id="tab-architecture" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-6">Architecture</h2>
+
+  <h3 class="text-lg font-semibold mb-4">Project Structure</h3>
+  <div class="bg-gray-900 text-green-400 rounded-xl p-6 mb-8 overflow-x-auto">
+<pre class="text-sm leading-relaxed">hedis_engine/
+├── __init__.py              # Package init, version
+├── __main__.py              # python -m hedis_engine entry
+├── engine.py                # <span class="text-yellow-300">HedisEngine class — 5-step rule evaluator (739 lines)</span>
+├── types.py                 # <span class="text-yellow-300">All enums + dataclasses (328 lines)</span>
+├── measure_def.py           # <span class="text-yellow-300">YAML schema parser (384 lines)</span>
+├── primitives.py            # <span class="text-yellow-300">25+ reusable rule primitives (688 lines)</span>
+├── run.py                   # <span class="text-yellow-300">CLI entry point (144 lines)</span>
+├── catalog/                 # <span class="text-cyan-300">122 YAML measure definitions</span>
+│   ├── CDC_A1C_TEST.yaml
+│   ├── CBP.yaml
+│   ├── BCS.yaml
+│   └── ... (122 files)
+├── valuesets/               # <span class="text-cyan-300">168 JSON code sets</span>
+│   ├── loader.py            # Value set loader + cache (81 lines)
+│   ├── VS_DIABETES_ICD10.json
+│   ├── VS_HYPERTENSION_ICD10.json
+│   └── ... (168 files)
+├── adapters/
+│   └── assertion_adapter.py # <span class="text-cyan-300">JSON → MemberEventStore converter (489 lines)</span>
+├── tests/                   # <span class="text-green-300">248 tests across 6 files</span>
+│   ├── test_engine.py       #   46 tests
+│   ├── test_expanded_measures.py  #   95 tests
+│   ├── test_new_measures.py #   43 tests
+│   ├── test_adapter.py      #   13 tests
+│   ├── test_primitives.py   #   42 tests
+│   └── test_types.py        #    9 tests
+└── docs/
+    ├── HEDIS_Engine_Complete_Documentation.html  # This file
+    ├── hedis_complete_measure_reference.md
+    └── measure_catalog.md</pre>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-4">5-Step Evaluation Pipeline</h3>
+  <div class="grid grid-cols-5 gap-2 mb-8">
+    <div class="flow-step bg-white border-2 border-indigo-200 rounded-lg p-4 text-center">
+      <div class="text-3xl mb-2">&#128100;</div>
+      <div class="text-sm font-bold text-indigo-700">1. Eligibility</div>
+      <div class="text-xs text-gray-500 mt-1">Age + Gender + Enrollment</div>
+      <div class="text-xs text-gray-400 mt-1 mono">_check_eligibility()</div>
+    </div>
+    <div class="flow-step bg-white border-2 border-blue-200 rounded-lg p-4 text-center">
+      <div class="text-3xl mb-2">&#128203;</div>
+      <div class="text-sm font-bold text-blue-700">2. Denominator</div>
+      <div class="text-xs text-gray-500 mt-1">Diagnosis + Procedure + Encounter + Medication</div>
+      <div class="text-xs text-gray-400 mt-1 mono">_check_denominator()</div>
+    </div>
+    <div class="flow-step bg-white border-2 border-amber-200 rounded-lg p-4 text-center">
+      <div class="text-3xl mb-2">&#128683;</div>
+      <div class="text-sm font-bold text-amber-700">3. Exclusions</div>
+      <div class="text-xs text-gray-500 mt-1">Hospice, Pregnancy, ESRD, etc.</div>
+      <div class="text-xs text-gray-400 mt-1 mono">_check_exclusions()</div>
+    </div>
+    <div class="flow-step bg-white border-2 border-green-200 rounded-lg p-4 text-center">
+      <div class="text-3xl mb-2">&#9989;</div>
+      <div class="text-sm font-bold text-green-700">4. Numerator</div>
+      <div class="text-xs text-gray-500 mt-1">all_of / any_of criteria + Inverse logic</div>
+      <div class="text-xs text-gray-400 mt-1 mono">_check_numerator()</div>
+    </div>
+    <div class="bg-white border-2 border-purple-200 rounded-lg p-4 text-center">
+      <div class="text-3xl mb-2">&#127919;</div>
+      <div class="text-sm font-bold text-purple-700">5. Confidence</div>
+      <div class="text-xs text-gray-500 mt-1">Deterministic score 0.0–1.0</div>
+      <div class="text-xs text-gray-400 mt-1 mono">_compute_confidence()</div>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-4">Data Flow</h3>
+  <div class="bg-white rounded-xl p-6 shadow-sm border mb-8">
+<pre class="text-sm text-gray-700 leading-loose">
+ Medical Chart PDF
+       │
+       ▼
+┌──────────────────┐     ┌──────────────────────┐
+│  PDF Extractor   │────▶│  Assertions JSON      │  (upstream: diagnoses, labs, vitals, meds, etc.)
+│  (pdfplumber)    │     │  per member            │
+└──────────────────┘     └──────────┬─────────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │  Assertion Adapter    │  adapters/assertion_adapter.py
+                         │  (normalize + classify)│
+                         └──────────┬─────────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │  MemberEventStore     │  (typed events: DiagnosisEvent, LabEvent, etc.)
+                         └──────────┬─────────────┘
+                                    │
+              ┌─────────────────────┼──────────────────────┐
+              │                     │                      │
+              ▼                     ▼                      ▼
+    ┌────────────────┐   ┌────────────────┐    ┌────────────────────┐
+    │ YAML Catalog   │   │ JSON ValueSets │    │  Rule Primitives   │
+    │ (122 measures) │   │ (168 sets)     │    │  (25+ functions)   │
+    └───────┬────────┘   └───────┬────────┘    └────────┬───────────┘
+            │                    │                      │
+            └────────────────────┼──────────────────────┘
+                                 │
+                                 ▼
+                      ┌──────────────────────┐
+                      │    HedisEngine       │
+                      │  5-Step Evaluation   │
+                      └──────────┬───────────┘
+                                 │
+                                 ▼
+                      ┌──────────────────────┐
+                      │  MemberHedisResults  │  → JSON output + summary
+                      │  (per-measure trace) │
+                      └──────────────────────┘
+</pre>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-4">Denominator Types Supported</h3>
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+    <div class="bg-white rounded-lg p-4 border text-center"><div class="font-bold text-sm text-blue-700">requires_diagnosis</div><div class="text-xs text-gray-500 mt-1">Primary condition (ICD-10)</div></div>
+    <div class="bg-white rounded-lg p-4 border text-center"><div class="font-bold text-sm text-blue-700">requires_diagnosis_secondary</div><div class="text-xs text-gray-500 mt-1">Co-morbidity (ICD-10)</div></div>
+    <div class="bg-white rounded-lg p-4 border text-center"><div class="font-bold text-sm text-blue-700">requires_procedure</div><div class="text-xs text-gray-500 mt-1">CPT/HCPCS codes</div></div>
+    <div class="bg-white rounded-lg p-4 border text-center"><div class="font-bold text-sm text-blue-700">requires_encounter</div><div class="text-xs text-gray-500 mt-1">Visit type + window</div></div>
+    <div class="bg-white rounded-lg p-4 border text-center"><div class="font-bold text-sm text-blue-700">requires_medication</div><div class="text-xs text-gray-500 mt-1">Drug class presence</div></div>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-4">Numerator Criterion Types (10 types)</h3>
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">lab_exists</code> — Lab test performed</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">lab_value</code> — Lab meets threshold</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">procedure</code> — CPT/HCPCS code</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">diagnosis</code> — ICD-10 code</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">bp_controlled</code> — BP thresholds</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">medication</code> — Drug class</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">immunization</code> — Vaccine type/CVX</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">vital</code> — Vital sign value</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-indigo-600">encounter</code> — Visit type</div>
+    <div class="bg-white rounded-lg p-3 border text-sm"><code class="text-red-600">inverse</code> — Numerator = bad event</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: MEASURES -->
+<!-- ============================================================ -->
+<div id="tab-measures" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-4">All 122 HEDIS Measures</h2>
+  <div class="mb-4 flex gap-3 items-center">
+    <input id="measure-search" type="text" placeholder="Search measures by ID, name, or domain..." class="border rounded-lg px-4 py-2 text-sm w-96 focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400">
+    <select id="domain-filter" class="border rounded-lg px-3 py-2 text-sm">
+      <option value="">All Domains</option>
+    </select>
+    <label class="text-sm text-gray-500"><input type="checkbox" id="inverse-filter" class="mr-1"> Inverse only</label>
+  </div>
+  <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+    <div class="overflow-x-auto" style="max-height: 70vh;">
+    <table class="w-full text-sm" id="measures-table">
+      <thead class="bg-gray-50"><tr>
+        <th class="px-3 py-3 text-left font-semibold text-xs uppercase tracking-wider">#</th>
+        <th class="px-3 py-3 text-left font-semibold text-xs uppercase tracking-wider">ID</th>
+        <th class="px-3 py-3 text-left font-semibold text-xs uppercase tracking-wider">Name</th>
+        <th class="px-3 py-3 text-left font-semibold text-xs uppercase tracking-wider">Domain</th>
+        <th class="px-3 py-3 text-center font-semibold text-xs uppercase tracking-wider">Age</th>
+        <th class="px-3 py-3 text-center font-semibold text-xs uppercase tracking-wider">Gender</th>
+        <th class="px-3 py-3 text-center font-semibold text-xs uppercase tracking-wider">Inverse</th>
+      </tr></thead>
+      <tbody id="measures-body"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: VALUE SETS -->
+<!-- ============================================================ -->
+<div id="tab-valuesets" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-4">168 Value Sets</h2>
+  <p class="text-gray-600 mb-4">Value sets abstract clinical code sets (ICD-10, CPT, HCPCS, CVX) from measure logic. All are placeholders for official NCQA-licensed value sets.</p>
+  <div class="mb-4">
+    <input id="vs-search" type="text" placeholder="Search value sets..." class="border rounded-lg px-4 py-2 text-sm w-96 focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400">
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="vs-grid"></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: DATA MODEL -->
+<!-- ============================================================ -->
+<div id="tab-datamodel" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-6">Data Model (types.py)</h2>
+
+  <h3 class="text-lg font-semibold mb-3">Enums (7)</h3>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+    <div class="bg-white rounded-lg p-4 border">
+      <h4 class="font-semibold text-indigo-700 mono text-sm">Gender</h4>
+      <div class="flex flex-wrap gap-1 mt-2"><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">MALE</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">FEMALE</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">OTHER</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">UNKNOWN</span></div>
+    </div>
+    <div class="bg-white rounded-lg p-4 border">
+      <h4 class="font-semibold text-indigo-700 mono text-sm">CodeSystem</h4>
+      <div class="flex flex-wrap gap-1 mt-2"><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">ICD10CM</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">ICD9CM</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">CPT</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">HCPCS</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">LOINC</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">RXNORM</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">NDC</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">SNOMED</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">CVX</span></div>
+    </div>
+    <div class="bg-white rounded-lg p-4 border">
+      <h4 class="font-semibold text-indigo-700 mono text-sm">DiagnosisStatus <span class="text-xs font-normal text-gray-500">(6-status polarity model)</span></h4>
+      <div class="flex flex-wrap gap-1 mt-2"><span class="bg-green-100 text-green-700 rounded px-2 py-0.5 text-xs mono">ACTIVE</span><span class="bg-red-100 text-red-700 rounded px-2 py-0.5 text-xs mono">NEGATED</span><span class="bg-blue-100 text-blue-700 rounded px-2 py-0.5 text-xs mono">RESOLVED</span><span class="bg-yellow-100 text-yellow-700 rounded px-2 py-0.5 text-xs mono">HISTORICAL</span><span class="bg-purple-100 text-purple-700 rounded px-2 py-0.5 text-xs mono">FAMILY_HISTORY</span><span class="bg-orange-100 text-orange-700 rounded px-2 py-0.5 text-xs mono">UNCERTAIN</span></div>
+    </div>
+    <div class="bg-white rounded-lg p-4 border">
+      <h4 class="font-semibold text-indigo-700 mono text-sm">MeasureStatus</h4>
+      <div class="flex flex-wrap gap-1 mt-2"><span class="bg-green-100 text-green-700 rounded px-2 py-0.5 text-xs mono">MET</span><span class="bg-red-100 text-red-700 rounded px-2 py-0.5 text-xs mono">GAP</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">NOT_APPLICABLE</span><span class="bg-amber-100 text-amber-700 rounded px-2 py-0.5 text-xs mono">EXCLUDED</span><span class="bg-yellow-100 text-yellow-700 rounded px-2 py-0.5 text-xs mono">INDETERMINATE</span></div>
+    </div>
+    <div class="bg-white rounded-lg p-4 border">
+      <h4 class="font-semibold text-indigo-700 mono text-sm">EncounterType</h4>
+      <div class="flex flex-wrap gap-1 mt-2"><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">OUTPATIENT</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">INPATIENT</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">ED</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">TELEHEALTH</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">HOME</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">OTHER</span></div>
+    </div>
+    <div class="bg-white rounded-lg p-4 border">
+      <h4 class="font-semibold text-indigo-700 mono text-sm">VitalType</h4>
+      <div class="flex flex-wrap gap-1 mt-2"><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">BP</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">BMI</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">WEIGHT</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">HEIGHT</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">TEMPERATURE</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">HEART_RATE</span><span class="bg-gray-100 rounded px-2 py-0.5 text-xs mono">O2_SAT</span></div>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">Normalized Event Dataclasses (8)</h3>
+  <div class="bg-white rounded-xl shadow-sm border overflow-hidden mb-8">
+    <table class="w-full text-sm">
+      <thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-semibold">Dataclass</th><th class="px-4 py-3 text-left font-semibold">Key Fields</th><th class="px-4 py-3 text-left font-semibold">Purpose</th></tr></thead>
+      <tbody>
+        <tr class="border-t"><td class="px-4 py-3 mono text-indigo-700 font-medium">DiagnosisEvent</td><td class="px-4 py-3 text-xs mono">code, code_system, status, event_date, evidence_ref</td><td class="px-4 py-3 text-gray-600">ICD-10/ICD-9 diagnosis with 6-status polarity</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-3 mono text-indigo-700 font-medium">ProcedureEvent</td><td class="px-4 py-3 text-xs mono">code, code_system, event_date, evidence_ref</td><td class="px-4 py-3 text-gray-600">CPT/HCPCS procedure code</td></tr>
+        <tr class="border-t"><td class="px-4 py-3 mono text-indigo-700 font-medium">LabEvent</td><td class="px-4 py-3 text-xs mono">test_type, value, unit, event_date, evidence_ref</td><td class="px-4 py-3 text-gray-600">Lab result with numeric value (A1C, LDL, etc.)</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-3 mono text-indigo-700 font-medium">VitalEvent</td><td class="px-4 py-3 text-xs mono">vital_type, systolic, diastolic, value, event_date</td><td class="px-4 py-3 text-gray-600">Vital signs (BP as systolic/diastolic or scalar)</td></tr>
+        <tr class="border-t"><td class="px-4 py-3 mono text-indigo-700 font-medium">MedicationEvent</td><td class="px-4 py-3 text-xs mono">name, normalized_class, start_date, end_date</td><td class="px-4 py-3 text-gray-600">Medication with therapeutic class for alias matching</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-3 mono text-indigo-700 font-medium">EncounterEvent</td><td class="px-4 py-3 text-xs mono">encounter_type, event_date, provider, facility</td><td class="px-4 py-3 text-gray-600">Visit/encounter with type enum</td></tr>
+        <tr class="border-t"><td class="px-4 py-3 mono text-indigo-700 font-medium">ImmunizationEvent</td><td class="px-4 py-3 text-xs mono">vaccine_type, code, code_system, dose_number</td><td class="px-4 py-3 text-gray-600">Vaccination with CVX code or type string</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-3 mono text-indigo-700 font-medium">Demographics</td><td class="px-4 py-3 text-xs mono">dob, gender, member_id, race, ethnicity</td><td class="px-4 py-3 text-gray-600">Member demographic data</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">MemberEventStore</h3>
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-6 mb-8">
+<pre class="text-sm"><span class="text-blue-400">@dataclass</span>
+<span class="text-yellow-300">class</span> <span class="text-green-300">MemberEventStore</span>:
+    demographics: Demographics = <span class="text-purple-300">field</span>(default_factory=Demographics)
+    diagnoses:    <span class="text-cyan-300">list[DiagnosisEvent]</span>    = <span class="text-purple-300">field</span>(default_factory=list)
+    procedures:   <span class="text-cyan-300">list[ProcedureEvent]</span>    = <span class="text-purple-300">field</span>(default_factory=list)
+    labs:         <span class="text-cyan-300">list[LabEvent]</span>          = <span class="text-purple-300">field</span>(default_factory=list)
+    vitals:       <span class="text-cyan-300">list[VitalEvent]</span>        = <span class="text-purple-300">field</span>(default_factory=list)
+    medications:  <span class="text-cyan-300">list[MedicationEvent]</span>   = <span class="text-purple-300">field</span>(default_factory=list)
+    encounters:   <span class="text-cyan-300">list[EncounterEvent]</span>    = <span class="text-purple-300">field</span>(default_factory=list)
+    immunizations:<span class="text-cyan-300">list[ImmunizationEvent]</span> = <span class="text-purple-300">field</span>(default_factory=list)</pre>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: PRIMITIVES -->
+<!-- ============================================================ -->
+<div id="tab-primitives" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-6">Rule Primitives (primitives.py)</h2>
+  <p class="text-gray-600 mb-6">All primitives are pure functions returning <code class="bg-gray-100 px-2 py-0.5 rounded text-xs">tuple[bool, str, list[EvidenceUsed]]</code> for full audit traceability.</p>
+
+  <div class="space-y-4">
+    <div class="bg-white rounded-lg border p-4"><h4 class="font-semibold text-indigo-700 text-sm mb-2">Demographics</h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">age_as_of</span>(dob, as_of) → int</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">age_between</span>(store, min, max, as_of) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">gender_in</span>(store, allowed) → Result</div>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg border p-4"><h4 class="font-semibold text-indigo-700 text-sm mb-2">Diagnosis</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">has_diagnosis</span>(store, valueset, ws, we, statuses) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">has_any_diagnosis_code</span>(store, codes, ws, we, statuses) → Result</div>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg border p-4"><h4 class="font-semibold text-indigo-700 text-sm mb-2">Procedure</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">has_procedure</span>(store, valueset, ws, we) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">has_any_procedure_code</span>(store, codes, ws, we) → Result</div>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg border p-4"><h4 class="font-semibold text-indigo-700 text-sm mb-2">Lab / Vital / BP</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">lab_exists</span>(store, test_type, ws, we) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">lab_value_in_range</span>(store, test_type, comp, thresh, ws, we) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">bp_controlled</span>(store, sys_thresh, dias_thresh, ws, we) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">vital_exists</span>(store, vital_type, ws, we) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">bmi_in_range</span>(store, min_bmi, max_bmi, ws, we) → Result</div>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg border p-4"><h4 class="font-semibold text-indigo-700 text-sm mb-2">Medication</h4>
+      <div class="grid grid-cols-1 gap-2 text-xs">
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">medication_present</span>(store, class_or_valueset, ws, we) → Result</div>
+      </div>
+      <div class="mt-3 text-xs text-gray-600"><strong>Matching order:</strong> 1) normalized_class with alias expansion → 2) value set code → 3) name substring</div>
+    </div>
+    <div class="bg-white rounded-lg border p-4"><h4 class="font-semibold text-indigo-700 text-sm mb-2">Immunization</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">immunization_count</span>(store, vaccine_type, min_count, ws, we) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">immunization_by_valueset</span>(store, valueset, min_count, ws, we) → Result</div>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg border p-4"><h4 class="font-semibold text-indigo-700 text-sm mb-2">Encounter / Enrollment / Window</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">encounter_exists</span>(store, enc_types, ws, we) → Result</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">continuous_enrollment</span>(store, ws, we) → Result <span class="text-gray-400">(stub)</span></div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">measurement_window</span>(year) → (date, date)</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">lookback_from_year_end</span>(year, months) → (date, date)</div>
+        <div class="bg-gray-50 rounded p-2 mono"><span class="text-blue-600">extended_window</span>(year, lookback_years) → (date, date)</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold mt-8 mb-3">Medication Class Aliases (24 classes)</h3>
+  <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+    <div style="max-height: 400px; overflow: auto;">
+    <table class="w-full text-xs">
+      <thead class="bg-gray-50 sticky top-0"><tr><th class="px-3 py-2 text-left font-semibold">Class Key</th><th class="px-3 py-2 text-left font-semibold">Matches (aliases + specific drugs)</th></tr></thead>
+      <tbody id="med-aliases-body">
+        <tr class="border-t"><td class="px-3 py-2 mono font-medium text-indigo-700">ace_arb</td><td class="px-3 py-2">ace_inhibitor, arb</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-3 py-2 mono font-medium text-indigo-700">antihypertensive</td><td class="px-3 py-2">ace_inhibitor, arb, beta_blocker, ccb, diuretic</td></tr>
+        <tr class="border-t"><td class="px-3 py-2 mono font-medium text-indigo-700">diabetes_med</td><td class="px-3 py-2">metformin, insulin, sulfonylurea, sglt2, glp1</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-3 py-2 mono font-medium text-indigo-700">antipsychotic</td><td class="px-3 py-2">atypical_antipsychotic, typical_antipsychotic</td></tr>
+        <tr class="border-t"><td class="px-3 py-2 mono font-medium text-indigo-700">adhd_med</td><td class="px-3 py-2">stimulant, amphetamine, methylphenidate, atomoxetine, guanfacine</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-3 py-2 mono font-medium text-indigo-700">antidepressant</td><td class="px-3 py-2">ssri, snri, tca, maoi, bupropion, mirtazapine</td></tr>
+        <tr class="border-t"><td class="px-3 py-2 mono font-medium text-indigo-700">osteoporosis_med</td><td class="px-3 py-2">bisphosphonate, denosumab, teriparatide, raloxifene</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-3 py-2 mono font-medium text-indigo-700">antibiotic</td><td class="px-3 py-2">amoxicillin, azithromycin, cephalexin, ciprofloxacin, doxycycline, levofloxacin, metronidazole, clindamycin, trimethoprim, sulfamethoxazole, nitrofurantoin, penicillin</td></tr>
+        <tr class="border-t"><td class="px-3 py-2 mono font-medium text-indigo-700">systemic_corticosteroid</td><td class="px-3 py-2">prednisone, prednisolone, methylprednisolone, dexamethasone, hydrocortisone</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-3 py-2 mono font-medium text-indigo-700">bronchodilator</td><td class="px-3 py-2">albuterol, levalbuterol, ipratropium, tiotropium, formoterol, salmeterol</td></tr>
+        <tr class="border-t"><td class="px-3 py-2 mono font-medium text-indigo-700">opioid</td><td class="px-3 py-2">codeine, hydrocodone, oxycodone, morphine, fentanyl, tramadol, hydromorphone, methadone</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-3 py-2 mono font-medium text-indigo-700">benzodiazepine</td><td class="px-3 py-2">alprazolam, clonazepam, diazepam, lorazepam, temazepam, triazolam, midazolam</td></tr>
+        <tr class="border-t"><td class="px-3 py-2 mono font-medium text-indigo-700">nsaid</td><td class="px-3 py-2">ibuprofen, naproxen, diclofenac, celecoxib, meloxicam, indomethacin, ketorolac</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-3 py-2 mono font-medium text-indigo-700">asthma</td><td class="px-3 py-2">all controller + reliever medications combined</td></tr>
+        <tr class="border-t"><td class="px-3 py-2 mono font-medium text-indigo-700">asthma_controller</td><td class="px-3 py-2">fluticasone, budesonide, beclomethasone, montelukast, zafirlukast, salmeterol, formoterol, omalizumab, mepolizumab, dupilumab</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-3 py-2 mono font-medium text-indigo-700">beta_blocker</td><td class="px-3 py-2">metoprolol, atenolol, carvedilol, bisoprolol, propranolol, nadolol, nebivolol, labetalol</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: CODE REFERENCE -->
+<!-- ============================================================ -->
+<div id="tab-code" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-6">Code Reference</h2>
+
+  <h3 class="text-lg font-semibold mb-3">YAML Measure Schema</h3>
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-6 mb-8 overflow-x-auto">
+<pre class="text-sm"><span class="text-cyan-300">id:</span> <span class="text-green-300">"CDC-A1C-TEST"</span>
+<span class="text-cyan-300">name:</span> <span class="text-green-300">"Diabetes Care - HbA1c Testing"</span>
+<span class="text-cyan-300">version:</span> <span class="text-green-300">"2025"</span>
+<span class="text-cyan-300">domain:</span> <span class="text-green-300">"diabetes"</span>
+<span class="text-cyan-300">description:</span> <span class="text-green-300">"Percentage of members 18-75 with diabetes who had an HbA1c test"</span>
+
+<span class="text-gray-500"># Optional: for overuse/safety measures where numerator = bad event</span>
+<span class="text-cyan-300">inverse:</span> <span class="text-yellow-300">true</span>
+
+<span class="text-cyan-300">eligibility:</span>
+  <span class="text-cyan-300">age:</span> {<span class="text-cyan-300">min:</span> <span class="text-yellow-300">18</span>, <span class="text-cyan-300">max:</span> <span class="text-yellow-300">75</span>, <span class="text-cyan-300">as_of:</span> <span class="text-green-300">"12-31"</span>}
+  <span class="text-cyan-300">gender:</span> [<span class="text-green-300">"male"</span>, <span class="text-green-300">"female"</span>]
+  <span class="text-cyan-300">continuous_enrollment:</span> <span class="text-yellow-300">true</span>
+
+<span class="text-cyan-300">denominator:</span>
+  <span class="text-cyan-300">requires_diagnosis:</span>              <span class="text-gray-500"># Primary condition</span>
+    <span class="text-cyan-300">valueset:</span> <span class="text-green-300">"VS_DIABETES_ICD10"</span>
+    <span class="text-cyan-300">lookback_months:</span> <span class="text-yellow-300">24</span>
+    <span class="text-cyan-300">status:</span> [<span class="text-green-300">"active"</span>, <span class="text-green-300">"historical"</span>]
+  <span class="text-cyan-300">requires_diagnosis_secondary:</span>    <span class="text-gray-500"># Co-morbidity (SMC, SMD)</span>
+    <span class="text-cyan-300">valueset:</span> <span class="text-green-300">"VS_CVD_ICD10"</span>
+  <span class="text-cyan-300">requires_procedure:</span>              <span class="text-gray-500"># Procedure-based denominator</span>
+    <span class="text-cyan-300">valueset:</span> <span class="text-green-300">"VS_DELIVERY_CPT"</span>
+  <span class="text-cyan-300">requires_encounter:</span>              <span class="text-gray-500"># Visit-based denominator</span>
+    <span class="text-cyan-300">encounter_types:</span> [<span class="text-green-300">"emergency"</span>]
+  <span class="text-cyan-300">requires_medication:</span>             <span class="text-gray-500"># Drug-based denominator (AMR)</span>
+    <span class="text-cyan-300">medication_class:</span> <span class="text-green-300">"asthma"</span>
+
+<span class="text-cyan-300">exclusions:</span>
+  - <span class="text-cyan-300">type:</span> <span class="text-green-300">"diagnosis"</span>
+    <span class="text-cyan-300">valueset:</span> <span class="text-green-300">"VS_HOSPICE"</span>
+    <span class="text-cyan-300">lookback_months:</span> <span class="text-yellow-300">12</span>
+
+<span class="text-cyan-300">numerator:</span>
+  <span class="text-cyan-300">all_of:</span>                          <span class="text-gray-500"># AND logic (all must be met)</span>
+    - <span class="text-cyan-300">type:</span> <span class="text-green-300">"lab_exists"</span>
+      <span class="text-cyan-300">lab:</span> <span class="text-green-300">"A1C"</span>
+      <span class="text-cyan-300">window_months:</span> <span class="text-yellow-300">12</span>
+  <span class="text-cyan-300">any_of:</span>                          <span class="text-gray-500"># OR logic (any one suffices)</span>
+    - <span class="text-cyan-300">type:</span> <span class="text-green-300">"procedure"</span>
+      <span class="text-cyan-300">valueset:</span> <span class="text-green-300">"VS_COLONOSCOPY_CPT"</span>
+
+<span class="text-cyan-300">valuesets_needed:</span>
+  - <span class="text-green-300">VS_DIABETES_ICD10</span>
+  - <span class="text-green-300">VS_HOSPICE</span></pre>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">Value Set JSON Schema</h3>
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-6 mb-8">
+<pre class="text-sm">{
+  <span class="text-cyan-300">"id"</span>:          <span class="text-green-300">"VS_DIABETES_ICD10"</span>,
+  <span class="text-cyan-300">"name"</span>:        <span class="text-green-300">"Diabetes Mellitus Diagnosis Codes"</span>,
+  <span class="text-cyan-300">"code_system"</span>: <span class="text-green-300">"icd10cm"</span>,     <span class="text-gray-500">// icd10cm | cpt | hcpcs | cvx | rxnorm</span>
+  <span class="text-cyan-300">"placeholder"</span>: <span class="text-yellow-300">true</span>,          <span class="text-gray-500">// Replace with official NCQA codes</span>
+  <span class="text-cyan-300">"description"</span>: <span class="text-green-300">"..."</span>,
+  <span class="text-cyan-300">"source"</span>:      <span class="text-green-300">"Public CMS/clinical references"</span>,
+  <span class="text-cyan-300">"codes"</span>: [
+    {<span class="text-cyan-300">"code"</span>: <span class="text-green-300">"E11.9"</span>,  <span class="text-cyan-300">"description"</span>: <span class="text-green-300">"Type 2 DM without complications"</span>},
+    {<span class="text-cyan-300">"code"</span>: <span class="text-green-300">"E11.65"</span>, <span class="text-cyan-300">"description"</span>: <span class="text-green-300">"Type 2 DM with hyperglycemia"</span>}
+  ]
+}</pre>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">Engine Usage Example</h3>
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-6 mb-8">
+<pre class="text-sm"><span class="text-purple-300">from</span> hedis_engine.engine <span class="text-purple-300">import</span> HedisEngine
+<span class="text-purple-300">from</span> hedis_engine.types <span class="text-purple-300">import</span> *
+<span class="text-purple-300">from</span> datetime <span class="text-purple-300">import</span> date
+
+<span class="text-gray-500"># Initialize engine</span>
+engine = HedisEngine(measurement_year=<span class="text-yellow-300">2024</span>)
+<span class="text-blue-400">print</span>(<span class="text-green-300">f"Loaded </span>{len(engine.measures)}<span class="text-green-300"> measures"</span>)
+
+<span class="text-gray-500"># Build member data</span>
+store = MemberEventStore(
+    demographics=Demographics(dob=date(<span class="text-yellow-300">1970</span>, <span class="text-yellow-300">1</span>, <span class="text-yellow-300">1</span>), gender=Gender.MALE),
+    diagnoses=[
+        DiagnosisEvent(code=<span class="text-green-300">"E11.9"</span>, code_system=CodeSystem.ICD10CM,
+                       status=DiagnosisStatus.ACTIVE, event_date=date(<span class="text-yellow-300">2024</span>, <span class="text-yellow-300">3</span>, <span class="text-yellow-300">1</span>)),
+    ],
+    labs=[
+        LabEvent(test_type=<span class="text-green-300">"A1C"</span>, value=<span class="text-yellow-300">7.5</span>, unit=<span class="text-green-300">"%"</span>, event_date=date(<span class="text-yellow-300">2024</span>, <span class="text-yellow-300">6</span>, <span class="text-yellow-300">1</span>)),
+    ],
+)
+
+<span class="text-gray-500"># Evaluate all measures</span>
+results = engine.evaluate_member(store)
+<span class="text-purple-300">for</span> m <span class="text-purple-300">in</span> results.measures:
+    <span class="text-purple-300">if</span> m.applicable:
+        <span class="text-blue-400">print</span>(<span class="text-green-300">f"</span>{m.measure_id}<span class="text-green-300">: </span>{m.status.value}<span class="text-green-300">"</span>)
+
+<span class="text-gray-500"># Evaluate specific measures</span>
+results = engine.evaluate_member(store, measure_ids=[<span class="text-green-300">"CDC-A1C-TEST"</span>, <span class="text-green-300">"CBP"</span>])
+
+<span class="text-gray-500"># Export to JSON</span>
+<span class="text-purple-300">import</span> json
+<span class="text-blue-400">print</span>(json.dumps(results.to_dict(), indent=<span class="text-yellow-300">2</span>))</pre>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: TESTS -->
+<!-- ============================================================ -->
+<div id="tab-tests" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-6">Test Suite — 248 Tests</h2>
+  <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6 flex items-center gap-3">
+    <div class="bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">&#10003;</div>
+    <div><div class="text-green-800 font-bold text-lg">248 passed in 24s</div><div class="text-green-600 text-sm">0 failed, 0 errors, 0 skipped</div></div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <div class="bg-white rounded-lg border p-4">
+      <h4 class="font-semibold text-sm mb-2">test_engine.py <span class="text-gray-400 font-normal">(46 tests)</span></h4>
+      <p class="text-xs text-gray-600">Core engine tests: eligibility gating, denominator matching, exclusions, numerator evaluation, inverse measures, confidence scoring, full end-to-end evaluation per measure.</p>
+    </div>
+    <div class="bg-white rounded-lg border p-4">
+      <h4 class="font-semibold text-sm mb-2">test_expanded_measures.py <span class="text-gray-400 font-normal">(95 tests)</span></h4>
+      <p class="text-xs text-gray-600">Comprehensive coverage of all expanded measures: behavioral health, respiratory, overuse (inverse), cardiovascular, substance use, prevention, medication safety, medication adherence, social determinants, care transitions, new measures (GSD, FMA, AMR, CRE, PCR, SMC, SMD, UOP).</p>
+    </div>
+    <div class="bg-white rounded-lg border p-4">
+      <h4 class="font-semibold text-sm mb-2">test_new_measures.py <span class="text-gray-400 font-normal">(43 tests)</span></h4>
+      <p class="text-xs text-gray-600">Tests for first-wave new measures: CBP, BPD, COL, CCS, WCC, CIS, IMA, LSC, OMW, SPR, CDC, PPC, W30, TRC, DRR, APM, FUM, ADD, AWC sub-rates.</p>
+    </div>
+    <div class="bg-white rounded-lg border p-4">
+      <h4 class="font-semibold text-sm mb-2">test_primitives.py <span class="text-gray-400 font-normal">(42 tests)</span></h4>
+      <p class="text-xs text-gray-600">Unit tests for every primitive function: age calculation, gender matching, diagnosis/procedure search, lab value thresholds, BP control logic, medication class matching, immunization counting, encounter search, window calculations.</p>
+    </div>
+    <div class="bg-white rounded-lg border p-4">
+      <h4 class="font-semibold text-sm mb-2">test_adapter.py <span class="text-gray-400 font-normal">(13 tests)</span></h4>
+      <p class="text-xs text-gray-600">Assertion adapter tests: JSON parsing, field normalization, date handling, medication classification, vital/lab extraction, encounter type mapping, graceful error handling.</p>
+    </div>
+    <div class="bg-white rounded-lg border p-4">
+      <h4 class="font-semibold text-sm mb-2">test_types.py <span class="text-gray-400 font-normal">(9 tests)</span></h4>
+      <p class="text-xs text-gray-600">Data type tests: serialization (to_dict), enum values, defaults, evidence reference construction, MemberHedisResults summary aggregation.</p>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">Test Pattern</h3>
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-6">
+<pre class="text-sm"><span class="text-purple-300">def</span> <span class="text-yellow-300">test_cdc_a1c_met</span>():
+    <span class="text-green-300">"""Diabetic patient with A1C lab should meet CDC-A1C-TEST."""</span>
+    store = _store(
+        demographics=Demographics(dob=date(<span class="text-yellow-300">1970</span>, <span class="text-yellow-300">1</span>, <span class="text-yellow-300">1</span>), gender=Gender.MALE),
+        diagnoses=[DiagnosisEvent(code=<span class="text-green-300">"E11.9"</span>, code_system=CodeSystem.ICD10CM,
+                                  status=DiagnosisStatus.ACTIVE, event_date=date(<span class="text-yellow-300">2024</span>, <span class="text-yellow-300">3</span>, <span class="text-yellow-300">1</span>))],
+        labs=[LabEvent(test_type=<span class="text-green-300">"A1C"</span>, value=<span class="text-yellow-300">7.5</span>, event_date=date(<span class="text-yellow-300">2024</span>, <span class="text-yellow-300">6</span>, <span class="text-yellow-300">1</span>))],
+    )
+    r = _engine().evaluate_member(store, measure_ids=[<span class="text-green-300">"CDC-A1C-TEST"</span>])
+    <span class="text-purple-300">assert</span> r.measures[<span class="text-yellow-300">0</span>].status.value == <span class="text-green-300">"met"</span></pre>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: PIPELINE -->
+<!-- ============================================================ -->
+<div id="tab-pipeline" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-6">PDF-to-HEDIS Pipeline</h2>
+  <p class="text-gray-600 mb-6">The <code class="bg-gray-100 px-2 py-0.5 rounded text-xs">pdf_to_hedis.py</code> script (593 lines) demonstrates the complete flow from medical chart PDFs to HEDIS measure evaluation results.</p>
+
+  <div class="grid grid-cols-4 gap-3 mb-8">
+    <div class="bg-white rounded-lg border p-4 text-center"><div class="text-2xl mb-2">&#128196;</div><div class="text-sm font-bold">1. Extract</div><div class="text-xs text-gray-500 mt-1">pdfplumber extracts text from medical charts</div></div>
+    <div class="bg-white rounded-lg border p-4 text-center"><div class="text-2xl mb-2">&#128295;</div><div class="text-sm font-bold">2. Build Store</div><div class="text-xs text-gray-500 mt-1">Construct MemberEventStore with diagnoses, labs, vitals, meds</div></div>
+    <div class="bg-white rounded-lg border p-4 text-center"><div class="text-2xl mb-2">&#9881;</div><div class="text-sm font-bold">3. Evaluate</div><div class="text-xs text-gray-500 mt-1">HedisEngine evaluates all 122 measures per member</div></div>
+    <div class="bg-white rounded-lg border p-4 text-center"><div class="text-2xl mb-2">&#128202;</div><div class="text-sm font-bold">4. Report</div><div class="text-xs text-gray-500 mt-1">Console summary + full JSON results</div></div>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">Test Chart Results</h3>
+  <div class="space-y-4">
+    <div class="bg-white rounded-lg border p-4">
+      <div class="flex items-center gap-3 mb-3"><span class="bg-pink-100 text-pink-700 rounded-full px-3 py-1 text-xs font-bold">F</span><h4 class="font-semibold">Hudgins, Brittney (36y, GSD4.pdf)</h4></div>
+      <div class="text-xs text-gray-600 mb-2"><strong>Conditions:</strong> Type 2 Diabetes (E11.9), A1C 5.7% &amp; 5.6%</div>
+      <div class="flex gap-2"><span class="bg-green-100 text-green-700 rounded px-2 py-1 text-xs font-bold">5 MET</span><span class="bg-red-100 text-red-700 rounded px-2 py-1 text-xs font-bold">17 GAP</span><span class="bg-gray-100 text-gray-500 rounded px-2 py-1 text-xs">100 N/A</span></div>
+    </div>
+    <div class="bg-white rounded-lg border p-4">
+      <div class="flex items-center gap-3 mb-3"><span class="bg-blue-100 text-blue-700 rounded-full px-3 py-1 text-xs font-bold">M</span><h4 class="font-semibold">Moore, David (57y, GSD5.pdf)</h4></div>
+      <div class="text-xs text-gray-600 mb-2"><strong>Conditions:</strong> Type 2 Diabetes (E11.9), A1C 7.7%, PHQ-9 score 0</div>
+      <div class="flex gap-2"><span class="bg-green-100 text-green-700 rounded px-2 py-1 text-xs font-bold">5 MET</span><span class="bg-red-100 text-red-700 rounded px-2 py-1 text-xs font-bold">20 GAP</span><span class="bg-gray-100 text-gray-500 rounded px-2 py-1 text-xs">97 N/A</span></div>
+    </div>
+    <div class="bg-white rounded-lg border p-4">
+      <div class="flex items-center gap-3 mb-3"><span class="bg-pink-100 text-pink-700 rounded-full px-3 py-1 text-xs font-bold">F</span><h4 class="font-semibold">Adame, Bonnie (60y, BPD_1.pdf)</h4></div>
+      <div class="text-xs text-gray-600 mb-2"><strong>Conditions:</strong> CAD (I25.10), HTN (I10), Diabetes (E11.9), COPD, Asthma, Osteoporosis, Uterine cancer hx | BP 112/84, BMI 28.6 | Statin, ARB, Inhaler</div>
+      <div class="flex gap-2"><span class="bg-green-100 text-green-700 rounded px-2 py-1 text-xs font-bold">13 MET</span><span class="bg-red-100 text-red-700 rounded px-2 py-1 text-xs font-bold">19 GAP</span><span class="bg-gray-100 text-gray-500 rounded px-2 py-1 text-xs">89 N/A</span><span class="bg-amber-100 text-amber-700 rounded px-2 py-1 text-xs">1 EXCL</span></div>
+    </div>
+    <div class="bg-white rounded-lg border p-4">
+      <div class="flex items-center gap-3 mb-3"><span class="bg-blue-100 text-blue-700 rounded-full px-3 py-1 text-xs font-bold">M</span><h4 class="font-semibold">Ripperger, Paul (54y, BPD_2.pdf)</h4></div>
+      <div class="text-xs text-gray-600 mb-2"><strong>Conditions:</strong> Mostly healthy — sinus congestion, hx hematoma | BP 125/85</div>
+      <div class="flex gap-2"><span class="bg-green-100 text-green-700 rounded px-2 py-1 text-xs font-bold">1 MET</span><span class="bg-red-100 text-red-700 rounded px-2 py-1 text-xs font-bold">14 GAP</span><span class="bg-gray-100 text-gray-500 rounded px-2 py-1 text-xs">107 N/A</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: CLI & API -->
+<!-- ============================================================ -->
+<div id="tab-cli" class="tab-panel">
+  <h2 class="text-2xl font-bold mb-6">CLI &amp; API Reference</h2>
+
+  <h3 class="text-lg font-semibold mb-3">Command-Line Usage</h3>
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-6 mb-8">
+<pre class="text-sm"><span class="text-gray-500"># Evaluate all measures for a member</span>
+<span class="text-green-300">python -m hedis_engine</span> --input ./member.json --year 2024 --out ./results.json
+
+<span class="text-gray-500"># Evaluate specific measures only</span>
+<span class="text-green-300">python -m hedis_engine</span> --input ./member.json --year 2024 --measures CDC-A1C-TEST,CBP,BCS
+
+<span class="text-gray-500"># Print human-readable summary</span>
+<span class="text-green-300">python -m hedis_engine</span> --input ./member.json --year 2024 --summary
+
+<span class="text-gray-500"># Custom catalog directory</span>
+<span class="text-green-300">python -m hedis_engine</span> --input ./member.json --catalog ./my_measures/ --year 2025
+
+<span class="text-gray-500"># PDF evaluation (all 4 test charts)</span>
+<span class="text-green-300">python pdf_to_hedis.py</span></pre>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">CLI Arguments</h3>
+  <div class="bg-white rounded-xl shadow-sm border overflow-hidden mb-8">
+    <table class="w-full text-sm">
+      <thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-semibold">Argument</th><th class="px-4 py-3 text-left font-semibold">Type</th><th class="px-4 py-3 text-left font-semibold">Default</th><th class="px-4 py-3 text-left font-semibold">Description</th></tr></thead>
+      <tbody>
+        <tr class="border-t"><td class="px-4 py-2 mono text-sm">--input, -i</td><td class="px-4 py-2">str</td><td class="px-4 py-2 text-red-600">required</td><td class="px-4 py-2">Path to member assertions JSON</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-2 mono text-sm">--year, -y</td><td class="px-4 py-2">int</td><td class="px-4 py-2">2025</td><td class="px-4 py-2">Measurement year</td></tr>
+        <tr class="border-t"><td class="px-4 py-2 mono text-sm">--out, -o</td><td class="px-4 py-2">str</td><td class="px-4 py-2">stdout</td><td class="px-4 py-2">Output JSON file path</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-2 mono text-sm">--catalog, -c</td><td class="px-4 py-2">str</td><td class="px-4 py-2">built-in</td><td class="px-4 py-2">Custom catalog directory</td></tr>
+        <tr class="border-t"><td class="px-4 py-2 mono text-sm">--measures, -m</td><td class="px-4 py-2">str</td><td class="px-4 py-2">all</td><td class="px-4 py-2">Comma-separated measure IDs</td></tr>
+        <tr class="border-t bg-gray-50/50"><td class="px-4 py-2 mono text-sm">--summary, -s</td><td class="px-4 py-2">bool</td><td class="px-4 py-2">false</td><td class="px-4 py-2">Print human-readable summary</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">Input JSON Schema</h3>
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-6 mb-8">
+<pre class="text-sm">{
+  <span class="text-cyan-300">"member_id"</span>: <span class="text-green-300">"M123456"</span>,
+  <span class="text-cyan-300">"demographics"</span>: { <span class="text-cyan-300">"dob"</span>: <span class="text-green-300">"1960-03-15"</span>, <span class="text-cyan-300">"gender"</span>: <span class="text-green-300">"female"</span> },
+  <span class="text-cyan-300">"diagnoses"</span>: [{
+    <span class="text-cyan-300">"code"</span>: <span class="text-green-300">"E11.9"</span>, <span class="text-cyan-300">"code_system"</span>: <span class="text-green-300">"icd10cm"</span>, <span class="text-cyan-300">"status"</span>: <span class="text-green-300">"active"</span>,
+    <span class="text-cyan-300">"event_date"</span>: <span class="text-green-300">"2024-06-01"</span>,
+    <span class="text-cyan-300">"pdf"</span>: <span class="text-green-300">"chart.pdf"</span>, <span class="text-cyan-300">"page_number"</span>: <span class="text-yellow-300">3</span>, <span class="text-cyan-300">"exact_quote"</span>: <span class="text-green-300">"Type 2 DM..."</span>
+  }],
+  <span class="text-cyan-300">"labs"</span>:          [{ <span class="text-cyan-300">"test_type"</span>: <span class="text-green-300">"A1C"</span>, <span class="text-cyan-300">"value"</span>: <span class="text-yellow-300">7.8</span>, <span class="text-cyan-300">"event_date"</span>: <span class="text-green-300">"2024-06-15"</span> }],
+  <span class="text-cyan-300">"vitals"</span>:        [{ <span class="text-cyan-300">"type"</span>: <span class="text-green-300">"blood_pressure"</span>, <span class="text-cyan-300">"systolic"</span>: <span class="text-yellow-300">135</span>, <span class="text-cyan-300">"diastolic"</span>: <span class="text-yellow-300">82</span> }],
+  <span class="text-cyan-300">"medications"</span>:   [{ <span class="text-cyan-300">"name"</span>: <span class="text-green-300">"Metformin"</span>, <span class="text-cyan-300">"start_date"</span>: <span class="text-green-300">"2024-01-01"</span> }],
+  <span class="text-cyan-300">"procedures"</span>:    [{ <span class="text-cyan-300">"code"</span>: <span class="text-green-300">"99213"</span>, <span class="text-cyan-300">"code_system"</span>: <span class="text-green-300">"cpt"</span> }],
+  <span class="text-cyan-300">"encounters"</span>:    [{ <span class="text-cyan-300">"type"</span>: <span class="text-green-300">"outpatient"</span>, <span class="text-cyan-300">"event_date"</span>: <span class="text-green-300">"2024-08-01"</span> }],
+  <span class="text-cyan-300">"immunizations"</span>: [{ <span class="text-cyan-300">"vaccine_type"</span>: <span class="text-green-300">"influenza"</span>, <span class="text-cyan-300">"event_date"</span>: <span class="text-green-300">"2024-10-01"</span> }]
+}</pre>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-3">Output JSON Structure</h3>
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-6">
+<pre class="text-sm">{
+  <span class="text-cyan-300">"member_id"</span>: <span class="text-green-300">"M123456"</span>,
+  <span class="text-cyan-300">"measurement_year"</span>: <span class="text-yellow-300">2024</span>,
+  <span class="text-cyan-300">"summary"</span>: { <span class="text-cyan-300">"met"</span>: <span class="text-yellow-300">8</span>, <span class="text-cyan-300">"gap"</span>: <span class="text-yellow-300">12</span>, <span class="text-cyan-300">"not_applicable"</span>: <span class="text-yellow-300">100</span>, <span class="text-cyan-300">"excluded"</span>: <span class="text-yellow-300">2</span> },
+  <span class="text-cyan-300">"measures"</span>: [{
+    <span class="text-cyan-300">"id"</span>: <span class="text-green-300">"CDC-A1C-TEST"</span>,
+    <span class="text-cyan-300">"name"</span>: <span class="text-green-300">"Diabetes Care - HbA1c Testing"</span>,
+    <span class="text-cyan-300">"applicable"</span>: <span class="text-yellow-300">true</span>,
+    <span class="text-cyan-300">"compliant"</span>: <span class="text-green-300">"compliant"</span>,
+    <span class="text-cyan-300">"status"</span>: <span class="text-green-300">"met"</span>,
+    <span class="text-cyan-300">"confidence"</span>: <span class="text-yellow-300">1.0</span>,
+    <span class="text-cyan-300">"eligibility_reason"</span>: [<span class="text-green-300">"Age 54 within 18-75"</span>, <span class="text-green-300">"Gender male matches"</span>],
+    <span class="text-cyan-300">"compliance_reason"</span>: [<span class="text-green-300">"Found 1 matching lab: A1C"</span>],
+    <span class="text-cyan-300">"gaps"</span>: [],
+    <span class="text-cyan-300">"evidence_used"</span>: [{
+      <span class="text-cyan-300">"type"</span>: <span class="text-green-300">"lab"</span>, <span class="text-cyan-300">"code"</span>: <span class="text-green-300">"A1C"</span>, <span class="text-cyan-300">"value"</span>: <span class="text-green-300">"7.8"</span>,
+      <span class="text-cyan-300">"date"</span>: <span class="text-green-300">"2024-06-15"</span>, <span class="text-cyan-300">"source"</span>: {<span class="text-cyan-300">"pdf"</span>: <span class="text-green-300">"lab.pdf"</span>, <span class="text-cyan-300">"page"</span>: <span class="text-yellow-300">2</span>}
+    }],
+    <span class="text-cyan-300">"trace"</span>: [
+      {<span class="text-cyan-300">"rule"</span>: <span class="text-green-300">"age_check"</span>, <span class="text-cyan-300">"result"</span>: <span class="text-yellow-300">true</span>, <span class="text-cyan-300">"detail"</span>: <span class="text-green-300">"Age 54 within 18-75"</span>},
+      {<span class="text-cyan-300">"rule"</span>: <span class="text-green-300">"gender_check"</span>, <span class="text-cyan-300">"result"</span>: <span class="text-yellow-300">true</span>},
+      {<span class="text-cyan-300">"rule"</span>: <span class="text-green-300">"denominator_diagnosis"</span>, <span class="text-cyan-300">"result"</span>: <span class="text-yellow-300">true</span>},
+      {<span class="text-cyan-300">"rule"</span>: <span class="text-green-300">"numerator_lab_A1C"</span>, <span class="text-cyan-300">"result"</span>: <span class="text-yellow-300">true</span>}
+    ]
+  }]
+}</pre>
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t bg-gray-50 mt-12">
+  <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center text-sm text-gray-500">
+    <div>HEDIS Measure Engine v1.0.0 &mdash; MedInsight 360 Quality Intelligence Platform</div>
+    <div>122 measures &bull; 168 value sets &bull; 248 tests &bull; 21 domains</div>
+  </div>
+</footer>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT -->
+<!-- ============================================================ -->
+<script>
+// ---- Measure data (embedded) ----
+const MEASURES = [
+  {id:"AAB",name:"Avoidance of Antibiotic Treatment for Acute Bronchitis",domain:"overuse",age:"3-150",gender:"M/F",inverse:true},
+  {id:"AAF",name:"Follow-Up After Acute/Urgent Care Visit for Asthma",domain:"respiratory",age:"5-64",gender:"M/F",inverse:false},
+  {id:"AAP",name:"Adults' Access to Preventive/Ambulatory Health Services",domain:"access",age:"20-150",gender:"M/F",inverse:false},
+  {id:"ADD-CONTINUATION",name:"Follow-Up Care for ADHD Medication - Continuation",domain:"behavioral_health",age:"6-12",gender:"M/F",inverse:false},
+  {id:"ADD-INITIATION",name:"Follow-Up Care for ADHD Medication - Initiation",domain:"behavioral_health",age:"6-12",gender:"M/F",inverse:false},
+  {id:"AIS-COVID",name:"Adult Immunization Status - COVID-19",domain:"immunization",age:"65-150",gender:"M/F",inverse:false},
+  {id:"AIS-FLU",name:"Adult Immunization Status - Influenza",domain:"immunization",age:"19-150",gender:"M/F",inverse:false},
+  {id:"AIS-HEPB",name:"Adult Immunization Status - Hepatitis B",domain:"immunization",age:"19-59",gender:"M/F",inverse:false},
+  {id:"AIS-PNEUMO",name:"Adult Immunization Status - Pneumococcal",domain:"immunization",age:"65-150",gender:"M/F",inverse:false},
+  {id:"AIS-TDAP",name:"Adult Immunization Status - Td/Tdap",domain:"immunization",age:"19-150",gender:"M/F",inverse:false},
+  {id:"AIS-ZOSTER",name:"Adult Immunization Status - Zoster",domain:"immunization",age:"50-150",gender:"M/F",inverse:false},
+  {id:"AMM-ACUTE",name:"Antidepressant Medication Management - Acute",domain:"behavioral_health",age:"18-150",gender:"M/F",inverse:false},
+  {id:"AMM-CONTINUATION",name:"Antidepressant Medication Management - Continuation",domain:"behavioral_health",age:"18-150",gender:"M/F",inverse:false},
+  {id:"AMR",name:"Asthma Medication Ratio",domain:"respiratory",age:"5-64",gender:"M/F",inverse:false},
+  {id:"APC",name:"Advance Care Planning",domain:"medication_safety",age:"65-150",gender:"M/F",inverse:true},
+  {id:"APM-CHOLESTEROL",name:"Metabolic Monitoring for Children on Antipsychotics - Cholesterol",domain:"behavioral_health",age:"1-17",gender:"M/F",inverse:false},
+  {id:"APM-GLUCOSE",name:"Metabolic Monitoring for Children on Antipsychotics - Glucose",domain:"behavioral_health",age:"1-17",gender:"M/F",inverse:false},
+  {id:"APP",name:"Use of First-Line Psychosocial Care for Children on Antipsychotics",domain:"behavioral_health",age:"1-17",gender:"M/F",inverse:false},
+  {id:"ASF-INTERVENTION",name:"Unhealthy Alcohol Use - Brief Intervention",domain:"behavioral_health",age:"18-150",gender:"M/F",inverse:false},
+  {id:"ASF-SCREENING",name:"Unhealthy Alcohol Use - Screening",domain:"behavioral_health",age:"18-150",gender:"M/F",inverse:false},
+  {id:"AWC",name:"Adolescent Well-Care Visits",domain:"pediatric_preventive",age:"12-21",gender:"M/F",inverse:false},
+  {id:"BCS",name:"Breast Cancer Screening",domain:"preventive_screening",age:"50-74",gender:"F",inverse:false},
+  {id:"BMI",name:"Adult BMI Assessment",domain:"preventive_screening",age:"18-74",gender:"M/F",inverse:false},
+  {id:"BPC",name:"Blood Pressure Control for Hypertension (ECDS)",domain:"cardiovascular",age:"18-85",gender:"M/F",inverse:false},
+  {id:"BPD",name:"Blood Pressure Control for Patients with Diabetes",domain:"cardiovascular",age:"18-75",gender:"M/F",inverse:false},
+  {id:"CAP",name:"Children/Adolescents' Access to Primary Care",domain:"access",age:"1-19",gender:"M/F",inverse:false},
+  {id:"CBP",name:"Controlling High Blood Pressure",domain:"cardiovascular",age:"18-85",gender:"M/F",inverse:false},
+  {id:"CCS",name:"Cervical Cancer Screening",domain:"preventive_screening",age:"21-64",gender:"F",inverse:false},
+  {id:"CDC-A1C-CONTROL-8",name:"Diabetes Care - HbA1c Control (<8%)",domain:"diabetes",age:"18-75",gender:"M/F",inverse:false},
+  {id:"CDC-A1C-POOR-9",name:"Diabetes Care - HbA1c Poor Control (>9%)",domain:"diabetes",age:"18-75",gender:"M/F",inverse:true},
+  {id:"CDC-A1C-TEST",name:"Diabetes Care - HbA1c Testing",domain:"diabetes",age:"18-75",gender:"M/F",inverse:false},
+  {id:"CDC-EYE",name:"Diabetes Care - Eye Exam",domain:"diabetes",age:"18-75",gender:"M/F",inverse:false},
+  {id:"CDC-NEPHROPATHY",name:"Diabetes Care - Nephropathy Screening",domain:"diabetes",age:"18-75",gender:"M/F",inverse:false},
+  {id:"CDC-STATIN",name:"Diabetes Care - Statin Therapy",domain:"diabetes",age:"40-75",gender:"M/F",inverse:false},
+  {id:"CHL",name:"Chlamydia Screening",domain:"womens_health",age:"16-24",gender:"F",inverse:false},
+  {id:"CIS-DTAP",name:"Childhood Immunization - DTaP",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"CIS-HEPA",name:"Childhood Immunization - Hepatitis A",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"CIS-HEPB",name:"Childhood Immunization - Hepatitis B",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"CIS-HIB",name:"Childhood Immunization - Hib",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"CIS-MMR",name:"Childhood Immunization - MMR",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"CIS-PCV",name:"Childhood Immunization - PCV",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"CIS-POLIO",name:"Childhood Immunization - Polio",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"CIS-RV",name:"Childhood Immunization - Rotavirus",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"CIS-VZV",name:"Childhood Immunization - Varicella",domain:"immunization",age:"0-2",gender:"M/F",inverse:false},
+  {id:"COA-FUNC-STATUS",name:"Care for Older Adults - Functional Status",domain:"geriatric",age:"66-150",gender:"M/F",inverse:false},
+  {id:"COA-MED-REVIEW",name:"Care for Older Adults - Medication Review",domain:"geriatric",age:"66-150",gender:"M/F",inverse:false},
+  {id:"COL",name:"Colorectal Cancer Screening",domain:"preventive_screening",age:"45-75",gender:"M/F",inverse:false},
+  {id:"CRE",name:"Cardiac Rehabilitation",domain:"cardiovascular",age:"18-150",gender:"M/F",inverse:false},
+  {id:"CWP",name:"Appropriate Testing for Pharyngitis",domain:"overuse",age:"3-17",gender:"M/F",inverse:false},
+  {id:"DAE",name:"Use of High-Risk Medications in Older Adults",domain:"medication_safety",age:"65-150",gender:"M/F",inverse:true},
+  {id:"DBM",name:"Documented Assessment After Mammogram",domain:"preventive_screening",age:"40-74",gender:"F",inverse:false},
+  {id:"DDE-CKD",name:"Drug-Disease Interaction - CKD and NSAIDs",domain:"medication_safety",age:"65-120",gender:"M/F",inverse:true},
+  {id:"DDE-DEMENTIA",name:"Drug-Disease Interaction - Dementia and Anticholinergics",domain:"medication_safety",age:"65-120",gender:"M/F",inverse:true},
+  {id:"DDE-FALLS",name:"Drug-Disease Interaction - Falls and CNS-Active Drugs",domain:"medication_safety",age:"65-120",gender:"M/F",inverse:true},
+  {id:"DMS",name:"Utilization of PHQ-9 to Monitor Depression",domain:"behavioral_health",age:"12-150",gender:"M/F",inverse:false},
+  {id:"DRR-FOLLOWUP",name:"Depression Remission/Response - Follow-Up",domain:"behavioral_health",age:"12-150",gender:"M/F",inverse:false},
+  {id:"DRR-REMISSION",name:"Depression Remission/Response - Remission",domain:"behavioral_health",age:"12-150",gender:"M/F",inverse:false},
+  {id:"DRR-RESPONSE",name:"Depression Remission/Response - Response",domain:"behavioral_health",age:"12-150",gender:"M/F",inverse:false},
+  {id:"DSF",name:"Depression Screening and Follow-Up",domain:"behavioral_health",age:"12-150",gender:"M/F",inverse:false},
+  {id:"FAM",name:"Follow-Up After High-Intensity Care for Substance Use",domain:"preventive_screening",age:"18-150",gender:"M/F",inverse:false},
+  {id:"FLU",name:"Influenza Immunization",domain:"immunization",age:"6-150",gender:"M/F",inverse:false},
+  {id:"FMA",name:"Follow-Up After Abnormal Mammogram Assessment",domain:"prevention",age:"40-74",gender:"F",inverse:false},
+  {id:"FMC",name:"Follow-Up After ED Visit for Multiple Chronic Conditions",domain:"care_coordination",age:"18-150",gender:"M/F",inverse:false},
+  {id:"FUA-7",name:"Follow-Up After ED Visit for Substance Use - 7 Day",domain:"behavioral_health",age:"13-150",gender:"M/F",inverse:false},
+  {id:"FUA-30",name:"Follow-Up After ED Visit for Substance Use - 30 Day",domain:"behavioral_health",age:"13-150",gender:"M/F",inverse:false},
+  {id:"FUH-7",name:"Follow-Up After Hospitalization for Mental Illness - 7 Day",domain:"behavioral_health",age:"6-150",gender:"M/F",inverse:false},
+  {id:"FUH-30",name:"Follow-Up After Hospitalization for Mental Illness - 30 Day",domain:"behavioral_health",age:"6-150",gender:"M/F",inverse:false},
+  {id:"FUI-7",name:"Follow-Up After High-Intensity Care for SUD - 7 Day",domain:"behavioral_health",age:"13-150",gender:"M/F",inverse:false},
+  {id:"FUI-30",name:"Follow-Up After High-Intensity Care for SUD - 30 Day",domain:"behavioral_health",age:"13-150",gender:"M/F",inverse:false},
+  {id:"FUM-7",name:"Follow-Up After ED Visit for Mental Illness - 7 Day",domain:"behavioral_health",age:"6-150",gender:"M/F",inverse:false},
+  {id:"FUM-30",name:"Follow-Up After ED Visit for Mental Illness - 30 Day",domain:"behavioral_health",age:"6-150",gender:"M/F",inverse:false},
+  {id:"GSD",name:"Glycemic Status Assessment for Patients with Diabetes",domain:"diabetes",age:"18-75",gender:"M/F",inverse:false},
+  {id:"HDO",name:"Use of Opioids at High Dosage",domain:"medication_safety",age:"18-150",gender:"M/F",inverse:true},
+  {id:"IET-ENGAGEMENT",name:"SUD Treatment - Engagement",domain:"behavioral_health",age:"13-150",gender:"M/F",inverse:false},
+  {id:"IET-INITIATION",name:"SUD Treatment - Initiation",domain:"behavioral_health",age:"13-150",gender:"M/F",inverse:false},
+  {id:"IMA-HPV",name:"Adolescent Immunization - HPV",domain:"immunization",age:"9-13",gender:"M/F",inverse:false},
+  {id:"IMA-MENING",name:"Adolescent Immunization - Meningococcal",domain:"immunization",age:"11-13",gender:"M/F",inverse:false},
+  {id:"IMA-TDAP",name:"Adolescent Immunization - Tdap",domain:"immunization",age:"10-13",gender:"M/F",inverse:false},
+  {id:"KED",name:"Kidney Health Evaluation for Patients with Diabetes",domain:"diabetes",age:"18-85",gender:"M/F",inverse:false},
+  {id:"LBP",name:"Use of Imaging Studies for Low Back Pain",domain:"overuse",age:"18-75",gender:"M/F",inverse:true},
+  {id:"LSC",name:"Lead Screening in Children",domain:"pediatric",age:"0-2",gender:"M/F",inverse:false},
+  {id:"MAC",name:"Medication Adherence for Cholesterol (Statins)",domain:"medication_adherence",age:"18-150",gender:"M/F",inverse:false},
+  {id:"MAD",name:"Medication Adherence for Diabetes Medications",domain:"medication_adherence",age:"18-150",gender:"M/F",inverse:false},
+  {id:"MAH",name:"Medication Adherence for Hypertension (RAS Antagonists)",domain:"medication_adherence",age:"18-150",gender:"M/F",inverse:false},
+  {id:"OED",name:"Oral Evaluation, Dental Services",domain:"preventive_screening",age:"0-20",gender:"M/F",inverse:false},
+  {id:"OMW",name:"Osteoporosis Management in Women Who Had a Fracture",domain:"musculoskeletal",age:"67-85",gender:"F",inverse:false},
+  {id:"PCE-BRONCHODILATOR",name:"COPD Exacerbation Pharmacotherapy - Bronchodilator",domain:"respiratory",age:"40-150",gender:"M/F",inverse:false},
+  {id:"PCE-CORTICOSTEROID",name:"COPD Exacerbation Pharmacotherapy - Corticosteroid",domain:"respiratory",age:"40-150",gender:"M/F",inverse:false},
+  {id:"PCR",name:"Plan All-Cause Readmissions",domain:"utilization",age:"18-150",gender:"M/F",inverse:true},
+  {id:"PDS",name:"Postpartum Depression Screening",domain:"maternity",age:"15-44",gender:"F",inverse:false},
+  {id:"PND",name:"Prenatal Depression Screening",domain:"maternity",age:"15-44",gender:"F",inverse:false},
+  {id:"PNU",name:"Pneumococcal Vaccination",domain:"immunization",age:"65-150",gender:"M/F",inverse:false},
+  {id:"POD",name:"Pharmacotherapy for Opioid Use Disorder",domain:"behavioral_health",age:"16-150",gender:"M/F",inverse:false},
+  {id:"PPC-POSTPARTUM",name:"Prenatal and Postpartum Care - Postpartum",domain:"maternity",age:"15-44",gender:"F",inverse:false},
+  {id:"PPC-PRENATAL",name:"Prenatal and Postpartum Care - Prenatal",domain:"maternity",age:"15-44",gender:"F",inverse:false},
+  {id:"PRS-FLU",name:"Prenatal Immunization Status - Influenza",domain:"maternity",age:"15-44",gender:"F",inverse:false},
+  {id:"PRS-TDAP",name:"Prenatal Immunization Status - Tdap",domain:"maternity",age:"15-44",gender:"F",inverse:false},
+  {id:"PSA",name:"Non-Recommended PSA-Based Screening in Older Men",domain:"overuse",age:"70-150",gender:"M",inverse:true},
+  {id:"SAA",name:"Adherence to Antipsychotic Medications for Schizophrenia",domain:"behavioral_health",age:"18-64",gender:"M/F",inverse:false},
+  {id:"SMC",name:"CV Monitoring for Schizophrenia/Bipolar + CVD",domain:"behavioral_health",age:"18-64",gender:"M/F",inverse:false},
+  {id:"SMD",name:"Diabetes Monitoring for Schizophrenia/Bipolar + Diabetes",domain:"behavioral_health",age:"18-64",gender:"M/F",inverse:false},
+  {id:"SNS-FOOD",name:"Social Need Screening - Food Insecurity",domain:"social_determinants",age:"18-150",gender:"M/F",inverse:false},
+  {id:"SNS-HOUSING",name:"Social Need Screening - Housing Instability",domain:"social_determinants",age:"18-150",gender:"M/F",inverse:false},
+  {id:"SNS-TRANSPORT",name:"Social Need Screening - Transportation",domain:"social_determinants",age:"18-150",gender:"M/F",inverse:false},
+  {id:"SPC-RECEIVED",name:"Statin Therapy for CVD - Received",domain:"cardiovascular",age:"21-75",gender:"M/F",inverse:false},
+  {id:"SPD-RECEIVED",name:"Statin Therapy for Diabetes - Received",domain:"diabetes",age:"40-75",gender:"M/F",inverse:false},
+  {id:"SPR",name:"Statin Therapy for CVD",domain:"cardiovascular",age:"21-75",gender:"M/F",inverse:false},
+  {id:"SSD",name:"Diabetes Screening for People with Schizophrenia on Antipsychotics",domain:"behavioral_health",age:"18-64",gender:"M/F",inverse:false},
+  {id:"TFC",name:"Topical Fluoride for Children",domain:"preventive_screening",age:"1-4",gender:"M/F",inverse:false},
+  {id:"TRC-ENGAGEMENT",name:"Transitions of Care - Patient Engagement",domain:"care_transitions",age:"18-150",gender:"M/F",inverse:false},
+  {id:"TRC-MED-RECON",name:"Transitions of Care - Medication Reconciliation",domain:"care_transitions",age:"18-150",gender:"M/F",inverse:false},
+  {id:"TRC-NOTIFICATION",name:"Transitions of Care - Notification",domain:"care_transitions",age:"18-150",gender:"M/F",inverse:false},
+  {id:"TRC-RECEIPT",name:"Transitions of Care - Receipt of Discharge Info",domain:"care_transitions",age:"18-150",gender:"M/F",inverse:false},
+  {id:"TSC",name:"Tobacco Use Screening and Cessation",domain:"preventive_screening",age:"18-150",gender:"M/F",inverse:false},
+  {id:"UOP",name:"Use of Opioids from Multiple Providers",domain:"overuse",age:"18-150",gender:"M/F",inverse:true},
+  {id:"URI",name:"Appropriate Treatment for Upper Respiratory Infection",domain:"overuse",age:"3-150",gender:"M/F",inverse:true},
+  {id:"W30-15",name:"Well-Child Visits First 15 Months",domain:"pediatric",age:"0-1",gender:"M/F",inverse:false},
+  {id:"W30-30",name:"Well-Child Visits 15-30 Months",domain:"pediatric",age:"1-2",gender:"M/F",inverse:false},
+  {id:"WCC-ACTIVITY",name:"Weight Assessment - Physical Activity Counseling",domain:"pediatric",age:"3-17",gender:"M/F",inverse:false},
+  {id:"WCC-BMI",name:"Weight Assessment - BMI Percentile",domain:"pediatric",age:"3-17",gender:"M/F",inverse:false},
+  {id:"WCC-NUTRITION",name:"Weight Assessment - Nutrition Counseling",domain:"pediatric",age:"3-17",gender:"M/F",inverse:false},
+  {id:"WCV",name:"Child and Adolescent Well-Care Visits",domain:"pediatric_preventive",age:"3-21",gender:"M/F",inverse:false},
+];
+
+const VALUESETS = [
+  "VS_A1C_TEST_CPT","VS_ABNORMAL_MAMMOGRAM_ICD10","VS_ACE_ARB_MEDICATIONS","VS_ACUTE_BRONCHITIS_ICD10","VS_ADHD_ICD10","VS_ADHD_MEDICATIONS","VS_ALCOHOL_COUNSELING_CPT","VS_ALCOHOL_SCREENING_CPT","VS_AMBULATORY_VISIT_CPT","VS_ANTIBIOTIC_MEDICATIONS","VS_ANTICHOLINERGIC_MEDICATIONS","VS_ANTIDEPRESSANT_MEDICATIONS","VS_ANTIHYPERTENSIVE_MEDICATIONS","VS_ANTIPSYCHOTIC_MEDICATIONS","VS_ASCVD_ICD10","VS_ASTHMA_CONTROLLER_MEDICATIONS","VS_ASTHMA_ICD10","VS_ASTHMA_MEDICATIONS","VS_BILATERAL_MASTECTOMY_CPT","VS_BIPOLAR_ICD10","VS_BIRADS_SNOMED","VS_BMI_SCREENING_CPT","VS_BP_SCREENING_CPT","VS_BREAST_BIOPSY_CPT","VS_BRONCHODILATOR_MEDICATIONS","VS_CANCER_ICD10","VS_CARDIAC_EVENT_ICD10","VS_CARDIAC_REHAB_CPT","VS_CARDIOVASCULAR_ICD10","VS_CARE_TRANSITION_NOTIFICATION_CPT","VS_CARE_TRANSITION_RECEIPT_CPT","VS_CERVICAL_SCREENING_CPT","VS_CHLAMYDIA_SCREENING_CPT","VS_CHOLESTEROL_TEST_CPT","VS_CKD_ICD10","VS_CNS_ACTIVE_MEDICATIONS","VS_COLECTOMY_CPT","VS_COLONOSCOPY_CPT","VS_COLORECTAL_CANCER_ICD10","VS_COPD_EXACERBATION_ICD10","VS_COPD_ICD10","VS_COVID_VACCINE_CVX","VS_CVD_ICD10","VS_CYSTIC_FIBROSIS_ICD10","VS_DELIVERY_CPT","VS_DEMENTIA_ICD10","VS_DENTAL_EVALUATION_CDT","VS_DEPRESSION_ACTIVE_ICD10","VS_DEPRESSION_ICD10","VS_DEPRESSION_SCREENING_CPT","VS_DEXA_SCAN_CPT","VS_DIABETES_ICD10","VS_DIABETES_MEDICATIONS","VS_DIAGNOSTIC_MAMMOGRAPHY_CPT","VS_DTAP_VACCINE","VS_DTAP_VACCINE_CVX","VS_ED_ENCOUNTER","VS_ED_VISIT_CPT","VS_EGFR_TEST_CPT","VS_EGG_ALLERGY_ICD10","VS_EMPHYSEMA_ICD10","VS_ESRD_ICD10","VS_EYE_EXAM_CPT","VS_FALLS_HIP_FRACTURE_ICD10","VS_FIT_TEST_CPT","VS_FLUORIDE_VARNISH_CDT","VS_FLU_VACCINE_CVX","VS_FOLLOWUP_VISIT_CPT","VS_FOOD_INSECURITY_ICD10","VS_FRACTURE_ICD10","VS_FUNCTIONAL_ASSESSMENT_CPT","VS_GLUCOSE_TEST_CPT","VS_GROUP_A_STREP_CPT","VS_HEPATITIS_A_VACCINE","VS_HEPATITIS_A_VACCINE_CVX","VS_HEPATITIS_B_VACCINE","VS_HEPATITIS_B_VACCINE_CVX","VS_HEPB_ADULT_VACCINE_CVX","VS_HIB_VACCINE","VS_HIB_VACCINE_CVX","VS_HIGH_RISK_ELDERLY_MEDICATIONS","VS_HOSPICE","VS_HOUSING_INSTABILITY_ICD10","VS_HPV_VACCINE","VS_HPV_VACCINE_CVX","VS_HYPERTENSION_ICD10","VS_HYSTERECTOMY_CPT","VS_IMMUNIZATION_CONTRAINDICATION","VS_INFLUENZA_VACCINE_CVX","VS_INPATIENT_ENCOUNTER","VS_INPATIENT_STAY_CPT","VS_IVD_ICD10","VS_KIDNEY_TRANSPLANT_ICD10","VS_LDL_TEST_CPT","VS_LEAD_SCREENING_CPT","VS_LEAD_TEST","VS_LOW_BACK_PAIN_ICD10","VS_MAMMOGRAPHY_CPT","VS_MEDICATION_REVIEW_CPT","VS_MED_RECONCILIATION_CPT","VS_MENINGOCOCCAL_VACCINE","VS_MENINGOCOCCAL_VACCINE_CVX","VS_MENTAL_HEALTH_ICD10","VS_MENTAL_HEALTH_OUTPATIENT_CPT","VS_MMR_VACCINE","VS_MMR_VACCINE_CVX","VS_MULTIPLE_CHRONIC_CONDITIONS_ICD10","VS_NARCOLEPSY_ICD10","VS_NEPHROPATHY_SCREENING","VS_NSAID_MEDICATIONS","VS_NUTRITION_COUNSELING_CPT","VS_OBESITY_ICD10","VS_OPIOID_MEDICATIONS","VS_OPIOID_MULTI_PRESCRIBER_FLAG","VS_OPIOID_USE_ICD10","VS_OSTEOPOROSIS_ICD10","VS_OSTEOPOROSIS_MEDICATIONS","VS_OUD_MEDICATIONS","VS_OUD_PHARMACOTHERAPY","VS_OUTPATIENT_FOLLOWUP_CPT","VS_PALLIATIVE_CARE_ICD10","VS_PCP_VISIT_CPT","VS_PCV13_VACCINE","VS_PCV13_VACCINE_CVX","VS_PHARYNGITIS_ICD10","VS_PHQ9_CPT","VS_PHQ9_SCREENING_CPT","VS_PHYSICAL_ACTIVITY_COUNSELING_CPT","VS_PNEUMOCOCCAL_VACCINE_CVX","VS_POLIO_VACCINE","VS_POLIO_VACCINE_CVX","VS_POSTPARTUM_VISIT_CPT","VS_PREGNANCY_ICD10","VS_PRENATAL_DEPRESSION_SCREENING_CPT","VS_PRENATAL_VISIT_CPT","VS_PROSTATE_CANCER_ICD10","VS_PSA_TEST_CPT","VS_PSYCHOSOCIAL_CPT","VS_REVASCULARIZATION_CPT","VS_ROTAVIRUS_VACCINE","VS_ROTAVIRUS_VACCINE_CVX","VS_SCHIZOPHRENIA_BIPOLAR_ICD10","VS_SCHIZOPHRENIA_ICD10","VS_SIGMOIDOSCOPY_CPT","VS_SOCIAL_NEEDS_SCREENING_CPT","VS_SPINE_IMAGING_CPT","VS_STATIN_MEDICATIONS","VS_SUBSTANCE_USE_ICD10","VS_SUD_INPATIENT_ENCOUNTER","VS_SUD_OUTPATIENT_CPT","VS_SUD_TREATMENT_CPT","VS_SYSTEMIC_CORTICOSTEROID_MEDICATIONS","VS_TDAP_VACCINE","VS_TDAP_VACCINE_CVX","VS_TD_VACCINE_CVX","VS_TOBACCO_CESSATION_CPT","VS_TOBACCO_SCREENING_CPT","VS_TOBACCO_USE_ICD10","VS_TRANSPORTATION_NEED_ICD10","VS_UACR_TEST_CPT","VS_URI_ICD10","VS_VARICELLA_DISEASE_HISTORY","VS_VARICELLA_VACCINE","VS_VARICELLA_VACCINE_CVX","VS_WELL_ADOLESCENT_CPT","VS_WELL_CHILD_CPT","VS_WELL_INFANT_CPT","VS_ZOSTER_VACCINE_CVX"
+];
+
+// ---- Tab switching ----
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ---- Populate measures table ----
+function renderMeasures(filter = '', domain = '', inverseOnly = false) {
+  const tbody = document.getElementById('measures-body');
+  let html = '';
+  let n = 0;
+  MEASURES.forEach((m, i) => {
+    if (filter && !m.id.toLowerCase().includes(filter) && !m.name.toLowerCase().includes(filter) && !m.domain.toLowerCase().includes(filter)) return;
+    if (domain && m.domain !== domain) return;
+    if (inverseOnly && !m.inverse) return;
+    n++;
+    const domainClass = 'd-' + m.domain;
+    const bg = n % 2 === 0 ? 'bg-gray-50/50' : '';
+    html += `<tr class="border-t ${bg}">
+      <td class="px-3 py-2 text-gray-400 text-xs">${n}</td>
+      <td class="px-3 py-2 mono font-medium text-sm text-indigo-700">${m.id}</td>
+      <td class="px-3 py-2 text-sm">${m.name}</td>
+      <td class="px-3 py-2"><span class="domain-badge ${domainClass}">${m.domain.replace(/_/g,' ')}</span></td>
+      <td class="px-3 py-2 text-center mono text-xs">${m.age}</td>
+      <td class="px-3 py-2 text-center text-xs">${m.gender}</td>
+      <td class="px-3 py-2 text-center">${m.inverse ? '<span class="text-red-600 font-bold text-xs">INVERSE</span>' : ''}</td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+}
+
+// Populate domain filter
+const domains = [...new Set(MEASURES.map(m => m.domain))].sort();
+const domainSelect = document.getElementById('domain-filter');
+domains.forEach(d => {
+  const opt = document.createElement('option');
+  opt.value = d;
+  opt.textContent = d.replace(/_/g, ' ');
+  domainSelect.appendChild(opt);
+});
+
+document.getElementById('measure-search').addEventListener('input', e => {
+  renderMeasures(e.target.value.toLowerCase(), domainSelect.value, document.getElementById('inverse-filter').checked);
+});
+domainSelect.addEventListener('change', () => {
+  renderMeasures(document.getElementById('measure-search').value.toLowerCase(), domainSelect.value, document.getElementById('inverse-filter').checked);
+});
+document.getElementById('inverse-filter').addEventListener('change', e => {
+  renderMeasures(document.getElementById('measure-search').value.toLowerCase(), domainSelect.value, e.target.checked);
+});
+renderMeasures();
+
+// ---- Populate value sets grid ----
+function renderValueSets(filter = '') {
+  const grid = document.getElementById('vs-grid');
+  let html = '';
+  VALUESETS.forEach(vs => {
+    if (filter && !vs.toLowerCase().includes(filter)) return;
+    const parts = vs.replace('VS_', '').split('_');
+    const label = parts.join(' ');
+    const isICD = vs.includes('ICD10') || vs.includes('ICD9');
+    const isCPT = vs.includes('CPT') || vs.includes('HCPCS') || vs.includes('CDT');
+    const isCVX = vs.includes('CVX') || vs.includes('VACCINE');
+    const isMed = vs.includes('MEDICATION');
+    let badge = '';
+    if (isICD) badge = '<span class="bg-blue-100 text-blue-700 text-xs px-1.5 py-0.5 rounded">ICD-10</span>';
+    else if (isCPT) badge = '<span class="bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded">CPT</span>';
+    else if (isCVX) badge = '<span class="bg-purple-100 text-purple-700 text-xs px-1.5 py-0.5 rounded">CVX</span>';
+    else if (isMed) badge = '<span class="bg-orange-100 text-orange-700 text-xs px-1.5 py-0.5 rounded">MED</span>';
+    html += `<div class="bg-white rounded-lg border p-3 hover:shadow-sm transition-shadow">
+      <div class="flex items-center justify-between">
+        <span class="mono text-xs font-medium text-gray-700">${vs}</span>
+        ${badge}
+      </div>
+    </div>`;
+  });
+  grid.innerHTML = html;
+}
+document.getElementById('vs-search')?.addEventListener('input', e => renderValueSets(e.target.value.toLowerCase()));
+renderValueSets();
+</script>
+
+</body>
+</html>

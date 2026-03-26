@@ -1,0 +1,45 @@
+id: "TRC-MED-RECON"
+name: "Transitions of Care - Medication Reconciliation Post-Discharge"
+version: "2025"
+domain: "care_transitions"
+description: >
+  Assesses whether adult members discharged from an acute inpatient
+  setting had medication reconciliation performed within 30 days of
+  discharge. Medication reconciliation is the process of comparing a
+  patient's medication orders to all of the medications the patient has
+  been taking, to avoid errors such as omissions, duplications, dosing
+  errors, or drug interactions. This is a critical patient safety
+  activity during care transitions.
+
+eligibility:
+  age: {min: 18, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_encounter:
+    encounter_types: ["inpatient"]
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_MED_RECONCILIATION_CPT"
+      window_months: 12
+      description: "Medication reconciliation within 30 days after inpatient discharge"
+
+valuesets_needed:
+  - VS_INPATIENT_ENCOUNTER
+  - VS_MED_RECONCILIATION_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"
+  - "medications"

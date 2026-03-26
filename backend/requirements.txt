@@ -1,0 +1,63 @@
+# MedInsight 360 — Dependencies
+# Core Framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.1
+python-dotenv==1.0.1
+python-multipart==0.0.20
+
+# Database
+sqlalchemy[asyncio]==2.0.36
+asyncpg==0.30.0
+psycopg2-binary==2.9.10
+alembic==1.14.1
+
+# LLM Providers
+openai==1.58.1
+google-generativeai==0.8.4
+tiktoken==0.8.0
+
+# ML / Deep Learning
+torch==2.5.1
+transformers==4.47.1
+scikit-learn==1.6.1
+scipy==1.15.0
+numpy==1.26.4
+joblib==1.4.2
+
+# PDF Processing
+PyMuPDF==1.25.1
+Pillow==11.1.0
+pdf2image==1.17.0
+
+# NLP
+nltk==3.9.1
+regex==2024.11.6
+
+# HTTP / Async
+httpx==0.28.1
+aiofiles==24.1.0
+aiohttp==3.11.11
+
+# Utilities
+python-json-logger==3.2.1
+structlog==24.4.0
+tenacity==9.0.0
+jinja2==3.1.5
+orjson==3.10.13
+uuid6==2024.7.10
+rich==13.9.4
+typer==0.15.1
+tqdm==4.67.1
+
+# Testing
+pytest==8.3.4
+pytest-asyncio==0.25.0
+pytest-cov==6.0.0
+httpx==0.28.1
+
+# Development
+black==24.10.0
+ruff==0.8.6
+mypy==1.14.1

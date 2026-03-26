@@ -1,0 +1,21 @@
+{
+    "id": "VS_TOBACCO_SCREENING_CPT",
+    "name": "Tobacco Use Screening Codes",
+    "code_system": "mixed",
+    "placeholder": true,
+    "description": "CPT, HCPCS, and LOINC codes for tobacco use screening and assessment. Used in the tobacco screening and cessation intervention measure.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "99406", "code_system": "cpt", "description": "Smoking and tobacco use cessation counseling visit; intermediate, greater than 3 minutes up to 10 minutes"},
+        {"code": "99407", "code_system": "cpt", "description": "Smoking and tobacco use cessation counseling visit; intensive, greater than 10 minutes"},
+        {"code": "1036F", "code_system": "cpt", "description": "Current tobacco smoker or current smokeless tobacco user (CAP)"},
+        {"code": "1034F", "code_system": "cpt", "description": "Current tobacco non-user (CAP)"},
+        {"code": "G9902", "code_system": "hcpcs", "description": "Patient screened for tobacco use and identified as a tobacco user"},
+        {"code": "G9903", "code_system": "hcpcs", "description": "Patient screened for tobacco use and identified as a tobacco non-user"},
+        {"code": "G9904", "code_system": "hcpcs", "description": "Patient not screened for tobacco use"},
+        {"code": "39240-7", "code_system": "loinc", "description": "Tobacco use status"},
+        {"code": "72166-2", "code_system": "loinc", "description": "Tobacco smoking status"},
+        {"code": "11367-0", "code_system": "loinc", "description": "History of tobacco use"},
+        {"code": "81229-7", "code_system": "loinc", "description": "Tobacco use panel"}
+    ]
+}

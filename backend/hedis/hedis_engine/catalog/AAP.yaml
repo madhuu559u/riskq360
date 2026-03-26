@@ -1,0 +1,43 @@
+id: "AAP"
+name: "Adults' Access to Preventive/Ambulatory Health Services"
+version: "2025"
+domain: "access"
+description: >
+  Assesses whether adults aged 20 and older had an ambulatory or preventive
+  care visit during the measurement year. Access to primary and preventive
+  care is foundational to managing chronic conditions, receiving
+  age-appropriate screenings, and maintaining overall health. This measure
+  captures whether the member had at least one qualifying outpatient or
+  ambulatory encounter, serving as a proxy for healthcare access and
+  engagement with the healthcare system.
+
+eligibility:
+  age: {min: 20, max: 120, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_AMBULATORY_VISIT_CPT"
+      window_months: 12
+    - type: "encounter"
+      encounter_types: ["outpatient"]
+      window_months: 12
+
+valuesets_needed:
+  - VS_AMBULATORY_VISIT_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

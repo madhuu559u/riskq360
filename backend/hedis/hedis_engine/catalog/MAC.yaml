@@ -1,0 +1,50 @@
+id: "MAC"
+name: "Medication Adherence for Cholesterol (Statins)"
+version: "2025"
+domain: "medication_adherence"
+description: >
+  Assesses whether adults aged 18 and older who were dispensed a statin
+  medication maintained adherence during the measurement year. Statin
+  therapy is a cornerstone of cardiovascular risk reduction, and consistent
+  adherence is essential to achieve meaningful reductions in LDL cholesterol
+  and cardiovascular event risk. Non-adherence to statin therapy is
+  associated with increased rates of myocardial infarction, stroke, and
+  cardiovascular mortality. This measure uses evidence of statin medication
+  presence during the measurement year as a proxy for adherence. The
+  denominator requires evidence of statin use in the prior period to
+  identify members with an established statin regimen.
+
+eligibility:
+  age: {min: 18, max: 150, as_of: "12-31"}
+  gender: ["male", "female"]
+  continuous_enrollment: true
+
+denominator:
+  requires_medication:
+    medication_class: "statin"
+    window_months: 24
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "diagnosis"
+    valueset: "VS_ESRD_ICD10"
+    lookback_months: 12
+    description: "End-stage renal disease"
+
+numerator:
+  all_of:
+    - type: "medication"
+      medication_class: "statin"
+      window_months: 12
+
+valuesets_needed:
+  - VS_STATIN_MEDICATIONS
+  - VS_ESRD_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "pharmacy"

@@ -1,0 +1,51 @@
+id: "DBM"
+name: "Documented BI-RADS Assessment After Mammogram"
+version: "2025"
+domain: "preventive_screening"
+description: >
+  Assesses whether women aged 40-74 who had a mammogram during the
+  measurement year received a documented BI-RADS (Breast Imaging Reporting
+  and Data System) assessment as part of their mammography results.
+  Standardized BI-RADS reporting ensures that mammography findings are
+  communicated clearly and consistently, facilitating appropriate clinical
+  follow-up. Without a documented BI-RADS assessment, mammography results
+  may be ambiguous, potentially delaying diagnosis or leading to unnecessary
+  additional imaging. This measure promotes completeness and standardization
+  of breast cancer screening documentation.
+
+eligibility:
+  age: {min: 40, max: 74, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: false
+
+denominator:
+  requires_procedure:
+    valueset: "VS_MAMMOGRAPHY_CPT"
+    window_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "procedure"
+    valueset: "VS_BILATERAL_MASTECTOMY_CPT"
+    lookback_months: 0
+    description: "Bilateral mastectomy (any time)"
+
+numerator:
+  all_of:
+    - type: "procedure"
+      valueset: "VS_BIRADS_SNOMED"
+      window_months: 12
+      description: "BI-RADS assessment documented after mammogram"
+
+valuesets_needed:
+  - VS_MAMMOGRAPHY_CPT
+  - VS_BIRADS_SNOMED
+  - VS_BILATERAL_MASTECTOMY_CPT
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

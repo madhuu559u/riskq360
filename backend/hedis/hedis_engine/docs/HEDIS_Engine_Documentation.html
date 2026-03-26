@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEDIS Measure Engine — Complete Documentation</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #161822;
+    --bg3: #1e2030;
+    --bg4: #252840;
+    --border: #2e3148;
+    --text: #c8cad8;
+    --text2: #9498b0;
+    --accent: #7c8aff;
+    --accent2: #5b6abf;
+    --green: #56d68c;
+    --red: #f25f5c;
+    --yellow: #ffc145;
+    --orange: #ff8c42;
+    --cyan: #4fd1c5;
+    --purple: #b57bee;
+    --blue: #63b3ed;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+  /* ---------- top header ---------- */
+  .top-header {
+    background: linear-gradient(135deg, #1a1d2e 0%, #252a45 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px 20px;
+  }
+  .top-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .top-header .subtitle {
+    color: var(--text2);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  .stat-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 20px;
+    min-width: 130px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text2);
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+  }
+
+  /* ---------- tabs ---------- */
+  .tab-bar {
+    display: flex;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--text2);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---------- tab content ---------- */
+  .tab-content { display: none; padding: 30px 40px; max-width: 1200px; }
+  .tab-content.active { display: block; }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--blue);
+    margin: 24px 0 10px;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cyan);
+    margin: 16px 0 6px;
+  }
+  p { margin-bottom: 12px; }
+  ul, ol { margin: 8px 0 16px 24px; }
+  li { margin-bottom: 5px; }
+
+  /* cards */
+  .card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-weight: 600;
+    color: #fff;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  /* tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 13px;
+  }
+  th {
+    background: var(--bg4);
+    color: var(--accent);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--border);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:hover td { background: rgba(124,138,255,0.04); }
+
+  /* code */
+  code {
+    background: var(--bg4);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    color: var(--cyan);
+  }
+  pre {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 12px 0 20px;
+    font-size: 12px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* badges / pills */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-green { background: rgba(86,214,140,0.15); color: var(--green); }
+  .badge-red   { background: rgba(242,95,92,0.15); color: var(--red); }
+  .badge-yellow{ background: rgba(255,193,69,0.15); color: var(--yellow); }
+  .badge-blue  { background: rgba(99,179,237,0.15); color: var(--blue); }
+  .badge-purple{ background: rgba(181,123,238,0.15); color: var(--purple); }
+  .badge-cyan  { background: rgba(79,209,197,0.15); color: var(--cyan); }
+
+  /* flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 16px 0 24px;
+  }
+  .flow-step {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .flow-step .step-num {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .flow-step .step-title {
+    font-weight: 600;
+    color: #fff;
+    font-size: 13px;
+  }
+  .flow-step .step-sub {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 3px;
+  }
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 20px;
+    padding: 0 8px;
+    line-height: 1;
+  }
+
+  /* grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .tab-content { padding: 20px; }
+    .top-header { padding: 20px; }
+  }
+
+  /* domain tag */
+  .domain-tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .domain-diabetes { background: rgba(255,193,69,0.15); color: var(--yellow); }
+  .domain-cardiovascular { background: rgba(242,95,92,0.15); color: var(--red); }
+  .domain-screening { background: rgba(86,214,140,0.15); color: var(--green); }
+  .domain-immunization { background: rgba(99,179,237,0.15); color: var(--blue); }
+  .domain-behavioral { background: rgba(181,123,238,0.15); color: var(--purple); }
+  .domain-wellness { background: rgba(79,209,197,0.15); color: var(--cyan); }
+  .domain-musculoskeletal { background: rgba(255,140,66,0.15); color: var(--orange); }
+
+  /* file tree */
+  .file-tree {
+    font-family: 'Cascadia Code', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--text2);
+  }
+  .file-tree .dir { color: var(--blue); font-weight: 600; }
+  .file-tree .file { color: var(--text); }
+  .file-tree .comment { color: var(--text2); font-style: italic; }
+
+  /* status indicators */
+  .status-met { color: var(--green); }
+  .status-gap { color: var(--red); }
+  .status-na  { color: var(--text2); }
+  .status-excl { color: var(--yellow); }
+
+  /* collapsible */
+  details {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+    user-select: none;
+  }
+  details summary:hover { color: var(--accent); }
+  details[open] summary { border-bottom: 1px solid var(--border); }
+  details .detail-body { padding: 16px; }
+
+  .highlight { color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- TOP HEADER                                                    -->
+<!-- ============================================================ -->
+<div class="top-header">
+  <h1>HEDIS Measure Engine</h1>
+  <div class="subtitle">Production-Grade Rule-Based Quality Measure Evaluation System &mdash; MedInsight 360</div>
+  <div class="stat-row">
+    <div class="stat-card"><div class="num">35</div><div class="label">Measures</div></div>
+    <div class="stat-card"><div class="num">50</div><div class="label">Value Sets</div></div>
+    <div class="stat-card"><div class="num">15</div><div class="label">Rule Primitives</div></div>
+    <div class="stat-card"><div class="num">110</div><div class="label">Tests Passing</div></div>
+    <div class="stat-card"><div class="num">8</div><div class="label">Clinical Domains</div></div>
+    <div class="stat-card"><div class="num">2,200</div><div class="label">Lines of Code</div></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB BAR                                                       -->
+<!-- ============================================================ -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('objectives')">Objectives</button>
+  <button class="tab-btn" onclick="showTab('architecture')">Architecture</button>
+  <button class="tab-btn" onclick="showTab('pipeline')">Evaluation Pipeline</button>
+  <button class="tab-btn" onclick="showTab('measures')">Measure Catalog</button>
+  <button class="tab-btn" onclick="showTab('valuesets')">Value Sets</button>
+  <button class="tab-btn" onclick="showTab('primitives')">Rule Primitives</button>
+  <button class="tab-btn" onclick="showTab('adapter')">Data Adapter</button>
+  <button class="tab-btn" onclick="showTab('types')">Type System</button>
+  <button class="tab-btn" onclick="showTab('cli')">CLI &amp; Output</button>
+  <button class="tab-btn" onclick="showTab('testing')">Testing</button>
+  <button class="tab-btn" onclick="showTab('sample')">Sample Results</button>
+  <button class="tab-btn" onclick="showTab('extensibility')">Extensibility</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: OBJECTIVES                                               -->
+<!-- ============================================================ -->
+<div id="objectives" class="tab-content active">
+  <h2>Project Objectives</h2>
+
+  <div class="card">
+    <div class="card-title">Mission Statement</div>
+    <p>Build a production-grade, deterministic HEDIS measure evaluation engine that assesses member eligibility, compliance, and quality gaps from extracted clinical evidence. The system is fully rule-based (no ML), audit-friendly, and designed to scale from 35 to 50+ measures without architectural changes.</p>
+  </div>
+
+  <h3>Core Requirements Delivered</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="badge badge-green">Done</span> Measure Evaluation Engine</div>
+      <p>For each member and measure, the engine answers:</p>
+      <ul>
+        <li>Is this measure <strong>applicable</strong> (eligible)?</li>
+        <li>Is the member <strong>compliant</strong>? If not, what <strong>gap</strong> remains?</li>
+        <li>What <strong>evidence</strong> supports compliance (with dates + source refs)?</li>
+        <li>What evidence supports denominator inclusion/exclusion?</li>
+        <li>What <strong>data is missing</strong> that prevents determination?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge badge-green">Done</span> Data-Driven DSL</div>
+      <p>Measures are defined in YAML files — no code changes needed to add, modify, or remove measures. Value sets are JSON files that can be swapped with official NCQA-licensed sets.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge badge-green">Done</span> Deterministic &amp; Auditable</div>
+      <p>Zero ML for eligibility/compliance decisions. Every decision produces a structured trace describing which rule fired, which evidence was used, and which dates were applied.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge badge-green">Done</span> 35 Measures Across 8 Domains</div>
+      <p>Diabetes, hypertension, preventive screenings, childhood/adolescent/adult immunizations, depression, medication management, well-visits, osteoporosis, tobacco, and care transitions.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge badge-green">Done</span> Evidence Citation</div>
+      <p>Every matched code/value includes PDF file, page number, exact quote, character offsets, code system, and event date for full audit traceability.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge badge-green">Done</span> Flexible Upstream Integration</div>
+      <p>Adapter converts heterogeneous upstream JSON ("assertions") into normalized event stores. Handles 5 date formats, auto-classifies medications, labs, vitals, and vaccines.</p>
+    </div>
+  </div>
+
+  <h3>Design Principles</h3>
+  <table>
+    <tr><th>Principle</th><th>Implementation</th></tr>
+    <tr><td>Separate measure logic from code sets</td><td>YAML definitions reference abstract <code>VS_*</code> IDs; value sets loaded from JSON files</td></tr>
+    <tr><td>Deterministic rule engine</td><td>No ML; explicit rule evaluation with trace output</td></tr>
+    <tr><td>Audit trail</td><td>Every decision returns structured trace: rule name, result, detail, evidence list</td></tr>
+    <tr><td>Extensible DSL</td><td>YAML measure definitions with <code>all_of</code>/<code>any_of</code> numerator logic</td></tr>
+    <tr><td>Time windows</td><td>Calendar-accurate month subtraction; supports measurement year, lookback, extended windows</td></tr>
+    <tr><td>Multi-source evidence</td><td>Claims codes (CPT/ICD) + clinical text events (labs/vitals/medications)</td></tr>
+    <tr><td>Graceful degradation</td><td>Never crashes on missing data; returns <code>unknown</code>/<code>indeterminate</code> cleanly</td></tr>
+    <tr><td>Generic, not hard-coded</td><td>No <code>if measure == X</code> branching; all logic driven by YAML + primitives</td></tr>
+  </table>
+
+  <h3>NCQA Licensing Compliance</h3>
+  <div class="card">
+    <p>Official HEDIS specifications and value set files are NCQA-licensed. This implementation:</p>
+    <ul>
+      <li>Implements the engine architecture, rule DSL, and measure catalog scaffolding</li>
+      <li>Populates measures using publicly available descriptions (CMS quality measures, CDC ACIP schedules, USPSTF recommendations)</li>
+      <li>Designs the code so official value sets/specs can be dropped in later without refactor</li>
+      <li>Does <strong>not</strong> copy licensed NCQA spec text verbatim</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: ARCHITECTURE                                             -->
+<!-- ============================================================ -->
+<div id="architecture" class="tab-content">
+  <h2>System Architecture</h2>
+
+  <h3>Module Overview</h3>
+  <table>
+    <tr><th>Module</th><th>Lines</th><th>Purpose</th></tr>
+    <tr><td><code>types.py</code></td><td>328</td><td>Core data types: events, results, traces, enums</td></tr>
+    <tr><td><code>primitives.py</code></td><td>668</td><td>15 reusable rule primitives (age, dx, labs, BP, meds, etc.)</td></tr>
+    <tr><td><code>measure_def.py</code></td><td>374</td><td>YAML measure definition schema and parser</td></tr>
+    <tr><td><code>engine.py</code></td><td>667</td><td>Main evaluator: eligibility → denominator → exclusions → numerator</td></tr>
+    <tr><td><code>adapters/assertion_adapter.py</code></td><td>489</td><td>JSON assertion → normalized MemberEventStore conversion</td></tr>
+    <tr><td><code>valuesets/loader.py</code></td><td>81</td><td>Value set JSON loader with code normalization</td></tr>
+    <tr><td><code>run.py</code></td><td>144</td><td>CLI entry point with flexible arguments</td></tr>
+  </table>
+
+  <h3>Project File Structure</h3>
+  <pre class="file-tree"><span class="dir">hedis_engine/</span>
+├── <span class="file">__init__.py</span>              <span class="comment"># Package init, version</span>
+├── <span class="file">__main__.py</span>              <span class="comment"># python -m hedis_engine entry</span>
+├── <span class="file">types.py</span>                 <span class="comment"># All dataclasses, enums, result types</span>
+├── <span class="file">primitives.py</span>            <span class="comment"># 15 reusable rule functions</span>
+├── <span class="file">measure_def.py</span>           <span class="comment"># YAML schema parsing → MeasureDefinition</span>
+├── <span class="file">engine.py</span>                <span class="comment"># HedisEngine evaluator class</span>
+├── <span class="file">run.py</span>                   <span class="comment"># CLI runner</span>
+│
+├── <span class="dir">adapters/</span>
+│   └── <span class="file">assertion_adapter.py</span> <span class="comment"># Upstream JSON → MemberEventStore</span>
+│
+├── <span class="dir">catalog/</span>                  <span class="comment"># 35 YAML measure definitions</span>
+│   ├── <span class="file">CDC_A1C_TEST.yaml</span>
+│   ├── <span class="file">CBP.yaml</span>
+│   ├── <span class="file">COL.yaml</span>
+│   ├── <span class="file">BCS.yaml</span>
+│   └── ... <span class="comment">(35 files total)</span>
+│
+├── <span class="dir">valuesets/</span>                <span class="comment"># 50 placeholder JSON code sets</span>
+│   ├── <span class="file">loader.py</span>
+│   ├── <span class="file">VS_DIABETES_ICD10.json</span>
+│   ├── <span class="file">VS_COLONOSCOPY_CPT.json</span>
+│   └── ... <span class="comment">(50 files total)</span>
+│
+├── <span class="dir">tests/</span>                    <span class="comment"># 110 tests across 4 files</span>
+│   ├── <span class="file">test_engine.py</span>       <span class="comment"># Integration tests (58)</span>
+│   ├── <span class="file">test_primitives.py</span>   <span class="comment"># Unit tests (30)</span>
+│   ├── <span class="file">test_adapter.py</span>      <span class="comment"># Adapter tests (13)</span>
+│   └── <span class="file">test_types.py</span>        <span class="comment"># Type tests (9)</span>
+│
+└── <span class="dir">docs/</span>
+    ├── <span class="file">measure_catalog.md</span>   <span class="comment"># Measure reference table</span>
+    └── <span class="file">HEDIS_Engine_Documentation.html</span></pre>
+
+  <h3>Data Flow Diagram</h3>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="step-num">Input</div>
+      <div class="step-title">Assertions JSON</div>
+      <div class="step-sub">Upstream extractor output</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-num">Adapter</div>
+      <div class="step-title">Normalize</div>
+      <div class="step-sub">JSON → MemberEventStore</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-num">Engine</div>
+      <div class="step-title">Evaluate</div>
+      <div class="step-sub">35 measures × rules</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-num">Output</div>
+      <div class="step-title">Results JSON</div>
+      <div class="step-sub">Per-measure status + trace</div>
+    </div>
+  </div>
+
+  <h3>Dependency Graph</h3>
+  <pre>
+run.py / __main__.py
+  └── engine.py (HedisEngine)
+        ├── measure_def.py (YAML loader → MeasureDefinition)
+        │     └── catalog/*.yaml (35 measure files)
+        ├── primitives.py (15 rule functions)
+        │     └── valuesets/loader.py → valuesets/*.json (50 code sets)
+        └── types.py (all dataclasses + enums)
+
+adapters/assertion_adapter.py
+  └── types.py (MemberEventStore, events)
+  </pre>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: EVALUATION PIPELINE                                      -->
+<!-- ============================================================ -->
+<div id="pipeline" class="tab-content">
+  <h2>Evaluation Pipeline</h2>
+
+  <p>Every measure follows a 4-step deterministic evaluation flow. If any step produces a terminal result, subsequent steps are skipped.</p>
+
+  <div class="flow">
+    <div class="flow-step" style="border-color: var(--blue);">
+      <div class="step-num">Step 1</div>
+      <div class="step-title">Eligibility</div>
+      <div class="step-sub">Age + Gender gate</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step" style="border-color: var(--cyan);">
+      <div class="step-num">Step 2</div>
+      <div class="step-title">Denominator</div>
+      <div class="step-sub">Condition / event required</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step" style="border-color: var(--yellow);">
+      <div class="step-num">Step 3</div>
+      <div class="step-title">Exclusions</div>
+      <div class="step-sub">Hospice, pregnancy, etc.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step" style="border-color: var(--green);">
+      <div class="step-num">Step 4</div>
+      <div class="step-title">Numerator</div>
+      <div class="step-sub">Compliance check</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Step 1: Eligibility</div>
+      <ul>
+        <li><code>age_between(min, max, as_of_date)</code> — Check member age at year-end (or custom date)</li>
+        <li><code>gender_in(allowed_set)</code> — Verify gender matches measure requirement</li>
+        <li><code>continuous_enrollment()</code> — Stub (assumes enrolled); production would check enrollment feed</li>
+      </ul>
+      <p><strong>Terminal:</strong> If age/gender fail → <span class="badge badge-blue">NOT APPLICABLE</span></p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Step 2: Denominator</div>
+      <ul>
+        <li><strong>Age-only:</strong> Population-based measures (e.g., COL, BCS) — all eligible members</li>
+        <li><strong>Diagnosis required:</strong> Must have specific ICD codes (e.g., diabetes for CDC measures)</li>
+        <li><strong>Procedure required:</strong> Must have had specific procedures</li>
+        <li><strong>Encounter required:</strong> Must have visit type (e.g., outpatient for BMI)</li>
+      </ul>
+      <p><strong>Terminal:</strong> If denominator not met → <span class="badge badge-blue">NOT APPLICABLE</span></p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Step 3: Exclusions</div>
+      <ul>
+        <li>Check each exclusion criterion in sequence</li>
+        <li>Common: hospice care, pregnancy, ESRD, prior surgery</li>
+        <li>First match triggers early exit</li>
+      </ul>
+      <p><strong>Terminal:</strong> If any exclusion matched → <span class="badge badge-yellow">EXCLUDED</span></p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Step 4: Numerator</div>
+      <ul>
+        <li><strong><code>all_of</code>:</strong> Every criterion must be met (conjunction)</li>
+        <li><strong><code>any_of</code>:</strong> At least one criterion met (disjunction)</li>
+        <li>For each unmet criterion, a <code>GapDetail</code> is created</li>
+        <li>Evidence is collected for every matched criterion</li>
+      </ul>
+      <p>
+        All met → <span class="badge badge-green">MET</span> &nbsp;
+        Any missing → <span class="badge badge-red">GAP</span> &nbsp;
+        No criteria defined → <span class="badge badge-purple">INDETERMINATE</span>
+      </p>
+    </div>
+  </div>
+
+  <h3>Confidence Scoring (Deterministic)</h3>
+  <table>
+    <tr><th>Scenario</th><th>Score</th><th>Rationale</th></tr>
+    <tr><td>Met with evidence</td><td><strong>1.0</strong></td><td>Full confidence — evidence confirms compliance</td></tr>
+    <tr><td>Excluded</td><td><strong>1.0</strong></td><td>Exclusion is definitive</td></tr>
+    <tr><td>Not applicable</td><td><strong>1.0</strong></td><td>Eligibility is deterministic</td></tr>
+    <tr><td>Gap — value out of range</td><td><strong>0.9</strong></td><td>Data exists but doesn't meet threshold</td></tr>
+    <tr><td>Gap — no gaps identified</td><td><strong>0.8</strong></td><td>Minor uncertainty</td></tr>
+    <tr><td>Gap — missing data</td><td><strong>0.5</strong></td><td>Data may exist but wasn't extracted</td></tr>
+    <tr><td>Indeterminate</td><td><strong>0.5</strong></td><td>Cannot determine compliance</td></tr>
+  </table>
+
+  <h3>Numerator Criterion Types</h3>
+  <table>
+    <tr><th>Type</th><th>Description</th><th>Example Usage</th></tr>
+    <tr><td><code>lab_exists</code></td><td>Lab test of given type exists in window</td><td>CDC-A1C-TEST: A1C lab in 12 months</td></tr>
+    <tr><td><code>lab_value</code></td><td>Lab value meets threshold (lt/le/gt/ge/eq)</td><td>CDC-A1C-CONTROL-8: A1C &lt; 8.0</td></tr>
+    <tr><td><code>procedure</code></td><td>CPT/HCPCS code from value set in window</td><td>COL: colonoscopy in 10 years</td></tr>
+    <tr><td><code>diagnosis</code></td><td>ICD code from value set in window</td><td>Denominator inclusion criteria</td></tr>
+    <tr><td><code>bp_controlled</code></td><td>Latest BP below thresholds</td><td>CBP: systolic &lt; 140, diastolic &lt; 90</td></tr>
+    <tr><td><code>medication</code></td><td>Drug class or value set match</td><td>CDC-STATIN: statin medication present</td></tr>
+    <tr><td><code>immunization</code></td><td>Vaccine count ≥ min_count</td><td>CIS-DTAP: ≥ 4 DTaP doses</td></tr>
+    <tr><td><code>vital</code></td><td>Vital sign reading exists</td><td>BMI: BMI documented</td></tr>
+    <tr><td><code>encounter</code></td><td>Visit of given type exists</td><td>FUH-7: outpatient visit within 1 month</td></tr>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: MEASURE CATALOG                                          -->
+<!-- ============================================================ -->
+<div id="measures" class="tab-content">
+  <h2>Measure Catalog (35 Measures)</h2>
+
+  <h3>Diabetes Care <span class="domain-tag domain-diabetes">6 Measures</span></h3>
+  <table>
+    <tr><th>ID</th><th>Name</th><th>Age</th><th>Denominator</th><th>Numerator</th></tr>
+    <tr><td><code>CDC-A1C-TEST</code></td><td>HbA1c Testing</td><td>18-75</td><td>Diabetes Dx</td><td>A1C lab exists (12 mo)</td></tr>
+    <tr><td><code>CDC-A1C-CONTROL-8</code></td><td>HbA1c Control (&lt;8%)</td><td>18-75</td><td>Diabetes Dx</td><td>A1C value &lt; 8.0 (latest)</td></tr>
+    <tr><td><code>CDC-A1C-POOR-9</code></td><td>HbA1c Poor Control (&gt;9%)</td><td>18-75</td><td>Diabetes Dx</td><td>A1C value &gt; 9.0 (inverse)</td></tr>
+    <tr><td><code>CDC-EYE</code></td><td>Eye Exam</td><td>18-75</td><td>Diabetes Dx</td><td>Eye exam CPT (24 mo)</td></tr>
+    <tr><td><code>CDC-NEPHROPATHY</code></td><td>Nephropathy Screening</td><td>18-75</td><td>Diabetes Dx</td><td>Nephropathy screen OR ACE/ARB</td></tr>
+    <tr><td><code>CDC-STATIN</code></td><td>Statin Therapy</td><td>40-75</td><td>Diabetes Dx</td><td>Statin medication present</td></tr>
+  </table>
+
+  <h3>Cardiovascular <span class="domain-tag domain-cardiovascular">1 Measure</span></h3>
+  <table>
+    <tr><th>ID</th><th>Name</th><th>Age</th><th>Denominator</th><th>Numerator</th></tr>
+    <tr><td><code>CBP</code></td><td>Controlling High Blood Pressure</td><td>18-85</td><td>Hypertension Dx</td><td>BP &lt; 140/90 (latest reading)</td></tr>
+  </table>
+
+  <h3>Preventive Screening <span class="domain-tag domain-screening">5 Measures</span></h3>
+  <table>
+    <tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Numerator</th></tr>
+    <tr><td><code>COL</code></td><td>Colorectal Cancer Screening</td><td>45-75</td><td>All</td><td>Colonoscopy (10yr) OR FIT (1yr) OR Sig (5yr)</td></tr>
+    <tr><td><code>BCS</code></td><td>Breast Cancer Screening</td><td>50-74</td><td>Female</td><td>Mammogram (27 mo)</td></tr>
+    <tr><td><code>CCS</code></td><td>Cervical Cancer Screening</td><td>21-64</td><td>Female</td><td>Cervical screen (36 mo)</td></tr>
+    <tr><td><code>CHL</code></td><td>Chlamydia Screening</td><td>16-24</td><td>Female</td><td>Chlamydia test (12 mo)</td></tr>
+    <tr><td><code>BMI</code></td><td>Adult BMI Assessment</td><td>18-74</td><td>All</td><td>BMI documented (12 mo)</td></tr>
+  </table>
+
+  <h3>Childhood Immunization <span class="domain-tag domain-immunization">9 Measures</span></h3>
+  <table>
+    <tr><th>ID</th><th>Vaccine</th><th>Age</th><th>Required Doses</th></tr>
+    <tr><td><code>CIS-DTAP</code></td><td>DTaP</td><td>2</td><td>4</td></tr>
+    <tr><td><code>CIS-POLIO</code></td><td>Polio (IPV)</td><td>2</td><td>3</td></tr>
+    <tr><td><code>CIS-MMR</code></td><td>MMR</td><td>2</td><td>1</td></tr>
+    <tr><td><code>CIS-HIB</code></td><td>Hib</td><td>2</td><td>3</td></tr>
+    <tr><td><code>CIS-HEPB</code></td><td>Hepatitis B</td><td>2</td><td>3</td></tr>
+    <tr><td><code>CIS-VZV</code></td><td>Varicella</td><td>2</td><td>1</td></tr>
+    <tr><td><code>CIS-PCV</code></td><td>PCV13</td><td>2</td><td>4</td></tr>
+    <tr><td><code>CIS-HEPA</code></td><td>Hepatitis A</td><td>2</td><td>1</td></tr>
+    <tr><td><code>CIS-RV</code></td><td>Rotavirus</td><td>2</td><td>2</td></tr>
+  </table>
+
+  <h3>Adolescent &amp; Adult Immunization <span class="domain-tag domain-immunization">5 Measures</span></h3>
+  <table>
+    <tr><th>ID</th><th>Name</th><th>Age</th><th>Doses</th><th>Window</th></tr>
+    <tr><td><code>IMA-HPV</code></td><td>HPV Vaccine</td><td>13</td><td>2</td><td>Any time</td></tr>
+    <tr><td><code>IMA-MENING</code></td><td>Meningococcal</td><td>13</td><td>1</td><td>Any time</td></tr>
+    <tr><td><code>IMA-TDAP</code></td><td>Tdap</td><td>13</td><td>1</td><td>Any time</td></tr>
+    <tr><td><code>FLU</code></td><td>Influenza</td><td>All</td><td>1</td><td>12 months</td></tr>
+    <tr><td><code>PNU</code></td><td>Pneumococcal</td><td>65+</td><td>1</td><td>Any time</td></tr>
+  </table>
+
+  <h3>Behavioral Health <span class="domain-tag domain-behavioral">5 Measures</span></h3>
+  <table>
+    <tr><th>ID</th><th>Name</th><th>Age</th><th>Denominator</th><th>Numerator</th></tr>
+    <tr><td><code>DSF</code></td><td>Depression Screening &amp; Follow-Up</td><td>12+</td><td>Outpatient encounter</td><td>Depression screening CPT (12 mo)</td></tr>
+    <tr><td><code>AMM-ACUTE</code></td><td>Antidepressant Mgmt — Acute</td><td>18+</td><td>Depression Dx</td><td>Antidepressant medication (3 mo)</td></tr>
+    <tr><td><code>AMM-CONTINUATION</code></td><td>Antidepressant Mgmt — Continuation</td><td>18+</td><td>Depression Dx</td><td>Antidepressant medication (6 mo)</td></tr>
+    <tr><td><code>FUH-7</code></td><td>Follow-Up After MH Hospitalization (7d)</td><td>6+</td><td>MH Diagnosis</td><td>Outpatient visit (1 mo approx)</td></tr>
+    <tr><td><code>FUH-30</code></td><td>Follow-Up After MH Hospitalization (30d)</td><td>6+</td><td>MH Diagnosis</td><td>Outpatient visit (1 mo approx)</td></tr>
+  </table>
+
+  <h3>Other <span class="domain-tag domain-wellness">4 Measures</span></h3>
+  <table>
+    <tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Numerator</th></tr>
+    <tr><td><code>TSC</code></td><td>Tobacco Screening &amp; Cessation</td><td>18+</td><td>All</td><td>Tobacco screen OR cessation (24 mo)</td></tr>
+    <tr><td><code>WCV</code></td><td>Well-Child Visits</td><td>3-11</td><td>All</td><td>Well-child visit CPT (12 mo)</td></tr>
+    <tr><td><code>AWC</code></td><td>Adolescent Well-Care</td><td>12-21</td><td>All</td><td>Adolescent visit CPT (12 mo)</td></tr>
+    <tr><td><code>OMW</code></td><td>Osteoporosis Mgmt in Women</td><td>67-85</td><td>Female</td><td>DEXA scan (24 mo) OR osteoporosis med</td></tr>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: VALUE SETS                                               -->
+<!-- ============================================================ -->
+<div id="valuesets" class="tab-content">
+  <h2>Value Sets (50 Placeholder Files)</h2>
+
+  <div class="card">
+    <div class="card-title">Architecture</div>
+    <p>Value sets decouple code-level specifics from measure logic. Each measure YAML references abstract IDs like <code>VS_DIABETES_ICD10</code>. The engine loads codes from JSON files at runtime. Official NCQA-licensed value sets can replace placeholders without any code changes.</p>
+  </div>
+
+  <h3>JSON Structure</h3>
+  <pre>{
+  "id": "VS_DIABETES_ICD10",
+  "name": "Diabetes Mellitus Diagnosis Codes",
+  "code_system": "icd10cm",
+  "placeholder": true,
+  "description": "ICD-10-CM codes for diabetes mellitus types 1 and 2...",
+  "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+  "codes": [
+    {"code": "E08.9",  "description": "Diabetes due to underlying condition without complications"},
+    {"code": "E10.9",  "description": "Type 1 diabetes mellitus without complications"},
+    {"code": "E11.65", "description": "Type 2 diabetes mellitus with hyperglycemia"},
+    {"code": "E11.9",  "description": "Type 2 diabetes mellitus without complications"},
+    {"code": "E13.9",  "description": "Other specified diabetes mellitus without complications"}
+  ]
+}</pre>
+
+  <h3>Value Sets by Category</h3>
+  <table>
+    <tr><th>Category</th><th>Count</th><th>Code System</th><th>Examples</th></tr>
+    <tr><td>Diagnosis (ICD-10-CM)</td><td>15</td><td>icd10cm</td><td>VS_DIABETES_ICD10, VS_HYPERTENSION_ICD10, VS_DEPRESSION_ICD10, VS_ASTHMA_ICD10, VS_CARDIOVASCULAR_ICD10</td></tr>
+    <tr><td>Procedure (CPT/HCPCS)</td><td>16</td><td>cpt</td><td>VS_COLONOSCOPY_CPT, VS_MAMMOGRAPHY_CPT, VS_EYE_EXAM_CPT, VS_A1C_TEST_CPT, VS_DEXA_SCAN_CPT</td></tr>
+    <tr><td>Vaccine (CVX)</td><td>13</td><td>cvx</td><td>VS_FLU_VACCINE_CVX, VS_PNEUMOCOCCAL_VACCINE_CVX, VS_DTAP_VACCINE_CVX, VS_HPV_VACCINE_CVX</td></tr>
+    <tr><td>Medication</td><td>6</td><td>mixed</td><td>VS_STATIN_MEDICATIONS, VS_ACE_ARB_MEDICATIONS, VS_ANTIDEPRESSANT_MEDICATIONS</td></tr>
+  </table>
+
+  <h3>Code Normalization</h3>
+  <p>All codes are normalized before comparison: <code>strip()</code> → <code>upper()</code> → remove dots. So <code>e11.9</code>, <code>E11.9</code>, and <code>E119</code> all match.</p>
+
+  <h3>Loader Behavior</h3>
+  <ul>
+    <li>Value sets are cached in memory after first load</li>
+    <li>Missing value set files return empty set (engine doesn't crash)</li>
+    <li>Loader searches by exact filename, then scans all JSON files for matching <code>"id"</code> field</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: RULE PRIMITIVES                                          -->
+<!-- ============================================================ -->
+<div id="primitives" class="tab-content">
+  <h2>Rule Primitives (15 Functions)</h2>
+
+  <p>All primitives are pure functions returning <code>(bool, detail_str, evidence_list)</code> tuples for audit traceability.</p>
+
+  <table>
+    <tr><th>Category</th><th>Primitive</th><th>Signature</th><th>Returns</th></tr>
+    <tr><td rowspan="2">Demographics</td><td><code>age_between</code></td><td>(store, min, max, as_of)</td><td>True if age in range</td></tr>
+    <tr><td><code>gender_in</code></td><td>(store, allowed_set)</td><td>True if gender matches</td></tr>
+    <tr><td rowspan="2">Diagnosis</td><td><code>has_diagnosis</code></td><td>(store, valueset_id, start, end, statuses)</td><td>True if matching dx code found</td></tr>
+    <tr><td><code>has_any_diagnosis_code</code></td><td>(store, codes_set, start, end)</td><td>True if any code matches directly</td></tr>
+    <tr><td rowspan="2">Procedure</td><td><code>has_procedure</code></td><td>(store, valueset_id, start, end)</td><td>True if matching CPT found</td></tr>
+    <tr><td><code>has_any_procedure_code</code></td><td>(store, codes_set, start, end)</td><td>True if any code matches</td></tr>
+    <tr><td rowspan="2">Lab</td><td><code>lab_exists</code></td><td>(store, test_type, start, end)</td><td>True if lab test exists</td></tr>
+    <tr><td><code>lab_value_in_range</code></td><td>(store, test_type, comparator, threshold, ...)</td><td>True if value meets threshold</td></tr>
+    <tr><td rowspan="3">Vitals</td><td><code>bp_controlled</code></td><td>(store, sys_thresh, dia_thresh, ...)</td><td>True if BP below thresholds</td></tr>
+    <tr><td><code>vital_exists</code></td><td>(store, vital_type, start, end)</td><td>True if vital reading exists</td></tr>
+    <tr><td><code>bmi_in_range</code></td><td>(store, min_bmi, max_bmi, ...)</td><td>True if BMI within range</td></tr>
+    <tr><td>Medication</td><td><code>medication_present</code></td><td>(store, class_or_valueset, ...)</td><td>True if matching medication found</td></tr>
+    <tr><td rowspan="2">Immunization</td><td><code>immunization_count</code></td><td>(store, vaccine_type, min_count, ...)</td><td>True if count ≥ min</td></tr>
+    <tr><td><code>immunization_by_valueset</code></td><td>(store, valueset_id, min_count, ...)</td><td>True if codes match ≥ min</td></tr>
+    <tr><td>Encounter</td><td><code>encounter_exists</code></td><td>(store, types, start, end)</td><td>True if visit exists</td></tr>
+  </table>
+
+  <h3>Key Design Details</h3>
+
+  <details>
+    <summary>Medication Class Aliases</summary>
+    <div class="detail-body">
+      <p>The <code>medication_present</code> primitive supports class aliases for compound categories:</p>
+      <pre>_CLASS_ALIASES = {
+  "ace_arb": {"ace_inhibitor", "arb", "ace_arb"},
+  "antihypertensive": {"ace_inhibitor", "arb", "beta_blocker", "ccb", "diuretic"},
+  "diabetes_med": {"metformin", "insulin", "sulfonylurea", "sglt2", "glp1"},
+}</pre>
+      <p>This allows <code>medication_class: "ace_arb"</code> in YAML to match both ACE inhibitors (lisinopril) and ARBs (losartan).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Calendar-Accurate Time Windows</summary>
+    <div class="detail-body">
+      <p>The <code>lookback_window()</code> function uses proper calendar month subtraction, not <code>days * 30</code>:</p>
+      <pre>lookback_window(end_date=2025-12-31, months=12)
+  → Start: 2024-12-31 (calendar-accurate)
+
+lookback_from_year_end(year=2025, months=3)
+  → Window: 2025-09-30 .. 2025-12-31
+
+extended_window(year=2025, lookback_years=10)
+  → Window: 2015-01-01 .. 2025-12-31</pre>
+    </div>
+  </details>
+
+  <details>
+    <summary>Six-Status Diagnosis Model</summary>
+    <div class="detail-body">
+      <table>
+        <tr><th>Status</th><th>Description</th><th>Default Allowed?</th></tr>
+        <tr><td class="status-met">ACTIVE</td><td>Currently present, being managed</td><td>Yes</td></tr>
+        <tr><td class="status-met">HISTORICAL</td><td>Past occurrence, may be ongoing</td><td>Yes</td></tr>
+        <tr><td class="status-gap">NEGATED</td><td>Explicitly denied ("no evidence of")</td><td>No</td></tr>
+        <tr><td class="status-gap">RESOLVED</td><td>Was present but no longer active</td><td>No</td></tr>
+        <tr><td class="status-gap">FAMILY_HISTORY</td><td>Family member's condition</td><td>No</td></tr>
+        <tr><td class="status-gap">UNCERTAIN</td><td>Suspected, possible ("r/o PE")</td><td>No</td></tr>
+      </table>
+    </div>
+  </details>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: ADAPTER                                                  -->
+<!-- ============================================================ -->
+<div id="adapter" class="tab-content">
+  <h2>Data Adapter</h2>
+
+  <p>The assertion adapter (<code>adapters/assertion_adapter.py</code>) converts upstream extraction JSON into the normalized <code>MemberEventStore</code>. It is intentionally lenient — extracts what it can and skips malformed entries.</p>
+
+  <h3>Input JSON Structure (Flexible)</h3>
+  <pre>{
+  "member_id": "M12345",
+  "demographics": {"dob": "1965-03-15", "gender": "female"},
+  "diagnoses":    [{code, description, date, status, pdf, page_number, exact_quote}],
+  "procedures":   [{code, code_system, date, pdf, page_number}],
+  "labs":         [{test_type, value, unit, date}],
+  "vitals":       [{type, systolic, diastolic, value, date}],
+  "medications":  [{name, code, start_date, end_date}],
+  "encounters":   [{type, date, provider, facility}],
+  "immunizations":[{vaccine_type, code, code_system, date, dose_number}],
+  "assertions":   [{...}]  // Generic — auto-classified
+}</pre>
+
+  <h3>Auto-Classification</h3>
+  <table>
+    <tr><th>Feature</th><th>Capability</th><th>Examples</th></tr>
+    <tr><td>Date parsing</td><td>5 formats</td><td><code>YYYY-MM-DD</code>, <code>MM/DD/YYYY</code>, <code>ISO8601</code>, <code>MM-DD-YYYY</code>, <code>YYYYMMDD</code></td></tr>
+    <tr><td>Lab classification</td><td>24 test types</td><td>"hemoglobin a1c" → A1C, "estimated glomerular" → EGFR</td></tr>
+    <tr><td>Vital classification</td><td>6 types</td><td>"blood_pressure" → BP, "body mass index" → BMI</td></tr>
+    <tr><td>Medication classes</td><td>18 drug classes</td><td>"atorvastatin" → statin, "lisinopril" → ace_inhibitor</td></tr>
+    <tr><td>Vaccine types</td><td>17 vaccine types</td><td>"flu shot" → influenza, "gardasil" → hpv</td></tr>
+    <tr><td>BP extraction</td><td>Regex pattern</td><td>"BP 130/85 mmHg" → systolic=130, diastolic=85</td></tr>
+    <tr><td>Generic assertions</td><td>Auto-detect by type/concept</td><td>ICD regex, lab patterns, vital keywords</td></tr>
+  </table>
+
+  <h3>Drug Class Auto-Detection</h3>
+  <pre>Medication Name             → Normalized Class
+─────────────────────────── → ──────────────────
+"Atorvastatin 40mg daily"   → statin
+"Lisinopril 20mg daily"     → ace_inhibitor
+"Losartan 50mg"             → arb
+"Metformin 1000mg BID"      → metformin
+"Sertraline 100mg"          → antidepressant
+"Empagliflozin 25mg"        → sglt2
+"Semaglutide 1mg"           → glp1
+"Amlodipine 5mg"            → ccb
+"Metoprolol 50mg"           → beta_blocker</pre>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: TYPE SYSTEM                                              -->
+<!-- ============================================================ -->
+<div id="types" class="tab-content">
+  <h2>Type System</h2>
+
+  <h3>Event Types (Normalized Clinical Events)</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">DiagnosisEvent</div>
+      <pre>code: str              # "E11.9"
+code_system: CodeSystem # ICD10CM
+description: str
+event_date: date?
+status: DiagnosisStatus # 6 values
+evidence_ref: EvidenceRef?</pre>
+    </div>
+    <div class="card">
+      <div class="card-title">ProcedureEvent</div>
+      <pre>code: str              # "45378"
+code_system: CodeSystem # CPT
+description: str
+event_date: date?
+evidence_ref: EvidenceRef?</pre>
+    </div>
+    <div class="card">
+      <div class="card-title">LabEvent</div>
+      <pre>test_type: str         # "A1C"
+value: float?          # 7.8
+unit: str              # "%"
+event_date: date?
+evidence_ref: EvidenceRef?</pre>
+    </div>
+    <div class="card">
+      <div class="card-title">VitalEvent</div>
+      <pre>vital_type: VitalType  # BP, BMI, etc.
+systolic: float?       # 128.0
+diastolic: float?      # 82.0
+value: float?          # 28.5 (for BMI)
+event_date: date?
+evidence_ref: EvidenceRef?</pre>
+    </div>
+    <div class="card">
+      <div class="card-title">MedicationEvent</div>
+      <pre>name: str              # "Atorvastatin 40mg"
+normalized_class: str  # "statin"
+code: str
+code_system: CodeSystem
+start_date: date?
+end_date: date?
+evidence_ref: EvidenceRef?</pre>
+    </div>
+    <div class="card">
+      <div class="card-title">ImmunizationEvent</div>
+      <pre>vaccine_type: str      # "influenza"
+code: str              # "158" (CVX)
+code_system: CodeSystem # CVX
+event_date: date?
+dose_number: int?
+evidence_ref: EvidenceRef?</pre>
+    </div>
+  </div>
+
+  <h3>Result Types</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">MeasureResult</div>
+      <pre>measure_id: str
+measure_name: str
+applicable: bool
+compliant: ComplianceStatus
+status: MeasureStatus
+eligibility_reason: list[str]
+compliance_reason: list[str]
+gaps: list[GapDetail]
+evidence_used: list[EvidenceUsed]
+missing_data: list[str]
+exclusion_reason: str
+confidence: float  # 0.0-1.0
+trace: list[TraceEntry]</pre>
+    </div>
+    <div class="card">
+      <div class="card-title">Supporting Types</div>
+      <pre><strong>TraceEntry</strong>
+  rule: str         # "age_check"
+  result: bool      # True/False
+  detail: str       # "Age 60 within 18-75"
+  evidence: list    # matched items
+
+<strong>GapDetail</strong>
+  gap_type: str     # "missing_lab"
+  description: str  # "Missing A1C"
+  required_event: str
+  window_start/end: date?
+
+<strong>EvidenceUsed</strong>
+  event_type: str   # "lab", "procedure"
+  code: str         # "A1C", "92014"
+  value: str?       # "7.8"
+  event_date: date?
+  source: dict?     # {pdf, page, quote}</pre>
+    </div>
+  </div>
+
+  <h3>Enums</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">MeasureStatus</div>
+      <p>
+        <span class="badge badge-green">MET</span>
+        <span class="badge badge-red">GAP</span>
+        <span class="badge badge-blue">NOT_APPLICABLE</span>
+        <span class="badge badge-yellow">EXCLUDED</span>
+        <span class="badge badge-purple">INDETERMINATE</span>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title">DiagnosisStatus</div>
+      <p>ACTIVE, NEGATED, RESOLVED, HISTORICAL, FAMILY_HISTORY, UNCERTAIN</p>
+    </div>
+    <div class="card">
+      <div class="card-title">CodeSystem</div>
+      <p>ICD10CM, ICD9CM, CPT, HCPCS, LOINC, RXNORM, NDC, SNOMED, CVX</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: CLI & OUTPUT                                             -->
+<!-- ============================================================ -->
+<div id="cli" class="tab-content">
+  <h2>CLI Interface &amp; Output Formats</h2>
+
+  <h3>Usage</h3>
+  <pre># Full evaluation — all 35 measures
+python -m hedis_engine.run --input member.json --year 2025 --out results.json --summary
+
+# Specific measures only
+python -m hedis_engine.run -i member.json -y 2025 -m CDC-A1C-TEST,CBP,COL
+
+# Custom catalog directory
+python -m hedis_engine.run -i member.json --catalog ./my_measures/ --year 2026
+
+# Summary to file
+python -m hedis_engine.run -i member.json --summary-out summary.md</pre>
+
+  <h3>CLI Arguments</h3>
+  <table>
+    <tr><th>Argument</th><th>Short</th><th>Required</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>--input</code></td><td><code>-i</code></td><td>Yes</td><td>—</td><td>Path to member assertions JSON file</td></tr>
+    <tr><td><code>--year</code></td><td><code>-y</code></td><td>No</td><td>2025</td><td>Measurement year</td></tr>
+    <tr><td><code>--out</code></td><td><code>-o</code></td><td>No</td><td>stdout</td><td>Output JSON file path</td></tr>
+    <tr><td><code>--catalog</code></td><td><code>-c</code></td><td>No</td><td>built-in</td><td>Catalog directory with YAML measures</td></tr>
+    <tr><td><code>--measures</code></td><td><code>-m</code></td><td>No</td><td>all</td><td>Comma-separated measure IDs to evaluate</td></tr>
+    <tr><td><code>--summary</code></td><td><code>-s</code></td><td>No</td><td>—</td><td>Print markdown summary to stderr</td></tr>
+    <tr><td><code>--summary-out</code></td><td>—</td><td>No</td><td>—</td><td>Write summary to file path</td></tr>
+  </table>
+
+  <h3>Output JSON Structure</h3>
+  <pre>{
+  "member_id": "M12345",
+  "measurement_year": 2025,
+  "measures": [
+    {
+      "id": "CDC-A1C-TEST",
+      "name": "Diabetes Care - HbA1c Testing",
+      "applicable": true,
+      "compliant": true,
+      "status": "met",
+      "eligibility_reason": ["Age 60 as of 2025-12-31 (within 18-75)", ...],
+      "compliance_reason": ["Found 1 A1C lab(s)"],
+      "gaps": [],
+      "evidence_used": [
+        {"type": "diagnosis", "code": "E11.9", "system": "icd10cm",
+         "date": "2025-03-10", "source": {"pdf": "chart.pdf", "page": 3}},
+        {"type": "lab", "code": "A1C", "value": "7.8",
+         "date": "2025-09-15"}
+      ],
+      "missing_data": [],
+      "confidence": 1.0,
+      "trace": [
+        {"rule": "age_check", "result": true, "detail": "Age 60 ..."},
+        {"rule": "gender_check", "result": true, "detail": "..."},
+        {"rule": "denominator_diagnosis", "result": true, ...},
+        {"rule": "numerator_any_lab_exists", "result": true, ...}
+      ]
+    }
+  ]
+}</pre>
+
+  <h3>Programmatic API</h3>
+  <pre>from hedis_engine.adapters.assertion_adapter import load_assertions_file
+from hedis_engine.engine import HedisEngine
+
+store = load_assertions_file("member.json")
+engine = HedisEngine(measurement_year=2025)
+results = engine.evaluate_member(store)
+
+for m in results.measures:
+    if m.status.value == "gap":
+        print(f"{m.measure_id}: {[g.description for g in m.gaps]}")</pre>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: TESTING                                                  -->
+<!-- ============================================================ -->
+<div id="testing" class="tab-content">
+  <h2>Test Suite — 110 Tests</h2>
+
+  <div class="stat-row" style="margin-bottom: 24px;">
+    <div class="stat-card"><div class="num" style="color:var(--green);">110</div><div class="label">Passing</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--red);">0</div><div class="label">Failing</div></div>
+    <div class="stat-card"><div class="num">4</div><div class="label">Test Files</div></div>
+    <div class="stat-card"><div class="num">1.9s</div><div class="label">Runtime</div></div>
+  </div>
+
+  <h3>Test Files</h3>
+  <table>
+    <tr><th>File</th><th>Tests</th><th>Coverage</th></tr>
+    <tr><td><code>test_engine.py</code></td><td>58</td><td>All 35 measures: compliant, non-compliant, excluded, edge cases</td></tr>
+    <tr><td><code>test_primitives.py</code></td><td>30</td><td>All 15 rule primitives: boundary values, None handling, normalization</td></tr>
+    <tr><td><code>test_adapter.py</code></td><td>13</td><td>JSON parsing: demographics, diagnoses, labs, vitals, medications, encounters</td></tr>
+    <tr><td><code>test_types.py</code></td><td>9</td><td>Dataclass instantiation, serialization, enum values</td></tr>
+  </table>
+
+  <h3>Test Categories</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Measure Evaluation Tests</div>
+      <ul>
+        <li>Compliant path (criteria met, evidence collected)</li>
+        <li>Non-compliant path (missing evidence, gaps identified)</li>
+        <li>Exclusion logic (early exit on hospice/pregnancy)</li>
+        <li>Age/gender eligibility filtering</li>
+        <li>Not-applicable for wrong demographics</li>
+        <li>Inverse measure handling (CDC-A1C-POOR-9)</li>
+        <li>Multi-modality acceptance (COL: colonoscopy OR FIT OR sig)</li>
+        <li>Immunization dose counting (CIS-DTAP: 4 doses)</li>
+        <li>Any-time vaccine (PNU: no window)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Edge Case Tests</div>
+      <ul>
+        <li>Empty member (no data at all)</li>
+        <li>No DOB (unknown age)</li>
+        <li>Conflicting evidence (active + negated diagnosis)</li>
+        <li>Measure ID filtering</li>
+        <li>Audit trace population verification</li>
+        <li>Results serialization (to_dict)</li>
+        <li>Code normalization (dots, case)</li>
+        <li>Date boundary edge cases</li>
+        <li>Missing lab values (None)</li>
+        <li>Latest-value-wins logic for BP</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Run Tests</h3>
+  <pre># Run all tests
+python -m pytest hedis_engine/tests/ -v
+
+# Run specific test class
+python -m pytest hedis_engine/tests/test_engine.py::TestCBP -v
+
+# Run with coverage
+python -m pytest hedis_engine/tests/ --cov=hedis_engine</pre>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: SAMPLE RESULTS                                           -->
+<!-- ============================================================ -->
+<div id="sample" class="tab-content">
+  <h2>Sample Evaluation Results</h2>
+
+  <div class="card">
+    <div class="card-title">Sample Member: M12345</div>
+    <p>60-year-old female with Type 2 Diabetes, Hypertension, Hyperlipidemia, and Depression. Has recent labs (A1C 7.8%), BP controlled (128/82), eye exam, mammogram, colonoscopy (2022), flu vaccine, and multiple medications.</p>
+  </div>
+
+  <h3>Results Summary</h3>
+  <div class="stat-row" style="margin-bottom: 24px;">
+    <div class="stat-card"><div class="num">35</div><div class="label">Evaluated</div></div>
+    <div class="stat-card"><div class="num" style="color: var(--green);">10</div><div class="label">Met</div></div>
+    <div class="stat-card"><div class="num" style="color: var(--red);">6</div><div class="label">Gaps</div></div>
+    <div class="stat-card"><div class="num" style="color: var(--text2);">19</div><div class="label">Not Applicable</div></div>
+  </div>
+
+  <h3>Compliant Measures <span class="badge badge-green">10 MET</span></h3>
+  <table>
+    <tr><th>Measure</th><th>Evidence</th></tr>
+    <tr><td>CDC-A1C-TEST</td><td>A1C lab = 7.8% (2025-09-15)</td></tr>
+    <tr><td>CDC-A1C-CONTROL-8</td><td>A1C 7.8 &lt; 8.0</td></tr>
+    <tr><td>CDC-EYE</td><td>CPT 92014 eye exam (2025-05-20)</td></tr>
+    <tr><td>CDC-STATIN</td><td>Atorvastatin (statin class)</td></tr>
+    <tr><td>CDC-NEPHROPATHY</td><td>Lisinopril (ACE inhibitor → ace_arb alias)</td></tr>
+    <tr><td>CBP</td><td>BP 128/82 &lt; 140/90</td></tr>
+    <tr><td>BCS</td><td>CPT 77067 mammogram (2025-01-15)</td></tr>
+    <tr><td>COL</td><td>CPT 45378 colonoscopy (2022-09-10, within 10yr)</td></tr>
+    <tr><td>BMI</td><td>BMI 28.5 documented (2025-09-15)</td></tr>
+    <tr><td>FLU</td><td>CVX 158 influenza vaccine (2025-10-01)</td></tr>
+  </table>
+
+  <h3>Quality Gaps <span class="badge badge-red">6 GAPS</span></h3>
+  <table>
+    <tr><th>Measure</th><th>Gap</th><th>Reason</th></tr>
+    <tr><td>CDC-A1C-POOR-9</td><td>Value not &gt; 9.0</td><td>A1C 7.8 is NOT poor control (good! inverse measure)</td></tr>
+    <tr><td>CCS</td><td>Missing procedure</td><td>No cervical cancer screening in past 36 months</td></tr>
+    <tr><td>DSF</td><td>Missing procedure</td><td>No depression screening CPT code found</td></tr>
+    <tr><td>TSC</td><td>Missing procedure</td><td>No tobacco screening or cessation CPT codes</td></tr>
+    <tr><td>AMM-ACUTE</td><td>Missing medication</td><td>No antidepressant in acute phase window</td></tr>
+    <tr><td>AMM-CONTINUATION</td><td>Missing medication</td><td>No antidepressant in continuation window</td></tr>
+  </table>
+
+  <h3>Not Applicable <span style="color: var(--text2);">19 Measures</span></h3>
+  <p>Childhood immunizations (9), adolescent immunizations (3), well-child/adolescent visits (2), chlamydia screening (wrong age), PNU (under 65), OMW (under 67), FUH-7/30 (no MH hospitalization).</p>
+
+  <h3>Detailed Trace Example: CBP (Controlling Blood Pressure)</h3>
+  <pre>{
+  "id": "CBP",
+  "status": "met",
+  "trace": [
+    {"rule": "age_check", "result": true,
+     "detail": "Age 60 as of 2025-12-31 (within 18-85)"},
+    {"rule": "gender_check", "result": true,
+     "detail": "Gender female matches ['female', 'male']"},
+    {"rule": "enrollment_check", "result": true,
+     "detail": "Enrollment check stub — assumed enrolled"},
+    {"rule": "denominator_diagnosis", "result": true,
+     "detail": "Found 1 matching dx in VS_HYPERTENSION_ICD10",
+     "evidence": [{"type": "diagnosis", "code": "I10", "date": "2025-06-15",
+                    "source": {"pdf": "chart_001.pdf", "page": 5}}]},
+    {"rule": "exclusion_diagnosis_VS_HOSPICE", "result": false},
+    {"rule": "exclusion_diagnosis_VS_PREGNANCY_ICD10", "result": false},
+    {"rule": "numerator_any_bp_controlled", "result": true,
+     "detail": "BP 128.0/82.0 vs &lt;140/&lt;90 = controlled",
+     "evidence": [{"type": "vital", "code": "BP", "value": "128.0/82.0",
+                    "date": "2025-09-15"}]}
+  ]
+}</pre>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: EXTENSIBILITY                                            -->
+<!-- ============================================================ -->
+<div id="extensibility" class="tab-content">
+  <h2>Extensibility Guide</h2>
+
+  <h3>Adding a New Measure</h3>
+  <div class="card">
+    <div class="card-title">Step 1: Create YAML Definition</div>
+    <pre># catalog/MY_NEW_MEASURE.yaml
+id: "MY-MEASURE"
+name: "My Clinical Measure"
+version: "2025"
+domain: "my_domain"
+description: "Description based on public clinical guidelines"
+
+eligibility:
+  age: {min: 18, max: 75, as_of: "12-31"}
+  gender: ["male", "female"]
+
+denominator:
+  requires_diagnosis:
+    valueset: "VS_MY_CONDITION"
+    lookback_months: 12
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_MY_PROCEDURE"
+      window_months: 12
+    - type: "lab_value"
+      lab: "MY_LAB"
+      comparator: "lt"
+      threshold: 5.0
+      window_months: 12
+
+valuesets_needed:
+  - VS_MY_CONDITION
+  - VS_MY_PROCEDURE
+  - VS_HOSPICE</pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Step 2: Create Value Set (if needed)</div>
+    <pre>// valuesets/VS_MY_CONDITION.json
+{
+  "id": "VS_MY_CONDITION",
+  "name": "My Condition Codes",
+  "code_system": "icd10cm",
+  "placeholder": true,
+  "codes": [
+    {"code": "K21.0", "description": "GERD with esophagitis"}
+  ]
+}</pre>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Step 3: No Code Changes Required</div>
+    <p>The engine auto-loads all YAML files from the catalog directory on initialization. Run the CLI and the new measure will be evaluated automatically.</p>
+  </div>
+
+  <h3>Adding a New Rule Primitive</h3>
+  <ol>
+    <li>Add function to <code>primitives.py</code> returning <code>(bool, str, list[EvidenceUsed])</code></li>
+    <li>Add corresponding criterion type to <code>measure_def.py</code> parser</li>
+    <li>Add dispatch case in <code>engine.py</code> <code>_eval_criterion()</code></li>
+    <li>Add test in <code>test_primitives.py</code></li>
+  </ol>
+
+  <h3>Replacing Placeholder Value Sets</h3>
+  <p>Replace any <code>valuesets/VS_*.json</code> file with official NCQA-licensed codes using the same JSON structure. The loader reads the <code>"codes"</code> array and normalizes codes automatically.</p>
+
+  <h3>Known Limitations &amp; Future Work</h3>
+  <table>
+    <tr><th>Area</th><th>Current</th><th>Future</th></tr>
+    <tr><td>Enrollment</td><td>Stub (always enrolled)</td><td>External enrollment feed integration</td></tr>
+    <tr><td>Immunization series</td><td>Dose counting only</td><td>Minimum interval between doses</td></tr>
+    <tr><td>Stratifications</td><td>Not implemented</td><td>Race/ethnicity/age sub-populations</td></tr>
+    <tr><td>Value sets</td><td>50 placeholders</td><td>Official NCQA-licensed code sets</td></tr>
+    <tr><td>Claims integration</td><td>Pre-extracted JSON only</td><td>Direct claims DB connector</td></tr>
+    <tr><td>FUH-7/30</td><td>Monthly approximation</td><td>Day-level discharge-to-visit tracking</td></tr>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT                                                    -->
+<!-- ============================================================ -->
+<script>
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

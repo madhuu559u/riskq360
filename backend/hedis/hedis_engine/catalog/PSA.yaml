@@ -1,0 +1,52 @@
+id: "PSA"
+name: "Non-Recommended PSA-Based Screening in Older Men"
+version: "2025"
+domain: "overuse"
+inverse: true
+description: >
+  Assesses whether men aged 70 and older did NOT receive a prostate-specific
+  antigen (PSA) test for prostate cancer screening during the measurement
+  year. This is an INVERSE measure where a LOWER rate indicates better
+  performance. Major clinical guidelines, including the U.S. Preventive
+  Services Task Force and the American Urological Association, recommend
+  against routine PSA-based screening in men aged 70 and older due to the
+  high likelihood of detecting indolent cancers that would not cause harm
+  during the patient's lifetime, combined with the significant risks of
+  overdiagnosis and overtreatment including incontinence, erectile
+  dysfunction, and surgical complications. The numerator captures the
+  undesirable event (PSA test performed); men without a PSA test are
+  considered compliant.
+
+eligibility:
+  age: {min: 70, max: 150, as_of: "12-31"}
+  gender: ["male"]
+  continuous_enrollment: false
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_PROSTATE_CANCER_ICD10"
+    lookback_months: 0
+    description: "Prostate cancer diagnosis (any time; PSA monitoring appropriate)"
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_PSA_TEST_CPT"
+      window_months: 12
+      description: "PSA test performed (undesirable for men 70+)"
+
+valuesets_needed:
+  - VS_PSA_TEST_CPT
+  - VS_PROSTATE_CANCER_ICD10
+  - VS_HOSPICE
+
+data_sources:
+  - "claims"
+  - "encounters"

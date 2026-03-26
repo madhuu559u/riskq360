@@ -1,0 +1,15 @@
+{
+    "id": "VS_EMPHYSEMA_ICD10",
+    "name": "Emphysema Diagnosis Codes",
+    "code_system": "icd10cm",
+    "placeholder": true,
+    "description": "ICD-10-CM codes for emphysema diagnoses. Used as an exclusion criterion in the asthma medication ratio (AMR) measure, since emphysema requires different respiratory management and should not be conflated with asthma medication adherence. These codes overlap with the broader VS_COPD_ICD10 value set.",
+    "source": "Public CMS/clinical references — placeholder for official NCQA value sets",
+    "codes": [
+        {"code": "J43.0", "description": "Unilateral pulmonary emphysema (MacLeod syndrome)"},
+        {"code": "J43.1", "description": "Panlobular emphysema"},
+        {"code": "J43.2", "description": "Centrilobular emphysema"},
+        {"code": "J43.8", "description": "Other emphysema"},
+        {"code": "J43.9", "description": "Emphysema, unspecified"}
+    ]
+}

@@ -1,0 +1,43 @@
+id: "BCS"
+name: "Breast Cancer Screening"
+version: "2025"
+domain: "preventive_screening"
+description: >
+  Assesses whether women aged 50-74 had a mammogram to screen for breast
+  cancer within the past 27 months. Breast cancer is the most commonly
+  diagnosed cancer among women in the United States. Regular mammography
+  screening reduces breast cancer mortality through early detection of
+  tumors before they become symptomatic or metastasize.
+
+eligibility:
+  age: {min: 50, max: 74, as_of: "12-31"}
+  gender: ["female"]
+  continuous_enrollment: true
+
+denominator:
+  age_only: true
+
+exclusions:
+  - type: "diagnosis"
+    valueset: "VS_HOSPICE"
+    lookback_months: 12
+    description: "Hospice care"
+  - type: "procedure"
+    valueset: "VS_BILATERAL_MASTECTOMY_CPT"
+    lookback_months: 0
+    description: "Bilateral mastectomy (any time)"
+
+numerator:
+  any_of:
+    - type: "procedure"
+      valueset: "VS_MAMMOGRAPHY_CPT"
+      window_months: 27
+
+valuesets_needed:
+  - VS_MAMMOGRAPHY_CPT
+  - VS_HOSPICE
+  - VS_BILATERAL_MASTECTOMY_CPT
+
+data_sources:
+  - "claims"
+  - "encounters"
